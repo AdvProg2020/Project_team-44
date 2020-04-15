@@ -10,7 +10,19 @@ public class ConsoleView {
             String command = scanner.nextLine();
             if (ConsoleCommand.EXIT.getStringMatcher(command).matches())
                 break;
-            System.out.println("Invalid command");
+            else if (ConsoleCommand.ADD_GOOD.getStringMatcher(command).matches()) {
+
+            } else if (ConsoleCommand.NEW_ORDER.getStringMatcher(command).matches()) {
+
+            } else if (ConsoleCommand.GOODS_LIST.getStringMatcher(command).matches()) {
+
+            } else if (ConsoleCommand.TOTAL_SALES.getStringMatcher(command).matches()) {
+
+            } else if (ConsoleCommand.TOTAL_PROFIT.getStringMatcher(command).matches()) {
+
+            } else {
+                System.out.println("Invalid command");
+            }
         }
     }
 }
