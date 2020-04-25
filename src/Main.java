@@ -4,5 +4,6 @@ public class Main {
     public static void main(String[] args) {
         ConsoleView.start();
         System.out.println("okkkk aliiiii  broo33oo");
+        System.out.println("dariush");
     }
 }
