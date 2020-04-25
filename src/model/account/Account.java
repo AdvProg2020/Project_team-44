@@ -21,6 +21,7 @@ public abstract class Account {
     private boolean isLoggedIn;
 
 
+
     public String getUsername() {
         return username;
     }
