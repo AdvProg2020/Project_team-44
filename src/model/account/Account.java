@@ -20,6 +20,7 @@ public abstract class Account {
     private static ArrayList<Account> allAccounts = new ArrayList<>();
     private boolean isLoggedIn;
 
+
     public String getUsername() {
         return username;
     }
