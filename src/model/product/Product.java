@@ -1,7 +1,6 @@
 package model.product;
 
 import model.Category;
-import model.Rating;
 import model.account.Seller;
 import model.comment.Comment;
 import model.offer.Offer;
