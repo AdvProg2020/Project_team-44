@@ -20,8 +20,6 @@ public abstract class Account {
     private static ArrayList<Account> allAccounts = new ArrayList<>();
     private boolean isLoggedIn;
 
-
-
     public String getUsername() {
         return username;
     }
@@ -38,7 +36,7 @@ public abstract class Account {
         this.allDiscountCodes = new ArrayList<>();
         this.sellLogListHistory = new ArrayList<>();
         this.buyLogListHistory = new ArrayList<>();
-        allAccounts.add(this);
+//        allAccounts.add(this);
     }
 
     public Account getAccountByUsername(String username) {
