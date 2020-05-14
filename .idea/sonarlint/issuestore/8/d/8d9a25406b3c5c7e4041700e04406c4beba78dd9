@@ -1,0 +1,22 @@
+
+H
+java:S1068"2Remove this unused "productsToSell" private field.(šğ‚
+—
+java:S1186,"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ò×¬–
+D
+java:S1068
+"/Remove this unused "companyName" private field.(Õîæ+
+—
+java:S1186 "€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÅÕÎ
+œ
+java:S1186("€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¯èÚôşÿÿÿÿ
+—
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(à³Â¥
+œ
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ş—ÃËüÿÿÿÿ
+D
+java:S1068".Remove this unused "offersList" private field.(¯•¸
+œ
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(£¤ŞÚøÿÿÿÿ
+–
+java:S1186$"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ü©S
