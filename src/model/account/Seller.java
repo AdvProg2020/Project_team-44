@@ -11,14 +11,15 @@ public class Seller extends Account {
     private ArrayList<Product> productsToSell;
     private ArrayList<Offer> offersList;
 
-    public Seller(String username, String firstName, String secondName, String email, String telephoneNumber, String password, String companyName) {
-        super(username, firstName, secondName, email, telephoneNumber, password);
+    public Seller(String username, String firstName, String lastName, String email, String telephoneNumber, String password, String companyName) {
+        super(username, firstName, lastName, email, telephoneNumber, password);
         this.companyName = companyName;
         this.productsToSell = new ArrayList<>();
     }
 
-    public void getInfo() {
-
+    @Override
+    public String getInfo() {
+        return super.getInfo() + "\n" + "companyName: " + this.companyName;
     }
 
     public void editProduct() {

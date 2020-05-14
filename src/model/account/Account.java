@@ -49,4 +49,9 @@ public abstract class Account {
         }
         return null;
     }
+    public String getInfo(){
+        return "username: " + this.userName + "\n" + "firstName: " + this.firstName + "\n" +
+                "lastName: "  +this.lastName + "\n" + "eMail: " + this.eMail + "\n" +
+                "telephoneNumber: " + this.telephoneNumber;
+    }
 }
