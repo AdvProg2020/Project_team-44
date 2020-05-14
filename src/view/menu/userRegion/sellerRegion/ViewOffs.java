@@ -12,7 +12,7 @@ public class ViewOffs extends Menu {
     public static ViewOffs getInstance() {
         return singleton;
     }
-    private Menu viewOff(){
+    private Menu viewOff(String offId){
 
     }
     private Menu editOff(){

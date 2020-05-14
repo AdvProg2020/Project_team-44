@@ -1,10 +1,6 @@
 
 =
 src/Main.java,9/2/924f089edb4af5ee45c8a9d1129cd28e2b368138
-J
-src/model/SuperMarket.java,7/f/7ffbc41aba70141d530b3c3aaef8e9adf36494ac
-D
-src/model/Order.java,d/5/d5c9715ba2aaeb7cf89d6b5292bfb85c292d1d12
 L
 src/model/buyLog/BuyLog.java,d/5/d57deba4235a5e534d65e079f5407b79d6d6132b
 R
@@ -21,16 +17,10 @@ L
 src/model/CodedDiscount.java,a/0/a027e6ebc2529af7863b2bd1b85134484c359b1b
 G
 src/model/Category.java,8/b/8bc0651af406c1fa46bb8d3b659a5603bb41f3d6
-C
-src/model/Good.java,d/0/d02caab2e4399d8414013fd826821574b57a46b5
-J
-src/model/OrderStatus.java,3/b/3b88384d9a9d5b7c1113a04d6480159763b07123
 E
 src/model/Rating.java,f/9/f97078bed5cea08ab1b666dab302920fd7ca49f7
 N
 src/model/comment/Comment.java,4/1/412d516d5b3423dc42c4f1e4d016284a3d678265
-H
-src/model/OrderItem.java,3/3/339dd4fb1784b77c6c7e2e3a401c22056f0e2605
 T
 $src/model/comment/CommentStatus.java,7/e/7e7bf1e4af4424c67609954febe078be937402b8
 N
@@ -53,3 +43,31 @@ K
 src/view/menu/MainMenu.java,5/1/51cde90edd3fdde40531944fc78c6b2d02f8f29e
 U
 %src/view/menu/productPage/Digest.java,c/5/c595b02a2c3b356712ee89b4ebee91b9d25ca4b9
+[
++src/view/menu/userRegion/AccountRegion.java,c/d/cdaa42ef468829827709e7ad46fe8c10e389a11b
+Y
+)src/controller/ProductPageController.java,0/4/04c62d891c931d239460753c90deb6e116a359fa
+c
+3src/view/menu/userRegion/sellerRegion/ViewOffs.java,5/a/5aac26469ad84c13fd28cef5c8252033145bf9ed
+T
+$src/model/product/ProductStatus.java,4/e/4e8941607dbae63775407074b6d4eaca84a0f26a
+Y
+)src/model/requests/RequestForEditOff.java,c/0/c0f63fda28654e327d7360d727caa4e78aec2bc2
+]
+-src/model/requests/RequestForEditProduct.java,8/f/8f681e7bea99464e6b28a7fc1a32b9383ee7ea70
+U
+%src/model/requests/RequestStatus.java,e/2/e24637f2fc80e450ffbacc6665dfa4fa21ae2498
+X
+(src/model/requests/RequestForSeller.java,8/2/823c5a258d5e24c035e89a39ff0bf97cbdaef8da
+q
+Asrc/view/menu/userRegion/sellerRegion/ViewPersonalInfoSeller.java,7/b/7b09493af88a30c6bab3194d11c1d52b319b284f
+l
+<src/view/menu/userRegion/managerRegion/ViewDiscountCode.java,d/d/ddb74484515d31189effe20dbcdddefce3603cbf
+g
+7src/view/menu/userRegion/managerRegion/ManageUsers.java,8/b/8b2bbbe352dd18015ba38354efb6fd83a75c473a
+_
+/src/model/requests/RequestForRemoveProduct.java,a/2/a23fbab56592ed5e1827a2dc38610d9046db26d1
+X
+(src/model/requests/RequestForAddOff.java,c/1/c1fde9b51c88d1c15fb244571e455b41ee9ffc19
+\
+,src/model/requests/RequestForAddProduct.java,0/7/07251bdcc62007a304465ee8cd209b8402b5eb64

@@ -33,4 +33,8 @@ public class Product {
         this.price = price;
         this.explanationText = explanationText;
     }
+
+    public String getProductID() {
+        return productID;
+    }
 }

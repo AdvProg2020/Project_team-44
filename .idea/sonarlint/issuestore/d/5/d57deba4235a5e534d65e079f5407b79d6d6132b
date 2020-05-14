@@ -1,19 +1,19 @@
 
-š
-java:S1319"The type of the "allPurchasedProducts" object should be an interface such as "List" rather than the implementation "ArrayList".(æ» ¤øÿÿÿÿ
-n	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¾ë’X
-D
-java:S1068	")Remove this unused "logID" private field.(«ì¶›üÿÿÿÿ
-C
-java:S1068
-"(Remove this unused "date" private field.(§ó®Øýÿÿÿÿ
 B
 java:S1068"-Remove this unused "moneyPaid" private field.(Ú“í`
-P
-java:S1068":Remove this unused "discountCodeAmountUsed" private field.(ùáŽß
 S
 java:S1068"8Remove this unused "allPurchasedProducts" private field.(â’ï˜úÿÿÿÿ
+D
+java:S1068	")Remove this unused "logID" private field.(«ì¶›üÿÿÿÿ
 I
 java:S1068".Remove this unused "sellerName" private field.(¿›•«ùÿÿÿÿ
 E
 java:S1068"*Remove this unused "status" private field.(û¾©óúÿÿÿÿ
+C
+java:S1068
+"(Remove this unused "date" private field.(§ó®Øýÿÿÿÿ
+š
+java:S1319"The type of the "allPurchasedProducts" object should be an interface such as "List" rather than the implementation "ArrayList".(æ» ¤øÿÿÿÿ
+n	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¾ë’X
+P
+java:S1068":Remove this unused "discountCodeAmountUsed" private field.(ùáŽß

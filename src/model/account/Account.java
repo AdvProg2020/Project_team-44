@@ -21,7 +21,6 @@ public abstract class Account {
     private boolean isLoggedIn;
 
 
-
     public String getUserName() {
         return userName;
     }
@@ -49,9 +48,14 @@ public abstract class Account {
         }
         return null;
     }
-    public String getInfo(){
+
+    public String getInfo() {
         return "username: " + this.userName + "\n" + "firstName: " + this.firstName + "\n" +
-                "lastName: "  +this.lastName + "\n" + "eMail: " + this.eMail + "\n" +
+                "lastName: " + this.lastName + "\n" + "eMail: " + this.eMail + "\n" +
                 "telephoneNumber: " + this.telephoneNumber;
+    }
+
+    public void editInfo() {
+
     }
 }

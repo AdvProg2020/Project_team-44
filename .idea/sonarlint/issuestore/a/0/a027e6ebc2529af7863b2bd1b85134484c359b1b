@@ -1,15 +1,15 @@
 
-F
-java:S1068"0Remove this unused "discountCode" private field.(‰Äş»
-J
-java:S1068"/Remove this unused "initialDate" private field.(ÿ×ƒ‘ûÿÿÿÿ
 H
 java:S1068"-Remove this unused "finalDate" private field.(¿·Ù²ıÿÿÿÿ
+J
+java:S1068"/Remove this unused "initialDate" private field.(ÿ×ƒ‘ûÿÿÿÿ
+F
+java:S1068"0Remove this unused "discountCode" private field.(‰Äş»
 Q
 java:S1068"6Remove this unused "discountPercentage" private field.(ùı„Âüÿÿÿÿ
-Q
-java:S1068"6Remove this unused "maxAuthorizedPrice" private field.(Æéïáúÿÿÿÿ
 ]
 java:S1068"BRemove this unused "repetitionNumberForAccountEach" private field.(’€£øÿÿÿÿ
+Q
+java:S1068"6Remove this unused "maxAuthorizedPrice" private field.(Æéïáúÿÿÿÿ
 Q
 java:S1068"6Remove this unused "allAuthorizedUsers" private field.(©¶’ üÿÿÿÿ

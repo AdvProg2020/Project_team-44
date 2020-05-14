@@ -1,10 +1,10 @@
 
-C
-java:S1068"-Remove this unused "commenter" private field.(Å«ÆŠ
-J
-java:S1068	"/Remove this unused "commentText" private field.(¯½¿¥øÿÿÿÿ
+O
+java:S1068":Remove this unused "isCommenterEqualsBuyer" private field.(¹öâd
 @
 java:S1068
 "*Remove this unused "status" private field.(é¬Ó»
-O
-java:S1068":Remove this unused "isCommenterEqualsBuyer" private field.(¹öâd
+J
+java:S1068	"/Remove this unused "commentText" private field.(¯½¿¥øÿÿÿÿ
+C
+java:S1068"-Remove this unused "commenter" private field.(Å«ÆŠ

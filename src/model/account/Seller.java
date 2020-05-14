@@ -26,8 +26,13 @@ public class Seller extends Account {
 
     }
 
-    public void deleteProductRequest() {
-
+    public void deleteProductRequest(String productId) {
+        Product requestedProduct = null;
+        for (Product product : productsToSell) {
+            if (product.getProductID().equalsIgnoreCase(productId))
+                requestedProduct = product;
+        }
+        productsToSell.remove(requestedProduct);
     }
 
     public void addProductRequest() {

@@ -4,6 +4,7 @@ import model.Category;
 import model.CodedDiscount;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Manager extends Account {
 
@@ -46,7 +47,9 @@ public class Manager extends Account {
     }
 
     public void showAllUsers() {
-
+        for (Account allAccount : allAccounts) {
+            System.out.println(allAccount.getUserName());
+        }
     }
 
 
@@ -59,7 +62,7 @@ public class Manager extends Account {
     }
 
     public void removeUserEach(Account toRemoveAccount) {
-
+        allAccounts.remove(toRemoveAccount);
     }
 
     public void addManager(Account newManager) {

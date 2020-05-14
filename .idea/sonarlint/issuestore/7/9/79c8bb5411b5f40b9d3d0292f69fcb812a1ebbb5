@@ -1,7 +1,6 @@
 
 
 java:S1319"zThe type of the "allSellProducts" object should be an interface such as "List" rather than the implementation "ArrayList".(Ïø²÷
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(³ÈéÁ
 D
 java:S1068	")Remove this unused "logID" private field.(«ì¶›üÿÿÿÿ
 C
@@ -9,11 +8,12 @@ java:S1068
 "(Remove this unused "date" private field.(§ó®Øıÿÿÿÿ
 J
 java:S1068"/Remove this unused "moneyGained" private field.(ŠÓ¬Äùÿÿÿÿ
-M
-java:S1068"2Remove this unused "offerLossMoney" private field.(Ó±Ş¶ıÿÿÿÿ
-N
-java:S1068"3Remove this unused "allSellProducts" private field.(ÊÕ£ÿÿÿÿÿ
 C
 java:S1068"-Remove this unused "buyerName" private field.(õ‘¥»
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(³ÈéÁ
 @
 java:S1068"*Remove this unused "status" private field.(ÇÙºÜ
+N
+java:S1068"3Remove this unused "allSellProducts" private field.(ÊÕ£ÿÿÿÿÿ
+M
+java:S1068"2Remove this unused "offerLossMoney" private field.(Ó±Ş¶ıÿÿÿÿ
