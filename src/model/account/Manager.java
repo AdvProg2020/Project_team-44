@@ -17,12 +17,14 @@ public class Manager extends Account {
 //        allManagers.add(this);
     }
 
-    public void getInfo() {
-
+    @Override
+    public ArrayList<String> getInfo() {
+        return super.getInfo();
     }
 
-    public void editInfo() {
-
+    @Override
+    public void editInfo(String field, String newValue) {
+        super.editInfo(field, newValue);
     }
 
     public void seeRequestList() {

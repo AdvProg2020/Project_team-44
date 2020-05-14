@@ -1,12 +1,14 @@
 package controller;
 
-public abstract class PurchaserAccountManager {
-    public static void processViewPersonalInfo() {
+import java.util.ArrayList;
 
+public abstract class PurchaserAccountManager {
+    public static ArrayList<String> processViewPersonalInfo() {
+        return LoginPageController.getLoggedInAccount().getInfo();
     }
 
-    public static void processEditFieldEach(String field) {
-
+    public static void processEditFieldEach(String field, String newValue) {
+        LoginPageController.getLoggedInAccount().editInfo(field, newValue);
     }
 
     public static void processViewCart() {

@@ -5,13 +5,27 @@ import model.account.Purchaser;
 import java.util.ArrayList;
 
 public class RequestForSeller {
-    private Purchaser purchaser;
     private RequestStatus status;
+    private String companyName;
+    private String username;
+    private String firstName;
+    private String secondName;
+    private String email;
+    private String telephoneNumber;
+    private String password;
+
     private ArrayList<RequestForSeller> allRequestsForSeller = new ArrayList<>();
 
-    public RequestForSeller(Purchaser purchaser, RequestStatus status) {
-        this.purchaser = purchaser;
-        this.status = status;
+    public RequestForSeller(String companyName, String username, String firstName
+            , String secondName, String email, String telephoneNumber, String password) {
+        this.companyName = companyName;
+        this.username = username;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.email = email;
+        this.telephoneNumber = telephoneNumber;
+        this.password = password;
+        this.status = RequestStatus.IN_PROGRESS;
         allRequestsForSeller.add(this);
     }
 

@@ -2,7 +2,6 @@ package model.account;
 
 import model.offer.Offer;
 import model.product.Product;
-import model.requests.*;
 
 import java.util.ArrayList;
 
@@ -17,8 +16,14 @@ public class Seller extends Account {
         this.productsToSell = new ArrayList<>();
     }
 
-    public void getInfo() {
+    @Override
+    public ArrayList<String> getInfo() {
+        return super.getInfo();
+    }
 
+    @Override
+    public void editInfo(String field, String newValue) {
+        super.editInfo(field, newValue);
     }
 
     public void editProduct() {
@@ -33,9 +38,6 @@ public class Seller extends Account {
 
     }
 
-    public void editInfo() {
-
-    }
 
     public void editOffers() {
 
