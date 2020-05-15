@@ -1,11 +1,15 @@
 package view.menu;
 
+import java.util.HashMap;
+
 public class ViewDiscountCodesMenu extends Menu {
     public ViewDiscountCodesMenu(Menu parent) {
         super("View Discount Codes Menu", parent);
+        HashMap<Integer , Menu> submenus = new HashMap<>();
         submenus.put(1, getViewOfDiscountCodeMenu());
         submenus.put(2, getEditDiscountCodeMenu());
         submenus.put(3, getRemoveDiscountCodeMenu());
+        this.setSubmenus(submenus);
     }
 
     @Override

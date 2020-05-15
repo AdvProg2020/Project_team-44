@@ -1,9 +1,13 @@
 package view.menu;
 
+import java.util.HashMap;
+
 public class ViewPersonalInfoOfManagerMenu extends Menu {
     public ViewPersonalInfoOfManagerMenu(Menu parent) {
         super("View Personal Info Of Manager Menu", parent);
+        HashMap<Integer , Menu> submenus = new HashMap<>();
         submenus.put(1, getEditFieldMenu());
+        this.setSubmenus(submenus);
     }
 
     @Override

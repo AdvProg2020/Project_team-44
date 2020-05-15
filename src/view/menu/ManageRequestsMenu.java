@@ -1,11 +1,16 @@
 package view.menu;
 
+import javax.swing.plaf.basic.BasicScrollPaneUI;
+import java.util.HashMap;
+
 public class ManageRequestsMenu extends Menu {
     public ManageRequestsMenu(Menu parent) {
         super("Manager Requests Menu", parent);
+        HashMap<Integer , Menu> submenus = new HashMap<>();
         submenus.put(1, getDetailsOfRequestMenu());
         submenus.put(2, getAcceptRequestMenu());
         submenus.put(3, getDeclineRequestMenu());
+        this.setSubmenus(submenus);
     }
 
     @Override

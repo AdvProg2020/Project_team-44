@@ -1,9 +1,13 @@
 package view.menu;
 
+import java.util.HashMap;
+
 public class ManageAllProductsMenu extends Menu {
     public ManageAllProductsMenu(Menu parent) {
         super("Manage All Products Menu", parent);
+        HashMap<Integer , Menu> submenus= new HashMap<>();
         submenus.put(1, getRemoveProductMenu());
+        this.setSubmenus(submenus);
     }
 
     private Menu getRemoveProductMenu() {

@@ -1,11 +1,15 @@
 package view.menu;
 
+import java.util.HashMap;
+
 public class ManageCategoriesMenu extends Menu {
     public ManageCategoriesMenu(Menu parent) {
         super("Manage Categories Menu", parent);
+        HashMap<Integer , Menu> submenus = new HashMap<>();
         submenus.put(1, getEditCategoryMenu());
         submenus.put(2, getAddCategoryMenu());
         submenus.put(3, getRemoveCategoryMenu());
+        this.setSubmenus(submenus);
     }
 
     @Override

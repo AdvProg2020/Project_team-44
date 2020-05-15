@@ -1,11 +1,15 @@
 package view.menu;
 
+import java.util.HashMap;
+
 public class ManagerProductsForSellerMenu extends Menu {
     public ManagerProductsForSellerMenu(Menu parent) {
         super("Manager Products For Seller Menu", parent);
+        HashMap<Integer , Menu> submenus = new HashMap<>();
         submenus.put(1,getViewProductMenu());
         submenus.put(2,getViewBuyersOfProductMenu());
         submenus.put(3,getEditProductMenu());
+        this.setSubmenus(submenus);
     }
     @Override
     public void show(){

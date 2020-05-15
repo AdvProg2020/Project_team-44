@@ -1,8 +1,11 @@
 package view.menu;
 
+import java.util.HashMap;
+
 public class ManagerAccountMenu extends Menu {
     public ManagerAccountMenu(Menu parent) {
         super("Manager Account Menu", parent);
+        HashMap<Integer , Menu> submenus = new HashMap<>();
         submenus.put(1, new ViewPersonalInfoOfManagerMenu(this));
         submenus.put(2, new ManagerUsersMenu(this));
         submenus.put(3, new ManageAllProductsMenu(this));
@@ -10,6 +13,7 @@ public class ManagerAccountMenu extends Menu {
         submenus.put(5, new ViewDiscountCodesMenu(this));
         submenus.put(6, new ManageRequestsMenu(this));
         submenus.put(7, new ManageCategoriesMenu(this));
+        this.setSubmenus(submenus);
 
     }
 
