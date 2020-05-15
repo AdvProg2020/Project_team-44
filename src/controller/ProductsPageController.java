@@ -21,6 +21,8 @@ public abstract class ProductsPageController {
 
     public static void processFilterEach(String availableFilter) throws FilterNotExistsException {
         checkFilterExistence(availableFilter);
+        /*TODO*/
+
     }
 
     public static void processCurrentFilterEach() {
@@ -29,6 +31,8 @@ public abstract class ProductsPageController {
 
     public static void processDeleteFilterEach(String selectedFilter) throws FilterNotExistsException {
         checkFilterExistence(selectedFilter);
+        /*TODO*/
+
     }
 
     public static void processSorting() {
@@ -41,6 +45,8 @@ public abstract class ProductsPageController {
 
     public static void processSortEach(String availableSort) throws SortNotExistsException {
         checkSortExistence(availableSort);
+        /*TODO*/
+
     }
 
     public static void processCurrentSortEach() {
@@ -57,6 +63,8 @@ public abstract class ProductsPageController {
 
     public static void processShowProduct(String productId) throws ProductIdNotExistsException {
         checkProductExistence(productId);
+        /*TODO*/
+
     }
 
     public static void checkSortExistence(String availableSort) throws SortNotExistsException {

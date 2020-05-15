@@ -1,9 +1,7 @@
 package controller;
 
-import exception.CodedDiscountNotExistsException;
-import exception.ProductIdNotExistsException;
-import exception.RequestNotExistsException;
-import exception.UsernameNotExistsException;
+import exception.*;
+import model.Category;
 import model.CodedDiscount;
 import model.account.Account;
 import model.account.Manager;
@@ -49,7 +47,7 @@ public abstract class ManagerAccountController {
     }
 
     public static ArrayList<String> processViewDiscountCodes() {
-        return Manager.showAllCodedDiscounts();
+        return Manager.getAllCodedDiscounts();
     }
 
     public static ArrayList<String> processViewDiscountCodeEach(String code) throws CodedDiscountNotExistsException {
@@ -78,27 +76,40 @@ public abstract class ManagerAccountController {
 
     public static void processAcceptRequestEach(String requestId) throws RequestNotExistsException {
         checkRequestExistence(requestId);
-
+        /*TODO*/
     }
 
     public static void processDeclineRequestEach(String requestId) throws RequestNotExistsException {
         checkRequestExistence(requestId);
-
+        /*TODO*/
     }
 
     public static void processManageCategories() {
 
     }
 
-    public static void processEditCategoryEach(String category) {
-
+    public static void processEditCategoryEach(String category) throws CategoryNotExistsException {
+        checkCategoryExistence(category);
+        /*TODO*/
     }
 
-    public static void processAddCategoryEach(String category) {
-
+    public static void processAddCategoryEach(String category) throws CategoryNotExistsException {
+        checkCategoryExistence(category);
+        /*TODO*/
     }
 
-    public static void processRemoveCategoryEach(String category) {
+    public static void processRemoveCategoryEach(String category) throws CategoryNotExistsException {
+        checkCategoryExistence(category);
+        /*TODO*/
+    }
+
+    public static void checkCategoryExistence(String selectedCategory) throws CategoryNotExistsException {
+        for (Category category : Category.getAllCategories()) {
+            if (selectedCategory.equals(category.getName())) {
+                return;
+            }
+        }
+        throw new CategoryNotExistsException("Wrong category.");
 
     }
 
