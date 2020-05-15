@@ -57,7 +57,7 @@ public abstract class LoginPageController {
 
     public static void checkUsernameForLogin(String username) throws UsernameNotExistsException {
         for (Account account : Account.getAllAccounts()) {
-            if (username.equals(account.getUsername())) {
+            if (username.equals(account.getUserName())) {
                 return;
             }
         }
@@ -66,7 +66,7 @@ public abstract class LoginPageController {
 
     public static void checkUsernameForRegistration(String username) throws UsernameExistsException {
         for (Account account : Account.getAllAccounts()) {
-            if (username.equals(account.getUsername())) {
+            if (username.equals(account.getUserName())) {
                 throw new UsernameExistsException("User exists with this username");
             }
         }
