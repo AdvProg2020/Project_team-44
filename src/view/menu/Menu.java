@@ -43,11 +43,44 @@ public abstract class Menu {
         if (this.parent != null)
             System.out.println((submenus.size() + 2) + "- back");
         else
-            System.out.println((submenus.size() + 1) + "- exit");
+            System.out.println((submenus.size() + 2) + "- exit");
+        if (currentUser.isLoggedIn())
+            System.out.println((submenus.size() + 3) + "- logout");
 
     }
 
     public void execute() {
+        Menu nextMenu = null;
+        String input = scanner.nextLine();
+        if (!input.matches("\\d+"))
+            System.err.println("please choose a number for your menu!");
+        else {
+            int menuNumber = Integer.parseInt(input);
+            if (menuNumber == 0) {
+                System.err.println("your menu number is invalid!");
+                nextMenu = this;
+            } else if (menuNumber == submenus.size() + 1) {
+                this.show();
+                nextMenu = this;
+            } else if (menuNumber == submenus.size() + 2) {
+                if (parent == null) {
+                    System.exit(0);
+                } else
+                    nextMenu = this.parent;
 
+            } else {
+                if (currentUser.isLoggedIn() && menuNumber > submenus.size() + 3) {
+                    System.err.println("your menu number is invalid!");
+                    nextMenu = this;
+                } else if (!currentUser.isLoggedIn() && menuNumber > submenus.size() + 2) {
+                    System.err.println("your menu number is invalid!");
+                    nextMenu = this;
+                } else
+                    nextMenu = submenus.get(menuNumber);
+            }
+        }
+
+        nextMenu.show();
+        nextMenu.execute();
     }
 }

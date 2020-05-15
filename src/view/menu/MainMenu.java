@@ -4,7 +4,7 @@ import model.account.Account;
 
 public class MainMenu extends Menu {
 
-    private MainMenu(Menu parent, Account account) {
+    public MainMenu(Menu parent, Account account) {
         super("Main Menu", parent, account);
 
     }
