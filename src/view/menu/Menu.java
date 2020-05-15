@@ -23,7 +23,7 @@ public abstract class Menu {
     }
 
     public void show() {
-
+        System.out.println("salal");
     }
 
     public void execute() {
