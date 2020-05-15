@@ -27,8 +27,8 @@ public class Purchaser extends Account {
     }
 
 
-    public void purchase(Product product) {
-
+    public String purchase(Product product , String input) {
+        return null;
     }
 
     public void compareTwoProducts(Product firstProduct, Product secondProduct) {
