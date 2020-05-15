@@ -6,13 +6,12 @@ import exception.WrongPasswordException;
 import model.account.Account;
 import model.account.Manager;
 import model.account.Purchaser;
-import model.account.Seller;
 import model.requests.RequestForSeller;
 
 public abstract class LoginPageController {
-    private static boolean isMainManagerRegistered;
-    private static Account loggedInAccount;
-//salam salam sad ta salam
+    static boolean isMainManagerRegistered;
+    static Account loggedInAccount;
+
     public static boolean isIsMainManagerRegistered() {
         return isMainManagerRegistered;
     }
