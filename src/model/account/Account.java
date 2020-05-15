@@ -21,17 +21,9 @@ public abstract class Account {
     protected boolean isLoggedIn;
     protected String type;
 
-    public String getType() {
-        return type;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public Account(String username, String firstName, String secondName,
+    public Account(String userName, String firstName, String lastName,
                    String email, String telephoneNumber, String password) {
-        this.userName = username;
+        this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.eMail = email;
@@ -42,6 +34,14 @@ public abstract class Account {
         this.sellLogListHistory = new ArrayList<>();
         this.buyLogListHistory = new ArrayList<>();
         allAccounts.add(this);
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     public String getFirstName() {
@@ -66,6 +66,10 @@ public abstract class Account {
 
     public double getBalance() {
         return balance;
+    }
+
+    public static ArrayList<Account> getAllAccounts() {
+        return allAccounts;
     }
 
     public ArrayList<CodedDiscount> getAllDiscountCodes() {
@@ -116,6 +120,7 @@ public abstract class Account {
         }
         return null;
     }
+
     public ArrayList<String> getInfo() {
         return null;
     }

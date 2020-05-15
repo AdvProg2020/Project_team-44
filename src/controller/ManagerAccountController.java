@@ -22,7 +22,7 @@ public abstract class ManagerAccountController {
     public static HashMap<String, String> processManageUsers() {
         HashMap<String, String> userInfo = new HashMap<>();
         for (Account account : Account.getAllAccounts()) {
-            userInfo.put(account.getType(), account.getUsername());
+            userInfo.put(account.getType(), account.getUserName());
         }
         return userInfo;
     }
@@ -122,7 +122,7 @@ public abstract class ManagerAccountController {
 
     public static void checkUsernameForDelete(String username) throws UsernameNotExistsException {
         for (Account account : Account.getAllAccounts()) {
-            if (username.equals(account.getUsername())) {
+            if (username.equals(account.getUserName())) {
                 return;
             }
         }
