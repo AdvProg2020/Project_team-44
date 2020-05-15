@@ -9,10 +9,7 @@ public abstract class Menu {
     private HashMap<Menu, Integer> submenus = new HashMap<>();
     protected static Scanner scanner;
 
-//    public static Menu getInstance() {
-//        return null;
-//    }
-/// salam
+
     protected Menu(String name, Menu parent) {
         this.name = name;
         this.parent = parent;
@@ -23,7 +20,7 @@ public abstract class Menu {
     }
 
     public void show() {
-        System.out.println("salal");
+
     }
 
     public void execute() {
