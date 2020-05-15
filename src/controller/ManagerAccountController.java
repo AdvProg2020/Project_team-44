@@ -5,6 +5,7 @@ import exception.ProductIdNotExistsException;
 import exception.UsernameNotExistsException;
 import model.CodedDiscount;
 import model.account.Account;
+import model.account.Manager;
 import model.product.Product;
 
 import java.util.ArrayList;
@@ -20,25 +21,21 @@ public abstract class ManagerAccountController {
     }
 
     public static HashMap<String, String> processManageUsers() {
-        HashMap<String, String> userInfo = new HashMap<>();
-        for (Account account : Account.getAllAccounts()) {
-            userInfo.put(account.getType(), account.getUsername());
-        }
-        return userInfo;
+        return Manager.showAllUsers();
     }
 
     public static void processViewUserInfoEach(String username) throws UsernameNotExistsException {
-        checkUsernameForDelete(username);
+        checkUsernameExistence(username);
         /*Todo: ask TA how to.*/
     }
 
     public static void processDeleteUserEach(String username) throws UsernameNotExistsException {
-        checkUsernameForDelete(username);
+        checkUsernameExistence(username);
         Account.getAllAccounts().remove(Account.getAccountByUsername(username));
     }
 
     public static void processCreateManagerProfileEach() {
-//        checkUsernameForDelete(username);
+//       checkUsernameExistence(username);
         /*Todo: ask TA how to.*/
     }
 
@@ -47,12 +44,12 @@ public abstract class ManagerAccountController {
     }
 
     public static void processRemoveProductEach(String productId) throws ProductIdNotExistsException {
-        checkProductForDelete(productId);
+        checkProductExistence(productId);
         Product.getAllProducts().remove(Product.getProductByID(productId));
     }
 
     public static void processCreateDiscountCode() {
-
+        Manager.createCodedDiscount();
     }
 
     public static ArrayList<String> processViewDiscountCodes() {
@@ -64,17 +61,17 @@ public abstract class ManagerAccountController {
     }
 
     public static void processViewDiscountCodeEach(String code) throws CodedDiscountNotExistsException {
-        checkCodedDiscountForDelete(code);
+        checkCodedDiscountExistence(code);
 
     }
 
     public static void processEditDiscountCodeEach(String code) throws CodedDiscountNotExistsException {
-        checkCodedDiscountForDelete(code);
+        checkCodedDiscountExistence(code);
         /*Todo: how to edit fields*/
     }
 
     public static void processRemoveDiscountCodeEach(String code) throws CodedDiscountNotExistsException {
-        checkCodedDiscountForDelete(code);
+        checkCodedDiscountExistence(code);
         CodedDiscount.getAllCodedDiscounts().remove(CodedDiscount.getCodedDiscountByCode(code));
     }
 
@@ -110,7 +107,7 @@ public abstract class ManagerAccountController {
 
     }
 
-    public static void checkCodedDiscountForDelete(String discountCode) throws CodedDiscountNotExistsException {
+    public static void checkCodedDiscountExistence(String discountCode) throws CodedDiscountNotExistsException {
         for (CodedDiscount codedDiscount : CodedDiscount.getAllCodedDiscounts()) {
             if (discountCode.equals(codedDiscount.getDiscountCode())) {
                 return;
@@ -120,7 +117,7 @@ public abstract class ManagerAccountController {
 
     }
 
-    public static void checkUsernameForDelete(String username) throws UsernameNotExistsException {
+    public static void checkUsernameExistence(String username) throws UsernameNotExistsException {
         for (Account account : Account.getAllAccounts()) {
             if (username.equals(account.getUsername())) {
                 return;
@@ -129,7 +126,7 @@ public abstract class ManagerAccountController {
         throw new UsernameNotExistsException("No user exists with this username.");
     }
 
-    public static void checkProductForDelete(String productId) throws ProductIdNotExistsException {
+    public static void checkProductExistence(String productId) throws ProductIdNotExistsException {
         for (Product product : Product.getAllProducts()) {
             if (productId.equals(product.getProductID())) {
                 return;

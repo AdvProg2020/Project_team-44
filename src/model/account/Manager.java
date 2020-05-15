@@ -4,6 +4,7 @@ import model.Category;
 import model.CodedDiscount;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Manager extends Account {
 
@@ -51,8 +52,12 @@ public class Manager extends Account {
 
     }
 
-    public void showAllUsers() {
-
+    public static HashMap<String, String> showAllUsers() {
+        HashMap<String, String> userInfo = new HashMap<>();
+        for (Account account : Account.getAllAccounts()) {
+            userInfo.put(account.getType(), account.getUsername());
+        }
+        return userInfo;
     }
 
 
@@ -60,7 +65,7 @@ public class Manager extends Account {
 
     }
 
-    public void createCodedDiscount() {
+    public static void createCodedDiscount() {
 
     }
 
