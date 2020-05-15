@@ -33,7 +33,7 @@ public abstract class Account {
                    String email, String telephoneNumber, String password) {
         this.userName = username;
         this.firstName = firstName;
-        this.lastName = secondName;
+        this.lastName = lastName;
         this.eMail = email;
         this.telephoneNumber = telephoneNumber;
         this.password = password;
@@ -48,7 +48,7 @@ public abstract class Account {
         return firstName;
     }
 
-    public String getSecondName() {
+    public String getLastName() {
         return lastName;
     }
 

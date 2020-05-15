@@ -12,8 +12,8 @@ public class Manager extends Account {
     private static ArrayList<Category> allCategories = new ArrayList<>();
     private static ArrayList<Manager> allManagers = new ArrayList<>();
 
-    public Manager(String username, String firstName, String secondName, String email, String telephoneNumber, String password) {
-        super(username, firstName, secondName, email, telephoneNumber, password);
+    public Manager(String username, String firstName, String lastName, String email, String telephoneNumber, String password) {
+        super(username, firstName, lastName, email, telephoneNumber, password);
 //        allManagers.add(this);
     }
 
