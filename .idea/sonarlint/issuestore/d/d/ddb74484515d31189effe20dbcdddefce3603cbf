@@ -1,18 +1,0 @@
-
-P
-java:S1144"5Remove this unused private "viewDiscountCode" method.(´ÀÙ×şÿÿÿÿ
-œ
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(´ÀÙ×şÿÿÿÿ
->
-java:S1185"(Remove this method to simply inherit it.(Àİì
-P
-java:S1144"5Remove this unused private "editDiscountCode" method.(’Â°İşÿÿÿÿ
-C
-java:S1185"(Remove this method to simply inherit it.(ä÷†Áşÿÿÿÿ
-M
-java:S1144""7Remove this unused private "removeDiscountCode" method.(¾öÇà
-—
-java:S1186""€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¾öÇà
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ËÓî‘
-œ
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(’Â°İşÿÿÿÿ

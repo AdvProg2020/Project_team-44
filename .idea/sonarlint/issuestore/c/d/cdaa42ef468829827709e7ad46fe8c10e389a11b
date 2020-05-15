@@ -1,14 +1,0 @@
-
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(†êº•üÿÿÿÿ
-—
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¡–µó
-œ
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ƒññŸøÿÿÿÿ
->
-java:S1185"(Remove this method to simply inherit it.(Àİì
-C
-java:S1185"(Remove this method to simply inherit it.(ä÷†Áşÿÿÿÿ
-H
-java:S1144"2Remove this unused private "createAccount" method.(¡–µó
-E
-java:S1144"*Remove this unused private "login" method.(ƒññŸøÿÿÿÿ

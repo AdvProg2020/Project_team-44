@@ -1,10 +1,0 @@
-
-E
-java:S1068
-"*Remove this unused "seller" private field.(Ò§¸şúÿÿÿÿ
-F
-java:S1068"+Remove this unused "pastOff" private field.(ıàú¾ûÿÿÿÿ
-@
-java:S1068"*Remove this unused "newOff" private field.(Íäú
-E
-java:S1068"*Remove this unused "status" private field.(ˆº­Šıÿÿÿÿ

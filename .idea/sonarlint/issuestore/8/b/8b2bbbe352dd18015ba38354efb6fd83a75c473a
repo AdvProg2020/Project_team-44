@@ -1,22 +1,0 @@
-
->
-java:S1185"(Remove this method to simply inherit it.(Àİì
-D
-java:S1144"/Remove this unused private "changeType" method.(Á™±L
-–
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Á™±L
-J
-java:S1144""/Remove this unused private "deleteUser" method.(ä¶†£øÿÿÿÿ
-C
-java:S1185"(Remove this method to simply inherit it.(ä÷†Áşÿÿÿÿ
-—
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ùˆù
-—
-java:S1186&"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(»Şëà
-?
-java:S1144")Remove this unused private "view" method.(Ùˆù
-N
-java:S1144&"8Remove this unused private "createMangerProfile" method.(»Şëà
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ËÓî‘
-œ
-java:S1186""€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ä¶†£øÿÿÿÿ

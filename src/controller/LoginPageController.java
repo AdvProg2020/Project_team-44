@@ -12,7 +12,6 @@ import model.requests.RequestForSeller;
 public abstract class LoginPageController {
     private static boolean isMainManagerRegistered;
     private static Account loggedInAccount;
-
     public static boolean isIsMainManagerRegistered() {
         return isMainManagerRegistered;
     }
