@@ -7,10 +7,10 @@ import model.sellLog.SellLog;
 import java.util.ArrayList;
 
 public abstract class Account {
-    protected String username;
+    protected String userName;
     protected String firstName;
-    protected String secondName;
-    protected String email;
+    protected String lastName;
+    protected String eMail;
     protected String telephoneNumber;
     protected String password;
     protected double balance;
@@ -21,24 +21,12 @@ public abstract class Account {
     protected boolean isLoggedIn;
     protected String type;
 
-    public String getType() {
-        return type;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public static ArrayList<Account> getAllAccounts() {
-        return allAccounts;
-    }
-
-    public Account(String username, String firstName, String secondName,
+    public Account(String userName, String firstName, String lastName,
                    String email, String telephoneNumber, String password) {
-        this.username = username;
+        this.userName = userName;
         this.firstName = firstName;
-        this.secondName = secondName;
-        this.email = email;
+        this.lastName = lastName;
+        this.eMail = email;
         this.telephoneNumber = telephoneNumber;
         this.password = password;
         this.balance = 0;
@@ -48,16 +36,24 @@ public abstract class Account {
         allAccounts.add(this);
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
     public String getFirstName() {
         return firstName;
     }
 
-    public String getSecondName() {
-        return secondName;
+    public String getLastName() {
+        return lastName;
     }
 
     public String getEmail() {
-        return email;
+        return eMail;
     }
 
     public String getTelephoneNumber() {
@@ -70,6 +66,10 @@ public abstract class Account {
 
     public double getBalance() {
         return balance;
+    }
+
+    public static ArrayList<Account> getAllAccounts() {
+        return allAccounts;
     }
 
     public ArrayList<CodedDiscount> getAllDiscountCodes() {
@@ -93,11 +93,11 @@ public abstract class Account {
     }
 
     public void setSecondName(String secondName) {
-        this.secondName = secondName;
+        this.lastName = secondName;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.eMail = email;
     }
 
     public void setTelephoneNumber(String telephoneNumber) {
@@ -114,12 +114,13 @@ public abstract class Account {
 
     public static Account getAccountByUsername(String username) {
         for (Account account : allAccounts) {
-            if (account.getUsername().equals(username)) {
+            if (account.getUserName().equals(username)) {
                 return account;
             }
         }
         return null;
     }
+
     public ArrayList<String> getInfo() {
         return null;
     }
