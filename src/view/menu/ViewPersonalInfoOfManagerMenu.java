@@ -1,11 +1,13 @@
 package view.menu;
 
+import model.account.Account;
+
 import java.util.HashMap;
 
 public class ViewPersonalInfoOfManagerMenu extends Menu {
-    public ViewPersonalInfoOfManagerMenu(Menu parent) {
-        super("View Personal Info Of Manager Menu", parent);
-        HashMap<Integer , Menu> submenus = new HashMap<>();
+    public ViewPersonalInfoOfManagerMenu(Menu parent, Account account) {
+        super("View Personal Info Of Manager Menu", parent, account);
+        HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getEditFieldMenu());
         this.setSubmenus(submenus);
     }
@@ -16,7 +18,7 @@ public class ViewPersonalInfoOfManagerMenu extends Menu {
     }
 
     private Menu getEditFieldMenu() {
-        return new Menu("Edit Field Menu", this) {
+        return new Menu("Edit Field Menu", this, this.getCurrentUser()) {
 
             @Override
             public void show() {

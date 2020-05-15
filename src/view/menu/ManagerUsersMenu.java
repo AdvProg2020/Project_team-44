@@ -1,12 +1,14 @@
 package view.menu;
 
 
+import model.account.Account;
+
 import java.util.HashMap;
 
 public class ManagerUsersMenu extends Menu {
-    public ManagerUsersMenu(Menu parent) {
-        super("Manager Users Menu", parent);
-        HashMap<Integer , Menu> submenus = new HashMap<>();
+    public ManagerUsersMenu(Menu parent, Account account) {
+        super("Manager Users Menu", parent, account);
+        HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getViewOfUserMenu());
         submenus.put(2, getDeleteUserMenu());
         submenus.put(3, getCreateManagerProfileMenu());
@@ -19,7 +21,7 @@ public class ManagerUsersMenu extends Menu {
     }
 
     private Menu getViewOfUserMenu() {
-        return new Menu("View Of User Menu", this) {
+        return new Menu("View Of User Menu", this, this.getCurrentUser()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -35,7 +37,7 @@ public class ManagerUsersMenu extends Menu {
     }
 
     private Menu getDeleteUserMenu() {
-        return new Menu("Delete User Menu", this) {
+        return new Menu("Delete User Menu", this, this.getCurrentUser()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -50,7 +52,7 @@ public class ManagerUsersMenu extends Menu {
     }
 
     private Menu getCreateManagerProfileMenu() {
-        return new Menu("Create Manager Profile Menu", this) {
+        return new Menu("Create Manager Profile Menu", this, this.getCurrentUser()) {
             @Override
             public void show() {
 

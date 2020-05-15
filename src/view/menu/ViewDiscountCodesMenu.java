@@ -1,11 +1,13 @@
 package view.menu;
 
+import model.account.Account;
+
 import java.util.HashMap;
 
 public class ViewDiscountCodesMenu extends Menu {
-    public ViewDiscountCodesMenu(Menu parent) {
-        super("View Discount Codes Menu", parent);
-        HashMap<Integer , Menu> submenus = new HashMap<>();
+    public ViewDiscountCodesMenu(Menu parent, Account account) {
+        super("View Discount Codes Menu", parent, account);
+        HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getViewOfDiscountCodeMenu());
         submenus.put(2, getEditDiscountCodeMenu());
         submenus.put(3, getRemoveDiscountCodeMenu());
@@ -18,7 +20,7 @@ public class ViewDiscountCodesMenu extends Menu {
     }
 
     private Menu getViewOfDiscountCodeMenu() {
-        return new Menu("View Of Discount Code Menu", this) {
+        return new Menu("View Of Discount Code Menu", this, this.getCurrentUser()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -33,7 +35,7 @@ public class ViewDiscountCodesMenu extends Menu {
     }
 
     private Menu getEditDiscountCodeMenu() {
-        return new Menu("Edit Discount Code Menu", this) {
+        return new Menu("Edit Discount Code Menu", this, this.getCurrentUser()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -48,7 +50,7 @@ public class ViewDiscountCodesMenu extends Menu {
     }
 
     private Menu getRemoveDiscountCodeMenu() {
-        return new Menu("Remove Discount Code Menu", this) {
+        return new Menu("Remove Discount Code Menu", this, this.getCurrentUser()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");

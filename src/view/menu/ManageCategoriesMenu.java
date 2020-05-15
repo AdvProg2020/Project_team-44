@@ -1,11 +1,13 @@
 package view.menu;
 
+import model.account.Account;
+
 import java.util.HashMap;
 
 public class ManageCategoriesMenu extends Menu {
-    public ManageCategoriesMenu(Menu parent) {
-        super("Manage Categories Menu", parent);
-        HashMap<Integer , Menu> submenus = new HashMap<>();
+    public ManageCategoriesMenu(Menu parent, Account account) {
+        super("Manage Categories Menu", parent, account);
+        HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getEditCategoryMenu());
         submenus.put(2, getAddCategoryMenu());
         submenus.put(3, getRemoveCategoryMenu());
@@ -18,7 +20,7 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     private Menu getEditCategoryMenu() {
-        return new Menu("Edit Category Menu", this) {
+        return new Menu("Edit Category Menu", this, this.getCurrentUser()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -33,7 +35,7 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     private Menu getAddCategoryMenu() {
-        return new Menu("Add Category Menu", this) {
+        return new Menu("Add Category Menu", this, this.getCurrentUser()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -48,7 +50,7 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     private Menu getRemoveCategoryMenu() {
-        return new Menu("Remove Category Menu", this) {
+        return new Menu("Remove Category Menu", this, this.getCurrentUser()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
