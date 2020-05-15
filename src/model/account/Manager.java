@@ -54,7 +54,7 @@ public class Manager extends Account {
     public static HashMap<String, String> showAllUsers() {
         HashMap<String, String> userInfo = new HashMap<>();
         for (Account account : Account.getAllAccounts()) {
-            userInfo.put(account.getType(), account.getUsername());
+            userInfo.put(account.getType(), account.getUserName());
         }
         return userInfo;
     }
