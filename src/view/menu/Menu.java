@@ -12,7 +12,7 @@ public abstract class Menu {
 //    public static Menu getInstance() {
 //        return null;
 //    }
-
+/// salam
     protected Menu(String name, Menu parent) {
         this.name = name;
         this.parent = parent;
