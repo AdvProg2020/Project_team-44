@@ -12,7 +12,7 @@ import model.requests.RequestForSeller;
 public abstract class LoginPageController {
     private static boolean isMainManagerRegistered;
     private static Account loggedInAccount;
-
+//salam salam sad ta salam
     public static boolean isIsMainManagerRegistered() {
         return isMainManagerRegistered;
     }
