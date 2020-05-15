@@ -55,7 +55,7 @@ public abstract class Account {
                 "telephoneNumber: " + this.telephoneNumber;
     }
 
-    public void editInfo() {
-
-    }
+//    public void editInfo() {
+//
+//    }
 }
