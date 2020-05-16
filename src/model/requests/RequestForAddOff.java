@@ -49,8 +49,9 @@ public class RequestForAddOff extends Request {
     }
 
     @Override
-    public int produceRequestId() {
-        return super.produceRequestId();
+    public String produceRequestId() {
+        String id = "RequestForAddOff_" + super.produceRequestId();
+        return id;
     }
 
     @Override

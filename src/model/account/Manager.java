@@ -21,20 +21,20 @@ public class Manager extends Account {
         allManagers.add(this);
     }
 
-    public ArrayList<Integer> getRequestIdLists() {
-        ArrayList<Integer> IdLists = new ArrayList<>();
+    public ArrayList<String> getRequestIdLists() {
+        ArrayList<String> IdLists = new ArrayList<>();
         for (Request allRequest : Request.getAllRequests()) {
             IdLists.add(allRequest.getRequestId());
         }
         return IdLists;
     }
 
-    public void accept(int requestId) {
+    public void accept(String requestId) {
         Request.getRequestById(requestId).setStatus(RequestStatus.VERIFIED);
         Request.getAllRequests();
     }
 
-    public void decline(int requestId) {
+    public void decline(String requestId) {
         Request.getRequestById(requestId).setStatus(RequestStatus.DECLINED);
     }
 

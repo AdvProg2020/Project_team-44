@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Request {
-    protected int requestId;
+    protected String requestId;
     protected RequestStatus status;
     protected static ArrayList<Request> allRequests = new ArrayList<>();
 
@@ -18,7 +18,7 @@ public class Request {
         return allRequests;
     }
 
-    public int getRequestId() {
+    public String getRequestId() {
         return requestId;
     }
 
@@ -30,20 +30,20 @@ public class Request {
         this.status = status;
     }
 
-    public void setRequestId(int requestId) {
+    public void setRequestId(String requestId) {
         this.requestId = requestId;
     }
 
-    public int produceRequestId() {
+    public String produceRequestId() {
         Random random = new Random();
         int min = 0;
         int max = 100000000;
         int range = max - min;
         int rand = random.nextInt(range) + min;
-        return rand;
+        return String.valueOf(rand);
     }
 
-    public static Request getRequestById(int requestId) {
+    public static Request getRequestById(String requestId) {
         for (Request allRequest : allRequests) {
             if (allRequest.getRequestId() == requestId)
                 return allRequest;

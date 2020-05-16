@@ -62,6 +62,12 @@ public class RequestForAddProduct extends Request {
     }
 
     @Override
+    public String produceRequestId() {
+        String id = "RequestForAddProduct_" + super.produceRequestId();
+        return id;
+    }
+
+    @Override
     public ArrayList<String> getRequestDetails() {
         ArrayList<String> details = super.getRequestDetails();
         details.add(this.getSeller().getFirstName());
