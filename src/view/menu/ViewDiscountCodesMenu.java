@@ -77,7 +77,7 @@ public class ViewDiscountCodesMenu extends Menu {
                     String newValue = newInput.split("-")[2];
                     try {
                         ManagerAccountController.processEditDiscountCodeEach(code, field, newValue);
-                        System.out.println("done");
+                        System.out.println("edit discount code successful");
                     } catch (CodedDiscountNotExistsException editDiscountCodeError) {
                         editDiscountCodeError.getMessage();
                         this.execute();
@@ -109,7 +109,7 @@ public class ViewDiscountCodesMenu extends Menu {
                     String code = input.substring(21);
                     try {
                         ManagerAccountController.processRemoveDiscountCodeEach(code);
-                        System.out.println("done");
+                        System.out.println("remove discount code successful");
                     } catch (CodedDiscountNotExistsException removeDiscountCodeError) {
                         removeDiscountCodeError.getMessage();
                         this.execute();

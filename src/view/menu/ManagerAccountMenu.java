@@ -50,7 +50,6 @@ public class ManagerAccountMenu extends Menu {
 
                 }
             }
-            }
         };
     }
 }
