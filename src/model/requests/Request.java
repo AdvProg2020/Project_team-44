@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Request {
-    private int requestId;
-    private RequestStatus status;
-    private static ArrayList<Request> allRequests = new ArrayList<>();
+    protected int requestId;
+    protected RequestStatus status;
+    protected static ArrayList<Request> allRequests = new ArrayList<>();
 
-    public Request(int requestId) {
-        this.requestId = requestId;
+    public Request() {
+        this.requestId = produceRequestId();
         this.status = RequestStatus.IN_PROGRESS;
         allRequests.add(this);
     }
@@ -20,6 +20,10 @@ public class Request {
 
     public int getRequestId() {
         return requestId;
+    }
+
+    public RequestStatus getStatus() {
+        return status;
     }
 
     public void setStatus(RequestStatus status) {
@@ -42,8 +46,9 @@ public class Request {
         }
         return null;
     }
-    public ArrayList<String> getRequestDetails(int requestId){
+    public ArrayList<String> getRequestDetails(){
         ArrayList<String> details = new ArrayList<>();
+        details.add(this.getStatus().toString());
         return details;
     }
 }
