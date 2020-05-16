@@ -44,7 +44,7 @@ public class ViewDiscountCodesMenu extends Menu {
                     try {
                         ManagerAccountController.processViewDiscountCodeEach(code);
                     } catch (CodedDiscountNotExistsException discountCodeError) {
-                        discountCodeError.getMessage();
+                        System.out.println(discountCodeError.getMessage());
                         this.execute();
                     }
 
@@ -79,7 +79,7 @@ public class ViewDiscountCodesMenu extends Menu {
                         ManagerAccountController.processEditDiscountCodeEach(code, field, newValue);
                         System.out.println("edit discount code successful");
                     } catch (CodedDiscountNotExistsException editDiscountCodeError) {
-                        editDiscountCodeError.getMessage();
+                        System.out.println(editDiscountCodeError.getMessage());
                         this.execute();
                     }
 
@@ -111,7 +111,7 @@ public class ViewDiscountCodesMenu extends Menu {
                         ManagerAccountController.processRemoveDiscountCodeEach(code);
                         System.out.println("remove discount code successful");
                     } catch (CodedDiscountNotExistsException removeDiscountCodeError) {
-                        removeDiscountCodeError.getMessage();
+                        System.out.println(removeDiscountCodeError.getMessage());
                         this.execute();
                     }
 

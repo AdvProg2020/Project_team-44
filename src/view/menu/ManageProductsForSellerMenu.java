@@ -4,8 +4,8 @@ import model.account.Account;
 
 import java.util.HashMap;
 
-public class ManagerProductsForSellerMenu extends Menu {
-    public ManagerProductsForSellerMenu(Menu parent, Account account) {
+public class ManageProductsForSellerMenu extends Menu {
+    public ManageProductsForSellerMenu(Menu parent, Account account) {
         super("Manager Products For Seller Menu", parent, account);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getViewProductMenu());

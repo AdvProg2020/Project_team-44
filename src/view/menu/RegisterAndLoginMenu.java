@@ -34,10 +34,10 @@ public class RegisterAndLoginMenu extends Menu {
                         LoginPageController.processLogin(userName, passWord);
                         System.out.println("login successful");
                     } catch (UsernameNotExistsException userNameError) {
-                        userNameError.getMessage();
+                        System.out.println(userNameError.getMessage());
                         this.execute();
                     } catch (WrongPasswordException passWordError) {
-                        passWordError.getMessage();
+                        System.out.println(passWordError.getMessage());
                         this.execute();
                     }
                 }

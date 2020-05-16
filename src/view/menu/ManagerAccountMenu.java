@@ -44,7 +44,7 @@ public class ManagerAccountMenu extends Menu {
                         ManagerAccountController.processViewUserInfoEach(userName);
                         System.out.println("done");
                     } catch (UsernameNotExistsException userNameError) {
-                        userNameError.getMessage();
+                        System.out.println(userNameError.getMessage());
                         this.execute();
                     }
 
