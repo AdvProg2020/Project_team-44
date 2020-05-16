@@ -40,7 +40,7 @@ public class ManageRequestsMenu extends Menu {
                 else if (!input.matches("details \\w+"))
                     this.invalidCommandInExecute();
                 else {
-                    int requestId = Integer.parseInt(input.substring(8));
+                    String requestId = input.substring(8);
                     try {
                         ManagerAccountController.processShowRequestDetailsEach(requestId);
                     } catch (RequestNotExistsException requestDetailsError) {
@@ -71,7 +71,7 @@ public class ManageRequestsMenu extends Menu {
                 else if (!input.matches("accept \\w+"))
                     this.invalidCommandInExecute();
                 else {
-                    int requestId = Integer.parseInt(input.substring(7));
+                    String requestId = input.substring(7);
                     try {
                         ManagerAccountController.processAcceptRequestEach(requestId);
                         System.out.println("Accept request");
@@ -105,7 +105,7 @@ public class ManageRequestsMenu extends Menu {
                 else if (!input.matches("decline \\w+"))
                     this.invalidCommandInExecute();
                 else {
-                    int requestId = Integer.parseInt(input.substring(8));
+                    String requestId = input.substring(8);
                     try {
                         ManagerAccountController.processDeclineRequestEach(requestId);
                         System.out.println("decline request");
