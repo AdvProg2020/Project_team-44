@@ -27,6 +27,12 @@ public class RequestForRemoveProduct extends Request {
     }
 
     @Override
+    public String produceRequestId() {
+        String id = "RequestForRemoveProduct_" + super.produceRequestId();
+        return id;
+    }
+
+    @Override
     public ArrayList<String> getRequestDetails() {
         ArrayList<String> details = super.getRequestDetails();
         details.add(this.getSeller().getFirstName());
