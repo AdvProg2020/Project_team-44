@@ -92,7 +92,21 @@ public abstract class Menu {
     public void menuWork() {
 
     }
-
+    public void backInExecute(){
+        this.getParent().show();
+        this.getParent().menuWork();
+        this.getParent().execute();
+    }
+    public void logoutInExecute(){
+        Menu newMenu = new MainMenu(null,null);
+        LoginPageController.logout();
+        newMenu.show();
+        newMenu.execute();
+    }
+    public void invalidCommandInExecute(){
+        System.err.println("invalid command!");
+        this.execute();
+    }
     public Menu getParent() {
         return parent;
     }

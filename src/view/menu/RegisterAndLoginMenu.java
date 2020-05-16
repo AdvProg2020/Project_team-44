@@ -9,11 +9,12 @@ public class RegisterAndLoginMenu extends Menu {
     public RegisterAndLoginMenu(Menu parent, Account account) {
         super("Register And Login Menu", parent, account);
     }
-    private Menu getLoginMenu(){
-        return new Menu("Login Menu" , this , this.getCurrentUserLoggedIn()) {
+
+    private Menu getLoginMenu() {
+        return new Menu("Login Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
-                System.out.println(this.getName()+":");
+                System.out.println(this.getName() + ":");
                 System.out.println("Please enter your username and password");
             }
 
@@ -21,32 +22,21 @@ public class RegisterAndLoginMenu extends Menu {
             public void execute() {
                 String input1 = scanner.nextLine();
                 String passWord = scanner.nextLine();
-                if(input1.equalsIgnoreCase("back")){
-                    this.getParent().show();
-                    this.getParent().menuWork();
-                    this.getParent().execute();
-                }
-                else if(input1.equalsIgnoreCase("logout") && getCurrentUserLoggedIn()!= null){
-                    Menu newMenu = new MainMenu(null,null);
-                    LoginPageController.logout();
-                    newMenu.show();
-                    newMenu.execute();
-                }
-                if(!input1.matches("login \\w+")){
-                    System.err.println("invalid command!");
-                    this.execute();
-                }
-                else{
+                if (input1.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                else if (input1.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
+                    this.logoutInExecute();
+                else if (!input1.matches("login \\w+"))
+                   this.invalidCommandInExecute();
+                else {
                     String userName = input1.substring(6);
                     try {
-                        LoginPageController.processLogin(userName,passWord);
+                        LoginPageController.processLogin(userName, passWord);
                         System.out.println("login successful");
-                    }
-                    catch (UsernameNotExistsException userNameError){
+                    } catch (UsernameNotExistsException userNameError) {
                         userNameError.getMessage();
                         this.execute();
-                    }
-                    catch (WrongPasswordException passWordError){
+                    } catch (WrongPasswordException passWordError) {
                         passWordError.getMessage();
                         this.execute();
                     }
