@@ -3,9 +3,13 @@ package model.account;
 import model.Category;
 import model.offer.Offer;
 import model.product.Product;
+import model.requests.RequestForAddOff;
 import model.requests.RequestForAddProduct;
+import model.requests.RequestForEditOff;
+import model.requests.RequestForEditProduct;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Seller extends Account {
     private String companyName;
@@ -37,13 +41,9 @@ public class Seller extends Account {
     @Override
     public void editInfo(String field, String newValue) {
         super.editInfo(field, newValue);
-        if (field.equalsIgnoreCase("companyName")){
+        if (field.equalsIgnoreCase("companyName")) {
             this.setCompanyName(newValue);
         }
-    }
-
-    public void editProduct() {
-
     }
 
     public void deleteProductRequest(String productId) {
@@ -55,16 +55,20 @@ public class Seller extends Account {
         productsToSell.remove(requestedProduct);
     }
 
-    public void addProductRequest() {
-
+    public void addProductRequest(int requestId, Seller seller, String productID, Category category, String name, String companyName, int price, String explanationText) {
+        new RequestForAddProduct(requestId, seller, productID, category, name, companyName, price, explanationText);
     }
 
 
-    public void editOffers() {
-
+    public void editProductRequest(Seller seller, Product product, String field, String oldValue, String newValue) {
+        new RequestForEditProduct(seller, product, field, oldValue, newValue);
     }
 
-    public void addOfferRequest() {
+    public void editOffersRequest(Seller seller, Offer offer, String field, String oldValue, String newValue) {
+        new RequestForEditOff(seller, offer, field, oldValue, newValue);
+    }
 
+    public void addOfferRequest(Seller seller, String offerID, ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage, int requestId) {
+        new RequestForAddOff(seller, offerID, productList, initialDate, finalDate, discountPercentage, requestId);
     }
 }

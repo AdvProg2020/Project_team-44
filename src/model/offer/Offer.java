@@ -38,6 +38,10 @@ public class Offer {
         return offerID;
     }
 
+    public int getDiscountPercentage() {
+        return discountPercentage;
+    }
+
     public void setStatus(OfferStatus status) {
         this.status = status;
     }
