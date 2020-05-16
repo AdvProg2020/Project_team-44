@@ -1,5 +1,7 @@
 package view.menu;
 
+import controller.ManagerAccountController;
+import exception.UsernameNotExistsException;
 import model.account.Account;
 
 import java.util.HashMap;
@@ -30,6 +32,24 @@ public class ManagerAccountMenu extends Menu {
             @Override
             public void execute() {
                 String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
+                    this.logoutInExecute();
+                else if (!input.matches("view \\w+"))
+                    this.invalidCommandInExecute();
+                else {
+                    String userName = input.substring(5);
+                    try {
+                        ManagerAccountController.processViewUserInfoEach(userName);
+                        System.out.println("done");
+                    } catch (UsernameNotExistsException userNameError) {
+                        userNameError.getMessage();
+                        this.execute();
+                    }
+
+                }
+            }
             }
         };
     }

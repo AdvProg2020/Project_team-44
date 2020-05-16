@@ -1,6 +1,5 @@
 package view.menu;
 
-import controller.LoginPageController;
 import controller.ManagerAccountController;
 import model.account.Account;
 

@@ -43,9 +43,6 @@ public class ManageAllProductsMenu extends Menu {
 
                 }
             }
-        }
+        };
     }
-
-    ;
-}
 }

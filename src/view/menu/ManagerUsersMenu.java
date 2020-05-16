@@ -42,7 +42,6 @@ public class ManagerUsersMenu extends Menu {
                     String userName = input.substring(5);
                     try {
                         ManagerAccountController.processViewUserInfoEach(userName);
-                        System.out.println("done");
                     } catch (UsernameNotExistsException userNameError) {
                         userNameError.getMessage();
                         this.execute();
