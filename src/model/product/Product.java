@@ -111,4 +111,21 @@ public class Product {
     public void setStatus(ProductStatus status) {
         this.status = status;
     }
+    public ArrayList<String> getProductInfo(){
+        ArrayList<String> info = new ArrayList<>();
+        info.add(this.getName());
+        info.add(String.valueOf(this.getPrice()));
+        info.add(this.getCategory().getName());
+        info.add(String.valueOf(this.getRating()));
+        info.add(this.getExplanationText());
+        if (this.getOffer().getOfferID() == null)
+            info.add("null");
+        else info.add(this.getOffer().getOfferID());
+        String sellers = "";
+        for (Seller allSeller : this.getAllSellers()) {
+            sellers = allSeller.getFirstName() + "  " + allSeller.getLastName() + " : ";
+        }
+        info.add(sellers);
+        return info;
+    }
 }

@@ -32,7 +32,7 @@ public class Purchaser extends Account {
 
     }
 
-    public void compareTwoProducts(Product firstProduct, Product secondProduct) {
+    public void compareTwoProducts(String firstProductId, String secondProductId) {
 
     }
 
