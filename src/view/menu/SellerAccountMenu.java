@@ -88,4 +88,28 @@ public class SellerAccountMenu extends Menu {
             }
         };
     }
+    private Menu getViewBalanceMenu(){
+        return new Menu("View Balance Menu",this,this.getCurrentUserLoggedIn()) {
+            @Override
+            public void show() {
+                System.out.println(this.getName() + ":");
+            }
+
+            @Override
+            public void execute() {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
+                    this.logoutInExecute();
+                else
+                    this.invalidCommandInExecute();
+            }
+
+            @Override
+            public void menuWork() {
+                SellerAccountManager.processViewBalance();
+            }
+        };
+    }
 }
