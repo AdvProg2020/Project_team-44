@@ -1,5 +1,6 @@
 package model.account;
 
+import model.buyLog.BuyLog;
 import model.product.Product;
 
 import java.util.ArrayList;
@@ -28,8 +29,7 @@ public class Purchaser extends Account {
 
 
     public void purchase(Product product) {
-        System.out.println("test");
-        
+
     }
 
     public void compareTwoProducts(Product firstProduct, Product secondProduct) {
@@ -47,5 +47,13 @@ public class Purchaser extends Account {
 
     public void searchProducts() {
 
+    }
+
+    public ArrayList<String> returnBuyLogIds() {
+        ArrayList<String> buyLogId = new ArrayList<>();
+        for (BuyLog buyLog : buyLogListHistory) {
+            buyLogId.add(buyLog.getLogID());
+        }
+        return buyLogId;
     }
 }

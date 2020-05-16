@@ -23,7 +23,7 @@ public abstract class LoginPageController {
     public static void processCreateAccount(String type, String username, String password, String firstName, String lastName, String email
             , String telephoneNumber, String companyName) throws UsernameExistsException {
 
-        checkUsernameForRegistration(username);
+        ValidationController.checkUsernameForRegistration(username);
         if (type.equalsIgnoreCase("seller")) {
             RequestForSeller requestForSeller = new RequestForSeller(companyName, username, firstName,
                     lastName, email, telephoneNumber, password);
@@ -38,8 +38,8 @@ public abstract class LoginPageController {
     }
 
     public static void processLogin(String username, String password) throws UsernameNotExistsException, WrongPasswordException {
-        checkUsernameForLogin(username);
-        checkPasswordForLogin(username, password);
+        ValidationController.checkUsernameForLogin(username);
+        ValidationController.checkPasswordForLogin(username, password);
         loggedInAccount = Account.getAccountByUsername(username);
         loggedInAccount.setLoggedIn(true);
     }
@@ -49,26 +49,4 @@ public abstract class LoginPageController {
         loggedInAccount = null;
     }
 
-    public static void checkPasswordForLogin(String username, String password) throws WrongPasswordException {
-        if (!Account.getAccountByUsername(username).getPassword().equals(password)) {
-            throw new WrongPasswordException("Password is incorrect.");
-        }
-    }
-
-    public static void checkUsernameForLogin(String username) throws UsernameNotExistsException {
-        for (Account account : Account.getAllAccounts()) {
-            if (username.equals(account.getUsername())) {
-                return;
-            }
-        }
-        throw new UsernameNotExistsException("No user exists with this username.");
-    }
-
-    public static void checkUsernameForRegistration(String username) throws UsernameExistsException {
-        for (Account account : Account.getAllAccounts()) {
-            if (username.equals(account.getUsername())) {
-                throw new UsernameExistsException("User exists with this username");
-            }
-        }
-    }
 }

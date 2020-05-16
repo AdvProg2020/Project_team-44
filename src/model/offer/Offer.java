@@ -12,7 +12,7 @@ public class Offer {
     private Date initialDate;
     private Date finalDate;
     private int discountPercentage;
-    private ArrayList<Offer> allOffers = new ArrayList<>();
+    private static ArrayList<Offer> allOffers = new ArrayList<>();
 
     public Offer(String offerID, ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage) {
         this.offerID = offerID;
@@ -20,5 +20,21 @@ public class Offer {
         this.initialDate = initialDate;
         this.finalDate = finalDate;
         this.discountPercentage = discountPercentage;
+    }
+
+    public Date getInitialDate() {
+        return initialDate;
+    }
+
+    public Date getFinalDate() {
+        return finalDate;
+    }
+
+    public static ArrayList<Offer> getAllOffers() {
+        return allOffers;
+    }
+
+    public String getOfferID() {
+        return offerID;
     }
 }

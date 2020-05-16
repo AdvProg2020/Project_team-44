@@ -28,15 +28,15 @@ public abstract class SellerAccountManager {
     }
 
     public static void processViewProductEach(String productId) throws ProductIdNotExistsException {
-        checkProductExistence(productId);
+        ValidationController.checkProductExistence(productId);
     }
 
     public static void processViewBuyersEach(String productId) throws ProductIdNotExistsException {
-        checkProductExistence(productId);
+        ValidationController.checkProductExistence(productId);
     }
 
     public static void processEditProduct(String productId) throws ProductIdNotExistsException {
-        checkProductExistence(productId);
+        ValidationController.checkProductExistence(productId);
     }
 
     public static void processAddProduct() {
@@ -56,11 +56,11 @@ public abstract class SellerAccountManager {
     }
 
     public static void processViewOffEach(String offId) throws ProductIdNotExistsException {
-        checkOfferExistence(offId);
+        ValidationController.checkOfferExistence(offId);
     }
 
     public static void processEditOffEach(String offId) throws ProductIdNotExistsException {
-        checkOfferExistence(offId);
+        ValidationController.checkOfferExistence(offId);
     }
 
     public static void processAddOffEach() {
@@ -70,20 +70,5 @@ public abstract class SellerAccountManager {
     public static void processViewBalance() {
 
     }
-    public static void checkProductExistence(String productId) throws ProductIdNotExistsException {
-        for (Product product : Product.getAllProducts()) {
-            if (productId.equals(product.getProductID())) {
-                return;
-            }
-        }
-        throw new ProductIdNotExistsException("No product exists with this Id.");
-    }
-    public static void checkOfferExistence(String offerId) throws ProductIdNotExistsException {
-        for (Offer offer : Offer.getAllOffs()) {
-            if (offerId.equals(offer.getOffID())) {
-                return;
-            }
-        }
-        throw new ProductIdNotExistsException("No offer exists with this Id.");
-    }
+
 }

@@ -6,7 +6,9 @@ import model.CodedDiscount;
 import model.account.Account;
 import model.account.Manager;
 import model.product.Product;
+import model.requests.Request;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public abstract class ManagerAccountController {
@@ -23,12 +25,12 @@ public abstract class ManagerAccountController {
     }
 
     public static ArrayList<String> processViewUserInfoEach(String username) throws UsernameNotExistsException {
-        checkUsernameExistence(username);
+        ValidationController.checkUsernameExistence(username);
         return Account.getAccountByUsername(username).getInfo();
     }
 
     public static void processDeleteUserEach(String username) throws UsernameNotExistsException {
-        checkUsernameExistence(username);
+        ValidationController.checkUsernameExistence(username);
         Account.getAllAccounts().remove(Account.getAccountByUsername(username));
     }
 
@@ -38,7 +40,7 @@ public abstract class ManagerAccountController {
 
 
     public static void processRemoveProductEach(String productId) throws ProductIdNotExistsException {
-        checkProductExistence(productId);
+        ValidationController.checkProductExistence(productId);
         Product.getAllProducts().remove(Product.getProductByID(productId));
     }
 
@@ -47,40 +49,40 @@ public abstract class ManagerAccountController {
     }
 
     public static ArrayList<String> processViewDiscountCodes() {
-        return Manager.getAllCodedDiscounts();
+        return CodedDiscount.getAllCodedDiscounts();
     }
 
     public static ArrayList<String> processViewDiscountCodeEach(String code) throws CodedDiscountNotExistsException {
-        checkCodedDiscountExistence(code);
+        ValidationController.checkCodedDiscountExistence(code);
         return CodedDiscount.getCodedDiscountByCode(code).getInfo();
     }
 
-    public static void processEditDiscountCodeEach(String code, String field, String newValue) throws CodedDiscountNotExistsException {
-        checkCodedDiscountExistence(code);
-        Manager.editDiscountCode(code, field, newValue);
+    public static void processEditDiscountCodeEach(String code, String field, String newValue) throws CodedDiscountNotExistsException, ParseException {
+        ValidationController.checkCodedDiscountExistence(code);
+        Manager.editCodedDiscount(code, field, newValue);
     }
 
     public static void processRemoveDiscountCodeEach(String code) throws CodedDiscountNotExistsException {
-        checkCodedDiscountExistence(code);
+        ValidationController.checkCodedDiscountExistence(code);
         CodedDiscount.getAllCodedDiscounts().remove(CodedDiscount.getCodedDiscountByCode(code));
     }
 
     public static ArrayList<String> processManageRequests() {
-        return Request.showAllRequests();
+        return Request.getAllRequests();
     }
 
-    public static ArrayList<String> processShowRequestDetailsEach(String requestId) throws RequestNotExistsException {
-        checkRequestExistence(requestId);
+    public static ArrayList<String> processShowRequestDetailsEach(int requestId) throws RequestNotExistsException {
+        ValidationController.checkRequestExistence(requestId);
         return Request.getRequestById(requestId).getInfo();
     }
 
-    public static void processAcceptRequestEach(String requestId) throws RequestNotExistsException {
-        checkRequestExistence(requestId);
+    public static void processAcceptRequestEach(int requestId) throws RequestNotExistsException {
+        ValidationController.checkRequestExistence(requestId);
         /*TODO*/
     }
 
-    public static void processDeclineRequestEach(String requestId) throws RequestNotExistsException {
-        checkRequestExistence(requestId);
+    public static void processDeclineRequestEach(int requestId) throws RequestNotExistsException {
+        ValidationController.checkRequestExistence(requestId);
         /*TODO*/
     }
 
@@ -89,64 +91,19 @@ public abstract class ManagerAccountController {
     }
 
     public static void processEditCategoryEach(String category) throws CategoryNotExistsException {
-        checkCategoryExistence(category);
+        ValidationController.checkCategoryExistence(category);
         /*TODO*/
     }
 
     public static void processAddCategoryEach(String category) throws CategoryNotExistsException {
-        checkCategoryExistence(category);
+        ValidationController.checkCategoryExistence(category);
         /*TODO*/
     }
 
     public static void processRemoveCategoryEach(String category) throws CategoryNotExistsException {
-        checkCategoryExistence(category);
+        ValidationController.checkCategoryExistence(category);
         /*TODO*/
     }
 
-    public static void checkCategoryExistence(String selectedCategory) throws CategoryNotExistsException {
-        for (Category category : Category.getAllCategories()) {
-            if (selectedCategory.equals(category.getName())) {
-                return;
-            }
-        }
-        throw new CategoryNotExistsException("Wrong category.");
 
-    }
-
-    public static void checkRequestExistence(String Id) throws RequestNotExistsException {
-        for (Request request : Requset.getAllRequests()) {
-            if (Id.equals(request.getId())) {
-                return;
-            }
-        }
-        throw new RequestNotExistsException("No Request exists with this Id.");
-    }
-
-    public static void checkCodedDiscountExistence(String discountCode) throws CodedDiscountNotExistsException {
-        for (CodedDiscount codedDiscount : CodedDiscount.getAllCodedDiscounts()) {
-            if (discountCode.equals(codedDiscount.getDiscountCode())) {
-                return;
-            }
-        }
-        throw new CodedDiscountNotExistsException("No CodedDiscount exists with this code.");
-
-    }
-
-    public static void checkUsernameExistence(String username) throws UsernameNotExistsException {
-        for (Account account : Account.getAllAccounts()) {
-            if (username.equals(account.getUsername())) {
-                return;
-            }
-        }
-        throw new UsernameNotExistsException("No user exists with this username.");
-    }
-
-    public static void checkProductExistence(String productId) throws ProductIdNotExistsException {
-        for (Product product : Product.getAllProducts()) {
-            if (productId.equals(product.getProductID())) {
-                return;
-            }
-        }
-        throw new ProductIdNotExistsException("No product exists with this Id.");
-    }
 }

@@ -13,7 +13,7 @@ public class SellLog {
     private ArrayList<Product> allSellProducts;
     private String buyerName;
     private SellLogStatus status;
-    private static ArrayList<SellLog> allLogs;
+    private static ArrayList<SellLog> allSellLogs;
 
     public SellLog(String logID, Date date, int moneyGained, int offerLossMoney, ArrayList<Product> allSellProducts, String buyerName) {
         this.logID = logID;
@@ -22,6 +22,6 @@ public class SellLog {
         this.offerLossMoney = offerLossMoney;
         this.allSellProducts = allSellProducts;
         this.buyerName = buyerName;
-        allLogs.add(this);
+        allSellLogs.add(this);
     }
 }
