@@ -5,7 +5,6 @@ import model.account.Purchaser;
 import java.util.ArrayList;
 
 public class RequestForSeller extends Request {
-    private RequestStatus status;
     private String companyName;
     private String username;
     private String firstName;
@@ -26,11 +25,6 @@ public class RequestForSeller extends Request {
         this.email = email;
         this.telephoneNumber = telephoneNumber;
         this.password = password;
-        this.status = RequestStatus.IN_PROGRESS;
         allRequestsForSeller.add(this);
-    }
-
-    public void setStatus(RequestStatus status) {
-        this.status = status;
     }
 }

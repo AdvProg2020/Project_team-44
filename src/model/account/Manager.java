@@ -2,6 +2,8 @@ package model.account;
 
 import model.Category;
 import model.CodedDiscount;
+import model.requests.Request;
+import model.requests.RequestStatus;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +14,6 @@ import java.util.HashMap;
 public class Manager extends Account {
 
     private static ArrayList<CodedDiscount> allDiscountCode = new ArrayList<>();
-    //private static ArrayList<Category> allCategories = new ArrayList<>();
     private static ArrayList<Manager> allManagers = new ArrayList<>();
 
     public Manager(String username, String firstName, String secondName, String email, String telephoneNumber, String password) {
@@ -20,28 +21,20 @@ public class Manager extends Account {
 //        allManagers.add(this);
     }
 
-    public void seeRequestList() {
-
+    public ArrayList<Integer> getRequestIdLists() {
+        ArrayList<Integer> IdLists = new ArrayList<>();
+        for (Request allRequest : Request.getAllRequests()) {
+            IdLists.add(allRequest.getRequestId());
+        }
+        return IdLists;
     }
 
-    public void showSellerRegistrationRequests() {
-
+    public void accept(Request request) {
+        request.setStatus(RequestStatus.VERIFIED);
     }
 
-    public void showAddProductRequests() {
-
-    }
-
-    public void showEditProductRequests() {
-
-    }
-
-    public void showAddOfferRequests() {
-
-    }
-
-    public void showEditOfferRequests() {
-
+    public void decline(Request request) {
+        request.setStatus(RequestStatus.DECLINED);
     }
 
     public static ArrayList<String> showAllUsers() {
@@ -74,11 +67,25 @@ public class Manager extends Account {
         new Manager(newManager.getUserName(), newManager.getFirstName(), newManager.getLastName(), newManager.getEmail(), newManager.getTelephoneNumber(), newManager.getPassword());
     }
 
-    public void editCategoryEach(Category category) {
-
+    public void editCategoryEach(String categoryName, String field, String oldValue, String newValue) {
+        if (field.equalsIgnoreCase("name")) {
+            Category.getCategoryByName(categoryName).setName(newValue);
+        } else if (field.equalsIgnoreCase("attributes")) {
+            if (oldValue == null) {
+                Category.getCategoryByName(categoryName).getAttributes().add(newValue);
+            } else {
+                ArrayList<String> allAttributes = new ArrayList<>();
+                for (String attribute : Category.getCategoryByName(categoryName).getAttributes()) {
+                    if (attribute.equalsIgnoreCase(oldValue)) {
+                        allAttributes.add(newValue);
+                    } else allAttributes.add(attribute);
+                }
+            }
+        }
     }
 
-    public void addCategory(Category category) {
-        Category.getAllCategories().add(new Category(category.getName()));
+    public void addCategory(String name) {
+        new Category(name);
+        /////ask about attributes..............
     }
 }

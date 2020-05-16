@@ -16,11 +16,32 @@ public class Category {
         allCategories.add(this);
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAttributes(ArrayList<String> attributes) {
+        this.attributes = attributes;
+    }
+
+    public ArrayList<String> getAttributes() {
+        return attributes;
+    }
+
     public String getName() {
         return name;
     }
 
     public static ArrayList<Category> getAllCategories() {
         return allCategories;
+    }
+
+    public static Category getCategoryByName(String categoryName) {
+        for (Category allCategory : allCategories) {
+            if (allCategory.getName().equalsIgnoreCase(categoryName)){
+                return allCategory;
+            }
+        }
+        return null;
     }
 }

@@ -1,7 +1,9 @@
 package model.account;
 
+import model.Category;
 import model.offer.Offer;
 import model.product.Product;
+import model.requests.RequestForAddProduct;
 
 import java.util.ArrayList;
 
