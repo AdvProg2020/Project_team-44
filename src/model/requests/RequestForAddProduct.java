@@ -5,13 +5,14 @@ import model.product.Product;
 
 import java.util.ArrayList;
 
-public class RequestForAddProduct {
+public class RequestForAddProduct extends Request {
     private Seller seller;
     private Product product;
     private RequestStatus status;
     private static ArrayList<RequestForAddProduct> allRequestsForAddProduct = new ArrayList<>();
 
-    public RequestForAddProduct(Seller seller, Product product) {
+    public RequestForAddProduct(Seller seller, Product product, int requestId) {
+        super(requestId);
         this.seller = seller;
         this.product = product;
         this.status = RequestStatus.IN_PROGRESS;

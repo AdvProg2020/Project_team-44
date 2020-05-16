@@ -3,23 +3,21 @@ package model.account;
 import model.Category;
 import model.CodedDiscount;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Manager extends Account {
 
     private static ArrayList<CodedDiscount> allDiscountCode = new ArrayList<>();
-    private static ArrayList<Category> allCategories = new ArrayList<>();
+    //private static ArrayList<Category> allCategories = new ArrayList<>();
     private static ArrayList<Manager> allManagers = new ArrayList<>();
 
     public Manager(String username, String firstName, String secondName, String email, String telephoneNumber, String password) {
         super(username, firstName, secondName, email, telephoneNumber, password);
 //        allManagers.add(this);
-    }
-
-    @Override
-    public ArrayList<String> getInfo() {
-        return super.getInfo();
     }
 
     @Override
@@ -51,25 +49,30 @@ public class Manager extends Account {
 
     }
 
-    public static HashMap<String, String> showAllUsers() {
-        HashMap<String, String> userInfo = new HashMap<>();
-        for (Account account : Account.getAllAccounts()) {
-            userInfo.put(account.getType(), account.getUserName());
+    public static ArrayList<String> showAllUsers() {
+        ArrayList<String> info = new ArrayList<>();
+        for (Account allAccount : allAccounts) {
+            info.add(allAccount.getUserName());
         }
-        return userInfo;
+        return info;
     }
 
-
-    public void editCodedDiscount() {
-
+    public static void editCodedDiscount(String discountCode, String field, String newValue) throws ParseException {
+        if (field.equalsIgnoreCase("initialDate")) {
+            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(newValue);
+            CodedDiscount.getCodedDiscountByCode(discountCode).setInitialDate(date);
+        } else if (field.equalsIgnoreCase("finalDate")) {
+            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(newValue);
+            CodedDiscount.getCodedDiscountByCode(discountCode).setFinalDate(date);
+        } else if (field.equalsIgnoreCase("discountPercentage")) {
+            CodedDiscount.getCodedDiscountByCode(discountCode).setDiscountPercentage(Integer.parseInt(newValue));
+        } else if (field.equalsIgnoreCase("maxAuthorizedPrice")) {
+            CodedDiscount.getCodedDiscountByCode(discountCode).setMaxAuthorizedPrice(Integer.parseInt(newValue));
+        }
     }
 
     public static void createCodedDiscount() {
 
-    }
-
-    public void removeUserEach(Account toRemoveAccount) {
-        allAccounts.remove(toRemoveAccount);
     }
 
     public void addManager(Account newManager) {
@@ -81,6 +84,6 @@ public class Manager extends Account {
     }
 
     public void addCategory(Category category) {
-        allCategories.add(new Category(category.getName()));
+        Category.getAllCategories().add(new Category(category.getName()));
     }
 }

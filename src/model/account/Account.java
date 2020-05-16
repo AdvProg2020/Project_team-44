@@ -19,7 +19,6 @@ public abstract class Account {
     protected ArrayList<BuyLog> buyLogListHistory;
     protected static ArrayList<Account> allAccounts = new ArrayList<>();
     protected boolean isLoggedIn;
-    protected String type;
 
     public Account(String userName, String firstName, String lastName,
                    String email, String telephoneNumber, String password) {
@@ -34,10 +33,6 @@ public abstract class Account {
         this.sellLogListHistory = new ArrayList<>();
         this.buyLogListHistory = new ArrayList<>();
         allAccounts.add(this);
-    }
-
-    public String getType() {
-        return type;
     }
 
     public String getUserName() {
@@ -122,7 +117,13 @@ public abstract class Account {
     }
 
     public ArrayList<String> getInfo() {
-        return null;
+        ArrayList<String> info = new ArrayList<>();
+        info.add(this.getUserName());
+        info.add(this.getFirstName());
+        info.add(this.getLastName());
+        info.add(this.getEmail());
+        info.add(this.getTelephoneNumber());
+        return info;
     }
 
     public void editInfo(String field, String newValue) {

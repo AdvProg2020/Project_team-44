@@ -5,14 +5,15 @@ import model.product.Product;
 
 import java.util.ArrayList;
 
-public class RequestForEditProduct {
+public class RequestForEditProduct extends Request{
     private Seller seller;
     private Product pastProduct;
     private Product newProduct;
     private RequestStatus status;
     private static ArrayList<RequestForEditProduct> allRequestsForEditProduct = new ArrayList<>();
 
-    public RequestForEditProduct(Seller seller, Product pastProduct, Product newProduct) {
+    public RequestForEditProduct(Seller seller, Product pastProduct, Product newProduct, int requestId) {
+        super(requestId);
         this.seller = seller;
         this.pastProduct = pastProduct;
         this.newProduct = newProduct;
