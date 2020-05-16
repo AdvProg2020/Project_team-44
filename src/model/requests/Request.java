@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Request {
-    private int requestId;
-    private RequestStatus status;
-    private static ArrayList<Request> allRequests = new ArrayList<>();
+    protected String requestId;
+    protected RequestStatus status;
+    protected static ArrayList<Request> allRequests = new ArrayList<>();
 
-    public Request(int requestId) {
-        this.requestId = requestId;
+    public Request() {
+        this.requestId = produceRequestId();
         this.status = RequestStatus.IN_PROGRESS;
         allRequests.add(this);
     }
@@ -18,32 +18,42 @@ public class Request {
         return allRequests;
     }
 
-    public int getRequestId() {
+    public String getRequestId() {
         return requestId;
+    }
+
+    public RequestStatus getStatus() {
+        return status;
     }
 
     public void setStatus(RequestStatus status) {
         this.status = status;
     }
 
-    private int produceRequestId() {
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+
+    public String produceRequestId() {
         Random random = new Random();
         int min = 0;
         int max = 100000000;
         int range = max - min;
         int rand = random.nextInt(range) + min;
-        return rand;
+        return String.valueOf(rand);
     }
 
-    public static Request getRequestById(int requestId) {
+    public static Request getRequestById(String requestId) {
         for (Request allRequest : allRequests) {
             if (allRequest.getRequestId() == requestId)
                 return allRequest;
         }
         return null;
     }
-    public ArrayList<String> getRequestDetails(int requestId){
+    public ArrayList<String> getRequestDetails(){
         ArrayList<String> details = new ArrayList<>();
+        details.add(this.getStatus().toString());
         return details;
     }
+
 }
