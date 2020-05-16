@@ -90,11 +90,12 @@ public abstract class ManagerAccountController {
 
     public static void processAcceptRequestEach(String requestId) throws RequestNotExistsException {
         ValidationController.checkRequestExistence(requestId);
-        /*TODO*/
+        ((Manager) LoginPageController.loggedInAccount).accept(requestId);
     }
 
     public static void processDeclineRequestEach(String requestId) throws RequestNotExistsException {
         ValidationController.checkRequestExistence(requestId);
+        ((Manager) LoginPageController.loggedInAccount).decline(requestId);
         /*TODO*/
     }
 
@@ -109,6 +110,7 @@ public abstract class ManagerAccountController {
 
     public static void processAddCategoryEach(String category) throws CategoryNotExistsException {
         ValidationController.checkCategoryExistence(category);
+        ((Manager) LoginPageController.loggedInAccount).addCategory(category);
         /*TODO*/
     }
 
