@@ -19,7 +19,6 @@ public class RequestForAddProduct extends Request {
     private static ArrayList<RequestForAddProduct> allRequestsForAddProduct = new ArrayList<>();
 
     public RequestForAddProduct(int requestId, Seller seller, String productID, Category category, String name, String companyName, int price, String explanationText) {
-        super(requestId);
         this.seller = seller;
         this.productID = productID;
         this.category = category;
@@ -63,11 +62,10 @@ public class RequestForAddProduct extends Request {
     }
 
     @Override
-    public ArrayList<String> getRequestDetails(int requestId) {
-        ArrayList<String> details = new ArrayList<>();
-        details = super.getRequestDetails(requestId);
-        details.add(seller.getFirstName());
-        details.add(seller.getLastName());
+    public ArrayList<String> getRequestDetails() {
+        ArrayList<String> details = super.getRequestDetails();
+        details.add(this.getSeller().getFirstName());
+        details.add(this.getSeller().getLastName());
         details.add(this.getName());
         details.add(this.getCompanyName());
         details.add(String.valueOf(this.getPrice()));

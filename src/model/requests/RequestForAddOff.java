@@ -19,7 +19,6 @@ public class RequestForAddOff extends Request {
     private static ArrayList<RequestForAddOff> allRequestsForAddOff = new ArrayList<>();
 
     public RequestForAddOff(Seller seller, String offerID, ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage, int requestId) {
-        super(requestId);
         this.seller = seller;
         this.offerID = offerID;
         this.productList = productList;
@@ -27,6 +26,10 @@ public class RequestForAddOff extends Request {
         this.finalDate = finalDate;
         this.discountPercentage = discountPercentage;
         allRequestsForAddOff.add(this);
+    }
+
+    public Seller getSeller() {
+        return seller;
     }
 
     public String getOfferID() {
@@ -46,11 +49,10 @@ public class RequestForAddOff extends Request {
     }
 
     @Override
-    public ArrayList<String> getRequestDetails(int requestId) {
-        ArrayList<String> details = new ArrayList<>();
-        details = super.getRequestDetails(requestId);
-        details.add(seller.getFirstName());
-        details.add(seller.getLastName());
+    public ArrayList<String> getRequestDetails() {
+        ArrayList<String> details = super.getRequestDetails();
+        details.add(this.getSeller().getFirstName());
+        details.add(this.getSeller().getLastName());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(this.getInitialDate());
         details.add(this.getOfferID());
