@@ -4,6 +4,7 @@ import exception.OrderNotExistsException;
 import exception.ProductIdNotExistsException;
 import model.CodedDiscount;
 import model.account.Purchaser;
+import model.buyLog.BuyLog;
 import model.product.Product;
 
 import java.util.ArrayList;
@@ -26,17 +27,17 @@ public abstract class PurchaserAccountManager {
     }
 
     public static void processViewProductsEach(String productId) throws ProductIdNotExistsException {
-        checkProductExistence(productId);
+        ValidationController.checkProductExistence(productId);
         /*TODO*/
     }
 
     public static void processIncreaseProductEach(String productId) throws ProductIdNotExistsException {
-        checkProductExistence(productId);
+        ValidationController.checkProductExistence(productId);
         /*TODO*/
     }
 
     public static void processDecreaseProductEach(String productId) throws ProductIdNotExistsException {
-        checkProductExistence(productId);
+        ValidationController.checkProductExistence(productId);
         /*TODO*/
     }
 
@@ -57,12 +58,12 @@ public abstract class PurchaserAccountManager {
     }
 
     public static ArrayList<String> processShowOrderEach(String orderId) throws OrderNotExistsException {
-        checkOrderExistence(orderId);
-        return Order.getOrderById(orderId).showInfo();
+        ValidationController.checkOrderExistence(orderId);
+        return BuyLog.getBuyLogById(orderId).getInfo();
     }
 
     public static void processRateEach(String productId, int rating) throws ProductIdNotExistsException {
-        checkProductExistence(productId);
+        ValidationController.checkProductExistence(productId);
         ((Purchaser) LoginPageController.loggedInAccount).rateProduct(rating, Product.getProductByID(productId));
     }
 
@@ -78,22 +79,5 @@ public abstract class PurchaserAccountManager {
         return allDiscounts;
     }
 
-    public static void checkOrderExistence(String orderId) throws OrderNotExistsException {
-        for (Order order : Order.getAllOrders()) {
-            if (orderId.equals(order.getOrderId())) {
-                return;
-            }
-        }
-        throw new OrderNotExistsException("No order exists with this Id.");
-    }
-
-    public static void checkProductExistence(String productId) throws ProductIdNotExistsException {
-        for (Product product : Product.getAllProducts()) {
-            if (productId.equals(product.getProductID())) {
-                return;
-            }
-        }
-        throw new ProductIdNotExistsException("No product exists with this Id.");
-    }
 
 }
