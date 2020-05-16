@@ -6,7 +6,7 @@ import model.offer.Offer;
 
 import java.util.ArrayList;
 
-public class RequestForEditOff extends Request{
+public class RequestForEditOff extends Request {
     private Seller seller;
     private Offer pastOff;
     private Offer newOff;

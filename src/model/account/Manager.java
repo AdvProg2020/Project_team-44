@@ -20,11 +20,6 @@ public class Manager extends Account {
 //        allManagers.add(this);
     }
 
-    @Override
-    public void editInfo(String field, String newValue) {
-        super.editInfo(field, newValue);
-    }
-
     public void seeRequestList() {
 
     }
@@ -71,8 +66,8 @@ public class Manager extends Account {
         }
     }
 
-    public static void createCodedDiscount() {
-
+    public static void createCodedDiscount(String discountCode, Date initialDate, Date finalDate, int discountPercentage, int maxAuthorizedPrice) {
+        new CodedDiscount(discountCode, initialDate, finalDate, discountPercentage, maxAuthorizedPrice);
     }
 
     public void addManager(Account newManager) {

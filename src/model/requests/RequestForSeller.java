@@ -4,7 +4,7 @@ import model.account.Purchaser;
 
 import java.util.ArrayList;
 
-public class RequestForSeller extends Request{
+public class RequestForSeller extends Request {
     private RequestStatus status;
     private String companyName;
     private String username;

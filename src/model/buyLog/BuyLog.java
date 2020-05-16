@@ -58,7 +58,8 @@ public class BuyLog {
         }
         return null;
     }
-    public ArrayList<String> getInfo(){
+
+    public ArrayList<String> getInfo() {
         ArrayList<String> info = new ArrayList<>();
         info.add(this.getLogID());
         Date date = this.getDate();

@@ -20,6 +20,10 @@ public class Seller extends Account {
         return companyName;
     }
 
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
     @Override
     public ArrayList<String> getInfo() {
         ArrayList<String> info = new ArrayList<>();
@@ -31,6 +35,9 @@ public class Seller extends Account {
     @Override
     public void editInfo(String field, String newValue) {
         super.editInfo(field, newValue);
+        if (field.equalsIgnoreCase("companyName")){
+            this.setCompanyName(newValue);
+        }
     }
 
     public void editProduct() {

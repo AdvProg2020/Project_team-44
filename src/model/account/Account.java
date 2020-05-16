@@ -87,12 +87,12 @@ public abstract class Account {
         this.firstName = firstName;
     }
 
-    public void setSecondName(String secondName) {
-        this.lastName = secondName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public void setEmail(String email) {
-        this.eMail = email;
+    public void setEMail(String eMail) {
+        this.eMail = eMail;
     }
 
     public void setTelephoneNumber(String telephoneNumber) {
@@ -127,6 +127,16 @@ public abstract class Account {
     }
 
     public void editInfo(String field, String newValue) {
-
+        if (field.equalsIgnoreCase("firstName")){
+            this.setFirstName(newValue);
+        }else if (field.equalsIgnoreCase("lastName")){
+            this.setLastName(newValue);
+        }else if (field.equalsIgnoreCase("eMail")){
+            this.setEMail(newValue);
+        }else if (field.equalsIgnoreCase("telephoneNumber")){
+            this.setTelephoneNumber(newValue);
+        }else if (field.equalsIgnoreCase("password")){
+            this.setPassword(newValue);
+        }
     }
 }

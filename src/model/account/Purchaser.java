@@ -13,17 +13,12 @@ public class Purchaser extends Account {
         this.cart = new ArrayList<>();
     }
 
-    @Override
-    public void editInfo(String field, String newValue) {
-        super.editInfo(field, newValue);
-    }
-
     public void rateProduct(int rating, Product product) {
 
     }
 
 
-    public String purchase(Product product , String input) {
+    public String purchase(Product product, String input) {
         return null;
     }
 
@@ -43,7 +38,8 @@ public class Purchaser extends Account {
     public void searchProducts() {
 
     }
-    public ArrayList<String> returnBuyLogIds(){
+
+    public ArrayList<String> returnBuyLogIds() {
         ArrayList<String> buyLogId = new ArrayList<>();
         for (BuyLog buyLog : buyLogListHistory) {
             buyLogId.add(buyLog.getLogID());

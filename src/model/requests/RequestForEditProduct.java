@@ -5,7 +5,7 @@ import model.product.Product;
 
 import java.util.ArrayList;
 
-public class RequestForEditProduct extends Request{
+public class RequestForEditProduct extends Request {
     private Seller seller;
     private Product pastProduct;
     private Product newProduct;
