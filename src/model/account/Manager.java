@@ -18,7 +18,7 @@ public class Manager extends Account {
 
     public Manager(String username, String firstName, String secondName, String email, String telephoneNumber, String password) {
         super(username, firstName, secondName, email, telephoneNumber, password);
-//        allManagers.add(this);
+        allManagers.add(this);
     }
 
     public ArrayList<Integer> getRequestIdLists() {

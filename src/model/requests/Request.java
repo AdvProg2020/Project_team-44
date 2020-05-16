@@ -42,4 +42,8 @@ public class Request {
         }
         return null;
     }
+    public ArrayList<String> getRequestDetails(int requestId){
+        ArrayList<String> details = new ArrayList<>();
+        return details;
+    }
 }
