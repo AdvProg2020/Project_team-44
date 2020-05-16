@@ -29,12 +29,12 @@ public class Manager extends Account {
         return IdLists;
     }
 
-    public void accept(Request request) {
-        request.setStatus(RequestStatus.VERIFIED);
+    public void accept(int requestId) {
+        Request.getRequestById(requestId).setStatus(RequestStatus.VERIFIED);
     }
 
-    public void decline(Request request) {
-        request.setStatus(RequestStatus.DECLINED);
+    public void decline(int requestId) {
+        Request.getRequestById(requestId).setStatus(RequestStatus.DECLINED);
     }
 
     public static ArrayList<String> showAllUsers() {
