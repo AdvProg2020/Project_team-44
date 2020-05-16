@@ -20,7 +20,7 @@ public class ViewDiscountCodesMenu extends Menu {
     }
 
     private Menu getViewOfDiscountCodeMenu() {
-        return new Menu("View Of Discount Code Menu", this, this.getCurrentUser()) {
+        return new Menu("View Of Discount Code Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -35,7 +35,7 @@ public class ViewDiscountCodesMenu extends Menu {
     }
 
     private Menu getEditDiscountCodeMenu() {
-        return new Menu("Edit Discount Code Menu", this, this.getCurrentUser()) {
+        return new Menu("Edit Discount Code Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -50,7 +50,7 @@ public class ViewDiscountCodesMenu extends Menu {
     }
 
     private Menu getRemoveDiscountCodeMenu() {
-        return new Menu("Remove Discount Code Menu", this, this.getCurrentUser()) {
+        return new Menu("Remove Discount Code Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");

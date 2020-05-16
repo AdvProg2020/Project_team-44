@@ -13,7 +13,7 @@ public class ManageAllProductsMenu extends Menu {
     }
 
     private Menu getRemoveProductMenu() {
-        return new Menu("Remove Product Menu", this, this.getCurrentUser()) {
+        return new Menu("Remove Product Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");

@@ -18,7 +18,7 @@ public class SellerAccountMenu extends Menu {
     }
 
     private Menu getViewCompanyInformationMenu() {
-        return new Menu("View Company Information Menu", this, this.getCurrentUser()) {
+        return new Menu("View Company Information Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -27,7 +27,7 @@ public class SellerAccountMenu extends Menu {
     }
 
     private Menu getViewSaleHistoryMenu() {
-        return new Menu("View Sale History Menu", this, this.getCurrentUser()) {
+        return new Menu("View Sale History Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");

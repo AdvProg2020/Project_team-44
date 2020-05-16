@@ -20,7 +20,7 @@ public class ManagerAccountMenu extends Menu {
     }
 
     private Menu getCreateDiscountCodeMenu() {
-        return new Menu("Create Discount Code Menu", this, this.getCurrentUser()) {
+        return new Menu("Create Discount Code Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");

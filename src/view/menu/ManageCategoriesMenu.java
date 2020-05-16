@@ -20,7 +20,7 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     private Menu getEditCategoryMenu() {
-        return new Menu("Edit Category Menu", this, this.getCurrentUser()) {
+        return new Menu("Edit Category Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -35,7 +35,7 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     private Menu getAddCategoryMenu() {
-        return new Menu("Add Category Menu", this, this.getCurrentUser()) {
+        return new Menu("Add Category Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -50,7 +50,7 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     private Menu getRemoveCategoryMenu() {
-        return new Menu("Remove Category Menu", this, this.getCurrentUser()) {
+        return new Menu("Remove Category Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");

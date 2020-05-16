@@ -20,7 +20,7 @@ public class ManagerProductsForSellerMenu extends Menu {
     }
 
     private Menu getViewProductMenu() {
-        return new Menu("View Product Menu", this, this.getCurrentUser()) {
+        return new Menu("View Product Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -35,7 +35,7 @@ public class ManagerProductsForSellerMenu extends Menu {
     }
 
     private Menu getViewBuyersOfProductMenu() {
-        return new Menu("View Buyers Of Product Menu", this, this.getCurrentUser()) {
+        return new Menu("View Buyers Of Product Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -50,7 +50,7 @@ public class ManagerProductsForSellerMenu extends Menu {
     }
 
     private Menu getEditProductMenu() {
-        return new Menu("Edit Product Menu", this, this.getCurrentUser()) {
+        return new Menu("Edit Product Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");

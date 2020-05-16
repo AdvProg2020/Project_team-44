@@ -21,7 +21,7 @@ public class ManagerUsersMenu extends Menu {
     }
 
     private Menu getViewOfUserMenu() {
-        return new Menu("View Of User Menu", this, this.getCurrentUser()) {
+        return new Menu("View Of User Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -37,7 +37,7 @@ public class ManagerUsersMenu extends Menu {
     }
 
     private Menu getDeleteUserMenu() {
-        return new Menu("Delete User Menu", this, this.getCurrentUser()) {
+        return new Menu("Delete User Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -52,7 +52,7 @@ public class ManagerUsersMenu extends Menu {
     }
 
     private Menu getCreateManagerProfileMenu() {
-        return new Menu("Create Manager Profile Menu", this, this.getCurrentUser()) {
+        return new Menu("Create Manager Profile Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
 

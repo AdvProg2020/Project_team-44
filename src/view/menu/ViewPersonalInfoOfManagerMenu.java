@@ -1,5 +1,6 @@
 package view.menu;
 
+import controller.ManagerAccountController;
 import model.account.Account;
 
 import java.util.HashMap;
@@ -10,15 +11,16 @@ public class ViewPersonalInfoOfManagerMenu extends Menu {
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getEditFieldMenu());
         this.setSubmenus(submenus);
+
     }
 
     @Override
-    public void show() {
-
+    public void menuWork() {
+        ManagerAccountController.processViewPersonalInfo();
     }
 
     private Menu getEditFieldMenu() {
-        return new Menu("Edit Field Menu", this, this.getCurrentUser()) {
+        return new Menu("Edit Field Menu", this, this.getCurrentUserLoggedIn()) {
 
             @Override
             public void show() {
@@ -29,7 +31,25 @@ public class ViewPersonalInfoOfManagerMenu extends Menu {
             @Override
             public void execute() {
                 String input = scanner.nextLine();
+                if (!input.matches("edit-\\w+-\\w+")) {
+                    System.err.println("invalid command");
+                    this.execute();
+                } else {
+                    String field = input.split("-")[1];
+                    String newValue = input.split("-")[2];
+                    if (field.equals("username")) {
+                        System.err.println("you can't edit username");
+                        this.execute();
+                    } else
+                        try{
+                            ManagerAccountController.processEditFieldEach(field,newValue);
+                            System.out.println("your change done");
+                        }
+                        catch (){
 
+                        }
+
+                }
             }
         };
     }

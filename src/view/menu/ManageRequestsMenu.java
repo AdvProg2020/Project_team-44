@@ -20,7 +20,7 @@ public class ManageRequestsMenu extends Menu {
     }
 
     private Menu getDetailsOfRequestMenu() {
-        return new Menu("Details Of Request Menu", this, this.getCurrentUser()) {
+        return new Menu("Details Of Request Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -35,7 +35,7 @@ public class ManageRequestsMenu extends Menu {
     }
 
     private Menu getAcceptRequestMenu() {
-        return new Menu("Accept Request Menu", this, this.getCurrentUser()) {
+        return new Menu("Accept Request Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -50,7 +50,7 @@ public class ManageRequestsMenu extends Menu {
     }
 
     private Menu getDeclineRequestMenu() {
-        return new Menu("Decline Request Menu", this, this.getCurrentUser()) {
+        return new Menu("Decline Request Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");

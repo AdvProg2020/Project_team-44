@@ -18,7 +18,7 @@ public class ViewPersonalInfoOfSellerMenu extends Menu {
     }
 
     private Menu getEditFieldMenu() {
-        return new Menu("Edit Field Menu", this, this.getCurrentUser()) {
+        return new Menu("Edit Field Menu", this, this.getCurrentUserLoggedIn()) {
 
             @Override
             public void show() {

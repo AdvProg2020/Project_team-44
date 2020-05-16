@@ -1,5 +1,6 @@
 package view.menu;
 
+import controller.LoginPageController;
 import model.account.Account;
 
 import java.util.HashMap;
@@ -10,20 +11,20 @@ public abstract class Menu {
     private Menu parent;
     private HashMap<Integer, Menu> submenus = new HashMap<>();
     protected static Scanner scanner;
-    private Account currentUser;
+    private Account currentUserLoggedIn;
 
     protected Menu(String name, Menu parent, Account account) {
         this.name = name;
         this.parent = parent;
-        this.currentUser = account;
+        this.currentUserLoggedIn = account;
     }
 
     public static void setScanner(Scanner scanner) {
         Menu.scanner = scanner;
     }
 
-    public Account getCurrentUser() {
-        return currentUser;
+    public Account getCurrentUserLoggedIn() {
+        return currentUserLoggedIn;
     }
 
     public void setSubmenus(HashMap<Integer, Menu> submenus) {
@@ -44,7 +45,7 @@ public abstract class Menu {
             System.out.println((submenus.size() + 2) + "- back");
         else
             System.out.println((submenus.size() + 2) + "- exit");
-        if (currentUser.isLoggedIn())
+        if (currentUserLoggedIn.isLoggedIn())
             System.out.println((submenus.size() + 3) + "- logout");
 
     }
@@ -69,18 +70,26 @@ public abstract class Menu {
                     nextMenu = this.parent;
 
             } else {
-                if (currentUser.isLoggedIn() && menuNumber > submenus.size() + 3) {
+                if (currentUserLoggedIn != null && menuNumber > submenus.size() + 3) {
                     System.err.println("your menu number is invalid!");
                     nextMenu = this;
-                } else if (!currentUser.isLoggedIn() && menuNumber > submenus.size() + 2) {
+                } else if (currentUserLoggedIn == null && menuNumber > submenus.size() + 2) {
                     System.err.println("your menu number is invalid!");
                     nextMenu = this;
+                } else if (currentUserLoggedIn != null && menuNumber == submenus.size() + 3) {
+                    nextMenu = new MainMenu(null, null);
+                    LoginPageController.logout();
                 } else
                     nextMenu = submenus.get(menuNumber);
             }
         }
 
         nextMenu.show();
+        nextMenu.menuWork();
         nextMenu.execute();
+    }
+
+    public void menuWork() {
+
     }
 }
