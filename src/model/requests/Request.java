@@ -30,7 +30,11 @@ public class Request {
         this.status = status;
     }
 
-    private int produceRequestId() {
+    public void setRequestId(int requestId) {
+        this.requestId = requestId;
+    }
+
+    public int produceRequestId() {
         Random random = new Random();
         int min = 0;
         int max = 100000000;
@@ -51,4 +55,5 @@ public class Request {
         details.add(this.getStatus().toString());
         return details;
     }
+
 }

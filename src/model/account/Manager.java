@@ -31,6 +31,7 @@ public class Manager extends Account {
 
     public void accept(int requestId) {
         Request.getRequestById(requestId).setStatus(RequestStatus.VERIFIED);
+        Request.getAllRequests();
     }
 
     public void decline(int requestId) {
@@ -85,7 +86,6 @@ public class Manager extends Account {
     }
 
     public void addCategory(String name) {
-        new Category(name);
-        /////ask about attributes..............
+
     }
 }

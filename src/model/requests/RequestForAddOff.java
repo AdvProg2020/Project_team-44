@@ -49,6 +49,11 @@ public class RequestForAddOff extends Request {
     }
 
     @Override
+    public int produceRequestId() {
+        return super.produceRequestId();
+    }
+
+    @Override
     public ArrayList<String> getRequestDetails() {
         ArrayList<String> details = super.getRequestDetails();
         details.add(this.getSeller().getFirstName());
