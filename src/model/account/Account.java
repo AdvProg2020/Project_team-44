@@ -21,11 +21,11 @@ public abstract class Account {
     protected boolean isLoggedIn;
 
     public Account(String userName, String firstName, String lastName,
-                   String email, String telephoneNumber, String password) {
+                   String eMail, String telephoneNumber, String password) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.eMail = email;
+        this.eMail = eMail;
         this.telephoneNumber = telephoneNumber;
         this.password = password;
         this.balance = 0;
@@ -47,7 +47,7 @@ public abstract class Account {
         return lastName;
     }
 
-    public String getEmail() {
+    public String getEMail() {
         return eMail;
     }
 
@@ -121,7 +121,7 @@ public abstract class Account {
         info.add(this.getUserName());
         info.add(this.getFirstName());
         info.add(this.getLastName());
-        info.add(this.getEmail());
+        info.add(this.getEMail());
         info.add(this.getTelephoneNumber());
         return info;
     }
@@ -131,7 +131,7 @@ public abstract class Account {
             this.setFirstName(newValue);
         }else if (field.equalsIgnoreCase("lastName")){
             this.setLastName(newValue);
-        }else if (field.equalsIgnoreCase("eMail")){
+        }else if (field.equalsIgnoreCase("EMail")){
             this.setEMail(newValue);
         }else if (field.equalsIgnoreCase("telephoneNumber")){
             this.setTelephoneNumber(newValue);
