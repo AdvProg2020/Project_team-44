@@ -13,6 +13,7 @@ public class SellerAccountMenu extends Menu {
         submenus.put(2, getViewCompanyInformationMenu());
         submenus.put(3, getViewSaleHistoryMenu());
         submenus.put(4, new ManageProductsForSellerMenu(this, account));
+        submenus.put(5,new ViewOffsOfSellerMenu(this,account));
         this.setSubmenus(submenus);
 
 
@@ -60,6 +61,30 @@ public class SellerAccountMenu extends Menu {
                     this.logoutInExecute();
                 else
                     this.invalidCommandInExecute();
+            }
+        };
+    }
+    private Menu getShowCategoriesMenu(){
+        return new Menu("Show Categories Menu",this,this.getCurrentUserLoggedIn()) {
+            @Override
+            public void show() {
+                System.out.println(this.getName() + ":");
+            }
+
+            @Override
+            public void execute() {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
+                    this.logoutInExecute();
+                else
+                    this.invalidCommandInExecute();
+            }
+
+            @Override
+            public void menuWork() {
+                SellerAccountManager.processShowCategory();
             }
         };
     }
