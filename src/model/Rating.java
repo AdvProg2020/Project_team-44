@@ -13,4 +13,8 @@ public class Rating {
         this.purchaser = purchaser;
         this.rating = rating;
     }
+
+    public int getRating() {
+        return rating;
+    }
 }
