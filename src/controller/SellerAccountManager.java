@@ -8,11 +8,15 @@ import java.util.ArrayList;
 
 public abstract class SellerAccountManager {
     public static ArrayList<String> processViewPersonalInfo() {
-        return LoginPageController.getLoggedInAccount().getInfo();
+        return LoginPageController.loggedInAccount.getInfo();
+        /**DONE**/
+
     }
 
     public static void processEditFieldEach(String field, String newValue) {
-        LoginPageController.getLoggedInAccount().editInfo(field, newValue);
+        LoginPageController.loggedInAccount.editInfo(field, newValue);
+        /**DONE**/
+
     }
 
     public static void processViewCompanyInfo() {

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public abstract class OffersPageController {
     public static ArrayList<String> processShowOffs() {
-        return Offer.getAllOffers();
+        return Offer.getAllOffersId();
     }
 
     public static void processShowProduct(String productId) throws ProductIdNotExistsException {

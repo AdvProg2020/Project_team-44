@@ -44,9 +44,9 @@ public class ValidationController {
 
     }
 
-    static void checkRequestExistence(int Id) throws RequestNotExistsException {
+    static void checkRequestExistence(String Id) throws RequestNotExistsException {
         for (Request request : Request.getAllRequests()) {
-            if (Id == request.getRequestId()) {
+            if (Id.equals(request.getRequestId())) {
                 return;
             }
         }
@@ -99,7 +99,7 @@ public class ValidationController {
         throw new FilterNotExistsException("Wrong filter.");
     }
 
-    void checkOrderExistence(String orderId) throws OrderNotExistsException {
+    static void checkOrderExistence(String orderId) throws OrderNotExistsException {
         for (BuyLog order : LoginPageController.loggedInAccount.getBuyLogListHistory()) {
             if (orderId.equals(order.getLogID())) {
                 return;
