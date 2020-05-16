@@ -104,6 +104,6 @@ public class Manager extends Account {
     }
 
     public void addCategory(String name) {
-
+        new Category(name);
     }
 }
