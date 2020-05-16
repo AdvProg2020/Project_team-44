@@ -12,24 +12,31 @@ public class SellerAccount extends Menu {
     public static SellerAccount getInstance() {
         return singleton;
     }
-    private Menu viewCompanyInformation(){
+
+    private Menu viewCompanyInformation() {
 
     }
-    private Menu viewSalesHistory(){
+
+    private Menu viewSalesHistory() {
 
     }
-    private Menu addProduct(){
+
+    private Menu addProduct() {
 
     }
-    private Menu removeProduct(){
+
+    private Menu removeProduct() {
 
     }
-    private Menu showCategories(){
+
+    private Menu showCategories() {
 
     }
-    private Menu viewBalance(){
+
+    private Menu viewBalance() {
 
     }
+
     @Override
     public void show() {
         super.show();

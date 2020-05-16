@@ -1,5 +1,9 @@
 package controller;
 
+import exception.ProductIdNotExistsException;
+import model.offer.Offer;
+import model.product.Product;
+
 import java.util.ArrayList;
 
 public abstract class SellerAccountManager {
@@ -23,16 +27,16 @@ public abstract class SellerAccountManager {
 
     }
 
-    public static void processViewProductEach(String productId) {
-
+    public static void processViewProductEach(String productId) throws ProductIdNotExistsException {
+        ValidationController.checkProductExistence(productId);
     }
 
-    public static void processViewBuyersEach(String productId) {
-
+    public static void processViewBuyersEach(String productId) throws ProductIdNotExistsException {
+        ValidationController.checkProductExistence(productId);
     }
 
-    public static void processEditProduct(String productId) {
-
+    public static void processEditProduct(String productId) throws ProductIdNotExistsException {
+        ValidationController.checkProductExistence(productId);
     }
 
     public static void processAddProduct() {
@@ -51,12 +55,12 @@ public abstract class SellerAccountManager {
 
     }
 
-    public static void processViewOffEach(String offId) {
-
+    public static void processViewOffEach(String offId) throws ProductIdNotExistsException {
+        ValidationController.checkOfferExistence(offId);
     }
 
-    public static void processEditOffEach(String offId) {
-
+    public static void processEditOffEach(String offId) throws ProductIdNotExistsException {
+        ValidationController.checkOfferExistence(offId);
     }
 
     public static void processAddOffEach() {
@@ -66,4 +70,5 @@ public abstract class SellerAccountManager {
     public static void processViewBalance() {
 
     }
+
 }

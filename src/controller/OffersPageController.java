@@ -1,11 +1,23 @@
 package controller;
 
-public abstract class OffersPageController {
-    public static void processShowOffs() {
+import exception.FilterNotExistsException;
+import exception.ProductIdNotExistsException;
+import exception.SortNotExistsException;
+import model.Sort.Sort;
+import model.account.Seller;
+import model.offer.Offer;
+import model.product.Product;
 
+import java.util.ArrayList;
+
+public abstract class OffersPageController {
+    public static ArrayList<String> processShowOffs() {
+        return Offer.getAllOffers();
     }
 
-    public static void processShowProduct(String productId) {
+    public static void processShowProduct(String productId) throws ProductIdNotExistsException {
+        ValidationController.checkProductExistence(productId);
+        /*TODO*/
 
     }
 
@@ -17,7 +29,9 @@ public abstract class OffersPageController {
 
     }
 
-    public static void processFilterEach(String availableFilter) {
+    public static void processFilterEach(String availableFilter) throws FilterNotExistsException {
+        ValidationController.checkFilterExistence(availableFilter);
+        /*TODO*/
 
     }
 
@@ -25,7 +39,9 @@ public abstract class OffersPageController {
 
     }
 
-    public static void processDeleteFilterEach(String selectedFilter) {
+    public static void processDeleteFilterEach(String selectedFilter) throws FilterNotExistsException {
+        ValidationController.checkFilterExistence(selectedFilter);
+        /*TODO*/
 
     }
 
@@ -37,8 +53,9 @@ public abstract class OffersPageController {
 
     }
 
-    public static void processSortEach(String availableSort) {
-
+    public static void processSortEach(String availableSort) throws SortNotExistsException {
+        ValidationController.checkSortExistence(availableSort);
+        /*TODO*/
     }
 
     public static void processCurrentSortEach() {
@@ -48,4 +65,6 @@ public abstract class OffersPageController {
     public static void processDisableSortEach() {
 
     }
+
+
 }

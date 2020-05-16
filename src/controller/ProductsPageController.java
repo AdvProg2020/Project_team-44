@@ -1,9 +1,12 @@
 package controller;
 
-public abstract class ProductsPageController {
-    public static void processProducts() {
+import exception.FilterNotExistsException;
+import exception.ProductIdNotExistsException;
+import exception.SortNotExistsException;
+import model.Sort.Sort;
+import model.product.Product;
 
-    }
+public abstract class ProductsPageController {
 
     public static void processViewCategories() {
 
@@ -17,7 +20,9 @@ public abstract class ProductsPageController {
 
     }
 
-    public static void processFilterEach(String availableFilter) {
+    public static void processFilterEach(String availableFilter) throws FilterNotExistsException {
+        ValidationController.checkFilterExistence(availableFilter);
+        /*TODO*/
 
     }
 
@@ -25,7 +30,9 @@ public abstract class ProductsPageController {
 
     }
 
-    public static void processDeleteFilterEach(String selectedFilter) {
+    public static void processDeleteFilterEach(String selectedFilter) throws FilterNotExistsException {
+        ValidationController.checkFilterExistence(selectedFilter);
+        /*TODO*/
 
     }
 
@@ -37,7 +44,9 @@ public abstract class ProductsPageController {
 
     }
 
-    public static void processSortEach(String availableSort) {
+    public static void processSortEach(String availableSort) throws SortNotExistsException {
+        ValidationController.checkSortExistence(availableSort);
+        /*TODO*/
 
     }
 
@@ -53,8 +62,12 @@ public abstract class ProductsPageController {
 
     }
 
-    public static void processShowProduct(String productId) {
+    public static void processShowProduct(String productId) throws ProductIdNotExistsException {
+        ValidationController.checkProductExistence(productId);
+        /*TODO*/
 
     }
+
+
 
 }

@@ -13,13 +13,23 @@ public class Purchaser extends Account {
         this.cart = new ArrayList<>();
     }
 
+    @Override
+    public ArrayList<String> getInfo() {
+        return super.getInfo();
+    }
+
+    @Override
+    public void editInfo(String field, String newValue) {
+        super.editInfo(field, newValue);
+    }
+
     public void rateProduct(int rating, Product product) {
 
     }
 
 
-    public String purchase(Product product, String input) {
-        return null;
+    public void purchase(Product product) {
+
     }
 
     public void compareTwoProducts(Product firstProduct, Product secondProduct) {
