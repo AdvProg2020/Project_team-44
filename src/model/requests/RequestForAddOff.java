@@ -11,8 +11,8 @@ public class RequestForAddOff extends Request{
     private RequestStatus status;
     private static ArrayList<RequestForAddOff> allRequestsForAddOff = new ArrayList<>();
 
-    public RequestForAddOff(Seller seller, Offer addedOff, int requestId) {
-        super(requestId);
+    public RequestForAddOff(Seller seller, Offer addedOff) {
+        super();
         this.seller = seller;
         this.addedOff = addedOff;
         this.status = RequestStatus.IN_PROGRESS;

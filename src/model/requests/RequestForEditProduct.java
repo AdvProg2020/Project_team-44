@@ -13,7 +13,7 @@ public class RequestForEditProduct extends Request{
     private static ArrayList<RequestForEditProduct> allRequestsForEditProduct = new ArrayList<>();
 
     public RequestForEditProduct(Seller seller, Product pastProduct, Product newProduct, int requestId) {
-        super(requestId);
+        super();
         this.seller = seller;
         this.pastProduct = pastProduct;
         this.newProduct = newProduct;

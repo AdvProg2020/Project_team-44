@@ -11,8 +11,8 @@ public class RequestForAddProduct extends Request {
     private RequestStatus status;
     private static ArrayList<RequestForAddProduct> allRequestsForAddProduct = new ArrayList<>();
 
-    public RequestForAddProduct(Seller seller, Product product, int requestId) {
-        super(requestId);
+    public RequestForAddProduct(Seller seller, Product product) {
+        super();
         this.seller = seller;
         this.product = product;
         this.status = RequestStatus.IN_PROGRESS;

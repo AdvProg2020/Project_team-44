@@ -8,8 +8,8 @@ public class Request {
     private int requestId;
     private static ArrayList<Request> allRequests = new ArrayList<>();
 
-    public Request(int requestId) {
-        this.requestId = requestId;
+    public Request() {
+        this.requestId = produceRequestId();
         allRequests.add(this);
     }
 
@@ -30,7 +30,7 @@ public class Request {
         return rand;
     }
 
-    private Request getRequestById(int requestId) {
+    public static Request getRequestById(int requestId) {
         for (Request allRequest : allRequests) {
             if (allRequest.getRequestId() == requestId)
                 return allRequest;

@@ -14,7 +14,7 @@ public class RequestForEditOff extends Request{
     private static ArrayList<RequestForEditOff> allRequestsForEditOff = new ArrayList<>();
 
     public RequestForEditOff(Seller seller, Offer pastOff, Offer newOff, int requestId) {
-        super(requestId);
+        super();
         this.seller = seller;
         this.pastOff = pastOff;
         this.newOff = newOff;
