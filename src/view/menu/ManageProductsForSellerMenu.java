@@ -44,6 +44,7 @@ public class ManageProductsForSellerMenu extends Menu {
                     String productId = input.substring(5);
                         try {
                             SellerAccountManager.processViewProductEach(productId);
+                            this.execute();
                         } catch (ProductIdNotExistsException viewProductError) {
                             System.out.println(viewProductError.getMessage());
                             this.execute();
@@ -74,6 +75,7 @@ public class ManageProductsForSellerMenu extends Menu {
                     String productId = input.substring(12);
                     try {
                         SellerAccountManager.processViewBuyersEach(productId);
+                        this.execute();
                     } catch (ProductIdNotExistsException viewBuyersOfProductError) {
                         System.out.println(viewBuyersOfProductError.getMessage());
                         this.execute();
@@ -104,6 +106,7 @@ public class ManageProductsForSellerMenu extends Menu {
                     String productId = input.substring(12);
                     try {
                         SellerAccountManager.processViewBuyersEach(productId);
+                        this.execute();
                     } catch (ProductIdNotExistsException viewBuyersOfProductError) {
                         System.out.println(viewBuyersOfProductError.getMessage());
                         this.execute();

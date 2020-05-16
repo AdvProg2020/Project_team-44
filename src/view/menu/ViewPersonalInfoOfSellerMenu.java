@@ -47,6 +47,7 @@ public class ViewPersonalInfoOfSellerMenu extends Menu {
                         try {
                             SellerAccountManager.processEditFieldEach(field, newValue);
                             System.out.println("your change done");
+                            this.execute();
                         } catch () {
 
                         }

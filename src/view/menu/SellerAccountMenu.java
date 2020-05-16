@@ -14,6 +14,7 @@ public class SellerAccountMenu extends Menu {
         submenus.put(3, getViewSaleHistoryMenu());
         submenus.put(4, new ManageProductsForSellerMenu(this, account));
         submenus.put(5,new ViewOffsOfSellerMenu(this,account));
+        submenus.put(6,getViewBalanceMenu());
         this.setSubmenus(submenus);
 
 

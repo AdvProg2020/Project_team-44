@@ -43,6 +43,7 @@ public class ManageRequestsMenu extends Menu {
                     String requestId = input.substring(8);
                     try {
                         ManagerAccountController.processShowRequestDetailsEach(requestId);
+                        this.execute();
                     } catch (RequestNotExistsException requestDetailsError) {
                         System.out.println(requestDetailsError.getMessage());
                         this.execute();
@@ -75,6 +76,7 @@ public class ManageRequestsMenu extends Menu {
                     try {
                         ManagerAccountController.processAcceptRequestEach(requestId);
                         System.out.println("Accept request");
+                        this.execute();
                     } catch (RequestNotExistsException requestAcceptError) {
                         System.out.println(requestAcceptError.getMessage());
                         this.execute();
@@ -109,6 +111,7 @@ public class ManageRequestsMenu extends Menu {
                     try {
                         ManagerAccountController.processDeclineRequestEach(requestId);
                         System.out.println("decline request");
+                        this.execute();
                     } catch (RequestNotExistsException requestAcceptError) {
                         System.out.println(requestAcceptError.getMessage());
                         this.execute();

@@ -43,6 +43,7 @@ public class ViewDiscountCodesMenu extends Menu {
                     String code = input.substring(19);
                     try {
                         ManagerAccountController.processViewDiscountCodeEach(code);
+                        this.execute();
                     } catch (CodedDiscountNotExistsException discountCodeError) {
                         System.out.println(discountCodeError.getMessage());
                         this.execute();
@@ -78,6 +79,7 @@ public class ViewDiscountCodesMenu extends Menu {
                     try {
                         ManagerAccountController.processEditDiscountCodeEach(code, field, newValue);
                         System.out.println("edit discount code successful");
+                        this.execute();
                     } catch (CodedDiscountNotExistsException editDiscountCodeError) {
                         System.out.println(editDiscountCodeError.getMessage());
                         this.execute();
@@ -110,6 +112,7 @@ public class ViewDiscountCodesMenu extends Menu {
                     try {
                         ManagerAccountController.processRemoveDiscountCodeEach(code);
                         System.out.println("remove discount code successful");
+                        this.execute();
                     } catch (CodedDiscountNotExistsException removeDiscountCodeError) {
                         System.out.println(removeDiscountCodeError.getMessage());
                         this.execute();

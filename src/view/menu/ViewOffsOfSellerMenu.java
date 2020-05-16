@@ -43,6 +43,7 @@ public class ViewOffsOfSellerMenu extends Menu {
                     String offId = input.substring(5);
                     try {
                         SellerAccountManager.processViewOffEach(offId);
+                        this.execute();
                     } catch (ProductIdNotExistsException viewOffError) {
                         System.err.println(viewOffError.getMessage());
                         this.execute();
@@ -74,6 +75,7 @@ public class ViewOffsOfSellerMenu extends Menu {
                     String offId = input.substring(5);
                     try {
                         SellerAccountManager.processViewOffEach(offId);
+                        this.execute();
                     } catch (ProductIdNotExistsException viewOffError) {
                         System.err.println(viewOffError.getMessage());
                         this.execute();
@@ -105,6 +107,7 @@ public class ViewOffsOfSellerMenu extends Menu {
                     String offId = input.substring(5);
                     try {
                         SellerAccountManager.processViewOffEach(offId);
+                        this.execute();
                     } catch (ProductIdNotExistsException viewOffError) {
                         System.err.println(viewOffError.getMessage());
                         this.execute();

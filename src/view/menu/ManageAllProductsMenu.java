@@ -36,6 +36,7 @@ public class ManageAllProductsMenu extends Menu {
                     try {
                         ManagerAccountController.processRemoveProductEach(productId);
                         System.out.println("delete product successful");
+                        this.execute();
                     } catch (ProductIdNotExistsException productError) {
                         System.out.println(productError.getMessage());
                         this.execute();

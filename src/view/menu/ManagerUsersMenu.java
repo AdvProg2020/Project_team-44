@@ -42,6 +42,7 @@ public class ManagerUsersMenu extends Menu {
                     String userName = input.substring(5);
                     try {
                         ManagerAccountController.processViewUserInfoEach(userName);
+                        this.execute();
                     } catch (UsernameNotExistsException userNameError) {
                         System.out.println(userNameError.getMessage());
                         this.execute();
@@ -74,6 +75,7 @@ public class ManagerUsersMenu extends Menu {
                     try {
                         ManagerAccountController.processDeleteUserEach(userName);
                         System.out.println("delete user successful");
+                        this.execute();
                     } catch (UsernameNotExistsException userNameError) {
                         System.out.println(userNameError.getMessage());
                         this.execute();
