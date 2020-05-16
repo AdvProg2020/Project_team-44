@@ -25,4 +25,8 @@ public class Offer {
     public ArrayList<Offer> getAllOffers() {
         return allOffers;
     }
+
+    public String getOfferID() {
+        return offerID;
+    }
 }
