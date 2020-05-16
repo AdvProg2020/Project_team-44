@@ -45,15 +45,23 @@ public class Request {
 
     public static Request getRequestById(String requestId) {
         for (Request allRequest : allRequests) {
-            if (allRequest.getRequestId() == requestId)
+            if (allRequest.getRequestId().equals(requestId))
                 return allRequest;
         }
         return null;
     }
-    public ArrayList<String> getRequestDetails(){
+
+    public ArrayList<String> getRequestDetails() {
         ArrayList<String> details = new ArrayList<>();
         details.add(this.getStatus().toString());
         return details;
     }
 
+    public static ArrayList<String> getAllRequestsId(){
+        ArrayList<String> requestsId = new ArrayList<>();
+        for (Request allRequest : allRequests) {
+            requestsId.add(allRequest.getRequestId());
+        }
+        return requestsId;
+    }
 }
