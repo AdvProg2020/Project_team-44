@@ -16,8 +16,8 @@ public class Manager extends Account {
     private static ArrayList<CodedDiscount> allDiscountCode = new ArrayList<>();
     private static ArrayList<Manager> allManagers = new ArrayList<>();
 
-    public Manager(String username, String firstName, String secondName, String email, String telephoneNumber, String password) {
-        super(username, firstName, secondName, email, telephoneNumber, password);
+    public Manager(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password) {
+        super(userName, firstName, lastName, eMail, telephoneNumber, password);
         allManagers.add(this);
     }
 
@@ -62,10 +62,6 @@ public class Manager extends Account {
 
     public static void createCodedDiscount(String discountCode, Date initialDate, Date finalDate, int discountPercentage, int maxAuthorizedPrice) {
         new CodedDiscount(discountCode, initialDate, finalDate, discountPercentage, maxAuthorizedPrice);
-    }
-
-    public void addManager(Account newManager) {
-        new Manager(newManager.getUserName(), newManager.getFirstName(), newManager.getLastName(), newManager.getEmail(), newManager.getTelephoneNumber(), newManager.getPassword());
     }
 
     public void editCategoryEach(String categoryName, String field, String oldValue, String newValue) {

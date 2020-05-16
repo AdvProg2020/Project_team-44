@@ -100,4 +100,11 @@ public class CodedDiscount {
         info.add(String.valueOf(this.getMaxAuthorizedPrice()));
         return info;
     }
+    public static ArrayList<String> getAllDiscountCodes(){
+        ArrayList<String> allDiscountCode = new ArrayList<>();
+        for (CodedDiscount allCodedDiscount : allCodedDiscounts) {
+            allDiscountCode.add(allCodedDiscount.getDiscountCode());
+        }
+        return allDiscountCode;
+    }
 }

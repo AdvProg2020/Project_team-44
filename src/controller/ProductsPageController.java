@@ -7,6 +7,7 @@ import model.Sort.Sort;
 import model.product.Product;
 
 public abstract class ProductsPageController {
+    static Product selectedProduct = null;
 
     public static void processViewCategories() {
 
@@ -64,10 +65,10 @@ public abstract class ProductsPageController {
 
     public static void processShowProduct(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
+        
         /*TODO*/
 
     }
-
 
 
 }

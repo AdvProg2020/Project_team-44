@@ -37,4 +37,16 @@ public class Offer {
     public String getOfferID() {
         return offerID;
     }
+
+    public void setStatus(OfferStatus status) {
+        this.status = status;
+    }
+
+    public static ArrayList<String> getAllOffersId(){
+        ArrayList<String> offersId = new ArrayList<>();
+        for (Offer allOffer : allOffers) {
+            offersId.add(allOffer.getOfferID());
+        }
+        return offersId;
+    }
 }
