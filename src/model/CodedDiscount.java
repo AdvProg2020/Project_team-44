@@ -2,7 +2,10 @@ package model;
 
 import model.account.Account;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -58,6 +61,22 @@ public class CodedDiscount {
         allCodedDiscounts.add(this);
     }
 
+    public void setInitialDate(Date initialDate) {
+        this.initialDate = initialDate;
+    }
+
+    public void setFinalDate(Date finalDate) {
+        this.finalDate = finalDate;
+    }
+
+    public void setDiscountPercentage(double discountPercentage) {
+        this.discountPercentage = discountPercentage;
+    }
+
+    public void setMaxAuthorizedPrice(double maxAuthorizedPrice) {
+        this.maxAuthorizedPrice = maxAuthorizedPrice;
+    }
+
     public static CodedDiscount getCodedDiscountByCode(String discountCode) {
         for (CodedDiscount codedDiscount : allCodedDiscounts) {
             if (codedDiscount.getDiscountCode().equals(discountCode)) {
@@ -65,5 +84,20 @@ public class CodedDiscount {
             }
         }
         return null;
+    }
+
+    public ArrayList<String> getCodedDiscountInfo() {
+        ArrayList<String> info = new ArrayList<>();
+        Date date = this.getInitialDate();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        String strDate = dateFormat.format(date);
+        info.add(this.getDiscountCode());
+        info.add(strDate);
+        date = this.getFinalDate();
+        strDate = dateFormat.format(date);
+        info.add(strDate);
+        info.add(String.valueOf(this.getDiscountPercentage()));
+        info.add(String.valueOf(this.getMaxAuthorizedPrice()));
+        return info;
     }
 }

@@ -9,12 +9,17 @@ public class Category {
     private ArrayList<Category> subCategories = new ArrayList<>();
     private ArrayList<Product> allSubProducts = new ArrayList<>();
     private ArrayList<String> attributes = new ArrayList<>();
-
+    private static ArrayList<Category> allCategories = new ArrayList<>();
     public Category(String name) {
         this.name = name;
+        allCategories.add(this);
     }
 
     public String getName() {
         return name;
+    }
+
+    public static ArrayList<Category> getAllCategories() {
+        return allCategories;
     }
 }

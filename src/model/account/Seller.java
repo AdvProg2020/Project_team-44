@@ -10,15 +10,22 @@ public class Seller extends Account {
     private ArrayList<Product> productsToSell;
     private ArrayList<Offer> offersList;
 
-    public Seller(String username, String firstName, String secondName, String email, String telephoneNumber, String password, String companyName) {
-        super(username, firstName, secondName, email, telephoneNumber, password);
+    public Seller(String username, String firstName, String lastName, String email, String telephoneNumber, String password, String companyName) {
+        super(username, firstName, lastName, email, telephoneNumber, password);
         this.companyName = companyName;
         this.productsToSell = new ArrayList<>();
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
     @Override
     public ArrayList<String> getInfo() {
-        return super.getInfo();
+        ArrayList<String> info = new ArrayList<>();
+        info = super.getInfo();
+        info.add(this.getCompanyName());
+        return info;
     }
 
     @Override
@@ -30,8 +37,13 @@ public class Seller extends Account {
 
     }
 
-    public void deleteProductRequest() {
-
+    public void deleteProductRequest(String productId) {
+        Product requestedProduct = null;
+        for (Product product : productsToSell) {
+            if (product.getProductID().equalsIgnoreCase(productId))
+                requestedProduct = product;
+        }
+        productsToSell.remove(requestedProduct);
     }
 
     public void addProductRequest() {

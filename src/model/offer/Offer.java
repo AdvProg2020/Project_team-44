@@ -21,4 +21,8 @@ public class Offer {
         this.finalDate = finalDate;
         this.discountPercentage = discountPercentage;
     }
+
+    public ArrayList<Offer> getAllOffers() {
+        return allOffers;
+    }
 }

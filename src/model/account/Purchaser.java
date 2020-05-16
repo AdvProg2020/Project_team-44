@@ -13,11 +13,6 @@ public class Purchaser extends Account {
     }
 
     @Override
-    public ArrayList<String> getInfo() {
-        return super.getInfo();
-    }
-
-    @Override
     public void editInfo(String field, String newValue) {
         super.editInfo(field, newValue);
     }
