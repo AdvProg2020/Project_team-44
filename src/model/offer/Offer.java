@@ -38,6 +38,10 @@ public class Offer {
         return offerID;
     }
 
+    public void setStatus(OfferStatus status) {
+        this.status = status;
+    }
+
     public static ArrayList<String> getAllOffersId(){
         ArrayList<String> offersId = new ArrayList<>();
         for (Offer allOffer : allOffers) {

@@ -107,4 +107,8 @@ public class Product {
     public Rating getRating() {
         return rating;
     }
+
+    public void setStatus(ProductStatus status) {
+        this.status = status;
+    }
 }
