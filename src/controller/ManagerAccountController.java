@@ -1,15 +1,13 @@
 package controller;
 
-import exception.CodedDiscountNotExistsException;
-import exception.ProductIdNotExistsException;
-import exception.UsernameNotExistsException;
+import exception.*;
+import model.Category;
 import model.CodedDiscount;
 import model.account.Account;
 import model.account.Manager;
 import model.product.Product;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public abstract class ManagerAccountController {
     public static ArrayList<String> processViewPersonalInfo() {
@@ -20,13 +18,13 @@ public abstract class ManagerAccountController {
         LoginPageController.getLoggedInAccount().editInfo(field, newValue);
     }
 
-    public static HashMap<String, String> processManageUsers() {
+    public static ArrayList<String> processManageUsers() {
         return Manager.showAllUsers();
     }
 
-    public static void processViewUserInfoEach(String username) throws UsernameNotExistsException {
+    public static ArrayList<String> processViewUserInfoEach(String username) throws UsernameNotExistsException {
         checkUsernameExistence(username);
-        /*Todo: ask TA how to.*/
+        return Account.getAccountByUsername(username).getInfo();
     }
 
     public static void processDeleteUserEach(String username) throws UsernameNotExistsException {
@@ -35,13 +33,9 @@ public abstract class ManagerAccountController {
     }
 
     public static void processCreateManagerProfileEach() {
-//       checkUsernameExistence(username);
         /*Todo: ask TA how to.*/
     }
 
-    public static void processManageAllProducts() {
-        /*Todo: ask TA how to.*/
-    }
 
     public static void processRemoveProductEach(String productId) throws ProductIdNotExistsException {
         checkProductExistence(productId);
@@ -53,21 +47,17 @@ public abstract class ManagerAccountController {
     }
 
     public static ArrayList<String> processViewDiscountCodes() {
-        ArrayList<String> discountCodes = new ArrayList<>();
-        for (CodedDiscount codedDiscount : CodedDiscount.getAllCodedDiscounts()) {
-            discountCodes.add(codedDiscount.getDiscountCode());
-        }
-        return discountCodes;
+        return Manager.getAllCodedDiscounts();
     }
 
-    public static void processViewDiscountCodeEach(String code) throws CodedDiscountNotExistsException {
+    public static ArrayList<String> processViewDiscountCodeEach(String code) throws CodedDiscountNotExistsException {
         checkCodedDiscountExistence(code);
-
+        return CodedDiscount.getCodedDiscountByCode(code).getInfo();
     }
 
-    public static void processEditDiscountCodeEach(String code) throws CodedDiscountNotExistsException {
+    public static void processEditDiscountCodeEach(String code, String field, String newValue) throws CodedDiscountNotExistsException {
         checkCodedDiscountExistence(code);
-        /*Todo: how to edit fields*/
+        Manager.editDiscountCode(code, field, newValue);
     }
 
     public static void processRemoveDiscountCodeEach(String code) throws CodedDiscountNotExistsException {
@@ -75,36 +65,61 @@ public abstract class ManagerAccountController {
         CodedDiscount.getAllCodedDiscounts().remove(CodedDiscount.getCodedDiscountByCode(code));
     }
 
-    public static void processManageRequests() {
-
+    public static ArrayList<String> processManageRequests() {
+        return Request.showAllRequests();
     }
 
-    public static void processShowRequestDetailsEach(String requestId) {
-
+    public static ArrayList<String> processShowRequestDetailsEach(String requestId) throws RequestNotExistsException {
+        checkRequestExistence(requestId);
+        return Request.getRequestById(requestId).getInfo();
     }
 
-    public static void processAcceptRequestEach(String requestId) {
-
+    public static void processAcceptRequestEach(String requestId) throws RequestNotExistsException {
+        checkRequestExistence(requestId);
+        /*TODO*/
     }
 
-    public static void processDeclineRequestEach(String requestId) {
-
+    public static void processDeclineRequestEach(String requestId) throws RequestNotExistsException {
+        checkRequestExistence(requestId);
+        /*TODO*/
     }
 
     public static void processManageCategories() {
 
     }
 
-    public static void processEditCategoryEach(String category) {
+    public static void processEditCategoryEach(String category) throws CategoryNotExistsException {
+        checkCategoryExistence(category);
+        /*TODO*/
+    }
+
+    public static void processAddCategoryEach(String category) throws CategoryNotExistsException {
+        checkCategoryExistence(category);
+        /*TODO*/
+    }
+
+    public static void processRemoveCategoryEach(String category) throws CategoryNotExistsException {
+        checkCategoryExistence(category);
+        /*TODO*/
+    }
+
+    public static void checkCategoryExistence(String selectedCategory) throws CategoryNotExistsException {
+        for (Category category : Category.getAllCategories()) {
+            if (selectedCategory.equals(category.getName())) {
+                return;
+            }
+        }
+        throw new CategoryNotExistsException("Wrong category.");
 
     }
 
-    public static void processAddCategoryEach(String category) {
-
-    }
-
-    public static void processRemoveCategoryEach(String category) {
-
+    public static void checkRequestExistence(String Id) throws RequestNotExistsException {
+        for (Request request : Requset.getAllRequests()) {
+            if (Id.equals(request.getId())) {
+                return;
+            }
+        }
+        throw new RequestNotExistsException("No Request exists with this Id.");
     }
 
     public static void checkCodedDiscountExistence(String discountCode) throws CodedDiscountNotExistsException {
@@ -113,7 +128,7 @@ public abstract class ManagerAccountController {
                 return;
             }
         }
-        throw new CodedDiscountNotExistsException("No user exists with this username.");
+        throw new CodedDiscountNotExistsException("No CodedDiscount exists with this code.");
 
     }
 

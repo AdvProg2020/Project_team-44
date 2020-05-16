@@ -1,9 +1,11 @@
 package controller;
 
-public abstract class ProductsPageController {
-    public static void processProducts() {
+import exception.FilterNotExistsException;
+import exception.ProductIdNotExistsException;
+import exception.SortNotExistsException;
+import model.product.Product;
 
-    }
+public abstract class ProductsPageController {
 
     public static void processViewCategories() {
 
@@ -17,7 +19,9 @@ public abstract class ProductsPageController {
 
     }
 
-    public static void processFilterEach(String availableFilter) {
+    public static void processFilterEach(String availableFilter) throws FilterNotExistsException {
+        checkFilterExistence(availableFilter);
+        /*TODO*/
 
     }
 
@@ -25,7 +29,9 @@ public abstract class ProductsPageController {
 
     }
 
-    public static void processDeleteFilterEach(String selectedFilter) {
+    public static void processDeleteFilterEach(String selectedFilter) throws FilterNotExistsException {
+        checkFilterExistence(selectedFilter);
+        /*TODO*/
 
     }
 
@@ -37,7 +43,9 @@ public abstract class ProductsPageController {
 
     }
 
-    public static void processSortEach(String availableSort) {
+    public static void processSortEach(String availableSort) throws SortNotExistsException {
+        checkSortExistence(availableSort);
+        /*TODO*/
 
     }
 
@@ -53,8 +61,37 @@ public abstract class ProductsPageController {
 
     }
 
-    public static void processShowProduct(String productId) {
+    public static void processShowProduct(String productId) throws ProductIdNotExistsException {
+        checkProductExistence(productId);
+        /*TODO*/
 
+    }
+
+    public static void checkSortExistence(String availableSort) throws SortNotExistsException {
+        for (String sort : allSorts()) {
+            if (availableSort.equals(sort)) {
+                return;
+            }
+        }
+        throw new SortNotExistsException("Wrong sort.");
+    }
+
+    public static void checkFilterExistence(String availableFilter) throws FilterNotExistsException {
+        for (String filter : allFilters()) {
+            if (availableFilter.equals(filter)) {
+                return;
+            }
+        }
+        throw new FilterNotExistsException("Wrong filter.");
+    }
+
+    public static void checkProductExistence(String productId) throws ProductIdNotExistsException {
+        for (Product product : Product.getAllProducts()) {
+            if (productId.equals(product.getProductID())) {
+                return;
+            }
+        }
+        throw new ProductIdNotExistsException("No product exists with this Id.");
     }
 
 }

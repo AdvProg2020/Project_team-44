@@ -21,7 +21,7 @@ public abstract class ProductPageController {
 
     }
 
-    public static void processAddComment() {
+    public static void processAddComment(String title, String content) {
 
     }
 }
