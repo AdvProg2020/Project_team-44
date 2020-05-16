@@ -5,7 +5,7 @@ import model.product.Product;
 
 import java.util.ArrayList;
 
-public class RequestForRemoveProduct extends Request{
+public class RequestForRemoveProduct {
 //    private String ID;  ???????????????????????????????????
     private Seller seller;
     private Product product;
@@ -13,7 +13,6 @@ public class RequestForRemoveProduct extends Request{
     private static ArrayList<RequestForRemoveProduct> allRequestForRemoveProduct = new ArrayList<>();
 
     public RequestForRemoveProduct(Seller seller, Product product) {
-        super();
         this.seller = seller;
         this.product = product;
         this.status = RequestStatus.IN_PROGRESS;

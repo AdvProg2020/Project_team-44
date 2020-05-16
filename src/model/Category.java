@@ -10,9 +10,22 @@ public class Category {
     private ArrayList<Product> allSubProducts = new ArrayList<>();
     private ArrayList<String> attributes = new ArrayList<>();
     private static ArrayList<Category> allCategories = new ArrayList<>();
+
     public Category(String name) {
         this.name = name;
         allCategories.add(this);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAttributes(ArrayList<String> attributes) {
+        this.attributes = attributes;
+    }
+
+    public ArrayList<String> getAttributes() {
+        return attributes;
     }
 
     public String getName() {
@@ -21,5 +34,14 @@ public class Category {
 
     public static ArrayList<Category> getAllCategories() {
         return allCategories;
+    }
+
+    public static Category getCategoryByName(String categoryName) {
+        for (Category allCategory : allCategories) {
+            if (allCategory.getName().equalsIgnoreCase(categoryName)){
+                return allCategory;
+            }
+        }
+        return null;
     }
 }

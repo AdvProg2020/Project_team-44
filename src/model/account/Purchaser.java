@@ -14,6 +14,11 @@ public class Purchaser extends Account {
     }
 
     @Override
+    public ArrayList<String> getInfo() {
+        return super.getInfo();
+    }
+
+    @Override
     public void editInfo(String field, String newValue) {
         super.editInfo(field, newValue);
     }
@@ -43,7 +48,8 @@ public class Purchaser extends Account {
     public void searchProducts() {
 
     }
-    public ArrayList<String> returnBuyLogIds(){
+
+    public ArrayList<String> returnBuyLogIds() {
         ArrayList<String> buyLogId = new ArrayList<>();
         for (BuyLog buyLog : buyLogListHistory) {
             buyLogId.add(buyLog.getLogID());

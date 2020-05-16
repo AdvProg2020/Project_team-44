@@ -1,15 +1,16 @@
 package model.requests;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Request {
     private int requestId;
+    private RequestStatus status;
     private static ArrayList<Request> allRequests = new ArrayList<>();
 
-    public Request() {
-        this.requestId = produceRequestId();
+    public Request(int requestId) {
+        this.requestId = requestId;
+        this.status = RequestStatus.IN_PROGRESS;
         allRequests.add(this);
     }
 
@@ -19,6 +20,10 @@ public class Request {
 
     public int getRequestId() {
         return requestId;
+    }
+
+    public void setStatus(RequestStatus status) {
+        this.status = status;
     }
 
     private int produceRequestId() {
@@ -36,5 +41,9 @@ public class Request {
                 return allRequest;
         }
         return null;
+    }
+    public ArrayList<String> getRequestDetails(int requestId){
+        ArrayList<String> details = new ArrayList<>();
+        return details;
     }
 }

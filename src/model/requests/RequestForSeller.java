@@ -4,7 +4,7 @@ import model.account.Purchaser;
 
 import java.util.ArrayList;
 
-public class RequestForSeller extends Request{
+public class RequestForSeller {
     private RequestStatus status;
     private String companyName;
     private String username;
@@ -18,7 +18,6 @@ public class RequestForSeller extends Request{
 
     public RequestForSeller(String companyName, String username, String firstName
             , String secondName, String email, String telephoneNumber, String password) {
-//        super(requestId);
         this.companyName = companyName;
         this.username = username;
         this.firstName = firstName;
