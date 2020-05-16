@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class Purchaser extends Account {
     private ArrayList<Product> cart;
 
-    public Purchaser(String username, String firstName, String secondName, String email, String telephoneNumber, String password) {
-        super(username, firstName, secondName, email, telephoneNumber, password);
+    public Purchaser(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password) {
+        super(userName, firstName, lastName, eMail, telephoneNumber, password);
         this.cart = new ArrayList<>();
     }
 

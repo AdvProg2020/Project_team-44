@@ -1,25 +1,16 @@
 package view.menu;
 
+import model.account.Account;
+
+import java.util.HashMap;
+
 public class MainMenu extends Menu {
 
-    private MainMenu(Menu parent) {
-        super("Main Menu", parent);
-        //TODO: add subMenus
+    public MainMenu(Menu parent, Account account) {
+        super("Main Menu", parent, account);
+        HashMap<Integer, Menu> submenus = new HashMap<>();
+
     }
 
-    private static MainMenu singleton = new MainMenu(null);
 
-    public static MainMenu getInstance() {
-        return singleton;
-    }
-
-    @Override
-    public void show() {
-        super.show();
-    }
-
-    @Override
-    public void execute() {
-        super.execute();
-    }
 }
