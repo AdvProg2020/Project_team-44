@@ -21,6 +21,17 @@ public class RegisterAndLoginMenu extends Menu {
             public void execute() {
                 String input1 = scanner.nextLine();
                 String passWord = scanner.nextLine();
+                if(input1.equalsIgnoreCase("back")){
+                    this.getParent().show();
+                    this.getParent().menuWork();
+                    this.getParent().execute();
+                }
+                else if(input1.equalsIgnoreCase("logout") && getCurrentUserLoggedIn()!= null){
+                    Menu newMenu = new MainMenu(null,null);
+                    LoginPageController.logout();
+                    newMenu.show();
+                    newMenu.execute();
+                }
                 if(!input1.matches("login \\w+")){
                     System.err.println("invalid command!");
                     this.execute();

@@ -92,4 +92,8 @@ public abstract class Menu {
     public void menuWork() {
 
     }
+
+    public Menu getParent() {
+        return parent;
+    }
 }

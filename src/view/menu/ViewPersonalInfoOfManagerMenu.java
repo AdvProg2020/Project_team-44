@@ -1,5 +1,6 @@
 package view.menu;
 
+import controller.LoginPageController;
 import controller.ManagerAccountController;
 import model.account.Account;
 
@@ -31,7 +32,18 @@ public class ViewPersonalInfoOfManagerMenu extends Menu {
             @Override
             public void execute() {
                 String input = scanner.nextLine();
-                if (!input.matches("edit-\\w+-\\w+")) {
+                if(input.equalsIgnoreCase("back")){
+                    this.getParent().show();
+                    this.getParent().menuWork();
+                    this.getParent().execute();
+                }
+                else if(input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn()!= null){
+                    Menu newMenu = new MainMenu(null,null);
+                    LoginPageController.logout();
+                    newMenu.show();
+                    newMenu.execute();
+                }
+                else if (!input.matches("edit-\\w+-\\w+")) {
                     System.err.println("invalid command");
                     this.execute();
                 } else {
