@@ -5,9 +5,14 @@ import exception.UsernameNotExistsException;
 import exception.WrongPasswordException;
 import model.account.Account;
 
+import java.util.HashMap;
+
+
 public class RegisterAndLoginMenu extends Menu {
     public RegisterAndLoginMenu(Menu parent, Account account) {
         super("Register And Login Menu", parent, account);
+        HashMap<Integer , Menu> submenus = new HashMap<Integer, Menu>();
+        this.setSubmenus(submenus);
     }
 
     private Menu getLoginMenu() {
@@ -33,11 +38,12 @@ public class RegisterAndLoginMenu extends Menu {
                     try {
                         LoginPageController.processLogin(userName, passWord);
                         System.out.println("login successful");
+                        this.execute();
                     } catch (UsernameNotExistsException userNameError) {
-                        userNameError.getMessage();
+                        System.out.println(userNameError.getMessage());
                         this.execute();
                     } catch (WrongPasswordException passWordError) {
-                        passWordError.getMessage();
+                        System.out.println(passWordError.getMessage());
                         this.execute();
                     }
                 }

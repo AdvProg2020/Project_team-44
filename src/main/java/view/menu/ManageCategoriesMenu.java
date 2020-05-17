@@ -44,8 +44,9 @@ public class ManageCategoriesMenu extends Menu {
                     try {
                         ManagerAccountController.processEditCategoryEach(category);
                         System.out.println("edit category successful");
+                        this.execute();
                     } catch (CategoryNotExistsException editCategoryError) {
-                        editCategoryError.getMessage();
+                        System.out.println(editCategoryError.getMessage());
                         this.execute();
                     }
 
@@ -76,8 +77,9 @@ public class ManageCategoriesMenu extends Menu {
                     try {
                         ManagerAccountController.processAddCategoryEach(category);
                         System.out.println("Add category successful");
+                        this.execute();
                     } catch (CategoryNotExistsException addCategoryError) {
-                        addCategoryError.getMessage();
+                        System.out.println(addCategoryError.getMessage());
                         this.execute();
                     }
 
@@ -108,8 +110,9 @@ public class ManageCategoriesMenu extends Menu {
                     try {
                         ManagerAccountController.processRemoveCategoryEach(category);
                         System.out.println("remove category successful");
+                        this.execute();
                     } catch (CategoryNotExistsException removeCategoryError) {
-                        removeCategoryError.getMessage();
+                        System.out.println(removeCategoryError.getMessage());
                         this.execute();
                     }
 

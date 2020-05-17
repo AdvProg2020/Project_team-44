@@ -1,72 +1,25 @@
 package view.menu;
 
-import controller.SellerAccountManager;
+import controller.ProductsPageController;
+import exception.SortNotExistsException;
 import model.account.Account;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SellerAccountMenu extends Menu {
-    public SellerAccountMenu(Menu parent, Account account) {
-        super("Seller Account Menu", parent, account);
+public class SortingMenu extends Menu {
+    public SortingMenu(Menu parent, Account account) {
+        super("Sorting Menu", parent, account);
         HashMap<Integer, Menu> submenus = new HashMap<>();
-        submenus.put(1, new ViewPersonalInfoOfSellerMenu(this, account));
-        submenus.put(2, getViewCompanyInformationMenu());
-        submenus.put(3, getViewSaleHistoryMenu());
-        submenus.put(4, new ManageProductsForSellerMenu(this, account));
-        submenus.put(5,new ViewOffsOfSellerMenu(this,account));
-        submenus.put(6,getViewBalanceMenu());
+        submenus.put(1, getShowAvailableSortsMenu());
+        submenus.put(2, getShowProductsWithSortMenu());
+        submenus.put(3, getCurrentSortMenu());
+        submenus.put(4, getDisableSortMenu());
         this.setSubmenus(submenus);
-
-
     }
 
-    private Menu getViewCompanyInformationMenu() {
-        return new Menu("View Company Information Menu", this, this.getCurrentUserLoggedIn()) {
-            @Override
-            public void show() {
-                System.out.println(this.getName() + ":");
-            }
-            @Override
-            public void menuWork(){
-                SellerAccountManager.processViewCompanyInfo();
-            }
-            @Override
-            public void execute(){
-                String input = scanner.nextLine();
-                if (input.equalsIgnoreCase("back"))
-                    this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
-                else
-                    this.invalidCommandInExecute();
-            }
-        };
-    }
-
-    private Menu getViewSaleHistoryMenu() {
-        return new Menu("View Sale History Menu", this, this.getCurrentUserLoggedIn()) {
-            @Override
-            public void show() {
-                System.out.println(this.getName() + ":");
-            }
-            @Override
-            public void menuWork(){
-                SellerAccountManager.processViewSalesHistory();
-            }
-            @Override
-            public void execute(){
-                String input = scanner.nextLine();
-                if (input.equalsIgnoreCase("back"))
-                    this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
-                else
-                    this.invalidCommandInExecute();
-            }
-        };
-    }
-    private Menu getShowCategoriesMenu(){
-        return new Menu("Show Categories Menu",this,this.getCurrentUserLoggedIn()) {
+    private Menu getShowAvailableSortsMenu() {
+        return new Menu("Show Available Sorts Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -85,12 +38,46 @@ public class SellerAccountMenu extends Menu {
 
             @Override
             public void menuWork() {
-                SellerAccountManager.processShowCategory();
+                ArrayList<String> showSort = new ArrayList<>();
+                showSort = ProductsPageController.processShowAvailableSortsEach();
+
             }
         };
     }
-    private Menu getViewBalanceMenu(){
-        return new Menu("View Balance Menu",this,this.getCurrentUserLoggedIn()) {
+
+    private Menu getShowProductsWithSortMenu() {
+        return new Menu("Show Products With Sort Menu", this, this.getCurrentUserLoggedIn()) {
+            @Override
+            public void show() {
+                System.out.println(this.getName() + ":");
+                System.out.println("Please enter the sort");
+            }
+
+            @Override
+            public void execute() {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
+                    this.logoutInExecute();
+                else if (!input.matches("sort \\w+"))
+                    this.invalidCommandInExecute();
+                else {
+                    String availableSort = input.substring(5);
+                    try {
+                        ProductsPageController.processSortEach(availableSort);
+                        this.execute();
+                    } catch (SortNotExistsException sortError) {
+                        System.out.println(sortError.getMessage());
+                        this.execute();
+                    }
+                }
+            }
+        };
+    }
+
+    private Menu getCurrentSortMenu() {
+        return new Menu("Current Sorts Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -109,8 +96,35 @@ public class SellerAccountMenu extends Menu {
 
             @Override
             public void menuWork() {
-                SellerAccountManager.processViewBalance();
+                System.out.println(ProductsPageController.processCurrentSortEach());
             }
         };
     }
+
+    private Menu getDisableSortMenu() {
+        return new Menu("Disable Sort Menu", this, this.getCurrentUserLoggedIn()) {
+            @Override
+            public void show() {
+                System.out.println(this.getName() + ":");
+            }
+
+            @Override
+            public void execute() {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
+                    this.logoutInExecute();
+                else
+                    this.invalidCommandInExecute();
+            }
+
+            @Override
+            public void menuWork() {
+                ProductsPageController.processDisableSortEach();
+            }
+
+        };
+    }
+
 }
