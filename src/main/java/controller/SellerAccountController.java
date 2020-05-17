@@ -1,6 +1,7 @@
 package controller;
 
 import exception.ProductIdNotExistsException;
+import model.Category;
 import model.account.Purchaser;
 import model.account.Seller;
 import model.offer.Offer;
@@ -33,7 +34,7 @@ public abstract class SellerAccountController {
 
     public static ArrayList<String> processViewProductEach(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
-        return ProductsPageController.selectedProduct.getInfo();
+        return ProductsPageController.selectedProduct.getProductInfo();
     }
 
     public static ArrayList<String> processViewBuyersEach(String productId) throws ProductIdNotExistsException {
@@ -60,8 +61,8 @@ public abstract class SellerAccountController {
         ((Seller) LoginPageController.loggedInAccount).getProductsToSell().remove(Product.getProductByID(productId));
     }
 
-    public static void processShowCategory() {
-
+    public static ArrayList<String> processShowCategory() {
+        return Category.getAllCategoryNames();
     }
 
     public static ArrayList<String> processViewOffs() {
