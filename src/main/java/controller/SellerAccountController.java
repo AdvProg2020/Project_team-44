@@ -11,7 +11,7 @@ import model.requests.RequestForEditProduct;
 
 import java.util.ArrayList;
 
-public abstract class SellerAccountManager {
+public abstract class SellerAccountController {
     public static ArrayList<String> processViewPersonalInfo() {
         return LoginPageController.loggedInAccount.getInfo();
         /**DONE**/

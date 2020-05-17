@@ -10,7 +10,7 @@ import model.product.Product;
 
 import java.util.ArrayList;
 
-public abstract class PurchaserAccountManager {
+public abstract class PurchaserAccountController {
     public static ArrayList<String> processViewPersonalInfo() {
         return LoginPageController.loggedInAccount.getInfo();
     }

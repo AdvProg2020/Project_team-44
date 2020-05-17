@@ -6,6 +6,9 @@ import exception.SortNotExistsException;
 import model.Sort.Sort;
 import model.product.Product;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public abstract class ProductsPageController {
     static Product selectedProduct = null;
     static Sort currentProductsSort = Sort.VIEW;
@@ -34,8 +37,12 @@ public abstract class ProductsPageController {
 
     }
 
-    public static Sort[] processShowAvailableSortsEach() {
-        return Sort.values();
+    public static ArrayList<String> processShowAvailableSortsEach() {
+        ArrayList<String> allSorts = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            allSorts.add(Sort.values()[i].toString());
+        }
+        return allSorts;
     }
 
     public static void processSortEach(String availableSort) throws SortNotExistsException {
