@@ -22,7 +22,6 @@ public abstract class LoginPageController {
         } else {
             Purchaser purchaser = new Purchaser(username, firstName, lastName, email, telephoneNumber, password);
         }
-        /**DONE**/
     }
 
     public static void processLogin(String username, String password) throws UsernameNotExistsException, WrongPasswordException {
@@ -30,13 +29,11 @@ public abstract class LoginPageController {
         ValidationController.checkPasswordForLogin(username, password);
         loggedInAccount = Account.getAccountByUsername(username);
         loggedInAccount.setLoggedIn(true);
-        /**DONE**/
     }
 
     public static void logout() {
         loggedInAccount.setLoggedIn(false);
         loggedInAccount = null;
-        /**DONE**/
     }
 
 }
