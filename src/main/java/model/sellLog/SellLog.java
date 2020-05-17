@@ -63,16 +63,16 @@ public class SellLog {
 
     public ArrayList<String> getInfo() {
         ArrayList<String> sellLogInfo = new ArrayList<>();
-        getInfo().add(this.getLogID());
+        sellLogInfo.add(this.getLogID());
         Date date = this.getDate();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(date);
-        getInfo().add(strDate);
-        getInfo().add(String.valueOf(this.getMoneyGained()));
-        getInfo().add(String.valueOf(this.getOfferLossMoney()));
-        getInfo().add(this.getBuyerFirstName());
-        getInfo().add(this.getBuyerLastName());
-        getInfo().add(this.getStatus().toString());
-        return getInfo();
+        sellLogInfo.add(strDate);
+        sellLogInfo.add(String.valueOf(this.getMoneyGained()));
+        sellLogInfo.add(String.valueOf(this.getOfferLossMoney()));
+        sellLogInfo.add(this.getBuyerFirstName());
+        sellLogInfo.add(this.getBuyerLastName());
+        sellLogInfo.add(this.getStatus().toString());
+        return sellLogInfo;
     }
 }

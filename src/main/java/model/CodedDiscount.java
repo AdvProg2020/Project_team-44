@@ -4,10 +4,7 @@ import model.account.Account;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 public class CodedDiscount {
 
@@ -52,8 +49,8 @@ public class CodedDiscount {
         return allCodedDiscounts;
     }
 
-    public CodedDiscount(String discountCode, Date initialDate, Date finalDate, int discountPercentage, int maxAuthorizedPrice) {
-        this.discountCode = discountCode;
+    public CodedDiscount(Date initialDate, Date finalDate, int discountPercentage, int maxAuthorizedPrice) {
+        this.discountCode = produceDiscountCode();
         this.initialDate = initialDate;
         this.finalDate = finalDate;
         this.discountPercentage = discountPercentage;
@@ -100,11 +97,23 @@ public class CodedDiscount {
         info.add(String.valueOf(this.getMaxAuthorizedPrice()));
         return info;
     }
-    public static ArrayList<String> getAllDiscountCodes(){
+
+    public static ArrayList<String> getAllDiscountCodes() {
         ArrayList<String> allDiscountCode = new ArrayList<>();
         for (CodedDiscount allCodedDiscount : allCodedDiscounts) {
             allDiscountCode.add(allCodedDiscount.getDiscountCode());
         }
         return allDiscountCode;
+    }
+
+    public String produceDiscountCode() {
+        String code = "discountCode";
+        Random random = new Random();
+        int min = 0;
+        int max = 100000000;
+        int range = max - min;
+        int rand = random.nextInt(range) + min;
+        code += rand;
+        return code;
     }
 }
