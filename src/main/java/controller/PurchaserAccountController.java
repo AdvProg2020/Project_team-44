@@ -21,6 +21,7 @@ public abstract class PurchaserAccountController {
 
     public static ArrayList<String> processShowProductsEach() {
         return ((Purchaser) LoginPageController.loggedInAccount).getCartProducts();
+//        git is shit
     }
 
 
