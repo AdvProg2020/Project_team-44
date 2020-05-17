@@ -29,7 +29,7 @@ public abstract class Account {
         this.telephoneNumber = telephoneNumber;
         this.password = password;
         this.balance = 0;
-        this.allDiscountCodes = new ArrayList<CodedDiscount>();
+        this.allDiscountCodes = new ArrayList<>();
         this.sellLogListHistory = new ArrayList<>();
         this.buyLogListHistory = new ArrayList<>();
         allAccounts.add(this);

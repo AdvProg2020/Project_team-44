@@ -94,4 +94,12 @@ public class Purchaser extends Account {
         }
         return productNames;
     }
+
+    public double getCartMoneyToPay() {
+        double money = 0;
+        for (Product product : this.getCart().keySet()) {
+            money += product.getPrice() * this.getCart().get(product);
+        }
+        return money;
+    }
 }
