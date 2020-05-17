@@ -17,14 +17,14 @@ public class Product {
     private String companyName;
     private double price;
     private ArrayList<Seller> allSellers = new ArrayList<>();
-    private float averageRating;
     private boolean isAvailable;
     private ArrayList<Comment> allComments = new ArrayList<>();
     private String explanationText;
     private int availableNumber;
     private Offer offer;
-    private Rating rating;
+    private ArrayList<Rating> allRating = new ArrayList<>();
     private static ArrayList<Product> allProducts;
+
 
     public Product(String productID, Category category, String name, String companyName, int price, String explanationText) {
         this.productID = productID;
@@ -80,10 +80,6 @@ public class Product {
         return allSellers;
     }
 
-    public float getAverageRating() {
-        return averageRating;
-    }
-
     public boolean isAvailable() {
         return isAvailable;
     }
@@ -104,11 +100,39 @@ public class Product {
         return offer;
     }
 
-    public Rating getRating() {
-        return rating;
+    public ArrayList<Rating> getAllRating() {
+        return allRating;
+    }
+
+    public float getAverageRating() {
+        float sum = 0;
+        float num = 0;
+        for (Rating rating : this.getAllRating()) {
+            sum += rating.getRating();
+            num++;
+        }
+        return sum / num;
     }
 
     public void setStatus(ProductStatus status) {
         this.status = status;
+    }
+
+    public ArrayList<String> getProductInfo() {
+        ArrayList<String> info = new ArrayList<>();
+        info.add(this.getName());
+        info.add(String.valueOf(this.getPrice()));
+        info.add(this.getCategory().getName());
+        info.add(String.valueOf(this.getAverageRating()));
+        info.add(this.getExplanationText());
+        if (this.getOffer().getOfferID() == null)
+            info.add("null");
+        else info.add(this.getOffer().getOfferID());
+        String sellers = "";
+        for (Seller allSeller : this.getAllSellers()) {
+            sellers = allSeller.getFirstName() + "  " + allSeller.getLastName() + " : ";
+        }
+        info.add(sellers);
+        return info;
     }
 }

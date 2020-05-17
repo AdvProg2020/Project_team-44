@@ -8,12 +8,9 @@ import model.product.Product;
 
 public abstract class ProductsPageController {
     static Product selectedProduct = null;
+    static Sort currentProductsSort = Sort.VIEW;
 
     public static void processViewCategories() {
-
-    }
-
-    public static void processFiltering() {
 
     }
 
@@ -37,26 +34,29 @@ public abstract class ProductsPageController {
 
     }
 
-    public static void processSorting() {
-
-    }
-
-    public static void processShowAvailableSortsEach() {
-
+    public static Sort[] processShowAvailableSortsEach() {
+        return Sort.values();
     }
 
     public static void processSortEach(String availableSort) throws SortNotExistsException {
         ValidationController.checkSortExistence(availableSort);
+        if (availableSort.equals(Sort.TIME)) {
+            currentProductsSort = Sort.TIME;
+        } else if (availableSort.equals(Sort.SCORE)) {
+            currentProductsSort = Sort.SCORE;
+        } else {
+            currentProductsSort = Sort.VIEW;
+        }
         /*TODO*/
 
     }
 
-    public static void processCurrentSortEach() {
-
+    public static String processCurrentSortEach() {
+        return currentProductsSort.toString();
     }
 
     public static void processDisableSortEach() {
-
+        currentProductsSort = Sort.VIEW;
     }
 
     public static void processShowProducts() {
@@ -65,9 +65,7 @@ public abstract class ProductsPageController {
 
     public static void processShowProduct(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
-        
-        /*TODO*/
-
+        ProductsPageController.selectedProduct = Product.getProductByID(productId);
     }
 
 

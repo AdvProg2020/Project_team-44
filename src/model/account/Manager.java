@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Manager extends Account {
 
@@ -29,9 +31,29 @@ public class Manager extends Account {
         return IdLists;
     }
 
+    public Matcher getMatcher(String input, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        matcher.find();
+        return matcher;
+    }
+
     public void accept(String requestId) {
         Request.getRequestById(requestId).setStatus(RequestStatus.VERIFIED);
-        Request.getAllRequests();
+        String firstPartId = getMatcher(requestId, "(.*)_\\d+").group(1);
+        if (firstPartId.equalsIgnoreCase("RequestForAddOff")){
+
+        }else if (firstPartId.equalsIgnoreCase("RequestForAddProduct")){
+
+        }else if (firstPartId.equalsIgnoreCase("RequestForEditOff")){
+
+        }else if (firstPartId.equalsIgnoreCase("RequestForEditProduct")){
+
+        }else if (firstPartId.equalsIgnoreCase("RequestForRemoveProduct")){
+
+        }else if (firstPartId.equalsIgnoreCase("RequestForSeller")){
+
+        }
     }
 
     public void decline(String requestId) {
@@ -82,6 +104,6 @@ public class Manager extends Account {
     }
 
     public void addCategory(String name) {
-
+        new Category(name);
     }
 }
