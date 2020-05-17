@@ -34,7 +34,7 @@ public class Purchaser extends Account {
         new Rating(product, this, rating);
     }
 
-    public void purchase(Product product) {
+    public void purchase() {
 
     }
 
