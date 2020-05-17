@@ -6,10 +6,24 @@ import exception.WrongPasswordException;
 import model.account.Account;
 import model.account.Manager;
 import model.account.Purchaser;
+import model.account.Seller;
 import model.requests.RequestForSeller;
 
 public abstract class LoginPageController {
     static Account loggedInAccount;
+
+    public static String getLoggedInAccountType() {
+        if (loggedInAccount == null) {
+            return "null";
+        }
+        if (loggedInAccount instanceof Purchaser) {
+            return "purchaser";
+        } else if (loggedInAccount instanceof Seller) {
+            return "seller";
+        } else {
+            return "manager";
+        }
+    }
 
     public static void processCreateAccount(String type, String username, String password, String firstName, String lastName, String email
             , String telephoneNumber, String companyName) throws UsernameExistsException {
@@ -22,7 +36,6 @@ public abstract class LoginPageController {
         } else {
             Purchaser purchaser = new Purchaser(username, firstName, lastName, email, telephoneNumber, password);
         }
-        /**DONE**/
     }
 
     public static void processLogin(String username, String password) throws UsernameNotExistsException, WrongPasswordException {
@@ -30,13 +43,11 @@ public abstract class LoginPageController {
         ValidationController.checkPasswordForLogin(username, password);
         loggedInAccount = Account.getAccountByUsername(username);
         loggedInAccount.setLoggedIn(true);
-        /**DONE**/
     }
 
     public static void logout() {
         loggedInAccount.setLoggedIn(false);
         loggedInAccount = null;
-        /**DONE**/
     }
 
 }
