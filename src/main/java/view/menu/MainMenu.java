@@ -1,15 +1,13 @@
 package view.menu;
 
-import model.account.Account;
-
 import java.util.HashMap;
 
 public class MainMenu extends Menu {
 
-    public MainMenu(Menu parent, Account account) {
-        super("Main Menu", parent, account);
+    public MainMenu(Menu parent) {
+        super("Main Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
-        submenus.put(2,new ProductsPageMenu(this,account));
+        submenus.put(2, new ProductsPageMenu(this));
         this.setSubmenus(submenus);
 
     }

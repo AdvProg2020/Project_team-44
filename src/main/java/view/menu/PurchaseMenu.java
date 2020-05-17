@@ -1,24 +1,21 @@
 package view.menu;
 
-import controller.ManagerAccountController;
-import controller.ProductsPageController;
 import controller.PurchaserAccountController;
 import exception.NotEnoughMoneyToPayException;
 import exception.PurchaserNotOwnsCodedDiscountException;
-import model.account.Account;
 
 import java.util.HashMap;
 
 public class PurchaseMenu extends Menu {
-    public PurchaseMenu(Menu parent, Account account) {
-        super("Purchase Menu", parent, account);
+    public PurchaseMenu(Menu parent) {
+        super("Purchase Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getReceiverInformationMenu(this));
         this.setSubmenus(submenus);
     }
 
     private Menu getReceiverInformationMenu(Menu currentMenu) {
-        return new Menu("Receiver Information Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Receiver Information Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -43,7 +40,7 @@ public class PurchaseMenu extends Menu {
             }
 
             private Menu getDiscountCodeMenu() {
-                return new Menu("Discount Code Menu", this, this.getCurrentUserLoggedIn()) {
+                return new Menu("Discount Code Menu", this) {
                     @Override
                     public void show() {
                         System.out.println(this.getName() + ":");
@@ -71,7 +68,7 @@ public class PurchaseMenu extends Menu {
                     }
 
                     private Menu getPaymentMenu() {
-                        return new Menu("Payment Menu", this, this.getCurrentUserLoggedIn()) {
+                        return new Menu("Payment Menu", this) {
                             @Override
                             public void show() {
                                 System.out.println(this.getName() + ":");
@@ -86,15 +83,13 @@ public class PurchaseMenu extends Menu {
                                 else if (input1.equalsIgnoreCase("no")) {
                                     currentMenu.show();
                                     currentMenu.execute();
-                                }
-                                else{
+                                } else {
                                     try {
                                         PurchaserAccountController.processPayment();
                                         System.out.println("payment successful");
                                         currentMenu.show();
                                         currentMenu.execute();
-                                    }
-                                    catch (NotEnoughMoneyToPayException paymentError){
+                                    } catch (NotEnoughMoneyToPayException paymentError) {
                                         System.err.println(paymentError.getMessage());
                                         currentMenu.show();
                                         currentMenu.execute();

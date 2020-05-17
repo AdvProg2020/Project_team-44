@@ -1,15 +1,14 @@
 package view.menu;
 
+import controller.LoginPageController;
 import controller.ManagerAccountController;
 import exception.CategoryNotExistsException;
-import exception.RequestNotExistsException;
-import model.account.Account;
 
 import java.util.HashMap;
 
 public class ManageCategoriesMenu extends Menu {
-    public ManageCategoriesMenu(Menu parent, Account account) {
-        super("Manage Categories Menu", parent, account);
+    public ManageCategoriesMenu(Menu parent) {
+        super("Manage Categories Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getEditCategoryMenu());
         submenus.put(2, getAddCategoryMenu());
@@ -23,7 +22,7 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     private Menu getEditCategoryMenu() {
-        return new Menu("Edit Category Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Edit Category Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -35,8 +34,6 @@ public class ManageCategoriesMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("edit \\w+"))
                     this.invalidCommandInExecute();
                 else {
@@ -56,7 +53,7 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     private Menu getAddCategoryMenu() {
-        return new Menu("Add Category Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Add Category Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -68,8 +65,6 @@ public class ManageCategoriesMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("add \\w+"))
                     this.invalidCommandInExecute();
                 else {
@@ -89,7 +84,7 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     private Menu getRemoveCategoryMenu() {
-        return new Menu("Remove Category Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Remove Category Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -101,8 +96,6 @@ public class ManageCategoriesMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("remove \\w+"))
                     this.invalidCommandInExecute();
                 else {

@@ -1,6 +1,6 @@
 package view.menu;
 
-import controller.PurchaserAccountManager;
+import controller.PurchaserAccountController;
 import exception.ProductNotExistsInCartException;
 import model.account.Account;
 
@@ -8,23 +8,23 @@ import java.util.HashMap;
 
 public class ViewCartMenu extends Menu {
     public ViewCartMenu(Menu parent, Account account) {
-        super("View Cart Menu", parent, account);
+        super("View Cart Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getShowProductsMenu());
         submenus.put(2, getViewProductMenu());
         submenus.put(3, getIncreaseProductMenu());
-        submenus.put(4,getShowTotalPriceMenu());
-        submenus.put(5,new PurchaseMenu(this,account));
+        submenus.put(4, getShowTotalPriceMenu());
+        submenus.put(5, new PurchaseMenu(this));
         this.setSubmenus(submenus);
     }
 
     @Override
     public void menuWork() {
-        PurchaserAccountManager.processViewCart();
+        PurchaserAccountController.processViewCart();
     }
 
     private Menu getShowProductsMenu() {
-        return new Menu("Show Products Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Show Products Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -34,12 +34,10 @@ public class ViewCartMenu extends Menu {
             public void execute() {
                 String input = scanner.nextLine();
                 if (input.equals("show products")) {
-                    PurchaserAccountManager.processShowProductsEach();
+                    PurchaserAccountController.processShowProductsEach();
                     this.execute();
                 } else if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else
                     invalidCommandInExecute();
             }
@@ -47,7 +45,7 @@ public class ViewCartMenu extends Menu {
     }
 
     private Menu getViewProductMenu() {
-        return new Menu("View Product Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("View Product Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -59,14 +57,12 @@ public class ViewCartMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("view \\w+"))
                     this.invalidCommandInExecute();
                 else {
                     String productId = input.substring(5);
                     try {
-                        PurchaserAccountManager.processViewProductsEach(productId);
+                        PurchaserAccountController.processViewProductsEach(productId);
                         this.execute();
                     } catch (ProductNotExistsInCartException viewProductError) {
                         System.err.println(viewProductError.getMessage());
@@ -78,7 +74,7 @@ public class ViewCartMenu extends Menu {
     }
 
     private Menu getIncreaseProductMenu() {
-        return new Menu("Increase Product Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Increase Product Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -90,14 +86,12 @@ public class ViewCartMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("increase \\w+"))
                     this.invalidCommandInExecute();
                 else {
                     String productId = input.substring(9);
                     try {
-                        PurchaserAccountManager.processIncreaseProductEach(productId);
+                        PurchaserAccountController.processIncreaseProductEach(productId);
                         this.execute();
                     } catch (ProductNotExistsInCartException increaseProductError) {
                         System.err.println(increaseProductError.getMessage());
@@ -109,7 +103,7 @@ public class ViewCartMenu extends Menu {
     }
 
     private Menu getDecreaseProductMenu() {
-        return new Menu("Decrease Product Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Decrease Product Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -121,14 +115,12 @@ public class ViewCartMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("decrease \\w+"))
                     this.invalidCommandInExecute();
                 else {
                     String productId = input.substring(9);
                     try {
-                        PurchaserAccountManager.processDecreaseProductEach(productId);
+                        PurchaserAccountController.processDecreaseProductEach(productId);
                         this.execute();
                     } catch (ProductNotExistsInCartException decreaseProductError) {
                         System.err.println(decreaseProductError.getMessage());
@@ -140,7 +132,7 @@ public class ViewCartMenu extends Menu {
     }
 
     private Menu getShowTotalPriceMenu() {
-        return new Menu("Show Total Price Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Show Total Price Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -151,15 +143,13 @@ public class ViewCartMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else
                     this.invalidCommandInExecute();
             }
 
             @Override
             public void menuWork() {
-               PurchaserAccountManager.processShowTotalPriceEach();
+                PurchaserAccountController.processShowTotalPriceEach();
             }
         };
     }

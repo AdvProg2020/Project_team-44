@@ -1,30 +1,30 @@
 package view.menu;
 
-import controller.SellerAccountManager;
+import controller.LoginPageController;
+import controller.SellerAccountController;
 import exception.ProductIdNotExistsException;
-import model.account.Account;
 
 import java.util.HashMap;
 
 public class ManageProductsForSellerMenu extends Menu {
-    public ManageProductsForSellerMenu(Menu parent, Account account) {
-        super("Manager Products For Seller Menu", parent, account);
+    public ManageProductsForSellerMenu(Menu parent) {
+        super("Manager Products For Seller Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<Integer, Menu>();
         submenus.put(1, getViewProductMenu());
         submenus.put(2, getViewBuyersOfProductMenu());
         submenus.put(3, getEditProductMenu());
         submenus.put(4, getAddProductMenu());
-        submenus.put(5,getRemoveProductMenu());
+        submenus.put(5, getRemoveProductMenu());
         this.setSubmenus(submenus);
     }
 
     @Override
     public void menuWork() {
-        SellerAccountManager.processManageProducts();
+        SellerAccountController.processManageProducts();
     }
 
     private Menu getViewProductMenu() {
-        return new Menu("View Product Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("View Product Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -36,26 +36,24 @@ public class ManageProductsForSellerMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("view \\w+"))
                     this.invalidCommandInExecute();
                 else {
                     String productId = input.substring(5);
-                        try {
-                            SellerAccountManager.processViewProductEach(productId);
-                            this.execute();
-                        } catch (ProductIdNotExistsException viewProductError) {
-                            System.out.println(viewProductError.getMessage());
-                            this.execute();
-                        }
+                    try {
+                        SellerAccountController.processViewProductEach(productId);
+                        this.execute();
+                    } catch (ProductIdNotExistsException viewProductError) {
+                        System.out.println(viewProductError.getMessage());
+                        this.execute();
                     }
                 }
+            }
         };
     }
 
     private Menu getViewBuyersOfProductMenu() {
-        return new Menu("View Buyers Of Product Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("View Buyers Of Product Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -67,14 +65,12 @@ public class ManageProductsForSellerMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("view buyers \\w+"))
                     this.invalidCommandInExecute();
                 else {
                     String productId = input.substring(12);
                     try {
-                        SellerAccountManager.processViewBuyersEach(productId);
+                        SellerAccountController.processViewBuyersEach(productId);
                         this.execute();
                     } catch (ProductIdNotExistsException viewBuyersOfProductError) {
                         System.out.println(viewBuyersOfProductError.getMessage());
@@ -86,7 +82,7 @@ public class ManageProductsForSellerMenu extends Menu {
     }
 
     private Menu getEditProductMenu() {
-        return new Menu("Edit Product Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Edit Product Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -98,14 +94,12 @@ public class ManageProductsForSellerMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("view buyers \\w+"))
                     this.invalidCommandInExecute();
                 else {
                     String productId = input.substring(12);
                     try {
-                        SellerAccountManager.processViewBuyersEach(productId);
+                        SellerAccountController.processViewBuyersEach(productId);
                         this.execute();
                     } catch (ProductIdNotExistsException viewBuyersOfProductError) {
                         System.out.println(viewBuyersOfProductError.getMessage());
@@ -115,8 +109,9 @@ public class ManageProductsForSellerMenu extends Menu {
             }
         };
     }
-    private Menu getAddProductMenu(){
-        return new Menu("Add Product Menu",this,this.getCurrentUserLoggedIn()) {
+
+    private Menu getAddProductMenu() {
+        return new Menu("Add Product Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -128,14 +123,12 @@ public class ManageProductsForSellerMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("remove product \\w+"))
                     this.invalidCommandInExecute();
                 else {
                     String productId = input.substring(15);
                     try {
-                        SellerAccountManager.processRemoveProduct(productId);
+                        SellerAccountController.processRemoveProduct(productId);
                     } catch (ProductIdNotExistsException RemoveProductError) {
                         System.out.println(RemoveProductError.getMessage());
                         this.execute();
@@ -144,8 +137,9 @@ public class ManageProductsForSellerMenu extends Menu {
             }
         };
     }
-    private Menu getRemoveProductMenu(){
-        return new Menu("Remove Product Menu" , this , this.getCurrentUserLoggedIn()) {
+
+    private Menu getRemoveProductMenu() {
+        return new Menu("Remove Product Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -157,14 +151,12 @@ public class ManageProductsForSellerMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("remove product \\w+"))
                     this.invalidCommandInExecute();
                 else {
                     String productId = input.substring(15);
                     try {
-                        SellerAccountManager.processRemoveProduct(productId);
+                        SellerAccountController.processRemoveProduct(productId);
                     } catch (ProductIdNotExistsException RemoveProductError) {
                         System.out.println(RemoveProductError.getMessage());
                         this.execute();

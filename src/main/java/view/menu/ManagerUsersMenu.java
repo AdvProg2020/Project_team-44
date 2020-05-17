@@ -1,14 +1,15 @@
 package view.menu;
 
 
+import controller.LoginPageController;
 import controller.ManagerAccountController;
 import exception.UsernameNotExistsException;
-import model.account.Account;
+
 import java.util.HashMap;
 
 public class ManagerUsersMenu extends Menu {
-    public ManagerUsersMenu(Menu parent, Account account) {
-        super("Manager Users Menu", parent, account);
+    public ManagerUsersMenu(Menu parent) {
+        super("Manager Users Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getViewOfUserMenu());
         submenus.put(2, getDeleteUserMenu());
@@ -22,7 +23,7 @@ public class ManagerUsersMenu extends Menu {
     }
 
     private Menu getViewOfUserMenu() {
-        return new Menu("View Of User Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("View Of User Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -34,8 +35,6 @@ public class ManagerUsersMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("view \\w+"))
                     this.invalidCommandInExecute();
                 else {
@@ -54,7 +53,7 @@ public class ManagerUsersMenu extends Menu {
     }
 
     private Menu getDeleteUserMenu() {
-        return new Menu("Delete User Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Delete User Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -66,8 +65,6 @@ public class ManagerUsersMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("delete user \\w+"))
                     this.invalidCommandInExecute();
                 else {
@@ -87,7 +84,7 @@ public class ManagerUsersMenu extends Menu {
     }
 
     private Menu getCreateManagerProfileMenu() {
-        return new Menu("Create Manager Profile Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Create Manager Profile Menu", this) {
             @Override
             public void show() {
 

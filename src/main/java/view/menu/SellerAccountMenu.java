@@ -1,42 +1,42 @@
 package view.menu;
 
-import controller.SellerAccountManager;
-import model.account.Account;
+import controller.LoginPageController;
+import controller.SellerAccountController;
 
 import java.util.HashMap;
 
 public class SellerAccountMenu extends Menu {
-    public SellerAccountMenu(Menu parent, Account account) {
-        super("Seller Account Menu", parent, account);
+    public SellerAccountMenu(Menu parent) {
+        super("Seller Account Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
-        submenus.put(1, new ViewPersonalInfoOfSellerMenu(this, account));
+        submenus.put(1, new ViewPersonalInfoOfSellerMenu(this));
         submenus.put(2, getViewCompanyInformationMenu());
         submenus.put(3, getViewSaleHistoryMenu());
-        submenus.put(4, new ManageProductsForSellerMenu(this, account));
-        submenus.put(5,new ViewOffsOfSellerMenu(this,account));
-        submenus.put(6,getViewBalanceMenu());
+        submenus.put(4, new ManageProductsForSellerMenu(this));
+        submenus.put(5, new ViewOffsOfSellerMenu(this));
+        submenus.put(6, getViewBalanceMenu());
         this.setSubmenus(submenus);
 
 
     }
 
     private Menu getViewCompanyInformationMenu() {
-        return new Menu("View Company Information Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("View Company Information Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
             }
+
             @Override
-            public void menuWork(){
-                SellerAccountManager.processViewCompanyInfo();
+            public void menuWork() {
+                SellerAccountController.processViewCompanyInfo();
             }
+
             @Override
-            public void execute(){
+            public void execute() {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else
                     this.invalidCommandInExecute();
             }
@@ -44,29 +44,30 @@ public class SellerAccountMenu extends Menu {
     }
 
     private Menu getViewSaleHistoryMenu() {
-        return new Menu("View Sale History Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("View Sale History Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
             }
+
             @Override
-            public void menuWork(){
-                SellerAccountManager.processViewSalesHistory();
+            public void menuWork() {
+                SellerAccountController.processViewSalesHistory();
             }
+
             @Override
-            public void execute(){
+            public void execute() {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else
                     this.invalidCommandInExecute();
             }
         };
     }
-    private Menu getShowCategoriesMenu(){
-        return new Menu("Show Categories Menu",this,this.getCurrentUserLoggedIn()) {
+
+    private Menu getShowCategoriesMenu() {
+        return new Menu("Show Categories Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -77,20 +78,19 @@ public class SellerAccountMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else
                     this.invalidCommandInExecute();
             }
 
             @Override
             public void menuWork() {
-                SellerAccountManager.processShowCategory();
+                SellerAccountController.processShowCategory();
             }
         };
     }
-    private Menu getViewBalanceMenu(){
-        return new Menu("View Balance Menu",this,this.getCurrentUserLoggedIn()) {
+
+    private Menu getViewBalanceMenu() {
+        return new Menu("View Balance Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -101,15 +101,13 @@ public class SellerAccountMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else
                     this.invalidCommandInExecute();
             }
 
             @Override
             public void menuWork() {
-                SellerAccountManager.processViewBalance();
+                SellerAccountController.processViewBalance();
             }
         };
     }

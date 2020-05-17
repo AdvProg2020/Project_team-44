@@ -1,25 +1,26 @@
 package view.menu;
 
-import controller.PurchaserAccountManager;
-import controller.SellerAccountManager;
-import model.account.Account;
+import controller.PurchaserAccountController;
+import controller.SellerAccountController;
 
 import java.util.HashMap;
 
 public class ViewPersonalInfoOfPurchaserMenu extends Menu {
-    public ViewPersonalInfoOfPurchaserMenu( Menu parent, Account account) {
-        super("View Personal Info Of Purchaser Menu", parent, account);
-        HashMap<Integer , Menu> submenus = new HashMap<>();
-        submenus.put(1,getEditFieldMenu());
-        submenus.put(2,new ViewCartMenu(this,account));
+    public ViewPersonalInfoOfPurchaserMenu(Menu parent) {
+        super("View Personal Info Of Purchaser Menu", parent);
+        HashMap<Integer, Menu> submenus = new HashMap<>();
+        submenus.put(1, getEditFieldMenu());
+        submenus.put(2, new ViewCartMenu(this));
         this.setSubmenus(submenus);
     }
+
     @Override
     public void menuWork() {
-        PurchaserAccountManager.processViewPersonalInfo();
+        PurchaserAccountController.processViewPersonalInfo();
     }
+
     private Menu getEditFieldMenu() {
-        return new Menu("Edit Field Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Edit Field Menu", this) {
 
             @Override
             public void show() {
@@ -32,8 +33,6 @@ public class ViewPersonalInfoOfPurchaserMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("edit-\\w+-\\w+"))
                     this.invalidCommandInExecute();
                 else {
@@ -44,7 +43,7 @@ public class ViewPersonalInfoOfPurchaserMenu extends Menu {
                         this.execute();
                     } else {
                         try {
-                            SellerAccountManager.processEditFieldEach(field, newValue);
+                            SellerAccountController.processEditFieldEach(field, newValue);
                             System.out.println("your change done");
                             this.execute();
                         } catch () {

@@ -1,13 +1,12 @@
 package view.menu;
 
 import controller.ManagerAccountController;
-import model.account.Account;
 
 import java.util.HashMap;
 
 public class ViewPersonalInfoOfManagerMenu extends Menu {
-    public ViewPersonalInfoOfManagerMenu(Menu parent, Account account) {
-        super("View Personal Info Of Manager Menu", parent, account);
+    public ViewPersonalInfoOfManagerMenu(Menu parent) {
+        super("View Personal Info Of Manager Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getEditFieldMenu());
         this.setSubmenus(submenus);
@@ -20,7 +19,7 @@ public class ViewPersonalInfoOfManagerMenu extends Menu {
     }
 
     private Menu getEditFieldMenu() {
-        return new Menu("Edit Field Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Edit Field Menu", this) {
 
             @Override
             public void show() {
@@ -31,25 +30,22 @@ public class ViewPersonalInfoOfManagerMenu extends Menu {
             @Override
             public void execute() {
                 String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+                if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if(input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn()!= null)
-                    this.logoutInExecute();
                 else if (!input.matches("edit-\\w+-\\w+"))
-                     this.invalidCommandInExecute();
-                 else {
+                    this.invalidCommandInExecute();
+                else {
                     String field = input.split("-")[1];
                     String newValue = input.split("-")[2];
                     if (field.equals("username")) {
                         System.err.println("you can't edit username");
                         this.execute();
                     } else
-                        try{
-                            ManagerAccountController.processEditFieldEach(field,newValue);
+                        try {
+                            ManagerAccountController.processEditFieldEach(field, newValue);
                             System.out.println("your change done");
                             this.execute();
-                        }
-                        catch (){
+                        } catch () {
 
                         }
 

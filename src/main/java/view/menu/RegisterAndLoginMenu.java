@@ -3,20 +3,19 @@ package view.menu;
 import controller.LoginPageController;
 import exception.UsernameNotExistsException;
 import exception.WrongPasswordException;
-import model.account.Account;
 
 import java.util.HashMap;
 
 
 public class RegisterAndLoginMenu extends Menu {
-    public RegisterAndLoginMenu(Menu parent, Account account) {
-        super("Register And Login Menu", parent, account);
-        HashMap<Integer , Menu> submenus = new HashMap<Integer, Menu>();
+    public RegisterAndLoginMenu(Menu parent) {
+        super("Register And Login Menu", parent);
+        HashMap<Integer, Menu> submenus = new HashMap<Integer, Menu>();
         this.setSubmenus(submenus);
     }
 
     private Menu getLoginMenu() {
-        return new Menu("Login Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Login Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -29,10 +28,8 @@ public class RegisterAndLoginMenu extends Menu {
                 String passWord = scanner.nextLine();
                 if (input1.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input1.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input1.matches("login \\w+"))
-                   this.invalidCommandInExecute();
+                    this.invalidCommandInExecute();
                 else {
                     String userName = input1.substring(6);
                     try {

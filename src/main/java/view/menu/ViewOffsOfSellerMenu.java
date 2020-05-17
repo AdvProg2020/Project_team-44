@@ -1,29 +1,27 @@
 package view.menu;
 
-import controller.SellerAccountManager;
+import controller.SellerAccountController;
 import exception.ProductIdNotExistsException;
-
-import model.account.Account;
 
 import java.util.HashMap;
 
 public class ViewOffsOfSellerMenu extends Menu {
-    public ViewOffsOfSellerMenu(Menu parent, Account account) {
-        super("View Offs Of Seller Menu", parent, account);
+    public ViewOffsOfSellerMenu(Menu parent) {
+        super("View Offs Of Seller Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
-        submenus.put(1,getViewOffMenu());
-        submenus.put(2,getEditOffMenu());
-        submenus.put(3,getAddOffMenu());
+        submenus.put(1, getViewOffMenu());
+        submenus.put(2, getEditOffMenu());
+        submenus.put(3, getAddOffMenu());
         this.setSubmenus(submenus);
     }
 
     @Override
     public void menuWork() {
-        SellerAccountManager.processViewOffs();
+        SellerAccountController.processViewOffs();
     }
 
     private Menu getViewOffMenu() {
-        return new Menu("View Off Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("View Off Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -35,14 +33,12 @@ public class ViewOffsOfSellerMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("view \\w+"))
                     this.invalidCommandInExecute();
                 else {
                     String offId = input.substring(5);
                     try {
-                        SellerAccountManager.processViewOffEach(offId);
+                        SellerAccountController.processViewOffEach(offId);
                         this.execute();
                     } catch (ProductIdNotExistsException viewOffError) {
                         System.err.println(viewOffError.getMessage());
@@ -55,7 +51,7 @@ public class ViewOffsOfSellerMenu extends Menu {
     }
 
     private Menu getEditOffMenu() {
-        return new Menu("Edit Off Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Edit Off Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -67,14 +63,12 @@ public class ViewOffsOfSellerMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("view \\w+"))
                     this.invalidCommandInExecute();
                 else {
                     String offId = input.substring(5);
                     try {
-                        SellerAccountManager.processViewOffEach(offId);
+                        SellerAccountController.processViewOffEach(offId);
                         this.execute();
                     } catch (ProductIdNotExistsException viewOffError) {
                         System.err.println(viewOffError.getMessage());
@@ -87,7 +81,7 @@ public class ViewOffsOfSellerMenu extends Menu {
     }
 
     private Menu getAddOffMenu() {
-        return new Menu("Add Off Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Add Off Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -99,14 +93,12 @@ public class ViewOffsOfSellerMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("view \\w+"))
                     this.invalidCommandInExecute();
                 else {
                     String offId = input.substring(5);
                     try {
-                        SellerAccountManager.processViewOffEach(offId);
+                        SellerAccountController.processViewOffEach(offId);
                         this.execute();
                     } catch (ProductIdNotExistsException viewOffError) {
                         System.err.println(viewOffError.getMessage());

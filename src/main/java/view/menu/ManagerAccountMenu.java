@@ -1,28 +1,28 @@
 package view.menu;
 
+
 import controller.ManagerAccountController;
 import exception.UsernameNotExistsException;
-import model.account.Account;
 
 import java.util.HashMap;
 
 public class ManagerAccountMenu extends Menu {
-    public ManagerAccountMenu(Menu parent, Account account) {
-        super("Manager Account Menu", parent, account);
+    public ManagerAccountMenu(Menu parent) {
+        super("Manager Account Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
-        submenus.put(1, new ViewPersonalInfoOfManagerMenu(this, account));
-        submenus.put(2, new ManagerUsersMenu(this, account));
-        submenus.put(3, new ManageAllProductsMenu(this, account));
+        submenus.put(1, new ViewPersonalInfoOfManagerMenu(this));
+        submenus.put(2, new ManagerUsersMenu(this));
+        submenus.put(3, new ManageAllProductsMenu(this);
         submenus.put(4, getCreateDiscountCodeMenu());
-        submenus.put(5, new ViewDiscountCodesMenu(this, account));
-        submenus.put(6, new ManageRequestsMenu(this, account));
-        submenus.put(7, new ManageCategoriesMenu(this, account));
+        submenus.put(5, new ViewDiscountCodesMenu(this));
+        submenus.put(6, new ManageRequestsMenu(this));
+        submenus.put(7, new ManageCategoriesMenu(this));
         this.setSubmenus(submenus);
 
     }
 
     private Menu getCreateDiscountCodeMenu() {
-        return new Menu("Create Discount Code Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Create Discount Code Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -31,12 +31,12 @@ public class ManagerAccountMenu extends Menu {
 
             @Override
             public void execute() {
-                String input = scanner.nextLine();
-                if (input.equalsIgnoreCase("back"))
-                    this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
-                else if (!input.matches("view \\w+"))
+                String InitialDate = scanner.nextLine();
+                String FinalDate = scanner.next();
+                int discountPersent = scanner.nextLine()
+                if (.equalsIgnoreCase("back"))
+                this.backInExecute();
+                else if (!input.matches("create discount cod"))
                     this.invalidCommandInExecute();
                 else {
                     String userName = input.substring(5);

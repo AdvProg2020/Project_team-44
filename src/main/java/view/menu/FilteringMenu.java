@@ -2,13 +2,11 @@ package view.menu;
 
 import controller.ProductsPageController;
 import exception.FilterNotExistsException;
-import model.account.Account;
-
 import java.util.HashMap;
 
 public class FilteringMenu extends Menu {
-    public FilteringMenu(Menu parent, Account account) {
-        super("Filtering Menu", parent, account);
+    public FilteringMenu(Menu parent) {
+        super("Filtering Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getShowAvailableFiltersMenu());
         submenus.put(2, getShowProductsWithFilterMenu());
@@ -19,7 +17,7 @@ public class FilteringMenu extends Menu {
     }
 
     private Menu getShowAvailableFiltersMenu() {
-        return new Menu("Show Available Filters Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Show Available Filters Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -30,8 +28,6 @@ public class FilteringMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else
                     this.invalidCommandInExecute();
             }
@@ -44,7 +40,7 @@ public class FilteringMenu extends Menu {
     }
 
     private Menu getShowProductsWithFilterMenu() {
-        return new Menu("Show Products With Filter Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Show Products With Filter Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -56,8 +52,6 @@ public class FilteringMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("filter \\w+"))
                     this.invalidCommandInExecute();
                 else {
@@ -75,7 +69,7 @@ public class FilteringMenu extends Menu {
     }
 
     private Menu getCurrentFiltersMenu() {
-        return new Menu("Current Filters Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Current Filters Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -86,8 +80,6 @@ public class FilteringMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else
                     this.invalidCommandInExecute();
             }
@@ -100,7 +92,7 @@ public class FilteringMenu extends Menu {
     }
 
     private Menu getDisableFilterMenu() {
-        return new Menu("Disable Filter Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Disable Filter Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -112,8 +104,6 @@ public class FilteringMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("disable filter \\w+"))
                     this.invalidCommandInExecute();
                 else {

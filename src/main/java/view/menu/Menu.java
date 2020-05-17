@@ -1,7 +1,6 @@
 package view.menu;
 
 import controller.LoginPageController;
-import model.account.Account;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -11,20 +10,14 @@ public abstract class Menu {
     protected Menu parent;
     private HashMap<Integer, Menu> submenus = new HashMap<>();
     protected static Scanner scanner;
-    private Account currentUserLoggedIn;
 
-    protected Menu(String name, Menu parent, Account account) {
+    protected Menu(String name, Menu parent) {
         this.name = name;
         this.parent = parent;
-        this.currentUserLoggedIn = account;
     }
 
     public static void setScanner(Scanner scanner) {
         Menu.scanner = scanner;
-    }
-
-    public Account getCurrentUserLoggedIn() {
-        return currentUserLoggedIn;
     }
 
     public void setSubmenus(HashMap<Integer, Menu> submenus) {
@@ -45,7 +38,7 @@ public abstract class Menu {
         else
             System.out.println((submenus.size() + 1) + "- exit");
         System.out.println((submenus.size() + 2) + "- help");
-        if (currentUserLoggedIn.isLoggedIn())
+        if (!LoginPageController.getLoggedInAccountType().equals("null"))
             System.out.println((submenus.size() + 3) + "- logout");
 
     }
@@ -57,8 +50,7 @@ public abstract class Menu {
             System.err.println("please choose a number for your menu!");
             this.execute();
             return;
-        }
-        else {
+        } else {
             int menuNumber = Integer.parseInt(input);
             if (menuNumber == 0) {
                 System.err.println("your menu number is invalid!");
@@ -74,14 +66,14 @@ public abstract class Menu {
                     nextMenu = this.parent;
 
             } else {
-                if (currentUserLoggedIn != null && menuNumber > submenus.size() + 3) {
+                if (!LoginPageController.getLoggedInAccountType().equals("null") && menuNumber > submenus.size() + 3) {
                     System.err.println("your menu number is invalid!");
                     nextMenu = this;
-                } else if (currentUserLoggedIn == null && menuNumber > submenus.size() + 2) {
+                } else if (LoginPageController.getLoggedInAccountType().equals("null") && menuNumber > submenus.size() + 2) {
                     System.err.println("your menu number is invalid!");
                     nextMenu = this;
-                } else if (currentUserLoggedIn != null && menuNumber == submenus.size() + 3) {
-                    nextMenu = new MainMenu(null, null);
+                } else if (!LoginPageController.getLoggedInAccountType().equals("null") && menuNumber == submenus.size() + 3) {
+                    nextMenu = new MainMenu(null);
                     LoginPageController.logout();
                 } else
                     nextMenu = submenus.get(menuNumber);
@@ -96,21 +88,17 @@ public abstract class Menu {
     public void menuWork() {
 
     }
-    public void backInExecute(){
+
+    public void backInExecute() {
         this.getParent().show();
         this.getParent().menuWork();
         this.getParent().execute();
     }
-    public void logoutInExecute(){
-        Menu newMenu = new MainMenu(null,null);
-        LoginPageController.logout();
-        newMenu.show();
-        newMenu.execute();
-    }
-    public void invalidCommandInExecute(){
+    public void invalidCommandInExecute() {
         System.err.println("invalid command!");
         this.execute();
     }
+
     public Menu getParent() {
         return parent;
     }

@@ -1,14 +1,12 @@
 package view.menu;
 
-import controller.ManagerAccountController;
-import controller.SellerAccountManager;
-import model.account.Account;
+import controller.SellerAccountController;
 
 import java.util.HashMap;
 
 public class ViewPersonalInfoOfSellerMenu extends Menu {
-    public ViewPersonalInfoOfSellerMenu(Menu parent, Account account) {
-        super("View Personal Info Of Seller Menu", parent, account);
+    public ViewPersonalInfoOfSellerMenu(Menu parent) {
+        super("View Personal Info Of Seller Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getEditFieldMenu());
         this.setSubmenus(submenus);
@@ -16,11 +14,11 @@ public class ViewPersonalInfoOfSellerMenu extends Menu {
 
     @Override
     public void menuWork() {
-        SellerAccountManager.processViewPersonalInfo();
+        SellerAccountController.processViewPersonalInfo();
     }
 
     private Menu getEditFieldMenu() {
-        return new Menu("Edit Field Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Edit Field Menu", this) {
 
             @Override
             public void show() {
@@ -33,8 +31,6 @@ public class ViewPersonalInfoOfSellerMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("edit-\\w+-\\w+"))
                     this.invalidCommandInExecute();
                 else {
@@ -45,7 +41,7 @@ public class ViewPersonalInfoOfSellerMenu extends Menu {
                         this.execute();
                     } else {
                         try {
-                            SellerAccountManager.processEditFieldEach(field, newValue);
+                            SellerAccountController.processEditFieldEach(field, newValue);
                             System.out.println("your change done");
                             this.execute();
                         } catch () {
