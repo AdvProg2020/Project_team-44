@@ -1,6 +1,5 @@
 package view.menu;
 
-import controller.LoginPageController;
 import controller.SellerAccountController;
 
 import java.util.HashMap;
@@ -29,7 +28,9 @@ public class SellerAccountMenu extends Menu {
 
             @Override
             public void menuWork() {
-                SellerAccountController.processViewCompanyInfo();
+                for (String companyInfo : SellerAccountController.processViewCompanyInfo()) {
+                    System.out.println(companyInfo);
+                }
             }
 
             @Override
@@ -52,7 +53,11 @@ public class SellerAccountMenu extends Menu {
 
             @Override
             public void menuWork() {
-                SellerAccountController.processViewSalesHistory();
+                int i = 1;
+                for (String saleHistory : SellerAccountController.processViewSalesHistory()) {
+                    System.out.println(i + "- " + saleHistory);
+                    i++;
+                }
             }
 
             @Override

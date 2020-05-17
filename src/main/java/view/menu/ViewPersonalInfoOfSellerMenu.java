@@ -14,7 +14,9 @@ public class ViewPersonalInfoOfSellerMenu extends Menu {
 
     @Override
     public void menuWork() {
-        SellerAccountController.processViewPersonalInfo();
+        for (String sellerInfo : SellerAccountController.processViewPersonalInfo()) {
+            System.out.println(sellerInfo);
+        }
     }
 
     private Menu getEditFieldMenu() {
