@@ -32,6 +32,14 @@ public class Seller extends Account {
         this.companyName = companyName;
     }
 
+    public ArrayList<Product> getProductsToSell() {
+        return productsToSell;
+    }
+
+    public ArrayList<Offer> getOffersList() {
+        return offersList;
+    }
+
     @Override
     public ArrayList<String> getInfo() {
         ArrayList<String> info = new ArrayList<>();
@@ -86,5 +94,19 @@ public class Seller extends Account {
             }
         }
         return sellLogIds;
+    }
+    public ArrayList<String> getProductsToSellIds(){
+        ArrayList<String> productIds = new ArrayList<>();
+        for (Product product : this.getProductsToSell()) {
+            productIds.add(product.getProductID());
+        }
+        return productIds;
+    }
+    public ArrayList<String> getOfferListIds(){
+        ArrayList<String> offerIds = new ArrayList<>();
+        for (Offer offer : this.getOffersList()) {
+            offerIds.add(offer.getOfferID());
+        }
+        return offerIds;
     }
 }
