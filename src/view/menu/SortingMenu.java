@@ -1,25 +1,25 @@
 package view.menu;
 
 import controller.ProductsPageController;
-import exception.FilterNotExistsException;
+import exception.SortNotExistsException;
 import model.account.Account;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FilteringMenu extends Menu {
-    public FilteringMenu(Menu parent, Account account) {
-        super("Filtering Menu", parent, account);
+public class SortingMenu extends Menu {
+    public SortingMenu(Menu parent, Account account) {
+        super("Sorting Menu", parent, account);
         HashMap<Integer, Menu> submenus = new HashMap<>();
-        submenus.put(1, getShowAvailableFiltersMenu());
-        submenus.put(2, getShowProductsWithFilterMenu());
-        submenus.put(3, getCurrentFiltersMenu());
-        submenus.put(4, getDisableFilterMenu());
-
+        submenus.put(1, getShowAvailableSortsMenu());
+        submenus.put(2, getShowProductsWithSortMenu());
+        submenus.put(3, getCurrentSortMenu());
+        submenus.put(4, getDisableSortMenu());
         this.setSubmenus(submenus);
     }
 
-    private Menu getShowAvailableFiltersMenu() {
-        return new Menu("Show Available Filters Menu", this, this.getCurrentUserLoggedIn()) {
+    private Menu getShowAvailableSortsMenu() {
+        return new Menu("Show Available Sorts Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -38,17 +38,19 @@ public class FilteringMenu extends Menu {
 
             @Override
             public void menuWork() {
-                ProductsPageController.processShowAvailableFiltersEach();
+                ArrayList<String> showSort = new ArrayList<>();
+                showSort = ProductsPageController.processShowAvailableSortsEach();
+
             }
         };
     }
 
-    private Menu getShowProductsWithFilterMenu() {
-        return new Menu("Show Products With Filter Menu", this, this.getCurrentUserLoggedIn()) {
+    private Menu getShowProductsWithSortMenu() {
+        return new Menu("Show Products With Sort Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter the filter");
+                System.out.println("Please enter the sort");
             }
 
             @Override
@@ -58,15 +60,15 @@ public class FilteringMenu extends Menu {
                     this.backInExecute();
                 else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
                     this.logoutInExecute();
-                else if (!input.matches("filter \\w+"))
+                else if (!input.matches("sort \\w+"))
                     this.invalidCommandInExecute();
                 else {
-                    String availableFilter = input.substring(7);
+                    String availableSort = input.substring(5);
                     try {
-                        ProductsPageController.processFilterEach(availableFilter);
+                        ProductsPageController.processSortEach(availableSort);
                         this.execute();
-                    } catch (FilterNotExistsException filterError) {
-                        System.out.println(filterError.getMessage());
+                    } catch (SortNotExistsException sortError) {
+                        System.out.println(sortError.getMessage());
                         this.execute();
                     }
                 }
@@ -74,8 +76,8 @@ public class FilteringMenu extends Menu {
         };
     }
 
-    private Menu getCurrentFiltersMenu() {
-        return new Menu("Current Filters Menu", this, this.getCurrentUserLoggedIn()) {
+    private Menu getCurrentSortMenu() {
+        return new Menu("Current Sorts Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -94,17 +96,16 @@ public class FilteringMenu extends Menu {
 
             @Override
             public void menuWork() {
-                ProductsPageController.processCurrentFilterEach();
+                System.out.println(ProductsPageController.processCurrentSortEach());
             }
         };
     }
 
-    private Menu getDisableFilterMenu() {
-        return new Menu("Disable Filter Menu", this, this.getCurrentUserLoggedIn()) {
+    private Menu getDisableSortMenu() {
+        return new Menu("Disable Sort Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter the filter");
             }
 
             @Override
@@ -114,19 +115,16 @@ public class FilteringMenu extends Menu {
                     this.backInExecute();
                 else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
                     this.logoutInExecute();
-                else if (!input.matches("disable filter \\w+"))
+                else
                     this.invalidCommandInExecute();
-                else {
-                    String selectedFilter = input.substring(15);
-                    try {
-                        ProductsPageController.processDeleteFilterEach(selectedFilter);
-                        this.execute();
-                    } catch (FilterNotExistsException disableFilterError) {
-                        System.out.println(disableFilterError.getMessage());
-                        this.execute();
-                    }
-                }
             }
+
+            @Override
+            public void menuWork() {
+                ProductsPageController.processDisableSortEach();
+            }
+
         };
     }
+
 }

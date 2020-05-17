@@ -11,7 +11,8 @@ public class ProductPageMenu extends Menu {
         super("ProductPage", parent, account);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1,getViewCategoriesMenu());
-
+        submenus.put(2,new FilteringMenu(this,account));
+        submenus.put(3,new SortingMenu(this,account));
         this.setSubmenus(submenus);
     }
     private Menu getViewCategoriesMenu(){
