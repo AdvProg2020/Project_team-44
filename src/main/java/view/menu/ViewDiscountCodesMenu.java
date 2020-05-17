@@ -3,6 +3,7 @@ package view.menu;
 import controller.ManagerAccountController;
 import exception.CodedDiscountNotExistsException;
 
+import java.text.ParseException;
 import java.util.HashMap;
 
 public class ViewDiscountCodesMenu extends Menu {
@@ -17,7 +18,11 @@ public class ViewDiscountCodesMenu extends Menu {
 
     @Override
     public void menuWork() {
-        ManagerAccountController.processViewDiscountCodes();
+        int i = 1;
+        for (String discountCode : ManagerAccountController.processViewDiscountCodes()) {
+            System.out.println(i + "- " + discountCode);
+            i++;
+        }
     }
 
     private Menu getViewOfDiscountCodeMenu() {
@@ -38,10 +43,12 @@ public class ViewDiscountCodesMenu extends Menu {
                 else {
                     String code = input.substring(19);
                     try {
-                        ManagerAccountController.processViewDiscountCodeEach(code);
+                        for (String viewDiscountCodeEach : ManagerAccountController.processViewDiscountCodeEach(code)) {
+                            System.out.println(viewDiscountCodeEach);
+                        }
                         this.execute();
                     } catch (CodedDiscountNotExistsException discountCodeError) {
-                        System.out.println(discountCodeError.getMessage());
+                        System.err.println(discountCodeError.getMessage());
                         this.execute();
                     }
 
@@ -75,7 +82,10 @@ public class ViewDiscountCodesMenu extends Menu {
                         System.out.println("edit discount code successful");
                         this.execute();
                     } catch (CodedDiscountNotExistsException editDiscountCodeError) {
-                        System.out.println(editDiscountCodeError.getMessage());
+                        System.err.println(editDiscountCodeError.getMessage());
+                        this.execute();
+                    } catch (ParseException parsExceptionError) {
+                        System.err.println(parsExceptionError.getMessage());
                         this.execute();
                     }
 
@@ -106,7 +116,7 @@ public class ViewDiscountCodesMenu extends Menu {
                         System.out.println("remove discount code successful");
                         this.execute();
                     } catch (CodedDiscountNotExistsException removeDiscountCodeError) {
-                        System.out.println(removeDiscountCodeError.getMessage());
+                        System.err.println(removeDiscountCodeError.getMessage());
                         this.execute();
                     }
 

@@ -1,6 +1,5 @@
 package view.menu;
 
-import controller.LoginPageController;
 import controller.ManagerAccountController;
 import exception.CategoryNotExistsException;
 
@@ -18,7 +17,11 @@ public class ManageCategoriesMenu extends Menu {
 
     @Override
     public void menuWork() {
-        ManagerAccountController.processManageCategories();
+        int i = 1;
+        for (String category : ManagerAccountController.processManageCategories()) {
+            System.out.println(i + "- " + category);
+            i++;
+        }
     }
 
     private Menu getEditCategoryMenu() {
@@ -43,7 +46,7 @@ public class ManageCategoriesMenu extends Menu {
                         System.out.println("edit category successful");
                         this.execute();
                     } catch (CategoryNotExistsException editCategoryError) {
-                        System.out.println(editCategoryError.getMessage());
+                        System.err.println(editCategoryError.getMessage());
                         this.execute();
                     }
 
@@ -74,7 +77,7 @@ public class ManageCategoriesMenu extends Menu {
                         System.out.println("Add category successful");
                         this.execute();
                     } catch (CategoryNotExistsException addCategoryError) {
-                        System.out.println(addCategoryError.getMessage());
+                        System.err.println(addCategoryError.getMessage());
                         this.execute();
                     }
 
@@ -105,7 +108,7 @@ public class ManageCategoriesMenu extends Menu {
                         System.out.println("remove category successful");
                         this.execute();
                     } catch (CategoryNotExistsException removeCategoryError) {
-                        System.out.println(removeCategoryError.getMessage());
+                        System.err.println(removeCategoryError.getMessage());
                         this.execute();
                     }
 

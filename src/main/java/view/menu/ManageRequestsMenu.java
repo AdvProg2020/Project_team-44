@@ -1,6 +1,5 @@
 package view.menu;
 
-import controller.LoginPageController;
 import controller.ManagerAccountController;
 import exception.RequestNotExistsException;
 
@@ -18,7 +17,11 @@ public class ManageRequestsMenu extends Menu {
 
     @Override
     public void menuWork() {
-        ManagerAccountController.processManageRequests();
+        int i = 1;
+        for (String request : ManagerAccountController.processManageRequests()) {
+            System.out.println(i + "- " + request);
+            i++;
+        }
     }
 
     private Menu getDetailsOfRequestMenu() {
@@ -39,10 +42,12 @@ public class ManageRequestsMenu extends Menu {
                 else {
                     String requestId = input.substring(8);
                     try {
-                        ManagerAccountController.processShowRequestDetailsEach(requestId);
+                        for (String showRequestDetailsEach : ManagerAccountController.processShowRequestDetailsEach(requestId)) {
+                            System.out.println(showRequestDetailsEach);
+                        }
                         this.execute();
                     } catch (RequestNotExistsException requestDetailsError) {
-                        System.out.println(requestDetailsError.getMessage());
+                        System.err.println(requestDetailsError.getMessage());
                         this.execute();
                     }
 
@@ -73,7 +78,7 @@ public class ManageRequestsMenu extends Menu {
                         System.out.println("Accept request");
                         this.execute();
                     } catch (RequestNotExistsException requestAcceptError) {
-                        System.out.println(requestAcceptError.getMessage());
+                        System.err.println(requestAcceptError.getMessage());
                         this.execute();
                     }
 
@@ -106,7 +111,7 @@ public class ManageRequestsMenu extends Menu {
                         System.out.println("decline request");
                         this.execute();
                     } catch (RequestNotExistsException requestAcceptError) {
-                        System.out.println(requestAcceptError.getMessage());
+                        System.err.println(requestAcceptError.getMessage());
                         this.execute();
                     }
 
