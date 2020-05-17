@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class RequestForAddProduct extends Request {
     private Seller seller;
-    private String productID;
     private Category category;
     private String name;
     private String companyName;
@@ -18,9 +17,8 @@ public class RequestForAddProduct extends Request {
     private String explanationText;
     private static ArrayList<RequestForAddProduct> allRequestsForAddProduct = new ArrayList<>();
 
-    public RequestForAddProduct(int requestId, Seller seller, String productID, Category category, String name, String companyName, int price, String explanationText) {
+    public RequestForAddProduct(Seller seller, Category category, String name, String companyName, int price, String explanationText) {
         this.seller = seller;
-        this.productID = productID;
         this.category = category;
         this.name = name;
         this.companyName = companyName;
@@ -31,10 +29,6 @@ public class RequestForAddProduct extends Request {
 
     public Seller getSeller() {
         return seller;
-    }
-
-    public String getProductID() {
-        return productID;
     }
 
     public Category getCategory() {
