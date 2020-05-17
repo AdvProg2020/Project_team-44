@@ -13,17 +13,19 @@ public class BuyLog {
     private double moneyPaid;
     private double discountCodeAmountUsed;
     private ArrayList<Product> allPurchasedProducts;
-    private String sellerName;
+    private String sellerFirstName;
+    private String sellerLastName;
     private BuyLogStatus status;
     private static ArrayList<BuyLog> allBuyLogs;
 
-    public BuyLog(String logID, Date date, int moneyPaid, int discountCodeAmountUsed, ArrayList<Product> allPurchasedProducts, String sellerName) {
+    public BuyLog(String logID, Date date, int moneyPaid, int discountCodeAmountUsed, ArrayList<Product> allPurchasedProducts, String sellerFirstName, String sellerLastName) {
         this.logID = logID;
         this.date = date;
         this.moneyPaid = moneyPaid;
         this.discountCodeAmountUsed = discountCodeAmountUsed;
         this.allPurchasedProducts = allPurchasedProducts;
-        this.sellerName = sellerName;
+        this.sellerFirstName = sellerFirstName;
+        this.sellerLastName = sellerLastName;
         allBuyLogs.add(this);
     }
 
@@ -43,12 +45,20 @@ public class BuyLog {
         return discountCodeAmountUsed;
     }
 
-    public String getSellerName() {
-        return sellerName;
+    public String getSellerFirstName() {
+        return sellerFirstName;
+    }
+
+    public String getSellerLastName() {
+        return sellerLastName;
     }
 
     public BuyLogStatus getStatus() {
         return status;
+    }
+
+    public static ArrayList<BuyLog> getAllBuyLogs() {
+        return allBuyLogs;
     }
 
     public static BuyLog getBuyLogById(String logId) {
@@ -68,7 +78,8 @@ public class BuyLog {
         info.add(strDate);
         info.add(String.valueOf(this.getMoneyPaid()));
         info.add(String.valueOf(this.getDiscountCodeAmountUsed()));
-        info.add(this.getSellerName());
+        info.add(this.getSellerFirstName());
+        info.add(this.getSellerLastName());
         info.add(this.getStatus().toString());
         return info;
     }

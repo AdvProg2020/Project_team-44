@@ -3,6 +3,7 @@ package model.account;
 import model.Rating;
 import model.buyLog.BuyLog;
 import model.product.Product;
+import model.sellLog.SellLog;
 
 import java.util.ArrayList;
 
@@ -36,7 +37,7 @@ public class Purchaser extends Account {
 
     }
 
-    public void compareTwoProducts(String firstProductId, String secondProductId) {
+    public ArrayList<String> compareTwoProducts(String firstProductId, String secondProductId) {
         ArrayList<String> info = new ArrayList<>();
         info.add("name:    " + Product.getProductByID(firstProductId).getName() + "    " + Product.getProductByID(secondProductId).getName());
         info.add("companyName:    " + Product.getProductByID(firstProductId).getCompanyName() + "    " + Product.getProductByID(secondProductId).getCompanyName());
@@ -49,8 +50,9 @@ public class Purchaser extends Account {
             isAvailableFirst = "Yes";
         if (Product.getProductByID(secondProductId).isAvailable())
             isAvailableSecond = "Yes";
-        info.add("isAvailable:    "+ isAvailableFirst + "    " + isAvailableSecond);
+        info.add("isAvailable:    " + isAvailableFirst + "    " + isAvailableSecond);
         info.add("availableNumber:    " + Product.getProductByID(firstProductId).getAvailableNumber() + "    " + Product.getProductByID(secondProductId).getAvailableNumber());
+        return info;
     }
 
     public void watchProducts() {
@@ -72,5 +74,15 @@ public class Purchaser extends Account {
             buyLogId.add(buyLog.getLogID());
         }
         return buyLogId;
+    }
+
+    public ArrayList<String> getAllBuyLogIds() {
+        ArrayList<String> buyLogIds = new ArrayList<>();
+        for (SellLog allSellLog : SellLog.getAllSellLogs()) {
+            if (allSellLog.getBuyerFirstName().equalsIgnoreCase(this.getFirstName()) && allSellLog.getBuyerLastName().equalsIgnoreCase(this.getLastName())) {
+                buyLogIds.add(allSellLog.getLogID());
+            }
+        }
+        return buyLogIds;
     }
 }

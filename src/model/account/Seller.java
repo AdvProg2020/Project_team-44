@@ -1,6 +1,7 @@
 package model.account;
 
 import model.Category;
+import model.buyLog.BuyLog;
 import model.offer.Offer;
 import model.product.Product;
 import model.requests.RequestForAddOff;
@@ -15,6 +16,7 @@ public class Seller extends Account {
     private String companyName;
     private ArrayList<Product> productsToSell;
     private ArrayList<Offer> offersList;
+    private ArrayList<String> companyInfo;
 
     public Seller(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password, String companyName) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
@@ -70,5 +72,19 @@ public class Seller extends Account {
 
     public void addOfferRequest(Seller seller, String offerID, ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage, int requestId) {
         new RequestForAddOff(seller, offerID, productList, initialDate, finalDate, discountPercentage, requestId);
+    }
+
+//    public ArrayList<String> getCompanyInfo() {
+//
+//    }
+
+    public ArrayList<String> getAllSellLogIds() {
+        ArrayList<String> sellLogIds = new ArrayList<>();
+        for (BuyLog allBuyLog : BuyLog.getAllBuyLogs()) {
+            if (allBuyLog.getSellerFirstName().equalsIgnoreCase(this.getFirstName()) && allBuyLog.getSellerLastName().equalsIgnoreCase(this.getLastName())) {
+                sellLogIds.add(allBuyLog.getLogID());
+            }
+        }
+        return sellLogIds;
     }
 }
