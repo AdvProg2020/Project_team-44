@@ -1,39 +1,42 @@
 package view.menu;
 
 import controller.PurchaserAccountManager;
-import exception.ProductIdNotExistsException;
+import exception.ProductNotExistsInCartException;
 import model.account.Account;
 
 import java.util.HashMap;
 
 public class ViewCartMenu extends Menu {
-    public ViewCartMenu( Menu parent, Account account) {
+    public ViewCartMenu(Menu parent, Account account) {
         super("View Cart Menu", parent, account);
-        HashMap<Integer , Menu> submenus = new HashMap<>();
-        submenus.put(1,getShowProductsMenu());
-        submenus.put(2,getViewProductMenu());
-        submenus.put(3,getIncreaseProductMenu());
+        HashMap<Integer, Menu> submenus = new HashMap<>();
+        submenus.put(1, getShowProductsMenu());
+        submenus.put(2, getViewProductMenu());
+        submenus.put(3, getIncreaseProductMenu());
+        submenus.put(4,getShowTotalPriceMenu());
+        submenus.put(5,new PurchaseMenu(this,account));
         this.setSubmenus(submenus);
     }
+
     @Override
     public void menuWork() {
         PurchaserAccountManager.processViewCart();
     }
-    private Menu getShowProductsMenu(){
-        return new Menu("Show Products Menu",this,this.getCurrentUserLoggedIn()) {
+
+    private Menu getShowProductsMenu() {
+        return new Menu("Show Products Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
-                System.out.println(this.getName()+":");
+                System.out.println(this.getName() + ":");
             }
 
             @Override
             public void execute() {
                 String input = scanner.nextLine();
-                if(input.equals("show products")){
-                   PurchaserAccountManager.processShowProductsEach();
+                if (input.equals("show products")) {
+                    PurchaserAccountManager.processShowProductsEach();
                     this.execute();
-                }
-                else if (input.equalsIgnoreCase("back"))
+                } else if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
                 else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
                     this.logoutInExecute();
@@ -42,8 +45,9 @@ public class ViewCartMenu extends Menu {
             }
         };
     }
-    private Menu getViewProductMenu(){
-        return new Menu("View Product Menu",this,this.getCurrentUserLoggedIn()) {
+
+    private Menu getViewProductMenu() {
+        return new Menu("View Product Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -64,7 +68,7 @@ public class ViewCartMenu extends Menu {
                     try {
                         PurchaserAccountManager.processViewProductsEach(productId);
                         this.execute();
-                    } catch (ProductIdNotExistsException viewProductError) {
+                    } catch (ProductNotExistsInCartException viewProductError) {
                         System.err.println(viewProductError.getMessage());
                         this.execute();
                     }
@@ -72,8 +76,9 @@ public class ViewCartMenu extends Menu {
             }
         };
     }
-    private Menu getIncreaseProductMenu(){
-        return new Menu("Increase Product Menu",this,this.getCurrentUserLoggedIn()) {
+
+    private Menu getIncreaseProductMenu() {
+        return new Menu("Increase Product Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -94,7 +99,7 @@ public class ViewCartMenu extends Menu {
                     try {
                         PurchaserAccountManager.processIncreaseProductEach(productId);
                         this.execute();
-                    } catch (ProductIdNotExistsException increaseProductError) {
+                    } catch (ProductNotExistsInCartException increaseProductError) {
                         System.err.println(increaseProductError.getMessage());
                         this.execute();
                     }
@@ -102,8 +107,9 @@ public class ViewCartMenu extends Menu {
             }
         };
     }
-    private Menu getDecreaseProductMenu(){
-        return new Menu("Decrease Product Menu",this,this.getCurrentUserLoggedIn()) {
+
+    private Menu getDecreaseProductMenu() {
+        return new Menu("Decrease Product Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -124,11 +130,36 @@ public class ViewCartMenu extends Menu {
                     try {
                         PurchaserAccountManager.processDecreaseProductEach(productId);
                         this.execute();
-                    } catch (ProductIdNotExistsException decreaseProductError) {
+                    } catch (ProductNotExistsInCartException decreaseProductError) {
                         System.err.println(decreaseProductError.getMessage());
                         this.execute();
                     }
                 }
+            }
+        };
+    }
+
+    private Menu getShowTotalPriceMenu() {
+        return new Menu("Show Total Price Menu", this, this.getCurrentUserLoggedIn()) {
+            @Override
+            public void show() {
+                System.out.println(this.getName() + ":");
+            }
+
+            @Override
+            public void execute() {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
+                    this.logoutInExecute();
+                else
+                    this.invalidCommandInExecute();
+            }
+
+            @Override
+            public void menuWork() {
+               PurchaserAccountManager.processShowTotalPriceEach();
             }
         };
     }
