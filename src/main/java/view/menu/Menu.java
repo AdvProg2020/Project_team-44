@@ -40,6 +40,9 @@ public abstract class Menu {
         System.out.println((submenus.size() + 2) + "- help");
         if (!LoginPageController.getLoggedInAccountType().equals("null"))
             System.out.println((submenus.size() + 3) + "- logout");
+        else
+            System.out.println((submenus.size()+3) + "- Register And Login Menu");
+
 
     }
 
@@ -49,7 +52,6 @@ public abstract class Menu {
         if (!input.matches("\\d+")) {
             System.err.println("please choose a number for your menu!");
             this.execute();
-            return;
         } else {
             int menuNumber = Integer.parseInt(input);
             if (menuNumber == 0) {
@@ -75,7 +77,10 @@ public abstract class Menu {
                 } else if (!LoginPageController.getLoggedInAccountType().equals("null") && menuNumber == submenus.size() + 3) {
                     nextMenu = new MainMenu(null);
                     LoginPageController.logout();
-                } else
+                } else if(LoginPageController.getLoggedInAccountType().equals("null") && menuNumber == submenus.size() +3){
+                    nextMenu = new RegisterAndLoginMenu(this);
+                }
+                else
                     nextMenu = submenus.get(menuNumber);
             }
         }
@@ -97,6 +102,10 @@ public abstract class Menu {
     public void invalidCommandInExecute() {
         System.err.println("invalid command!");
         this.execute();
+    }
+
+    public HashMap<Integer, Menu> getSubmenus() {
+        return submenus;
     }
 
     public Menu getParent() {
