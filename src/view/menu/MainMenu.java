@@ -9,7 +9,7 @@ public class MainMenu extends Menu {
     public MainMenu(Menu parent, Account account) {
         super("Main Menu", parent, account);
         HashMap<Integer, Menu> submenus = new HashMap<>();
-        submenus.put(2,new ProductPageMenu(this,account));
+        submenus.put(2,new ProductsPageMenu(this,account));
         this.setSubmenus(submenus);
 
     }
