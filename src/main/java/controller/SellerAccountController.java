@@ -1,6 +1,7 @@
 package controller;
 
 import exception.ProductIdNotExistsException;
+import model.account.Purchaser;
 import model.account.Seller;
 import model.offer.Offer;
 import model.product.Product;
@@ -11,7 +12,7 @@ import model.requests.RequestForEditProduct;
 
 import java.util.ArrayList;
 
-public abstract class SellerAccountManager {
+public abstract class SellerAccountController {
     public static ArrayList<String> processViewPersonalInfo() {
         return LoginPageController.loggedInAccount.getInfo();
         /**DONE**/
@@ -25,7 +26,7 @@ public abstract class SellerAccountManager {
     }
 
     public static ArrayList<String> processViewCompanyInfo() {
-        return LoginPageController.loggedInAccount.getCompanyInfo();
+        return ((Seller)LoginPageController.loggedInAccount).getCompanyInfo();
     }
 
     public static ArrayList<String> processViewSalesHistory() {
@@ -38,11 +39,14 @@ public abstract class SellerAccountManager {
 
     public static void processViewProductEach(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
-
     }
 
     public static void processViewBuyersEach(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
+        ArrayList<String> allInfo = new ArrayList<>();
+        for (Purchaser purchaser :Product.getProductByID(productId).getAllBuyers()) {
+            allInfo.add(purchaser.getInfo().toString());
+        }
 //        Product.getProductByID(productId)
     }
 

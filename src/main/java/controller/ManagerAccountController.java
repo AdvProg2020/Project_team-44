@@ -109,8 +109,8 @@ public abstract class ManagerAccountController {
 
     public static void processAddCategoryEach(String category) throws CategoryNotExistsException {
         ValidationController.checkCategoryExistence(category);
-//        ((Manager) LoginPageController.loggedInAccount).addCategory(category);
-        Manager.addCategory(category);
+        ((Manager) LoginPageController.loggedInAccount).addCategory(category);
+//        Manager.addCategory(category);
     }
 
     public static void processRemoveCategoryEach(String category) throws CategoryNotExistsException {

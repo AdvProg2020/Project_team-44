@@ -1,8 +1,6 @@
 package controller;
 
-import exception.OrderNotExistsException;
-import exception.ProductNotExistsInCartException;
-import exception.ProductIdNotExistsException;
+import exception.*;
 import model.CodedDiscount;
 import model.account.Purchaser;
 import model.buyLog.BuyLog;
@@ -10,7 +8,7 @@ import model.product.Product;
 
 import java.util.ArrayList;
 
-public abstract class PurchaserAccountManager {
+public abstract class PurchaserAccountController {
     public static ArrayList<String> processViewPersonalInfo() {
         return LoginPageController.loggedInAccount.getInfo();
     }
@@ -22,7 +20,6 @@ public abstract class PurchaserAccountManager {
     public static ArrayList<String> processShowProductsEach() {
         return ((Purchaser) LoginPageController.loggedInAccount).getCartProducts();
     }
-
 
     public static void processViewProductsEach(String productId) throws ProductNotExistsInCartException {
         ValidationController.checkProductNotExistsInCart(LoginPageController.loggedInAccount, Product.getProductByID(productId));
@@ -47,14 +44,14 @@ public abstract class PurchaserAccountManager {
 
     }
 
-    public static int processShowTotalPriceEach() {
+    public static double processShowTotalPriceEach() {
         return ((Purchaser) LoginPageController.loggedInAccount).getCartMoneyToPay();
     }
 
-    public static void processPurchaseProductEach() {
-        /*TODO*/
+    public static void receiveInfo(String address, String telephoneNumber) {
+        LoginPageController.loggedInAccount.setTelephoneNumber(telephoneNumber);
+        LoginPageController.loggedInAccount.setAddress(address);
     }
-
 
     public static ArrayList<String> processViewOrders() {
         return ((Purchaser) LoginPageController.loggedInAccount).getAllBuyLogIds();
@@ -82,5 +79,13 @@ public abstract class PurchaserAccountManager {
         return allDiscounts;
     }
 
+    public static void getCodedDiscount(String discountCode) throws PurchaserNotOwnsCodedDiscountException {
+        ValidationController.checkPurchaserOwnsCodedDiscount((Purchaser)LoginPageController.loggedInAccount,CodedDiscount.getCodedDiscountByCode(discountCode));
+//        ValidationController.checkCodedDiscountTime(CodedDiscount.getCodedDiscountByCode(discountCode), );
+    }
+
+    public static void processPayment() throws NotEnoughMoneyToPayException {
+        ValidationController.checkEnoughMoneyToPay(((Purchaser)LoginPageController.loggedInAccount), ((Purchaser)LoginPageController.loggedInAccount).getCartMoneyToPay());
+    }
 
 }
