@@ -5,9 +5,14 @@ import exception.UsernameNotExistsException;
 import exception.WrongPasswordException;
 import model.account.Account;
 
+import java.util.HashMap;
+
+
 public class RegisterAndLoginMenu extends Menu {
     public RegisterAndLoginMenu(Menu parent, Account account) {
         super("Register And Login Menu", parent, account);
+        HashMap<Integer , Menu> submenus = new HashMap<Integer, Menu>();
+        this.setSubmenus(submenus);
     }
 
     private Menu getLoginMenu() {

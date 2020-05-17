@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class ManageProductsForSellerMenu extends Menu {
     public ManageProductsForSellerMenu(Menu parent, Account account) {
         super("Manager Products For Seller Menu", parent, account);
-        HashMap<Integer, Menu> submenus = new HashMap<>();
+        HashMap<Integer, Menu> submenus = new HashMap<Integer, Menu>();
         submenus.put(1, getViewProductMenu());
         submenus.put(2, getViewBuyersOfProductMenu());
         submenus.put(3, getEditProductMenu());
