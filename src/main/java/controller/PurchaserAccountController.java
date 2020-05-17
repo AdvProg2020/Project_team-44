@@ -80,12 +80,16 @@ public abstract class PurchaserAccountController {
     }
 
     public static void getCodedDiscount(String discountCode) throws PurchaserNotOwnsCodedDiscountException {
-        ValidationController.checkPurchaserOwnsCodedDiscount((Purchaser)LoginPageController.loggedInAccount,CodedDiscount.getCodedDiscountByCode(discountCode));
+        ValidationController.checkPurchaserOwnsCodedDiscount((Purchaser) LoginPageController.loggedInAccount
+                , CodedDiscount.getCodedDiscountByCode(discountCode));
 //        ValidationController.checkCodedDiscountTime(CodedDiscount.getCodedDiscountByCode(discountCode), );
     }
 
     public static void processPayment() throws NotEnoughMoneyToPayException {
-        ValidationController.checkEnoughMoneyToPay(((Purchaser)LoginPageController.loggedInAccount), ((Purchaser)LoginPageController.loggedInAccount).getCartMoneyToPay());
+        ValidationController.checkEnoughMoneyToPay(((Purchaser) LoginPageController.loggedInAccount)
+                , ((Purchaser) LoginPageController.loggedInAccount).getCartMoneyToPay());
+        ((Purchaser) LoginPageController.loggedInAccount).setBalance(((Purchaser) LoginPageController.loggedInAccount).getBalance()
+                - ((Purchaser) LoginPageController.loggedInAccount).getCartMoneyToPay());
     }
 
 }

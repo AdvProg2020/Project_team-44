@@ -5,8 +5,6 @@ import model.account.Purchaser;
 import model.account.Seller;
 import model.offer.Offer;
 import model.product.Product;
-import model.requests.RequestForAddOff;
-import model.requests.RequestForAddProduct;
 import model.requests.RequestForEditOff;
 import model.requests.RequestForEditProduct;
 
@@ -15,14 +13,10 @@ import java.util.ArrayList;
 public abstract class SellerAccountController {
     public static ArrayList<String> processViewPersonalInfo() {
         return LoginPageController.loggedInAccount.getInfo();
-        /**DONE**/
-
     }
 
     public static void processEditFieldEach(String field, String newValue) {
         LoginPageController.loggedInAccount.editInfo(field, newValue);
-        /**DONE**/
-
     }
 
     public static ArrayList<String> processViewCompanyInfo() {
@@ -37,17 +31,18 @@ public abstract class SellerAccountController {
         return ((Seller) LoginPageController.loggedInAccount).getProductsToSellIds();
     }
 
-    public static void processViewProductEach(String productId) throws ProductIdNotExistsException {
+    public static ArrayList<String> processViewProductEach(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
+        return ProductsPageController.selectedProduct.getInfo();
     }
 
-    public static void processViewBuyersEach(String productId) throws ProductIdNotExistsException {
+    public static ArrayList<String> processViewBuyersEach(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
         ArrayList<String> allInfo = new ArrayList<>();
         for (Purchaser purchaser :Product.getProductByID(productId).getAllBuyers()) {
             allInfo.add(purchaser.getInfo().toString());
         }
-//        Product.getProductByID(productId)
+        return allInfo;
     }
 
     public static void processEditProduct(String productId, String field, String newValue, String oldValue) throws ProductIdNotExistsException {
