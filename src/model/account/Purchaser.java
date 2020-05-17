@@ -6,16 +6,17 @@ import model.product.Product;
 import model.sellLog.SellLog;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Purchaser extends Account {
-    private ArrayList<Product> cart;
+    private HashMap<Product, Integer> cart;
 
     public Purchaser(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
-        this.cart = new ArrayList<>();
+        this.cart = new HashMap<>();
     }
 
-    public ArrayList<Product> getCart() {
+    public HashMap<Product, Integer> getCart() {
         return cart;
     }
 
@@ -84,5 +85,13 @@ public class Purchaser extends Account {
             }
         }
         return buyLogIds;
+    }
+
+    public ArrayList<String> getCartProducts() {
+        ArrayList<String> productNames = new ArrayList<>();
+        for (Product product : this.getCart().keySet()) {
+            productNames.add(product.getName());
+        }
+        return productNames;
     }
 }
