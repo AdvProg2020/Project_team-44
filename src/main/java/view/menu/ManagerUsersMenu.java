@@ -1,7 +1,5 @@
 package view.menu;
 
-
-import controller.LoginPageController;
 import controller.ManagerAccountController;
 import exception.UsernameNotExistsException;
 
@@ -19,7 +17,11 @@ public class ManagerUsersMenu extends Menu {
 
     @Override
     public void menuWork() {
-        ManagerAccountController.processManageUsers();
+        int i = 1;
+        for (String userInf : ManagerAccountController.processManageUsers()) {
+            System.out.println(i + "- " + userInf);
+            i++;
+        }
     }
 
     private Menu getViewOfUserMenu() {
@@ -40,10 +42,12 @@ public class ManagerUsersMenu extends Menu {
                 else {
                     String userName = input.substring(5);
                     try {
-                        ManagerAccountController.processViewUserInfoEach(userName);
+                        for (String viewUserInfoEach : ManagerAccountController.processViewUserInfoEach(userName)) {
+                            System.out.println(viewUserInfoEach);
+                        }
                         this.execute();
                     } catch (UsernameNotExistsException userNameError) {
-                        System.out.println(userNameError.getMessage());
+                        System.err.println(userNameError.getMessage());
                         this.execute();
                     }
 
@@ -74,7 +78,7 @@ public class ManagerUsersMenu extends Menu {
                         System.out.println("delete user successful");
                         this.execute();
                     } catch (UsernameNotExistsException userNameError) {
-                        System.out.println(userNameError.getMessage());
+                        System.err.println(userNameError.getMessage());
                         this.execute();
                     }
 
@@ -87,12 +91,49 @@ public class ManagerUsersMenu extends Menu {
         return new Menu("Create Manager Profile Menu", this) {
             @Override
             public void show() {
-
+                System.out.println(this.getName() + ":");
+                System.out.println("please enter your username");
             }
 
             @Override
             public void execute() {
-                String input = scanner.nextLine();
+                String userName = scanner.nextLine();
+                if (userName.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                else {
+                    System.out.println("Please enter your password");
+                    String passWord = scanner.nextLine();
+                    if (passWord.equalsIgnoreCase("back"))
+                        this.backInExecute();
+                    System.out.println("Please enter your name");
+                    String name = scanner.nextLine();
+                    if (name.equalsIgnoreCase("back"))
+                        this.backInExecute();
+                    if (!name.matches("([A-Z]|[a-z])+ ([A-Z]|[a-z])+"))
+                        this.invalidCommandInExecute();
+                    String firstName = name.split("\\s")[0];
+                    String lastName = name.split("\\s")[1];
+                    System.out.println("Please enter your email");
+                    String email = scanner.nextLine();
+                    if (email.equalsIgnoreCase("back"))
+                        this.backInExecute();
+                    if (!email.matches("\\w+@\\w+.com"))
+                        this.invalidCommandInExecute();
+                    System.out.println("please enter your phoneNumber");
+                    String phoneNumber = scanner.nextLine();
+                    if (phoneNumber.equalsIgnoreCase("back"))
+                        this.backInExecute();
+                    if (!phoneNumber.matches("09\\d{9}"))
+                        this.invalidCommandInExecute();
+                    try {
+                        ManagerAccountController.processCreateManagerProfileEach(userName, passWord, firstName, lastName, email, phoneNumber);
+                        System.out.println("create new manager successful");
+                        this.execute();
+                    } catch (UsernameNotExistsException createManagerError) {
+                        System.err.println(createManagerError.getMessage());
+                        this.execute();
+                    }
+                }
             }
         };
     }

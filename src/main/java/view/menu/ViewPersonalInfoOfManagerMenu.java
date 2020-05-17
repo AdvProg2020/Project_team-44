@@ -15,7 +15,9 @@ public class ViewPersonalInfoOfManagerMenu extends Menu {
 
     @Override
     public void menuWork() {
-        ManagerAccountController.processViewPersonalInfo();
+        for (String information : ManagerAccountController.processViewPersonalInfo()) {
+            System.out.println(information);
+        }
     }
 
     private Menu getEditFieldMenu() {

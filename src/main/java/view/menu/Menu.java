@@ -41,9 +41,7 @@ public abstract class Menu {
         if (!LoginPageController.getLoggedInAccountType().equals("null"))
             System.out.println((submenus.size() + 3) + "- logout");
         else
-            System.out.println((submenus.size()+3) + "- Register And Login Menu");
-
-
+            System.out.println((submenus.size() + 3) + "- Register And Login Menu");
     }
 
     public void execute() {
@@ -57,7 +55,6 @@ public abstract class Menu {
             if (menuNumber == 0) {
                 System.err.println("your menu number is invalid!");
                 this.execute();
-                return;
             } else if (menuNumber == submenus.size() + 1) {
                 this.show();
                 nextMenu = this;
@@ -77,10 +74,9 @@ public abstract class Menu {
                 } else if (!LoginPageController.getLoggedInAccountType().equals("null") && menuNumber == submenus.size() + 3) {
                     nextMenu = new MainMenu(null);
                     LoginPageController.logout();
-                } else if(LoginPageController.getLoggedInAccountType().equals("null") && menuNumber == submenus.size() +3){
+                } else if (LoginPageController.getLoggedInAccountType().equals("null") && menuNumber == submenus.size() + 3) {
                     nextMenu = new RegisterAndLoginMenu(this);
-                }
-                else
+                } else
                     nextMenu = submenus.get(menuNumber);
             }
         }
@@ -99,6 +95,7 @@ public abstract class Menu {
         this.getParent().menuWork();
         this.getParent().execute();
     }
+
     public void invalidCommandInExecute() {
         System.err.println("invalid command!");
         this.execute();
