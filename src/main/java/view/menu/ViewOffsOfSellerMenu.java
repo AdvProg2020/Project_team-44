@@ -1,33 +1,33 @@
 package view.menu;
 
-import controller.ManagerAccountController;
-import exception.CodedDiscountNotExistsException;
-import exception.RequestNotExistsException;
+import controller.SellerAccountManager;
+import exception.ProductIdNotExistsException;
+
 import model.account.Account;
 
 import java.util.HashMap;
 
-public class ManageRequestsMenu extends Menu {
-    public ManageRequestsMenu(Menu parent, Account account) {
-        super("Manager Requests Menu", parent, account);
+public class ViewOffsOfSellerMenu extends Menu {
+    public ViewOffsOfSellerMenu(Menu parent, Account account) {
+        super("View Offs Of Seller Menu", parent, account);
         HashMap<Integer, Menu> submenus = new HashMap<>();
-        submenus.put(1, getDetailsOfRequestMenu());
-        submenus.put(2, getAcceptRequestMenu());
-        submenus.put(3, getDeclineRequestMenu());
+        submenus.put(1,getViewOffMenu());
+        submenus.put(2,getEditOffMenu());
+        submenus.put(3,getAddOffMenu());
         this.setSubmenus(submenus);
     }
 
     @Override
     public void menuWork() {
-        ManagerAccountController.processManageRequests();
+        SellerAccountManager.processViewOffs();
     }
 
-    private Menu getDetailsOfRequestMenu() {
-        return new Menu("Details Of Request Menu", this, this.getCurrentUserLoggedIn()) {
+    private Menu getViewOffMenu() {
+        return new Menu("View Off Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter your request Id:");
+                System.out.println("Please enter your offId:");
             }
 
             @Override
@@ -37,15 +37,15 @@ public class ManageRequestsMenu extends Menu {
                     this.backInExecute();
                 else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
                     this.logoutInExecute();
-                else if (!input.matches("details \\w+"))
+                else if (!input.matches("view \\w+"))
                     this.invalidCommandInExecute();
                 else {
-                    String requestId = input.substring(8);
+                    String offId = input.substring(5);
                     try {
-                        ManagerAccountController.processShowRequestDetailsEach(requestId);
+                        SellerAccountManager.processViewOffEach(offId);
                         this.execute();
-                    } catch (RequestNotExistsException requestDetailsError) {
-                        System.out.println(requestDetailsError.getMessage());
+                    } catch (ProductIdNotExistsException viewOffError) {
+                        System.err.println(viewOffError.getMessage());
                         this.execute();
                     }
 
@@ -54,12 +54,12 @@ public class ManageRequestsMenu extends Menu {
         };
     }
 
-    private Menu getAcceptRequestMenu() {
-        return new Menu("Accept Request Menu", this, this.getCurrentUserLoggedIn()) {
+    private Menu getEditOffMenu() {
+        return new Menu("Edit Off Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter your request Id:");
+                System.out.println("Please enter your offId:");
             }
 
             @Override
@@ -69,32 +69,29 @@ public class ManageRequestsMenu extends Menu {
                     this.backInExecute();
                 else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
                     this.logoutInExecute();
-                else if (!input.matches("accept \\w+"))
+                else if (!input.matches("view \\w+"))
                     this.invalidCommandInExecute();
                 else {
-                    String requestId = input.substring(7);
+                    String offId = input.substring(5);
                     try {
-                        ManagerAccountController.processAcceptRequestEach(requestId);
-                        System.out.println("Accept request");
+                        SellerAccountManager.processViewOffEach(offId);
                         this.execute();
-                    } catch (RequestNotExistsException requestAcceptError) {
-                        System.out.println(requestAcceptError.getMessage());
+                    } catch (ProductIdNotExistsException viewOffError) {
+                        System.err.println(viewOffError.getMessage());
                         this.execute();
                     }
 
                 }
-
             }
         };
     }
 
-
-    private Menu getDeclineRequestMenu() {
-        return new Menu("Decline Request Menu", this, this.getCurrentUserLoggedIn()) {
+    private Menu getAddOffMenu() {
+        return new Menu("Add Off Menu", this, this.getCurrentUserLoggedIn()) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter your request Id:");
+                System.out.println("Please enter your offId:");
             }
 
             @Override
@@ -104,21 +101,19 @@ public class ManageRequestsMenu extends Menu {
                     this.backInExecute();
                 else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
                     this.logoutInExecute();
-                else if (!input.matches("decline \\w+"))
+                else if (!input.matches("view \\w+"))
                     this.invalidCommandInExecute();
                 else {
-                    String requestId = input.substring(8);
+                    String offId = input.substring(5);
                     try {
-                        ManagerAccountController.processDeclineRequestEach(requestId);
-                        System.out.println("decline request");
+                        SellerAccountManager.processViewOffEach(offId);
                         this.execute();
-                    } catch (RequestNotExistsException requestAcceptError) {
-                        System.out.println(requestAcceptError.getMessage());
+                    } catch (ProductIdNotExistsException viewOffError) {
+                        System.err.println(viewOffError.getMessage());
                         this.execute();
                     }
 
                 }
-
             }
         };
     }

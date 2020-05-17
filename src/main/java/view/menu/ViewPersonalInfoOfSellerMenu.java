@@ -1,5 +1,7 @@
 package view.menu;
 
+import controller.ManagerAccountController;
+import controller.SellerAccountManager;
 import model.account.Account;
 
 import java.util.HashMap;
@@ -13,8 +15,8 @@ public class ViewPersonalInfoOfSellerMenu extends Menu {
     }
 
     @Override
-    public void show() {
-
+    public void menuWork() {
+        SellerAccountManager.processViewPersonalInfo();
     }
 
     private Menu getEditFieldMenu() {
@@ -29,8 +31,31 @@ public class ViewPersonalInfoOfSellerMenu extends Menu {
             @Override
             public void execute() {
                 String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                else if (input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn() != null)
+                    this.logoutInExecute();
+                else if (!input.matches("edit-\\w+-\\w+"))
+                    this.invalidCommandInExecute();
+                else {
+                    String field = input.split("-")[1];
+                    String newValue = input.split("-")[2];
+                    if (field.equals("username")) {
+                        System.err.println("you can't edit username");
+                        this.execute();
+                    } else {
+                        try {
+                            SellerAccountManager.processEditFieldEach(field, newValue);
+                            System.out.println("your change done");
+                            this.execute();
+                        } catch () {
 
+                        }
+                    }
+                }
             }
         };
     }
 }
+
+
