@@ -5,15 +5,18 @@ import model.Category;
 import model.CodedDiscount;
 import model.Sort.Sort;
 import model.account.Account;
+import model.account.Purchaser;
+import model.account.Seller;
 import model.buyLog.BuyLog;
 import model.offer.Offer;
 import model.product.Product;
 import model.requests.Request;
 
-public class ValidationController {
+public abstract class ValidationController {
     static void checkPasswordForLogin(String username, String password) throws WrongPasswordException {
         if (!Account.getAccountByUsername(username).getPassword().equals(password)) {
             throw new WrongPasswordException("Password is incorrect.");
+
         }
     }
 
@@ -21,6 +24,7 @@ public class ValidationController {
         for (Account account : Account.getAllAccounts()) {
             if (username.equals(account.getUserName())) {
                 return;
+
             }
         }
         throw new UsernameNotExistsException("No user exists with this username.");
@@ -30,6 +34,7 @@ public class ValidationController {
         for (Account account : Account.getAllAccounts()) {
             if (username.equals(account.getUserName())) {
                 throw new UsernameExistsException("User exists with this username");
+
             }
         }
     }
@@ -38,16 +43,18 @@ public class ValidationController {
         for (Category category : Category.getAllCategories()) {
             if (selectedCategory.equals(category.getName())) {
                 return;
+
             }
         }
         throw new CategoryNotExistsException("Wrong category.");
 
     }
 
-    static void checkRequestExistence(int Id) throws RequestNotExistsException {
+    static void checkRequestExistence(String Id) throws RequestNotExistsException {
         for (Request request : Request.getAllRequests()) {
-            if (Id == request.getRequestId()) {
+            if (Id.equals(request.getRequestId())) {
                 return;
+
             }
         }
         throw new RequestNotExistsException("No Request exists with this Id.");
@@ -57,6 +64,7 @@ public class ValidationController {
         for (CodedDiscount codedDiscount : CodedDiscount.getAllCodedDiscounts()) {
             if (discountCode.equals(codedDiscount.getDiscountCode())) {
                 return;
+
             }
         }
         throw new CodedDiscountNotExistsException("No CodedDiscount exists with this code.");
@@ -67,6 +75,7 @@ public class ValidationController {
         for (Account account : Account.getAllAccounts()) {
             if (username.equals(account.getUserName())) {
                 return;
+
             }
         }
         throw new UsernameNotExistsException("No user exists with this username.");
@@ -76,6 +85,7 @@ public class ValidationController {
         for (Product product : Product.getAllProducts()) {
             if (productId.equals(product.getProductID())) {
                 return;
+
             }
         }
         throw new ProductIdNotExistsException("No product exists with this Id.");
@@ -85,6 +95,7 @@ public class ValidationController {
         for (Sort sort : Sort.values()) {
             if (sort.toString().equals(availableSort)) {
                 return;
+
             }
         }
         throw new SortNotExistsException("Wrong sort.");
@@ -94,15 +105,17 @@ public class ValidationController {
         for (String filter : allFilters()) {
             if (availableFilter.equals(filter)) {
                 return;
+
             }
         }
         throw new FilterNotExistsException("Wrong filter.");
     }
 
-    void checkOrderExistence(String orderId) throws OrderNotExistsException {
+    static void checkOrderExistence(String orderId) throws OrderNotExistsException {
         for (BuyLog order : LoginPageController.loggedInAccount.getBuyLogListHistory()) {
             if (orderId.equals(order.getLogID())) {
                 return;
+
             }
         }
         throw new OrderNotExistsException("No order exists with this Id.");
@@ -112,9 +125,34 @@ public class ValidationController {
         for (Offer offer : Offer.getAllOffers()) {
             if (offerId.equals(offer.getOfferID())) {
                 return;
+
             }
         }
         throw new ProductIdNotExistsException("No offer exists with this Id.");
     }
+
+    public static void checkProductNotExistsInCart(Account loggedInAccount, Product product)
+            throws ProductNotExistsInCartException {
+        if (!((Purchaser) loggedInAccount).getCart().containsKey(product)) {
+            throw new ProductNotExistsInCartException("Product is not in cart.");
+
+        }
+    }
+
+    public static void checkProductExistsInCart(Account loggedInAccount, Product product)
+            throws ProductAlreadyExistsInCartException {
+        if (((Purchaser) loggedInAccount).getCart().containsKey(product)) {
+            throw new ProductAlreadyExistsInCartException("Product is in cart.");
+
+        }
+    }
+
+    public static void checkSellerOwnsProduct(Seller seller, Product product) throws SellerUserNameNotExists {
+        if (!product.getAllSellers().contains(seller)) {
+            throw new SellerUserNameNotExists("This Seller Doesnt sell this product");
+
+        }
+    }
+
 
 }

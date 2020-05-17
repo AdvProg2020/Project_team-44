@@ -4,24 +4,20 @@ import exception.FilterNotExistsException;
 import exception.ProductIdNotExistsException;
 import exception.SortNotExistsException;
 import model.Sort.Sort;
-import model.account.Seller;
 import model.offer.Offer;
-import model.product.Product;
 
 import java.util.ArrayList;
 
 public abstract class OffersPageController {
+    static Sort currentOffersSort = Sort.VIEW;
+
     public static ArrayList<String> processShowOffs() {
-        return Offer.getAllOffers();
+        return Offer.getAllOffersId();
     }
 
     public static void processShowProduct(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
         /*TODO*/
-
-    }
-
-    public static void processFiltering() {
 
     }
 
@@ -45,25 +41,28 @@ public abstract class OffersPageController {
 
     }
 
-    public static void processSorting() {
-
-    }
-
-    public static void processShowAvailableSortsEach() {
-
+    public static Sort[] processShowAvailableSortsEach() {
+        return Sort.values();
     }
 
     public static void processSortEach(String availableSort) throws SortNotExistsException {
         ValidationController.checkSortExistence(availableSort);
+        if (availableSort.equals(Sort.TIME)) {
+            currentOffersSort = Sort.TIME;
+        } else if (availableSort.equals(Sort.SCORE)) {
+            currentOffersSort = Sort.SCORE;
+        } else {
+            currentOffersSort = Sort.VIEW;
+        }
         /*TODO*/
     }
 
-    public static void processCurrentSortEach() {
-
+    public static String processCurrentSortEach() {
+        return currentOffersSort.toString();
     }
 
     public static void processDisableSortEach() {
-
+        currentOffersSort = Sort.VIEW;
     }
 
 

@@ -1,6 +1,7 @@
 package controller;
 
 import exception.OrderNotExistsException;
+import exception.ProductNotExistsInCartException;
 import exception.ProductIdNotExistsException;
 import model.CodedDiscount;
 import model.account.Purchaser;
@@ -18,43 +19,45 @@ public abstract class PurchaserAccountManager {
         LoginPageController.loggedInAccount.editInfo(field, newValue);
     }
 
-    public static void processViewCart() {
+    public static ArrayList<String> processShowProductsEach() {
+        return ((Purchaser) LoginPageController.loggedInAccount).getCartProducts();
+    }
+
+
+    public static void processViewProductsEach(String productId) throws ProductNotExistsInCartException {
+        ValidationController.checkProductNotExistsInCart(LoginPageController.loggedInAccount, Product.getProductByID(productId));
+        ProductsPageController.selectedProduct = Product.getProductByID(productId);
+    }
+
+    public static void processIncreaseProductEach(String productId) throws ProductNotExistsInCartException {
+        ValidationController.checkProductNotExistsInCart(LoginPageController.loggedInAccount, Product.getProductByID(productId));
+        ((Purchaser) LoginPageController.loggedInAccount).getCart()
+                .replace(Product.getProductByID(productId)
+                        , ((Purchaser) LoginPageController.loggedInAccount).getCart().get(Product.getProductByID(productId)) + 1);
+    }
+
+    public static void processDecreaseProductEach(String productId) throws ProductNotExistsInCartException {
+        ValidationController.checkProductNotExistsInCart(LoginPageController.loggedInAccount, Product.getProductByID(productId));
+        if (((Purchaser) LoginPageController.loggedInAccount).getCart().get(Product.getProductByID(productId)) == 1) {
+            ((Purchaser) LoginPageController.loggedInAccount).getCart().remove(Product.getProductByID(productId));
+        }
+        ((Purchaser) LoginPageController.loggedInAccount).getCart()
+                .replace(Product.getProductByID(productId)
+                        , ((Purchaser) LoginPageController.loggedInAccount).getCart().get(Product.getProductByID(productId)) + 1);
 
     }
 
-    public static void processShowProductsEach() {
-
-    }
-
-    public static void processViewProductsEach(String productId) throws ProductIdNotExistsException {
-        ValidationController.checkProductExistence(productId);
-        /*TODO*/
-    }
-
-    public static void processIncreaseProductEach(String productId) throws ProductIdNotExistsException {
-        ValidationController.checkProductExistence(productId);
-        /*TODO*/
-    }
-
-    public static void processDecreaseProductEach(String productId) throws ProductIdNotExistsException {
-        ValidationController.checkProductExistence(productId);
-        /*TODO*/
-    }
-
-    public static void processShowTotalPriceEach() {
-
+    public static int processShowTotalPriceEach() {
+        return ((Purchaser) LoginPageController.loggedInAccount).getCartMoneyToPay();
     }
 
     public static void processPurchaseProductEach() {
-
+        /*TODO*/
     }
 
-    public static void processPurchase() {
 
-    }
-
-    public static void processViewOrders() {
-
+    public static ArrayList<String> processViewOrders() {
+        return ((Purchaser) LoginPageController.loggedInAccount).getAllBuyLogIds();
     }
 
     public static ArrayList<String> processShowOrderEach(String orderId) throws OrderNotExistsException {
