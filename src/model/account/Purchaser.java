@@ -57,7 +57,7 @@ public class Purchaser extends Account {
     }
 
     public void watchProducts() {
-
+//
     }
 
 
