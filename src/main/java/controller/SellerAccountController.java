@@ -1,6 +1,7 @@
 package controller;
 
 import exception.ProductIdNotExistsException;
+import model.account.Purchaser;
 import model.account.Seller;
 import model.offer.Offer;
 import model.product.Product;
@@ -38,11 +39,14 @@ public abstract class SellerAccountController {
 
     public static void processViewProductEach(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
-
     }
 
     public static void processViewBuyersEach(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
+        ArrayList<String> allInfo = new ArrayList<>();
+        for (Purchaser purchaser :Product.getProductByID(productId).getAllBuyers()) {
+            allInfo.add(purchaser.getInfo().toString());
+        }
 //        Product.getProductByID(productId)
     }
 

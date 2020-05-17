@@ -12,6 +12,8 @@ import model.offer.Offer;
 import model.product.Product;
 import model.requests.Request;
 
+import java.util.Date;
+
 public abstract class ValidationController {
     static void checkPasswordForLogin(String username, String password) throws WrongPasswordException {
         if (!Account.getAccountByUsername(username).getPassword().equals(password)) {
@@ -154,5 +156,22 @@ public abstract class ValidationController {
         }
     }
 
+    public static void checkPurchaserOwnsCodedDiscount(Purchaser purchaser, CodedDiscount codedDiscount) throws PurchaserNotOwnsCodedDiscountException {
+        if (!purchaser.getAllDiscountCodes().contains(codedDiscount)) {
+            throw new PurchaserNotOwnsCodedDiscountException("Purchaser doesnt have this code");
+        }
+    }
+
+    public static void checkCodedDiscountTime(CodedDiscount codedDiscount, Date date) throws CodedDiscountExpiresException {
+        if (date.after(codedDiscount.getFinalDate())) {
+            throw new CodedDiscountExpiresException("Times over");
+        }
+    }
+
+    public static void checkEnoughMoneyToPay(Purchaser purchaser, double moneyToPay) throws NotEnoughMoneyToPayException {
+        if (purchaser.getBalance() < purchaser.getCartMoneyToPay()) {
+            throw new NotEnoughMoneyToPayException("Not Enough money");
+        }
+    }
 
 }
