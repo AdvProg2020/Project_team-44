@@ -56,7 +56,7 @@ public abstract class ManagerAccountController {
     }
 
     public static void processCreateDiscountCode(String initialDate, String finalDate, int discountPercentage, int maxAuthorizedPrice) throws ParseException {
-        Date initial = new SimpleDateFormat("dd/MM/yyyy").parse();
+//        Date initial = new SimpleDateFormat("dd/MM/yyyy").parse(initialDate);
         Manager.createCodedDiscount(new SimpleDateFormat("dd/MM/yyyy").parse(initialDate),
                 new SimpleDateFormat("dd/MM/yyyy").parse(finalDate), discountPercentage, maxAuthorizedPrice);
     }

@@ -3,8 +3,10 @@ package view.menu.managerRegion;
 
 import controller.ManagerAccountController;
 import view.menu.*;
+import view.menu.regexEnumForInput.CreateDiscountCodeRegex;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ManagerAccountMenu extends Menu {
@@ -32,41 +34,19 @@ public class ManagerAccountMenu extends Menu {
 
             @Override
             public void execute() {
-                System.out.println("Please enter the initial date :");
-                String initialDate = scanner.nextLine();
-                if (initialDate.equalsIgnoreCase("back"))
+                ArrayList<String> info = CreateDiscountCodeRegex.checkRegex(scanner);
+                if (info == null) {
                     this.backInExecute();
-                if (!initialDate.matches("^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$"))
-                    this.invalidCommandInExecute();
-                System.out.println("Please enter the final date :");
-                String finalDate = scanner.next();
-                if (finalDate.equalsIgnoreCase("back"))
-                    this.backInExecute();
-                if (!finalDate.matches("^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$"))
-                    this.invalidCommandInExecute();
-                System.out.println("Please enter your discount percentage :");
-                String inputPercentage = scanner.nextLine();
-                if (inputPercentage.equalsIgnoreCase("back"))
-                    this.backInExecute();
-                if (!inputPercentage.matches("[1-100]"))
-                    this.invalidCommandInExecute();
-                int discountPercentage = Integer.parseInt(inputPercentage);
-                System.out.println("Please enter the max price :");
-                String inputMaxPrice = scanner.nextLine();
-                if (inputMaxPrice.equalsIgnoreCase("back"))
-                    this.backInExecute();
-                if (!inputMaxPrice.matches("\\d+"))
-                    this.invalidCommandInExecute();
-                int maxPrice = Integer.parseInt(inputMaxPrice);
-                try {
-                    ManagerAccountController.processCreateDiscountCode(initialDate, finalDate, discountPercentage, maxPrice);
-                    System.out.println("create discount code successful");
-                    this.execute();
-                } catch (ParseException createDiscountCodeError) {
-                    System.err.println(createDiscountCodeError.getMessage());
-                    this.execute();
+                } else {
+                    try {
+                        ManagerAccountController.processCreateDiscountCode(info.get(0), info.get(1), Integer.parseInt(info.get(2)), Integer.parseInt(info.get(3)));
+                        System.out.println("Create discount code successful");
+                        this.execute();
+                    } catch (ParseException createDiscountCodeError) {
+                        System.err.println(createDiscountCodeError.getMessage());
+                        this.execute();
+                    }
                 }
-
             }
         };
     }
