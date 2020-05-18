@@ -3,8 +3,6 @@ package view.menu.managerRegion;
 import controller.ManagerAccountController;
 import exception.UsernameNotExistsException;
 import view.menu.Menu;
-import view.menu.regexEnumForInput.CreateDiscountCodeRegex;
-import view.menu.regexEnumForInput.CreateManagerProfileRegex;
 import view.menu.regexEnumForInput.RegisterRegex;
 
 import java.util.ArrayList;

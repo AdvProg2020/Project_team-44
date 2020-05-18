@@ -65,19 +65,37 @@ public class RegisterAndLoginMenu extends Menu {
 
             @Override
             public void execute() {
+                System.out.println("Please enter your type");
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                if (!input.matches("create account (manager|seller|purchaser)"))
+                    this.invalidCommandInExecute();
+                String type = input.split("\\s")[2];
+                if (LoginPageController.isIsMainManagerLogged() && type.equalsIgnoreCase("manager")) {
+                    System.err.println("we have manager!");
+                    this.execute();
+                    this.show();
+                }
                 ArrayList<String> info = RegisterRegex.checkRegex(scanner);
                 if (info == null) {
                     this.backInExecute();
-                } else {
-                    try {
-                        ManagerAccountController.processCreateManagerProfileEach(info.get(0), info.get(1),
-                                info.get(2), info.get(3), info.get(4), info.get(5));
-                        System.out.println("create new manager successful");
-                        this.execute();
-                    } catch (UsernameNotExistsException createManagerError) {
-                        System.err.println(createManagerError.getMessage());
-                        this.execute();
-                    }
+                }
+                String companyName = null;
+                if (type.equals("seller")) {
+                    System.out.println("Please enter your company name");
+                    companyName = scanner.nextLine();
+                    if (companyName.equalsIgnoreCase("back"))
+                        this.backInExecute();
+                }
+                try {
+                    LoginPageController.processCreateAccount(type, info.get(0), info.get(1),
+                            info.get(2), info.get(3), info.get(4), info.get(5), companyName);
+                    System.out.println("register successful");
+                    this.execute();
+                } catch (UsernameExistsException registerError) {
+                    System.err.println(registerError.getMessage());
+                    this.execute();
                 }
             }
         };

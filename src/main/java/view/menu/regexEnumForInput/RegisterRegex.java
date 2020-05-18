@@ -40,7 +40,7 @@ public final class RegisterRegex extends Regex {
             if ((command = scanner.nextLine()).matches("back")) {
                 return null;
             }
-            if (CreateManagerProfileRegex.getRegexByCounter(counter).getStringMatcher(command).matches()) {
+            if (RegisterRegex.getRegexByCounter(counter).getStringMatcher(command).matches()) {
                 info.add(command);
                 counter++;
                 continue;
