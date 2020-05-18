@@ -7,6 +7,8 @@ import model.Sort.Sort;
 import model.offer.Offer;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public abstract class OffersPageController {
     static Sort currentOffersSort = Sort.VIEW;
@@ -41,8 +43,12 @@ public abstract class OffersPageController {
 
     }
 
-    public static Sort[] processShowAvailableSortsEach() {
-        return Sort.values();
+    public static ArrayList<String> processShowAvailableSortsEach() {
+        ArrayList<String> allSorts = new ArrayList<>();
+        for (Sort sort : Sort.values()) {
+            allSorts.add(sort.toString());
+        }
+        return allSorts;
     }
 
     public static void processSortEach(String availableSort) throws SortNotExistsException {

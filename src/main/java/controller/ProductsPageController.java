@@ -40,8 +40,8 @@ public abstract class ProductsPageController {
 
     public static ArrayList<String> processShowAvailableSortsEach() {
         ArrayList<String> allSorts = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            allSorts.add(Sort.values()[i].toString());
+        for (Sort sort : Sort.values()) {
+            allSorts.add(sort.toString());
         }
         return allSorts;
     }
