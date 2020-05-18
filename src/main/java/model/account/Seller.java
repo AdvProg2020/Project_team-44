@@ -53,7 +53,7 @@ public class Seller extends Account {
         this.companyTelephone = companyTelephone;
     }
 
-    public ArrayList<Product> getProductsToSell() {
+    public HashMap<Product, Integer> getProductsToSell() {
         return productsToSell;
     }
 
@@ -79,8 +79,8 @@ public class Seller extends Account {
 
     public void deleteProductRequest(String productId) {
         Product requestedProduct = null;
-        for (Product product : productsToSell) {
-            if (product.getProductID().equalsIgnoreCase(productId))
+        for (Product product : productsToSell.keySet()) {
+            if (product.getProductID().equals(productId))
                 requestedProduct = product;
         }
         productsToSell.remove(requestedProduct);
@@ -95,8 +95,8 @@ public class Seller extends Account {
         new RequestForEditProduct(this, product, field, oldValue, newValue);
     }
 
-    public void editOffersRequest(Offer offer, String field, String oldValue, String newValue) {
-        new RequestForEditOff(this, offer, field, oldValue, newValue);
+    public void editOffersRequest(Offer offer, String field, String newValue, ArrayList<Product> productList) {
+        new RequestForEditOff(this, offer, field, newValue, productList);
     }
 
     public void addOfferRequest(ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage) {
@@ -131,7 +131,7 @@ public class Seller extends Account {
 
     public ArrayList<String> getProductsToSellIds() {
         ArrayList<String> productIds = new ArrayList<>();
-        for (Product product : this.getProductsToSell()) {
+        for (Product product : this.getProductsToSell().keySet()) {
             productIds.add(product.getProductID());
         }
         return productIds;
