@@ -13,16 +13,14 @@ public class RequestForEditOff extends Request {
     private Seller seller;
     private Offer offer;
     private String field;
-    private String newValue;
-    private ArrayList<Product> productList = new ArrayList<>();
+    private ArrayList<String> newValue;
     private static ArrayList<RequestForEditOff> allRequestsForEditOff = new ArrayList<>();
 
-    public RequestForEditOff(Seller seller, Offer offer, String field, String newValue, ArrayList<Product> productList) {
+    public RequestForEditOff(Seller seller, Offer offer, String field, ArrayList<String> newValue) {
         this.seller = seller;
         this.offer = offer;
         this.field = field;
         this.newValue = newValue;
-        this.productList = productList;
         allRequestsForEditOff.add(this);
     }
 
@@ -38,13 +36,10 @@ public class RequestForEditOff extends Request {
         return field;
     }
 
-    public String getNewValue() {
+    public ArrayList<String> getNewValue() {
         return newValue;
     }
 
-    public ArrayList<Product> getProductList() {
-        return productList;
-    }
 
     public static ArrayList<RequestForEditOff> getAllRequestsForEditOff() {
         return allRequestsForEditOff;
@@ -68,7 +63,7 @@ public class RequestForEditOff extends Request {
         strDate = dateFormat.format(this.getOffer().getFinalDate());
         details.add(strDate);
         details.add(this.getField());
-        details.add(this.getNewValue());
+        details.addAll(this.getNewValue());
         return details;
     }
 }

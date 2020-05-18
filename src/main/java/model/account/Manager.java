@@ -73,15 +73,19 @@ public class Manager extends Account {
     public void doRequestForEditOff(String requestId) throws ParseException {
         RequestForEditOff request = (RequestForEditOff) RequestForEditOff.getRequestById(requestId);
         if (request.getField().equalsIgnoreCase("productList")) {
-            request.getOffer().setProductList(request.getProductList());
+            ArrayList<Product> productList = new ArrayList<>();
+            for (String id : request.getNewValue()) {
+                productList.add(Product.getProductByID(id));
+            }
+            request.getOffer().setProductList(productList);
         } else if (request.getField().equalsIgnoreCase("initialDate")) {
-            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(request.getNewValue());
+            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(request.getNewValue().get(0));
             request.getOffer().setInitialDate(date);
         } else if (request.getField().equalsIgnoreCase("finalDate")) {
-            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(request.getNewValue());
+            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(request.getNewValue().get(0));
             request.getOffer().setFinalDate(date);
         } else if (request.getField().equalsIgnoreCase("discountPercentage")) {
-            request.getOffer().setDiscountPercentage(Integer.parseInt(request.getNewValue()));
+            request.getOffer().setDiscountPercentage(Integer.parseInt(request.getNewValue().get(0)));
         }
     }
 

@@ -91,12 +91,12 @@ public class Seller extends Account {
     }
 
 
-    public void editProductRequest(Product product, String field, String oldValue, String newValue) {
-        new RequestForEditProduct(this, product, field, oldValue, newValue);
+    public void editProductRequest(Product product, String field, String newValue) {
+        new RequestForEditProduct(this, product, field, newValue);
     }
 
-    public void editOffersRequest(Offer offer, String field, String newValue, ArrayList<Product> productList) {
-        new RequestForEditOff(this, offer, field, newValue, productList);
+    public void editOffersRequest(Offer offer, String field, ArrayList<String> newValue) {
+        new RequestForEditOff(this, offer, field, newValue);
     }
 
     public void addOfferRequest(ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage) {
