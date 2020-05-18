@@ -94,7 +94,7 @@ public abstract class PurchaserAccountController {
         (LoginPageController.loggedInAccount).setBalance(( LoginPageController.loggedInAccount).getBalance()
                 - ((Purchaser) LoginPageController.loggedInAccount).getCartMoneyToPay());
 
-        ((Purchaser) LoginPageController.loggedInAccount).purchase();
+        ((Purchaser) LoginPageController.loggedInAccount).purchase(PurchaserAccountController.discountCode);
     }
 
 }
