@@ -1,6 +1,7 @@
 package view.menu.managerRegion;
 
 import controller.ManagerAccountController;
+import exception.ManagerFieldsNotExistException;
 import view.menu.Menu;
 
 import java.util.HashMap;
@@ -48,10 +49,11 @@ public class ViewPersonalInfoOfManagerMenu extends Menu {
                             ManagerAccountController.processEditFieldEach(field, newValue);
                             System.out.println("your change done");
                             this.execute();
-                        } catch () {
+                        } catch (ManagerFieldsNotExistException fieldsError) {
+                            System.err.println(fieldsError.getMessage());
+                            this.execute();
 
                         }
-
                 }
             }
         };

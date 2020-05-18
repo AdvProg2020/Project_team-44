@@ -1,6 +1,7 @@
 package view.menu.purchaseRegion;
 
 import controller.PurchaserAccountController;
+import exception.PurchaserFieldsNotExistException;
 import view.menu.Menu;
 
 import java.util.HashMap;
@@ -48,8 +49,9 @@ public class ViewPersonalInfoOfPurchaserMenu extends Menu {
                             PurchaserAccountController.processEditFieldEach(field, newValue);
                             System.out.println("your change done");
                             this.execute();
-                        } catch () {
-
+                        } catch (PurchaserFieldsNotExistException editPurchaseError) {
+                            System.err.println(editPurchaseError.getMessage());
+                            this.execute();
                         }
                     }
                 }

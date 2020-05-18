@@ -1,6 +1,7 @@
 package view.menu.sellerRegion;
 
 import controller.SellerAccountController;
+import exception.SellerFieldsNotExistException;
 import view.menu.Menu;
 
 import java.util.HashMap;
@@ -47,8 +48,9 @@ public class ViewPersonalInfoOfSellerMenu extends Menu {
                             SellerAccountController.processEditFieldEach(field, newValue);
                             System.out.println("your change done");
                             this.execute();
-                        } catch () {
-
+                        } catch (SellerFieldsNotExistException editSellerError) {
+                            System.err.println(editSellerError.getMessage());
+                            this.execute();
                         }
                     }
                 }

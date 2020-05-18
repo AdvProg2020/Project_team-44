@@ -1,6 +1,7 @@
 package view.menu.sellerRegion;
 
 import controller.SellerAccountController;
+import exception.ProductFieldsNotException;
 import exception.ProductIdNotExistsException;
 import view.menu.Menu;
 
@@ -115,7 +116,7 @@ public class ManageProductsForSellerMenu extends Menu {
                 try {
                     SellerAccountController.processEditProduct(productId, field, newValue);
                     this.backInExecute();
-                } catch (ProductIdNotExistsException EditProductError) {
+                } catch (ProductIdNotExistsException | ProductFieldsNotException EditProductError) {
                     System.err.println(EditProductError.getMessage());
                     this.execute();
                 }

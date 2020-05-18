@@ -1,6 +1,7 @@
 package view.menu.managerRegion;
 
 import controller.ManagerAccountController;
+import exception.CodedDiscountFieldsNotExistException;
 import exception.CodedDiscountNotExistsException;
 import view.menu.Menu;
 
@@ -82,7 +83,7 @@ public class ViewDiscountCodesMenu extends Menu {
                         ManagerAccountController.processEditDiscountCodeEach(code, field, newValue);
                         System.out.println("edit discount code successful");
                         this.execute();
-                    } catch (CodedDiscountNotExistsException | ParseException editDiscountCodeError) {
+                    } catch (CodedDiscountNotExistsException | ParseException | CodedDiscountFieldsNotExistException editDiscountCodeError) {
                         System.err.println(editDiscountCodeError.getMessage());
                         this.execute();
                     }

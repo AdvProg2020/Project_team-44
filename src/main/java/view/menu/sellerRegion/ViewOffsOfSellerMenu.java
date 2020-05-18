@@ -1,6 +1,7 @@
 package view.menu.sellerRegion;
 
 import controller.SellerAccountController;
+import exception.OfferFieldNotExistsException;
 import exception.ProductIdNotExistsException;
 import view.menu.Menu;
 
@@ -91,7 +92,7 @@ public class ViewOffsOfSellerMenu extends Menu {
                     SellerAccountController.processEditOffEach(offId, field, newValue);
                     System.out.println("edit off successful");
                     this.backInExecute();
-                } catch (ProductIdNotExistsException EditOffError) {
+                } catch (ProductIdNotExistsException | OfferFieldNotExistsException EditOffError) {
                     System.err.println(EditOffError.getMessage());
                     this.execute();
                 }
