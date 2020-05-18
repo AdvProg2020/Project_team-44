@@ -6,18 +6,28 @@ import model.product.Product;
 import model.sellLog.SellLog;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Purchaser extends Account {
     private HashMap<Product, Integer> cart;
-
-    public Purchaser(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password) {
+    private String address;
+    public Purchaser(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password, String address) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
         this.cart = new HashMap<>();
+        this.address = address;
     }
 
     public HashMap<Product, Integer> getCart() {
         return cart;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
@@ -34,7 +44,12 @@ public class Purchaser extends Account {
         new Rating(product, this, rating);
     }
 
-    public void purchase() {
+    public void purchase(Date date, Seller seller) {
+        for (Product product : this.getCart().keySet()) {
+            product.getAllPurchaser().add(this);
+        }
+
+        new BuyLog(date, this.getCartMoneyToPay(), , this.getCart().keySet(), )
 
     }
 
@@ -69,25 +84,15 @@ public class Purchaser extends Account {
 
     }
 
-    public ArrayList<String> returnBuyLogIds() {
-        ArrayList<String> buyLogId = new ArrayList<>();
-        for (BuyLog buyLog : buyLogListHistory) {
-            buyLogId.add(buyLog.getLogID());
-        }
-        return buyLogId;
-    }
-
     public ArrayList<String> getAllBuyLogIds() {
         ArrayList<String> buyLogIds = new ArrayList<>();
-        for (SellLog allSellLog : SellLog.getAllSellLogs()) {
-            if (allSellLog.getBuyerFirstName().equalsIgnoreCase(this.getFirstName()) && allSellLog.getBuyerLastName().equalsIgnoreCase(this.getLastName())) {
-                buyLogIds.add(allSellLog.getLogID());
-            }
+        for (BuyLog buyLog : buyLogListHistory) {
+            buyLogIds.add(buyLog.getLogID());
         }
         return buyLogIds;
     }
 
-    public ArrayList<String> getCartProducts() {
+    public ArrayList<String> getCartProductNames() {
         ArrayList<String> productNames = new ArrayList<>();
         for (Product product : this.getCart().keySet()) {
             productNames.add(product.getName());

@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 public class BuyLog {
     private String logID;
@@ -15,11 +16,11 @@ public class BuyLog {
     private ArrayList<Product> allPurchasedProducts;
     private String sellerFirstName;
     private String sellerLastName;
-    private BuyLogStatus status;
-    private static ArrayList<BuyLog> allBuyLogs;
+    private BuyLogStatus status = BuyLogStatus.IN_PROGRESS;
+    private static ArrayList<BuyLog> allBuyLogs = new ArrayList<>();
 
-    public BuyLog(String logID, Date date, int moneyPaid, int discountCodeAmountUsed, ArrayList<Product> allPurchasedProducts, String sellerFirstName, String sellerLastName) {
-        this.logID = logID;
+    public BuyLog(Date date, int moneyPaid, int discountCodeAmountUsed, ArrayList<Product> allPurchasedProducts, String sellerFirstName, String sellerLastName) {
+        this.logID = produceBuyLogId();
         this.date = date;
         this.moneyPaid = moneyPaid;
         this.discountCodeAmountUsed = discountCodeAmountUsed;
@@ -82,5 +83,16 @@ public class BuyLog {
         info.add(this.getSellerLastName());
         info.add(this.getStatus().toString());
         return info;
+    }
+
+    public String produceBuyLogId() {
+        String logId = "BuyLog_";
+        Random random = new Random();
+        int min = 2;
+        int max = 100000000;
+        int range = max - min;
+        int rand = random.nextInt(range) + min;
+        logId += rand;
+        return logId;
     }
 }

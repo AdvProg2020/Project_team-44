@@ -18,7 +18,7 @@ public abstract class PurchaserAccountController {
     }
 
     public static ArrayList<String> processShowProductsEach() {
-        return ((Purchaser) LoginPageController.loggedInAccount).getCartProducts();
+        return ((Purchaser) LoginPageController.loggedInAccount).getCartProductNames();
     }
 
     public static void processViewProductsEach(String productId) throws ProductNotExistsInCartException {

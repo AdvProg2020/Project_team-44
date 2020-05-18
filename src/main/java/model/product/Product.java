@@ -2,11 +2,13 @@ package model.product;
 
 import model.Category;
 import model.Rating;
+import model.account.Purchaser;
 import model.account.Seller;
 import model.comment.Comment;
 import model.offer.Offer;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Product {
     private String productID;
@@ -23,16 +25,17 @@ public class Product {
     private int availableNumber;
     private Offer offer;
     private ArrayList<Rating> allRating = new ArrayList<>();
-    private static ArrayList<Product> allProducts;
+    private static ArrayList<Product> allProducts = new ArrayList<>();
+    private static ArrayList<Purchaser> allPurchaser = new ArrayList<>();
 
-
-    public Product(String productID, Category category, String name, String companyName, int price, String explanationText) {
-        this.productID = productID;
+    public Product(Category category, String name, String companyName, int price, String explanationText) {
+        this.productID = produceProductId();
         this.category = category;
         this.name = name;
         this.companyName = companyName;
         this.price = price;
         this.explanationText = explanationText;
+        allProducts.add(this);
     }
 
     public static ArrayList<Product> getAllProducts() {
@@ -104,6 +107,10 @@ public class Product {
         return allRating;
     }
 
+    public static ArrayList<Purchaser> getAllPurchaser() {
+        return allPurchaser;
+    }
+
     public float getAverageRating() {
         float sum = 0;
         float num = 0;
@@ -134,5 +141,15 @@ public class Product {
         }
         info.add(sellers);
         return info;
+    }
+    public String produceProductId() {
+        String logId = "Product_";
+        Random random = new Random();
+        int min = 3;
+        int max = 100000000;
+        int range = max - min;
+        int rand = random.nextInt(range) + min;
+        logId += rand;
+        return logId;
     }
 }

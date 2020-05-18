@@ -13,11 +13,11 @@ public class RequestForAddProduct extends Request {
     private Category category;
     private String name;
     private String companyName;
-    private int price;
+    private double price;
     private String explanationText;
     private static ArrayList<RequestForAddProduct> allRequestsForAddProduct = new ArrayList<>();
 
-    public RequestForAddProduct(Seller seller, Category category, String name, String companyName, int price, String explanationText) {
+    public RequestForAddProduct(Seller seller, Category category, String name, String companyName, double price, String explanationText) {
         this.seller = seller;
         this.category = category;
         this.name = name;
@@ -43,7 +43,7 @@ public class RequestForAddProduct extends Request {
         return companyName;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
