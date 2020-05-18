@@ -10,9 +10,10 @@ public class Category {
     private ArrayList<Product> allSubProducts = new ArrayList<>();
     private ArrayList<String> attributes = new ArrayList<>();
     private static ArrayList<Category> allCategories = new ArrayList<>();
-
-    public Category(String name) {
+    private Category parent;
+    public Category(String name, Category parent) {
         this.name = name;
+        this.parent = parent;
         allCategories.add(this);
     }
 
