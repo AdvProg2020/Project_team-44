@@ -20,7 +20,8 @@ public abstract class ManagerAccountController {
         return LoginPageController.loggedInAccount.getInfo();
     }
 
-    public static void processEditFieldEach(String field, String newValue) {
+    public static void processEditFieldEach(String field, String newValue) throws ManagerFieldsNotExistException {
+        ValidationController.checkManagerFieldExistence(field);
         LoginPageController.loggedInAccount.editInfo(field, newValue);
     }
 
@@ -64,8 +65,10 @@ public abstract class ManagerAccountController {
         return CodedDiscount.getCodedDiscountByCode(code).getCodedDiscountInfo();
     }
 
-    public static void processEditDiscountCodeEach(String code, String field, String newValue) throws CodedDiscountNotExistsException, ParseException {
+    public static void processEditDiscountCodeEach(String code, String field, String newValue)
+            throws CodedDiscountNotExistsException, ParseException, CodedDiscountFieldsNotExistException {
         ValidationController.checkCodedDiscountExistence(code);
+        ValidationController.checkCodedDiscountFieldExistence(field);
         Manager.editCodedDiscount(code, field, newValue);
     }
 

@@ -11,11 +11,13 @@ import java.util.Date;
 
 public abstract class PurchaserAccountController {
     static String discountCode;
+
     public static ArrayList<String> processViewPersonalInfo() {
         return LoginPageController.loggedInAccount.getInfo();
     }
 
-    public static void processEditFieldEach(String field, String newValue) {
+    public static void processEditFieldEach(String field, String newValue) throws PurchaserFieldsNotExistException {
+        ValidationController.checkPurchaserFieldExistence(field);
         LoginPageController.loggedInAccount.editInfo(field, newValue);
     }
 
@@ -52,7 +54,7 @@ public abstract class PurchaserAccountController {
 
     public static void receiveInfo(String address, String telephoneNumber) {
         LoginPageController.loggedInAccount.setTelephoneNumber(telephoneNumber);
-        ((Purchaser)LoginPageController.loggedInAccount).setAddress(address);
+        ((Purchaser) LoginPageController.loggedInAccount).setAddress(address);
     }
 
     public static ArrayList<String> processViewOrders() {
@@ -91,9 +93,6 @@ public abstract class PurchaserAccountController {
     public static void processPayment() throws NotEnoughMoneyToPayException {
         ValidationController.checkEnoughMoneyToPay(((Purchaser) LoginPageController.loggedInAccount)
                 , ((Purchaser) LoginPageController.loggedInAccount).getCartMoneyToPay());
-        (LoginPageController.loggedInAccount).setBalance(( LoginPageController.loggedInAccount).getBalance()
-                - ((Purchaser) LoginPageController.loggedInAccount).getCartMoneyToPay());
-
         ((Purchaser) LoginPageController.loggedInAccount).purchase(PurchaserAccountController.discountCode);
     }
 

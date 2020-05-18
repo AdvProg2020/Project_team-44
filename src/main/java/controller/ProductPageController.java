@@ -1,6 +1,7 @@
 package controller;
 
 import exception.ProductAlreadyExistsInCartException;
+import exception.ProductIdNotExistsException;
 import exception.SellerUserNameNotExists;
 import model.account.Account;
 import model.account.Purchaser;
@@ -34,7 +35,8 @@ public abstract class ProductPageController {
         return ProductsPageController.selectedProduct.getCategoryAttributes();
     }
 
-    public static ArrayList<String> processCompare(String productID) {
+    public static ArrayList<String> processCompare(String productID) throws ProductIdNotExistsException {
+        ValidationController.checkProductExistence(productID);
         return ((Purchaser) LoginPageController.loggedInAccount).compareTwoProducts(ProductsPageController.selectedProduct.getProductID(), productID);
     }
 
