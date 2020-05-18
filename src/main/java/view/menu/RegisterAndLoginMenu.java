@@ -69,6 +69,11 @@ public class RegisterAndLoginMenu extends Menu {
                     this.invalidCommandInExecute();
                 else {
                     String type = input.split("\\s")[2];
+                    if(LoginPageController.isIsMainManagerLogged() && type.equalsIgnoreCase("manager")){
+                        System.err.println("we have manager!");
+                        this.execute();
+                        this.show();
+                    }
                     String userName = input.split("\\s")[3];
                     System.out.println("Please enter your password");
                     String passWord = scanner.nextLine();

@@ -1,12 +1,14 @@
-package view.menu;
+package view.menu.productsPage;
 
 import controller.ProductsPageController;
 import exception.ProductIdNotExistsException;
+import view.menu.Menu;
+import view.menu.productsPage.ProductPage.ProductPageMenu;
 
 import java.util.HashMap;
 
-public class ShowProductsMenu extends Menu {
-    public ShowProductsMenu(Menu parent) {
+public class ShowProductsInProductsPageMenu extends Menu {
+    public ShowProductsInProductsPageMenu(Menu parent) {
         super("Show Products Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getShowProductMenu());
@@ -38,9 +40,12 @@ public class ShowProductsMenu extends Menu {
                     String productId = input.substring(13);
                     try {
                         ProductsPageController.processShowProduct(productId);
-                        Menu productMenu = new Pro
+                        Menu productMenu = new ProductPageMenu(this);
+                        productMenu.show();
+                        productMenu.menuWork();
+                        productMenu.execute();
                     } catch (ProductIdNotExistsException showProductError) {
-                        System.out.println(showProductError.getMessage());
+                        System.err.println(showProductError.getMessage());
                         this.execute();
                     }
 

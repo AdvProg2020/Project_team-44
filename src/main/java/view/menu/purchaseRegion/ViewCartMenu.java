@@ -3,7 +3,6 @@ package view.menu.purchaseRegion;
 import controller.PurchaserAccountController;
 import exception.ProductNotExistsInCartException;
 import view.menu.Menu;
-import view.menu.purchaseRegion.PurchaseMenu;
 
 import java.util.HashMap;
 
@@ -22,7 +21,7 @@ public class ViewCartMenu extends Menu {
 
     @Override
     public void menuWork() {
-        PurchaserAccountController.processViewCart();
+
     }
 
     private Menu getShowProductsMenu() {

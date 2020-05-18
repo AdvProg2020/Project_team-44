@@ -81,7 +81,6 @@ public class ManageCategoriesMenu extends Menu {
                         System.err.println(addCategoryError.getMessage());
                         this.execute();
                     }
-
                 }
             }
         };
