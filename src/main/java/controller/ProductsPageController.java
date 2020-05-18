@@ -3,6 +3,7 @@ package controller;
 import exception.FilterNotExistsException;
 import exception.ProductIdNotExistsException;
 import exception.SortNotExistsException;
+import model.Category;
 import model.Sort.Sort;
 import model.product.Product;
 
@@ -13,8 +14,8 @@ public abstract class ProductsPageController {
     static Product selectedProduct = null;
     static Sort currentProductsSort = Sort.VIEW;
 
-    public static void processViewCategories() {
-
+    public static ArrayList<String> processViewCategories() {
+        return Category.getAllCategoryNames();
     }
 
     public static void processShowAvailableFiltersEach() {

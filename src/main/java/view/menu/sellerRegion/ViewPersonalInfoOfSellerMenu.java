@@ -1,26 +1,27 @@
-package view.menu;
+package view.menu.sellerRegion;
 
-import controller.ManagerAccountController;
-import model.account.Account;
+import controller.SellerAccountController;
+import view.menu.Menu;
 
 import java.util.HashMap;
 
-public class ViewPersonalInfoOfManagerMenu extends Menu {
-    public ViewPersonalInfoOfManagerMenu(Menu parent, Account account) {
-        super("View Personal Info Of Manager Menu", parent, account);
+public class ViewPersonalInfoOfSellerMenu extends Menu {
+    public ViewPersonalInfoOfSellerMenu(Menu parent) {
+        super("View Personal Info Of Seller Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getEditFieldMenu());
         this.setSubmenus(submenus);
-
     }
 
     @Override
     public void menuWork() {
-        ManagerAccountController.processViewPersonalInfo();
+        for (String sellerInfo : SellerAccountController.processViewPersonalInfo()) {
+            System.out.println(sellerInfo);
+        }
     }
 
     private Menu getEditFieldMenu() {
-        return new Menu("Edit Field Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Edit Field Menu", this) {
 
             @Override
             public void show() {
@@ -31,29 +32,29 @@ public class ViewPersonalInfoOfManagerMenu extends Menu {
             @Override
             public void execute() {
                 String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+                if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if(input.equalsIgnoreCase("logout") && getCurrentUserLoggedIn()!= null)
-                    this.logoutInExecute();
                 else if (!input.matches("edit-\\w+-\\w+"))
-                     this.invalidCommandInExecute();
-                 else {
+                    this.invalidCommandInExecute();
+                else {
                     String field = input.split("-")[1];
                     String newValue = input.split("-")[2];
                     if (field.equals("username")) {
                         System.err.println("you can't edit username");
                         this.execute();
-                    } else
-                        try{
-                            ManagerAccountController.processEditFieldEach(field,newValue);
+                    } else {
+                        try {
+                            SellerAccountController.processEditFieldEach(field, newValue);
                             System.out.println("your change done");
-                        }
-                        catch (){
+                            this.execute();
+                        } catch () {
 
                         }
-
+                    }
                 }
             }
         };
     }
 }
+
+

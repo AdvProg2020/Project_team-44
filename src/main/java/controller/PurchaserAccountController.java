@@ -50,7 +50,7 @@ public abstract class PurchaserAccountController {
 
     public static void receiveInfo(String address, String telephoneNumber) {
         LoginPageController.loggedInAccount.setTelephoneNumber(telephoneNumber);
-        LoginPageController.loggedInAccount.setAddress(address);
+        ((Purchaser)LoginPageController.loggedInAccount).setAddress(address);
     }
 
     public static ArrayList<String> processViewOrders() {
@@ -80,12 +80,17 @@ public abstract class PurchaserAccountController {
     }
 
     public static void getCodedDiscount(String discountCode) throws PurchaserNotOwnsCodedDiscountException {
-        ValidationController.checkPurchaserOwnsCodedDiscount((Purchaser)LoginPageController.loggedInAccount,CodedDiscount.getCodedDiscountByCode(discountCode));
-//        ValidationController.checkCodedDiscountTime(CodedDiscount.getCodedDiscountByCode(discountCode), );
+        ValidationController.checkPurchaserOwnsCodedDiscount((Purchaser) LoginPageController.loggedInAccount
+                , CodedDiscount.getCodedDiscountByCode(discountCode));
+        ValidationController.checkCodedDiscountTime(CodedDiscount.getCodedDiscountByCode(discountCode), );
     }
 
     public static void processPayment() throws NotEnoughMoneyToPayException {
-        ValidationController.checkEnoughMoneyToPay(((Purchaser)LoginPageController.loggedInAccount), ((Purchaser)LoginPageController.loggedInAccount).getCartMoneyToPay());
+        ValidationController.checkEnoughMoneyToPay(((Purchaser) LoginPageController.loggedInAccount)
+                , ((Purchaser) LoginPageController.loggedInAccount).getCartMoneyToPay());
+        ((Purchaser) LoginPageController.loggedInAccount).setBalance(((Purchaser) LoginPageController.loggedInAccount).getBalance()
+                - ((Purchaser) LoginPageController.loggedInAccount).getCartMoneyToPay());
+        ((Purchaser) LoginPageController.loggedInAccount).purchase();
     }
 
 }

@@ -1,15 +1,14 @@
-package view.menu;
+package view.menu.managerRegion;
 
 import controller.ManagerAccountController;
-import exception.CodedDiscountNotExistsException;
 import exception.RequestNotExistsException;
-import model.account.Account;
+import view.menu.Menu;
 
 import java.util.HashMap;
 
 public class ManageRequestsMenu extends Menu {
-    public ManageRequestsMenu(Menu parent, Account account) {
-        super("Manager Requests Menu", parent, account);
+    public ManageRequestsMenu(Menu parent) {
+        super("Manager Requests Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getDetailsOfRequestMenu());
         submenus.put(2, getAcceptRequestMenu());
@@ -19,11 +18,15 @@ public class ManageRequestsMenu extends Menu {
 
     @Override
     public void menuWork() {
-        ManagerAccountController.processManageRequests();
+        int i = 1;
+        for (String request : ManagerAccountController.processManageRequests()) {
+            System.out.println(i + "- " + request);
+            i++;
+        }
     }
 
     private Menu getDetailsOfRequestMenu() {
-        return new Menu("Details Of Request Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Details Of Request Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -35,16 +38,17 @@ public class ManageRequestsMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("details \\w+"))
                     this.invalidCommandInExecute();
                 else {
                     String requestId = input.substring(8);
                     try {
-                        ManagerAccountController.processShowRequestDetailsEach(requestId);
+                        for (String showRequestDetailsEach : ManagerAccountController.processShowRequestDetailsEach(requestId)) {
+                            System.out.println(showRequestDetailsEach);
+                        }
+                        this.execute();
                     } catch (RequestNotExistsException requestDetailsError) {
-                        requestDetailsError.getMessage();
+                        System.err.println(requestDetailsError.getMessage());
                         this.execute();
                     }
 
@@ -54,7 +58,7 @@ public class ManageRequestsMenu extends Menu {
     }
 
     private Menu getAcceptRequestMenu() {
-        return new Menu("Accept Request Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Accept Request Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -66,8 +70,6 @@ public class ManageRequestsMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("accept \\w+"))
                     this.invalidCommandInExecute();
                 else {
@@ -75,8 +77,9 @@ public class ManageRequestsMenu extends Menu {
                     try {
                         ManagerAccountController.processAcceptRequestEach(requestId);
                         System.out.println("Accept request");
+                        this.execute();
                     } catch (RequestNotExistsException requestAcceptError) {
-                        requestAcceptError.getMessage();
+                        System.err.println(requestAcceptError.getMessage());
                         this.execute();
                     }
 
@@ -88,7 +91,7 @@ public class ManageRequestsMenu extends Menu {
 
 
     private Menu getDeclineRequestMenu() {
-        return new Menu("Decline Request Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Decline Request Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -100,8 +103,6 @@ public class ManageRequestsMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("decline \\w+"))
                     this.invalidCommandInExecute();
                 else {
@@ -109,8 +110,9 @@ public class ManageRequestsMenu extends Menu {
                     try {
                         ManagerAccountController.processDeclineRequestEach(requestId);
                         System.out.println("decline request");
+                        this.execute();
                     } catch (RequestNotExistsException requestAcceptError) {
-                        requestAcceptError.getMessage();
+                        System.err.println(requestAcceptError.getMessage());
                         this.execute();
                     }
 

@@ -1,15 +1,15 @@
-package view.menu;
+package view.menu.managerRegion;
 
 import controller.ManagerAccountController;
 import exception.CodedDiscountNotExistsException;
-import exception.UsernameNotExistsException;
-import model.account.Account;
+import view.menu.Menu;
 
+import java.text.ParseException;
 import java.util.HashMap;
 
 public class ViewDiscountCodesMenu extends Menu {
-    public ViewDiscountCodesMenu(Menu parent, Account account) {
-        super("View Discount Codes Menu", parent, account);
+    public ViewDiscountCodesMenu(Menu parent) {
+        super("View Discount Codes Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getViewOfDiscountCodeMenu());
         submenus.put(2, getEditDiscountCodeMenu());
@@ -19,11 +19,15 @@ public class ViewDiscountCodesMenu extends Menu {
 
     @Override
     public void menuWork() {
-        ManagerAccountController.processViewDiscountCodes();
+        int i = 1;
+        for (String discountCode : ManagerAccountController.processViewDiscountCodes()) {
+            System.out.println(i + "- " + discountCode);
+            i++;
+        }
     }
 
     private Menu getViewOfDiscountCodeMenu() {
-        return new Menu("View Of Discount Code Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("View Of Discount Code Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -35,16 +39,17 @@ public class ViewDiscountCodesMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("view discount code \\w+"))
                     this.invalidCommandInExecute();
                 else {
                     String code = input.substring(19);
                     try {
-                        ManagerAccountController.processViewDiscountCodeEach(code);
+                        for (String viewDiscountCodeEach : ManagerAccountController.processViewDiscountCodeEach(code)) {
+                            System.out.println(viewDiscountCodeEach);
+                        }
+                        this.execute();
                     } catch (CodedDiscountNotExistsException discountCodeError) {
-                        discountCodeError.getMessage();
+                        System.err.println(discountCodeError.getMessage());
                         this.execute();
                     }
 
@@ -54,7 +59,7 @@ public class ViewDiscountCodesMenu extends Menu {
     }
 
     private Menu getEditDiscountCodeMenu() {
-        return new Menu("Edit Discount Code Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Edit Discount Code Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -66,8 +71,6 @@ public class ViewDiscountCodesMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("edit discount code \\w+-\\w+-\\w+"))
                     this.invalidCommandInExecute();
                 else {
@@ -78,8 +81,12 @@ public class ViewDiscountCodesMenu extends Menu {
                     try {
                         ManagerAccountController.processEditDiscountCodeEach(code, field, newValue);
                         System.out.println("edit discount code successful");
+                        this.execute();
                     } catch (CodedDiscountNotExistsException editDiscountCodeError) {
-                        editDiscountCodeError.getMessage();
+                        System.err.println(editDiscountCodeError.getMessage());
+                        this.execute();
+                    } catch (ParseException parsExceptionError) {
+                        System.err.println(parsExceptionError.getMessage());
                         this.execute();
                     }
 
@@ -89,7 +96,7 @@ public class ViewDiscountCodesMenu extends Menu {
     }
 
     private Menu getRemoveDiscountCodeMenu() {
-        return new Menu("Remove Discount Code Menu", this, this.getCurrentUserLoggedIn()) {
+        return new Menu("Remove Discount Code Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -101,8 +108,6 @@ public class ViewDiscountCodesMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (input.equalsIgnoreCase("logout") && this.getCurrentUserLoggedIn() != null)
-                    this.logoutInExecute();
                 else if (!input.matches("remove discount code \\w+"))
                     this.invalidCommandInExecute();
                 else {
@@ -110,8 +115,9 @@ public class ViewDiscountCodesMenu extends Menu {
                     try {
                         ManagerAccountController.processRemoveDiscountCodeEach(code);
                         System.out.println("remove discount code successful");
+                        this.execute();
                     } catch (CodedDiscountNotExistsException removeDiscountCodeError) {
-                        removeDiscountCodeError.getMessage();
+                        System.err.println(removeDiscountCodeError.getMessage());
                         this.execute();
                     }
 
