@@ -18,29 +18,24 @@ import java.util.HashMap;
 public abstract class ManagerAccountController {
     public static ArrayList<String> processViewPersonalInfo() {
         return LoginPageController.loggedInAccount.getInfo();
-        /**DONE**/
     }
 
     public static void processEditFieldEach(String field, String newValue) {
         LoginPageController.loggedInAccount.editInfo(field, newValue);
-        /**DONE**/
     }
 
     public static ArrayList<String> processManageUsers() {
         return Manager.showAllUsers();
-        /**DONE**/
     }
 
     public static ArrayList<String> processViewUserInfoEach(String username) throws UsernameNotExistsException {
         ValidationController.checkUsernameExistence(username);
         return Account.getAccountByUsername(username).getInfo();
-        /**DONE**/
     }
 
     public static void processDeleteUserEach(String username) throws UsernameNotExistsException {
         ValidationController.checkUsernameExistence(username);
         Account.getAllAccounts().remove(Account.getAccountByUsername(username));
-        /**DONE**/
     }
 
     public static void processCreateManagerProfileEach(String username, String password, String firstName, String lastName, String email
@@ -115,7 +110,7 @@ public abstract class ManagerAccountController {
 
     public static void processAddCategoryEach(String category, String parentCategory) throws CategoryNotExistsException {
         ValidationController.checkCategoryExistence(category);
-        ValidationController.checkCategoryExistence(parentCategory);
+        ValidationController.checkCategoryExistence(parentCategory);//if parentCategoryNull
         ((Manager) LoginPageController.loggedInAccount).addCategory(category, Category.getCategoryByName(parentCategory));
     }
 
