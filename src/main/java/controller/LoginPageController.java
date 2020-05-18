@@ -11,6 +11,11 @@ import model.requests.RequestForSeller;
 
 public abstract class LoginPageController {
     static Account loggedInAccount;
+    static boolean isMainManagerLogged = false;
+
+    public static boolean isIsMainManagerLogged() {
+        return isMainManagerLogged;
+    }
 
     public static String getLoggedInAccountType() {
         if (loggedInAccount == null) {
@@ -27,9 +32,11 @@ public abstract class LoginPageController {
 
     public static void processCreateAccount(String type, String username, String password, String firstName, String lastName, String email
             , String telephoneNumber, String companyName) throws UsernameExistsException {
-
         ValidationController.checkUsernameForRegistration(username);
-        if (type.equalsIgnoreCase("seller")) {
+        if (type.equalsIgnoreCase("manager")) {
+            Manager manager = new Manager(username, firstName, lastName, email, telephoneNumber, password);
+            isMainManagerLogged = true;
+        } else if (type.equalsIgnoreCase("seller")) {
             RequestForSeller requestForSeller = new RequestForSeller(companyName, username, firstName,
                     lastName, email, telephoneNumber, password);
 
