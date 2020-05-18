@@ -17,7 +17,11 @@ public class ViewOffsOfSellerMenu extends Menu {
 
     @Override
     public void menuWork() {
-        SellerAccountController.processViewOffs();
+        int i = 1;
+        for (String viewOff : SellerAccountController.processViewOffs()) {
+            System.out.println(i + "- " + viewOff);
+            i++;
+        }
     }
 
     private Menu getViewOffMenu() {
@@ -38,7 +42,9 @@ public class ViewOffsOfSellerMenu extends Menu {
                 else {
                     String offId = input.substring(5);
                     try {
-                        SellerAccountController.processViewOffEach(offId);
+                        for (String viewOffEach : SellerAccountController.processViewOffEach(offId)) {
+                            System.out.println(viewOffEach);
+                        }
                         this.execute();
                     } catch (ProductIdNotExistsException viewOffError) {
                         System.err.println(viewOffError.getMessage());
@@ -60,21 +66,27 @@ public class ViewOffsOfSellerMenu extends Menu {
 
             @Override
             public void execute() {
-                String input = scanner.nextLine();
-                if (input.equalsIgnoreCase("back"))
+                String offId = scanner.nextLine();
+                if (offId.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (!input.matches("view \\w+"))
-                    this.invalidCommandInExecute();
-                else {
-                    String offId = input.substring(5);
-                    try {
-                        SellerAccountController.processViewOffEach(offId);
-                        this.execute();
-                    } catch (ProductIdNotExistsException viewOffError) {
-                        System.err.println(viewOffError.getMessage());
-                        this.execute();
-                    }
-
+                System.out.println("Please enter your field");
+                String field = scanner.nextLine();
+                if (field.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                System.out.println("Please enter your old value");
+                String oldValue = scanner.nextLine();
+                if (oldValue.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                System.out.println("Please enter your new value");
+                String newValue = scanner.nextLine();
+                if (newValue.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                try {
+                    SellerAccountController.processEditOffEach(offId,field,oldValue,newValue);
+                    this.execute();
+                } catch (ProductIdNotExistsException EditOffError) {
+                    System.err.println(EditOffError.getMessage());
+                    this.execute();
                 }
             }
         };

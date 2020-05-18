@@ -12,8 +12,9 @@ public class SellerAccountMenu extends Menu {
         submenus.put(2, getViewCompanyInformationMenu());
         submenus.put(3, getViewSaleHistoryMenu());
         submenus.put(4, new ManageProductsForSellerMenu(this));
-        submenus.put(5, new ViewOffsOfSellerMenu(this));
-        submenus.put(6, getViewBalanceMenu());
+        submenus.put(5,getShowCategoriesMenu());
+        submenus.put(6, new ViewOffsOfSellerMenu(this));
+        submenus.put(7, getViewBalanceMenu());
         this.setSubmenus(submenus);
 
 
@@ -89,7 +90,11 @@ public class SellerAccountMenu extends Menu {
 
             @Override
             public void menuWork() {
-                SellerAccountController.processShowCategory();
+                int i=1;
+                for (String category : SellerAccountController.processShowCategory()) {
+                    System.out.println(i+"- "+category);
+                    i++;
+                }
             }
         };
     }
@@ -112,7 +117,7 @@ public class SellerAccountMenu extends Menu {
 
             @Override
             public void menuWork() {
-                SellerAccountController.processViewBalance();
+                System.out.println("your balance : " + SellerAccountController.processViewBalance());
             }
         };
     }

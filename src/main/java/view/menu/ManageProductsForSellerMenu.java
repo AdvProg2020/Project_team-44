@@ -105,10 +105,16 @@ public class ManageProductsForSellerMenu extends Menu {
                     this.backInExecute();
                 System.out.println("Please enter your field");
                 String field = scanner.nextLine();
+                if (field.equalsIgnoreCase("back"))
+                    this.backInExecute();
                 System.out.println("Please enter your old value");
                 String oldValue = scanner.nextLine();
+                if (oldValue.equalsIgnoreCase("back"))
+                    this.backInExecute();
                 System.out.println("Please enter your new value");
                 String newValue = scanner.nextLine();
+                if (newValue.equalsIgnoreCase("back"))
+                    this.backInExecute();
                 try {
                     SellerAccountController.processEditProduct(productId, field, newValue, oldValue);
                     this.execute();
