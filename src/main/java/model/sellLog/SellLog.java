@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 public class SellLog {
     private String logID;
@@ -15,11 +16,11 @@ public class SellLog {
     private ArrayList<Product> allSellProducts;
     private String buyerFirstName;
     private String buyerLastName;
-    private SellLogStatus status;
-    private static ArrayList<SellLog> allSellLogs;
+    private SellLogStatus status = SellLogStatus.IN_PROGRESS;
+    private static ArrayList<SellLog> allSellLogs = new ArrayList<>();
 
-    public SellLog(String logID, Date date, int moneyGained, int offerLossMoney, ArrayList<Product> allSellProducts, String buyerFirstName, String buyerLastName) {
-        this.logID = logID;
+    public SellLog(Date date, int moneyGained, int offerLossMoney, ArrayList<Product> allSellProducts, String buyerFirstName, String buyerLastName) {
+        this.logID = produceSellLogId();
         this.date = date;
         this.moneyGained = moneyGained;
         this.offerLossMoney = offerLossMoney;
@@ -63,16 +64,26 @@ public class SellLog {
 
     public ArrayList<String> getInfo() {
         ArrayList<String> sellLogInfo = new ArrayList<>();
-        getInfo().add(this.getLogID());
+        sellLogInfo.add(this.getLogID());
         Date date = this.getDate();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(date);
-        getInfo().add(strDate);
-        getInfo().add(String.valueOf(this.getMoneyGained()));
-        getInfo().add(String.valueOf(this.getOfferLossMoney()));
-        getInfo().add(this.getBuyerFirstName());
-        getInfo().add(this.getBuyerLastName());
-        getInfo().add(this.getStatus().toString());
-        return getInfo();
+        sellLogInfo.add(strDate);
+        sellLogInfo.add(String.valueOf(this.getMoneyGained()));
+        sellLogInfo.add(String.valueOf(this.getOfferLossMoney()));
+        sellLogInfo.add(this.getBuyerFirstName());
+        sellLogInfo.add(this.getBuyerLastName());
+        sellLogInfo.add(this.getStatus().toString());
+        return sellLogInfo;
+    }
+    public String produceSellLogId() {
+        String logId = "SellLog_";
+        Random random = new Random();
+        int min = 1;
+        int max = 100000000;
+        int range = max - min;
+        int rand = random.nextInt(range) + min;
+        logId += rand;
+        return logId;
     }
 }

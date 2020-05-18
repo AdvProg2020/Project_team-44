@@ -44,4 +44,11 @@ public class Category {
         }
         return null;
     }
+    public static ArrayList<String> getAllCategoryNames(){
+        ArrayList<String> names = new ArrayList<>();
+        for (Category allCategory : allCategories) {
+            names.add(allCategory.getName());
+        }
+        return names;
+    }
 }
