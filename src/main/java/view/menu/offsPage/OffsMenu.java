@@ -1,4 +1,4 @@
-package view.menu.offersPage;
+package view.menu.offsPage;
 
 import controller.OffersPageController;
 import controller.ProductsPageController;

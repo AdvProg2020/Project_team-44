@@ -1,24 +1,24 @@
-package view.menu.offersPage;
+package view.menu.offsPage;
 
 import controller.OffersPageController;
-import exception.SortNotExistsException;
+import exception.FilterNotExistsException;
 import view.menu.Menu;
 
 import java.util.HashMap;
 
-public class SortingInOffsMenu extends Menu {
-    public SortingInOffsMenu(Menu parent) {
-        super("Sorting In Offs Menu", parent);
+public class FilteringInOffsMenu extends Menu {
+    public FilteringInOffsMenu(Menu parent) {
+        super("Filtering In Offs Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
-        submenus.put(1, getShowAvailableSortsMenu());
-        submenus.put(2, getShowOffsWithSortMenu());
-        submenus.put(3, getCurrentSortMenu());
-        submenus.put(4, getDisableSortMenu());
+        submenus.put(1, getShowAvailableFiltersMenu());
+        submenus.put(2, getShowOffsWithFilterMenu());
+        submenus.put(3, getCurrentFiltersMenu());
+        submenus.put(4, getDisableFilterMenu());
         this.setSubmenus(submenus);
     }
 
-    private Menu getShowAvailableSortsMenu() {
-        return new Menu("Show Available Sorts Menu", this) {
+    private Menu getShowAvailableFiltersMenu() {
+        return new Menu("Show Available Filters Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -35,18 +35,17 @@ public class SortingInOffsMenu extends Menu {
 
             @Override
             public void menuWork() {
-                OffersPageController.processShowAvailableSortsEach();
+                OffersPageController.processShowAvailableFiltersEach();
             }
-
         };
     }
 
-    private Menu getShowOffsWithSortMenu() {
-        return new Menu("Show Offs With Sort Menu", this) {
+    private Menu getShowOffsWithFilterMenu() {
+        return new Menu("Show Offs With Filter Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter the sort");
+                System.out.println("Please enter the filter");
             }
 
             @Override
@@ -54,15 +53,15 @@ public class SortingInOffsMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (!input.matches("sort \\w+"))
+                else if (!input.matches("filter \\w+"))
                     this.invalidCommandInExecute();
                 else {
-                    String availableSort = input.substring(5);
+                    String availableFilter = input.substring(7);
                     try {
-                        OffersPageController.processSortEach(availableSort);
+                        OffersPageController.processFilterEach(availableFilter);
                         this.execute();
-                    } catch (SortNotExistsException sortError) {
-                        System.err.println(sortError.getMessage());
+                    } catch (FilterNotExistsException filterError) {
+                        System.out.println(filterError.getMessage());
                         this.execute();
                     }
                 }
@@ -70,8 +69,8 @@ public class SortingInOffsMenu extends Menu {
         };
     }
 
-    private Menu getCurrentSortMenu() {
-        return new Menu("Current Sorts Menu", this) {
+    private Menu getCurrentFiltersMenu() {
+        return new Menu("Current Filters Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -88,16 +87,17 @@ public class SortingInOffsMenu extends Menu {
 
             @Override
             public void menuWork() {
-                System.out.println(OffersPageController.processCurrentSortEach());
+                OffersPageController.processCurrentFilterEach();
             }
         };
     }
 
-    private Menu getDisableSortMenu() {
-        return new Menu("Disable Sort Menu", this) {
+    private Menu getDisableFilterMenu() {
+        return new Menu("Disable Filter Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
+                System.out.println("Please enter the filter");
             }
 
             @Override
@@ -105,15 +105,21 @@ public class SortingInOffsMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else
+                else if (!input.matches("disable filter \\w+"))
                     this.invalidCommandInExecute();
+                else {
+                    String selectedFilter = input.substring(15);
+                    try {
+                        OffersPageController.processDeleteFilterEach(selectedFilter);
+                        System.out.println("disable filter successful");
+                        this.execute();
+                    } catch (FilterNotExistsException disableFilterError) {
+                        System.out.println(disableFilterError.getMessage());
+                        this.execute();
+                    }
+                }
             }
-
-            @Override
-            public void menuWork() {
-                OffersPageController.processDisableSortEach();
-            }
-
         };
     }
 }
+
