@@ -2,7 +2,6 @@ package view.menu;
 
 import controller.ProductsPageController;
 import exception.ProductIdNotExistsException;
-import view.menu.Menu;
 
 import java.util.HashMap;
 
