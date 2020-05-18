@@ -2,6 +2,7 @@ package view.menu;
 
 import controller.LoginPageController;
 import view.menu.managerRegion.ManagerAccountMenu;
+import view.menu.offersPage.OffsMenu;
 import view.menu.productsPage.ProductsPageMenu;
 import view.menu.purchaseRegion.PurchaserAccountMenu;
 import view.menu.sellerRegion.SellerAccountMenu;

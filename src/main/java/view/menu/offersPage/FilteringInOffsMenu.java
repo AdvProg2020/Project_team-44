@@ -1,20 +1,19 @@
-package view.menu.productsPage;
+package view.menu.offersPage;
 
-import controller.ProductsPageController;
+import controller.OffersPageController;
 import exception.FilterNotExistsException;
 import view.menu.Menu;
 
 import java.util.HashMap;
 
-public class FilteringMenu extends Menu {
-    public FilteringMenu(Menu parent) {
-        super("Filtering Menu", parent);
+public class FilteringInOffsMenu extends Menu {
+    public FilteringInOffsMenu(Menu parent) {
+        super("Filtering In Offs Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getShowAvailableFiltersMenu());
-        submenus.put(2, getShowProductsWithFilterMenu());
+        submenus.put(2, getShowOffsWithFilterMenu());
         submenus.put(3, getCurrentFiltersMenu());
         submenus.put(4, getDisableFilterMenu());
-
         this.setSubmenus(submenus);
     }
 
@@ -36,13 +35,13 @@ public class FilteringMenu extends Menu {
 
             @Override
             public void menuWork() {
-                ProductsPageController.processShowAvailableFiltersEach();
+                OffersPageController.processShowAvailableFiltersEach();
             }
         };
     }
 
-    private Menu getShowProductsWithFilterMenu() {
-        return new Menu("Show Products With Filter Menu", this) {
+    private Menu getShowOffsWithFilterMenu() {
+        return new Menu("Show Offs With Filter Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -59,7 +58,7 @@ public class FilteringMenu extends Menu {
                 else {
                     String availableFilter = input.substring(7);
                     try {
-                        ProductsPageController.processFilterEach(availableFilter);
+                        OffersPageController.processFilterEach(availableFilter);
                         this.execute();
                     } catch (FilterNotExistsException filterError) {
                         System.out.println(filterError.getMessage());
@@ -88,7 +87,7 @@ public class FilteringMenu extends Menu {
 
             @Override
             public void menuWork() {
-                ProductsPageController.processCurrentFilterEach();
+                OffersPageController.processCurrentFilterEach();
             }
         };
     }
@@ -111,7 +110,8 @@ public class FilteringMenu extends Menu {
                 else {
                     String selectedFilter = input.substring(15);
                     try {
-                        ProductsPageController.processDeleteFilterEach(selectedFilter);
+                        OffersPageController.processDeleteFilterEach(selectedFilter);
+                        System.out.println("disable filter successful");
                         this.execute();
                     } catch (FilterNotExistsException disableFilterError) {
                         System.out.println(disableFilterError.getMessage());
@@ -122,3 +122,4 @@ public class FilteringMenu extends Menu {
         };
     }
 }
+
