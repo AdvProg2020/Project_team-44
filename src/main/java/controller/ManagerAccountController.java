@@ -121,9 +121,9 @@ public abstract class ManagerAccountController {
     public static ArrayList<String> getCategoryProducts(String categoryName) {
         ArrayList<String> allProducts = new ArrayList<>();
         for (Category category : Category.getCategoryByName(categoryName).getSubCategories()) {
-            getCategoryProducts(category.getName());
+            allProducts.addAll(getCategoryProducts(category.getName()));
         }
-        allProducts = Category.getCategoryByName(categoryName).getAllSubProductsName();
+        allProducts.addAll(Category.getCategoryByName(categoryName).getAllSubProductsName());
         return allProducts;
     }
 
