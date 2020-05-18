@@ -32,6 +32,14 @@ public class Category {
         return name;
     }
 
+    public ArrayList<Category> getSubCategories() {
+        return subCategories;
+    }
+
+    public ArrayList<Product> getAllSubProducts() {
+        return allSubProducts;
+    }
+
     public static ArrayList<Category> getAllCategories() {
         return allCategories;
     }
