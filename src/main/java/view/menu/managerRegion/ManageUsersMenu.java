@@ -4,6 +4,8 @@ import controller.ManagerAccountController;
 import exception.UsernameNotExistsException;
 import view.menu.Menu;
 import view.menu.regexEnumForInput.CreateDiscountCodeRegex;
+import view.menu.regexEnumForInput.CreateManagerProfileRegex;
+import view.menu.regexEnumForInput.RegisterRegex;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -100,7 +102,7 @@ public class ManageUsersMenu extends Menu {
 
             @Override
             public void execute() {
-                ArrayList<String> info = CreateDiscountCodeRegex.checkRegex(scanner);
+                ArrayList<String> info = RegisterRegex.checkRegex(scanner);
                 if (info == null) {
                     this.backInExecute();
                 } else {
