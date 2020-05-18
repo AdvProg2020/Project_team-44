@@ -5,6 +5,8 @@ import model.Category;
 import model.CodedDiscount;
 import model.account.Account;
 import model.account.Manager;
+import model.account.Seller;
+import model.offer.Offer;
 import model.product.Product;
 import model.requests.Request;
 
@@ -108,7 +110,7 @@ public abstract class ManagerAccountController {
         /*TODO*/
     }
 
-    public static void processEditCategoryEach(String category) {
+    public static void processEditCategoryEachForAttributes(String category, ArrayList<Hash>) {
 
     }
 
@@ -118,7 +120,8 @@ public abstract class ManagerAccountController {
 //        Manager.addCategory(category);
     }
 
-    public static ArrayList<String> getCategoryProducts(String categoryName) {
+    public static ArrayList<String> getCategoryProducts(String categoryName) throws CategoryNotExistsException {
+        ValidationController.checkCategoryExistence(categoryName);
         ArrayList<String> allProducts = new ArrayList<>();
         for (Category category : Category.getCategoryByName(categoryName).getSubCategories()) {
             allProducts.addAll(getCategoryProducts(category.getName()));
@@ -127,9 +130,21 @@ public abstract class ManagerAccountController {
         return allProducts;
     }
 
-    public static void processRemoveCategoryEach(String category) throws CategoryNotExistsException {
-        ValidationController.checkCategoryExistence(category);
-        Category.getAllCategories().remove(Category.getCategoryByName(category));
+    public static void processRemoveCategoryEach(String categoryName) throws CategoryNotExistsException {
+        ValidationController.checkCategoryExistence(categoryName);
+        for (Category category : Category.getCategoryByName(categoryName).getSubCategories()) {
+            processRemoveCategoryEach(category.getName());
+        }
+        for (Product product : Category.getCategoryByName(categoryName).getAllSubProducts()) {
+            Product.getAllProducts().remove(product);
+            for (Offer offer : Offer.getAllOffers()) {
+                offer.getAllProductList().remove(product);
+            }
+            for (Seller seller : product.getAllSellers()) {
+                seller.getProductsToSell().remove(product);
+            }
+        }
+        Category.getAllCategories().remove(Category.getCategoryByName(categoryName));
     }
 
 
