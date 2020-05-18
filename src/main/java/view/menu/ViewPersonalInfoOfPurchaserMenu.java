@@ -1,7 +1,6 @@
 package view.menu;
 
 import controller.PurchaserAccountController;
-import controller.SellerAccountController;
 
 import java.util.HashMap;
 
@@ -16,7 +15,9 @@ public class ViewPersonalInfoOfPurchaserMenu extends Menu {
 
     @Override
     public void menuWork() {
-        PurchaserAccountController.processViewPersonalInfo();
+        for (String purchaseInfo : PurchaserAccountController.processViewPersonalInfo()) {
+            System.out.println(purchaseInfo);
+        }
     }
 
     private Menu getEditFieldMenu() {
@@ -43,7 +44,7 @@ public class ViewPersonalInfoOfPurchaserMenu extends Menu {
                         this.execute();
                     } else {
                         try {
-                            SellerAccountController.processEditFieldEach(field, newValue);
+                            PurchaserAccountController.processEditFieldEach(field, newValue);
                             System.out.println("your change done");
                             this.execute();
                         } catch () {

@@ -17,7 +17,11 @@ public class ViewOrdersMenu extends Menu {
 
     @Override
     public void menuWork() {
-        PurchaserAccountController.processViewOrders();
+        int i = 1;
+        for (String viewOrder : PurchaserAccountController.processViewOrders()) {
+            System.out.println(i + "- " + viewOrder);
+            i++;
+        }
     }
 
     private Menu getShowOrderMenu() {
@@ -38,10 +42,12 @@ public class ViewOrdersMenu extends Menu {
                 else {
                     String orderId = input.substring(11);
                     try {
-                        PurchaserAccountController.processShowOrderEach(orderId);
+                        for (String showOrderEach : PurchaserAccountController.processShowOrderEach(orderId)) {
+                            System.out.println(showOrderEach);
+                        }
                         this.execute();
                     } catch (OrderNotExistsException showOrderError) {
-                        System.out.println(showOrderError.getMessage());
+                        System.err.println(showOrderError.getMessage());
                         this.execute();
                     }
 
@@ -74,9 +80,10 @@ public class ViewOrdersMenu extends Menu {
                     } else {
                         try {
                             PurchaserAccountController.processRateEach(productId, rate);
+                            System.out.println("your rate is registered");
                             this.execute();
                         } catch (ProductIdNotExistsException rateProductError) {
-                            System.out.println(rateProductError.getMessage());
+                            System.err.println(rateProductError.getMessage());
                             this.execute();
                         }
 

@@ -2,19 +2,19 @@ package view.menu;
 
 import controller.PurchaserAccountController;
 import exception.ProductNotExistsInCartException;
-import model.account.Account;
 
 import java.util.HashMap;
 
 public class ViewCartMenu extends Menu {
-    public ViewCartMenu(Menu parent, Account account) {
+    public ViewCartMenu(Menu parent) {
         super("View Cart Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getShowProductsMenu());
         submenus.put(2, getViewProductMenu());
         submenus.put(3, getIncreaseProductMenu());
-        submenus.put(4, getShowTotalPriceMenu());
-        submenus.put(5, new PurchaseMenu(this));
+        submenus.put(4,getDecreaseProductMenu());
+        submenus.put(5, getShowTotalPriceMenu());
+        submenus.put(6, new PurchaseMenu(this));
         this.setSubmenus(submenus);
     }
 
@@ -34,7 +34,11 @@ public class ViewCartMenu extends Menu {
             public void execute() {
                 String input = scanner.nextLine();
                 if (input.equals("show products")) {
-                    PurchaserAccountController.processShowProductsEach();
+                    int i=1;
+                    for (String showProductsEach : PurchaserAccountController.processShowProductsEach()) {
+                        System.out.println(i+"- "+showProductsEach);
+                        i++;
+                    }
                     this.execute();
                 } else if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
@@ -92,6 +96,7 @@ public class ViewCartMenu extends Menu {
                     String productId = input.substring(9);
                     try {
                         PurchaserAccountController.processIncreaseProductEach(productId);
+                        System.out.println("increase successful");
                         this.execute();
                     } catch (ProductNotExistsInCartException increaseProductError) {
                         System.err.println(increaseProductError.getMessage());
@@ -121,6 +126,7 @@ public class ViewCartMenu extends Menu {
                     String productId = input.substring(9);
                     try {
                         PurchaserAccountController.processDecreaseProductEach(productId);
+                        System.out.println("decrease successful");
                         this.execute();
                     } catch (ProductNotExistsInCartException decreaseProductError) {
                         System.err.println(decreaseProductError.getMessage());
@@ -149,7 +155,7 @@ public class ViewCartMenu extends Menu {
 
             @Override
             public void menuWork() {
-                PurchaserAccountController.processShowTotalPriceEach();
+                System.out.println("Total price :"+PurchaserAccountController.processShowTotalPriceEach());
             }
         };
     }

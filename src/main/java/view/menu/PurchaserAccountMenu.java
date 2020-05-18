@@ -1,6 +1,5 @@
 package view.menu;
 
-import controller.LoginPageController;
 import controller.PurchaserAccountController;
 
 import java.util.HashMap;
@@ -10,8 +9,10 @@ public class PurchaserAccountMenu extends Menu {
         super("Purchaser Account Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, new ViewPersonalInfoOfPurchaserMenu(this));
-        submenus.put(2, new ViewOrdersMenu(this));
-        submenus.put(3, getViewBalanceMenu());
+        submenus.put(2, new ViewCartMenu(this));
+        submenus.put(3, new ViewOrdersMenu(this));
+        submenus.put(4, getViewBalanceMenu());
+        submenus.put(5, getViewDiscountCodesMenu());
         this.setSubmenus(submenus);
     }
 
@@ -33,7 +34,7 @@ public class PurchaserAccountMenu extends Menu {
 
             @Override
             public void menuWork() {
-                PurchaserAccountController.processViewBalance();
+                System.out.println("The balance :" + PurchaserAccountController.processViewBalance());
             }
         };
     }
@@ -56,7 +57,11 @@ public class PurchaserAccountMenu extends Menu {
 
             @Override
             public void menuWork() {
-                PurchaserAccountController.processViewDiscountCodes();
+                int i = 1;
+                for (String viewDiscountCode : PurchaserAccountController.processViewDiscountCodes()) {
+                    System.out.println(i + "- " + viewDiscountCode);
+                    i++;
+                }
             }
         };
     }

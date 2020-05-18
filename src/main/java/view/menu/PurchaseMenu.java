@@ -19,7 +19,7 @@ public class PurchaseMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter your phoneNumber And address:");
+                System.out.println("Please enter your address and phoneNumber:");
             }
 
             @Override
@@ -60,7 +60,7 @@ public class PurchaseMenu extends Menu {
                                 getPaymentMenu().show();
                                 getPaymentMenu().execute();
                             } catch (PurchaserNotOwnsCodedDiscountException discountCodeError) {
-                                System.out.println(discountCodeError.getMessage());
+                                System.err.println(discountCodeError.getMessage());
                                 this.execute();
                             }
                         }
