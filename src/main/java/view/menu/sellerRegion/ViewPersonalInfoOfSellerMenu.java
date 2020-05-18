@@ -1,22 +1,22 @@
-package view.menu;
+package view.menu.sellerRegion;
 
-import controller.ManagerAccountController;
+import controller.SellerAccountController;
+import view.menu.Menu;
 
 import java.util.HashMap;
 
-public class ViewPersonalInfoOfManagerMenu extends Menu {
-    public ViewPersonalInfoOfManagerMenu(Menu parent) {
-        super("View Personal Info Of Manager Menu", parent);
+public class ViewPersonalInfoOfSellerMenu extends Menu {
+    public ViewPersonalInfoOfSellerMenu(Menu parent) {
+        super("View Personal Info Of Seller Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getEditFieldMenu());
         this.setSubmenus(submenus);
-
     }
 
     @Override
     public void menuWork() {
-        for (String information : ManagerAccountController.processViewPersonalInfo()) {
-            System.out.println(information);
+        for (String sellerInfo : SellerAccountController.processViewPersonalInfo()) {
+            System.out.println(sellerInfo);
         }
     }
 
@@ -42,17 +42,19 @@ public class ViewPersonalInfoOfManagerMenu extends Menu {
                     if (field.equals("username")) {
                         System.err.println("you can't edit username");
                         this.execute();
-                    } else
+                    } else {
                         try {
-                            ManagerAccountController.processEditFieldEach(field, newValue);
+                            SellerAccountController.processEditFieldEach(field, newValue);
                             System.out.println("your change done");
                             this.execute();
                         } catch () {
 
                         }
-
+                    }
                 }
             }
         };
     }
 }
+
+

@@ -1,7 +1,8 @@
-package view.menu;
+package view.menu.managerRegion;
 
 import controller.ManagerAccountController;
 import exception.CodedDiscountNotExistsException;
+import view.menu.Menu;
 
 import java.text.ParseException;
 import java.util.HashMap;

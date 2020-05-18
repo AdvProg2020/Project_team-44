@@ -1,6 +1,9 @@
 package view.menu;
 
 import controller.LoginPageController;
+import view.menu.managerRegion.ManagerAccountMenu;
+import view.menu.purchaseRegion.PurchaserAccountMenu;
+import view.menu.sellerRegion.SellerAccountMenu;
 
 import java.util.HashMap;
 

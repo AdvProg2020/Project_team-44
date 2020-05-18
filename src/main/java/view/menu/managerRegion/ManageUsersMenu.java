@@ -1,12 +1,13 @@
-package view.menu;
+package view.menu.managerRegion;
 
 import controller.ManagerAccountController;
 import exception.UsernameNotExistsException;
+import view.menu.Menu;
 
 import java.util.HashMap;
 
-public class ManagerUsersMenu extends Menu {
-    public ManagerUsersMenu(Menu parent) {
+public class ManageUsersMenu extends Menu {
+    public ManageUsersMenu(Menu parent) {
         super("Manager Users Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getViewOfUserMenu());

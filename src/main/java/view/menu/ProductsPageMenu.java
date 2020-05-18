@@ -1,6 +1,8 @@
 package view.menu;
 
 import controller.ProductsPageController;
+import view.menu.productsPage.FilteringMenu;
+import view.menu.productsPage.SortingMenu;
 
 import java.util.HashMap;
 

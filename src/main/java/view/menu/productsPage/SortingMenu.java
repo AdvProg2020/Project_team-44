@@ -1,37 +1,27 @@
-package view.menu;
+package view.menu.productsPage;
 
-import controller.SellerAccountController;
+import controller.ProductsPageController;
+import exception.SortNotExistsException;
+import view.menu.Menu;
 
 import java.util.HashMap;
 
-public class SellerAccountMenu extends Menu {
-    public SellerAccountMenu(Menu parent) {
-        super("Seller Account Menu", parent);
+public class SortingMenu extends Menu {
+    public SortingMenu(Menu parent) {
+        super("Sorting Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
-        submenus.put(1, new ViewPersonalInfoOfSellerMenu(this));
-        submenus.put(2, getViewCompanyInformationMenu());
-        submenus.put(3, getViewSaleHistoryMenu());
-        submenus.put(4, new ManageProductsForSellerMenu(this));
-        submenus.put(5,getShowCategoriesMenu());
-        submenus.put(6, new ViewOffsOfSellerMenu(this));
-        submenus.put(7, getViewBalanceMenu());
+        submenus.put(1, getShowAvailableSortsMenu());
+        submenus.put(2, getShowProductsWithSortMenu());
+        submenus.put(3, getCurrentSortMenu());
+        submenus.put(4, getDisableSortMenu());
         this.setSubmenus(submenus);
-
-
     }
 
-    private Menu getViewCompanyInformationMenu() {
-        return new Menu("View Company Information Menu", this) {
+    private Menu getShowAvailableSortsMenu() {
+        return new Menu("Show Available Sorts Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-            }
-
-            @Override
-            public void menuWork() {
-                for (String companyInfo : SellerAccountController.processViewCompanyInfo()) {
-                    System.out.println(companyInfo);
-                }
             }
 
             @Override
@@ -41,24 +31,26 @@ public class SellerAccountMenu extends Menu {
                     this.backInExecute();
                 else
                     this.invalidCommandInExecute();
-            }
-        };
-    }
-
-    private Menu getViewSaleHistoryMenu() {
-        return new Menu("View Sale History Menu", this) {
-            @Override
-            public void show() {
-                System.out.println(this.getName() + ":");
             }
 
             @Override
             public void menuWork() {
                 int i = 1;
-                for (String saleHistory : SellerAccountController.processViewSalesHistory()) {
-                    System.out.println(i + "- " + saleHistory);
+                for (String showAvailableSortsEach : ProductsPageController.processShowAvailableSortsEach()) {
+                    System.out.println(i + "sort by " + showAvailableSortsEach);
                     i++;
                 }
+
+            }
+        };
+    }
+
+    private Menu getShowProductsWithSortMenu() {
+        return new Menu("Show Products With Sort Menu", this) {
+            @Override
+            public void show() {
+                System.out.println(this.getName() + ":");
+                System.out.println("Please enter the sort");
             }
 
             @Override
@@ -66,14 +58,24 @@ public class SellerAccountMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else
+                else if (!input.matches("sort \\w+"))
                     this.invalidCommandInExecute();
+                else {
+                    String availableSort = input.substring(5);
+                    try {
+                        ProductsPageController.processSortEach(availableSort);
+                        this.execute();
+                    } catch (SortNotExistsException sortError) {
+                        System.err.println(sortError.getMessage());
+                        this.execute();
+                    }
+                }
             }
         };
     }
 
-    private Menu getShowCategoriesMenu() {
-        return new Menu("Show Categories Menu", this) {
+    private Menu getCurrentSortMenu() {
+        return new Menu("Current Sorts Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -90,17 +92,13 @@ public class SellerAccountMenu extends Menu {
 
             @Override
             public void menuWork() {
-                int i=1;
-                for (String category : SellerAccountController.processShowCategory()) {
-                    System.out.println(i+"- "+category);
-                    i++;
-                }
+                System.out.println(ProductsPageController.processCurrentSortEach());
             }
         };
     }
 
-    private Menu getViewBalanceMenu() {
-        return new Menu("View Balance Menu", this) {
+    private Menu getDisableSortMenu() {
+        return new Menu("Disable Sort Menu", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -117,8 +115,10 @@ public class SellerAccountMenu extends Menu {
 
             @Override
             public void menuWork() {
-                System.out.println("your balance : " + SellerAccountController.processViewBalance());
+                ProductsPageController.processDisableSortEach();
             }
+
         };
     }
+
 }

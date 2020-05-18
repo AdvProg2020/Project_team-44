@@ -1,7 +1,8 @@
-package view.menu;
+package view.menu.managerRegion;
 
 import controller.ManagerAccountController;
 import exception.RequestNotExistsException;
+import view.menu.Menu;
 
 import java.util.HashMap;
 

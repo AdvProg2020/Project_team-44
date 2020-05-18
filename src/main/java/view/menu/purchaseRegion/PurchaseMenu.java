@@ -1,8 +1,9 @@
-package view.menu;
+package view.menu.purchaseRegion;
 
 import controller.PurchaserAccountController;
 import exception.NotEnoughMoneyToPayException;
 import exception.PurchaserNotOwnsCodedDiscountException;
+import view.menu.Menu;
 
 import java.util.HashMap;
 
