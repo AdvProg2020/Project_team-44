@@ -8,6 +8,7 @@ import model.requests.RequestForAddOff;
 import model.requests.RequestForAddProduct;
 import model.requests.RequestForEditOff;
 import model.requests.RequestForEditProduct;
+import model.sellLog.SellLog;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -84,21 +85,21 @@ public class Seller extends Account {
         productsToSell.remove(requestedProduct);
     }
 
-    public void addProductRequest(Seller seller, Category category, String name, String companyName, int price, String explanationText) {
-        new RequestForAddProduct(seller, category, name, companyName, price, explanationText);
+    public void addProductRequest(Category category, String name, String companyName, int price, String explanationText) {
+        new RequestForAddProduct(this, category, name, companyName, price, explanationText);
     }
 
 
-    public void editProductRequest(Seller seller, Product product, String field, String oldValue, String newValue) {
-        new RequestForEditProduct(seller, product, field, oldValue, newValue);
+    public void editProductRequest(Product product, String field, String oldValue, String newValue) {
+        new RequestForEditProduct(this, product, field, oldValue, newValue);
     }
 
-    public void editOffersRequest(Seller seller, Offer offer, String field, String oldValue, String newValue) {
-        new RequestForEditOff(seller, offer, field, oldValue, newValue);
+    public void editOffersRequest(Offer offer, String field, String oldValue, String newValue) {
+        new RequestForEditOff(this, offer, field, oldValue, newValue);
     }
 
-    public void addOfferRequest(Seller seller, ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage) {
-        new RequestForAddOff(seller, productList, initialDate, finalDate, discountPercentage);
+    public void addOfferRequest(ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage) {
+        new RequestForAddOff(this, productList, initialDate, finalDate, discountPercentage);
     }
 
     public ArrayList<String> getCompanyInfo() {
@@ -121,10 +122,8 @@ public class Seller extends Account {
 
     public ArrayList<String> getAllSellLogIds() {
         ArrayList<String> sellLogIds = new ArrayList<>();
-        for (BuyLog allBuyLog : BuyLog.getAllBuyLogs()) {
-            if (allBuyLog.getSellerFirstName().equalsIgnoreCase(this.getFirstName()) && allBuyLog.getSellerLastName().equalsIgnoreCase(this.getLastName())) {
-                sellLogIds.add(allBuyLog.getLogID());
-            }
+        for (SellLog sellLog : sellLogListHistory) {
+            sellLogIds.add(sellLog.getLogID());
         }
         return sellLogIds;
     }

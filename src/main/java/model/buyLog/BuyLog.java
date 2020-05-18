@@ -1,11 +1,13 @@
 package model.buyLog;
 
+import model.account.Seller;
 import model.product.Product;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Random;
 
 public class BuyLog {
@@ -14,19 +16,17 @@ public class BuyLog {
     private double moneyPaid;
     private double discountCodeAmountUsed;
     private ArrayList<Product> allPurchasedProducts;
-    private String sellerFirstName;
-    private String sellerLastName;
+    private HashMap<Product, Seller> sellerForEachProduct;
     private BuyLogStatus status = BuyLogStatus.IN_PROGRESS;
     private static ArrayList<BuyLog> allBuyLogs = new ArrayList<>();
 
-    public BuyLog(Date date, int moneyPaid, int discountCodeAmountUsed, ArrayList<Product> allPurchasedProducts, String sellerFirstName, String sellerLastName) {
+    public BuyLog(Date date, double moneyPaid, double discountCodeAmountUsed, ArrayList<Product> allPurchasedProducts, HashMap<Product, Seller> sellerForEachProduct) {
         this.logID = produceBuyLogId();
         this.date = date;
         this.moneyPaid = moneyPaid;
         this.discountCodeAmountUsed = discountCodeAmountUsed;
         this.allPurchasedProducts = allPurchasedProducts;
-        this.sellerFirstName = sellerFirstName;
-        this.sellerLastName = sellerLastName;
+        this.sellerForEachProduct = sellerForEachProduct;
         allBuyLogs.add(this);
     }
 
@@ -46,12 +46,8 @@ public class BuyLog {
         return discountCodeAmountUsed;
     }
 
-    public String getSellerFirstName() {
-        return sellerFirstName;
-    }
-
-    public String getSellerLastName() {
-        return sellerLastName;
+    public HashMap<Product, Seller> getSellerForEachProduct() {
+        return sellerForEachProduct;
     }
 
     public BuyLogStatus getStatus() {
@@ -79,8 +75,10 @@ public class BuyLog {
         info.add(strDate);
         info.add(String.valueOf(this.getMoneyPaid()));
         info.add(String.valueOf(this.getDiscountCodeAmountUsed()));
-        info.add(this.getSellerFirstName());
-        info.add(this.getSellerLastName());
+        String productToSeller = "";
+        for (Product product : this.getSellerForEachProduct().keySet()) {
+            productToSeller += product.getName() + "  :  " + this.getSellerForEachProduct().get(product).getFirstName() + "  " + this.getSellerForEachProduct().get(product).getLastName();
+        }
         info.add(this.getStatus().toString());
         return info;
     }
