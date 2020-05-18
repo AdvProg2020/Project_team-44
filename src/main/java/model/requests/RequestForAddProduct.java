@@ -12,16 +12,14 @@ public class RequestForAddProduct extends Request {
     private Seller seller;
     private Category category;
     private String name;
-    private String companyName;
     private double price;
     private String explanationText;
     private static ArrayList<RequestForAddProduct> allRequestsForAddProduct = new ArrayList<>();
 
-    public RequestForAddProduct(Seller seller, Category category, String name, String companyName, double price, String explanationText) {
+    public RequestForAddProduct(Seller seller, Category category, String name, double price, String explanationText) {
         this.seller = seller;
         this.category = category;
         this.name = name;
-        this.companyName = companyName;
         this.price = price;
         this.explanationText = explanationText;
         allRequestsForAddProduct.add(this);
@@ -37,10 +35,6 @@ public class RequestForAddProduct extends Request {
 
     public String getName() {
         return name;
-    }
-
-    public String getCompanyName() {
-        return companyName;
     }
 
     public double getPrice() {
@@ -67,7 +61,7 @@ public class RequestForAddProduct extends Request {
         details.add(this.getSeller().getFirstName());
         details.add(this.getSeller().getLastName());
         details.add(this.getName());
-        details.add(this.getCompanyName());
+        details.add(this.getSeller().getCompanyName());
         details.add(String.valueOf(this.getPrice()));
         details.add(this.getExplanationText());
         return details;

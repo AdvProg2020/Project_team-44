@@ -60,11 +60,8 @@ public class Purchaser extends Account {
             double discountCodeAmountUsed = 0;
             discountCodeAmountUsed += this.getCartMoneyToPay() * CodedDiscount.getCodedDiscountByCode(discountCode).getDiscountPercentage();
             new BuyLog(getCurrentDate(), this.getCartMoneyToPay(), discountCodeAmountUsed, getCartProducts(), this.getSellerSelectedForEachProduct());
-            new SellLog(getCurrentDate(), this.getCartMoneyToPay(), )
+            new SellLog(getCurrentDate(), this.getCartMoneyToPay(), getOfferLossesMoney(), getCartProducts(), this.getFirstName(), this.getLastName());
         }
-
-        new BuyLog(java.time.LocalTime.now(), this.getCartMoneyToPay(), , this.getCart().keySet(), seller.getFirstName(), seller.getLastName());
-        new SellLog(java.time.LocalTime.now(), this.getCartMoneyToPay(), )
     }
 
     public static Date getCurrentDate() {
@@ -127,17 +124,22 @@ public class Purchaser extends Account {
         return money;
     }
 
-    public double offerLossesMoney() {
-        double offerMoney = 0;
-        for (Product product : this.getCart().keySet()) {
-            offerMoney += product.getOffer().get * this.getCart().get(product);
-        }
-    }
-    public ArrayList<Product> getCartProducts(){
+    public ArrayList<Product> getCartProducts() {
         ArrayList<Product> products = new ArrayList<>();
         for (Product product : this.getCart().keySet()) {
             products.add(product);
         }
         return products;
+    }
+
+    public double getOfferLossesMoney() {
+        double offAmount = 0;
+        for (Product product : this.getCart().keySet()) {
+            int num = this.getCart().get(product);
+            if (product.getOffer() != null) {
+                offAmount += ((product.getOffer().getDiscountPercentage() * product.getPrice()) / (100 - product.getOffer().getDiscountPercentage())) * this.getCart().get(product);
+            }
+        }
+        return offAmount;
     }
 }

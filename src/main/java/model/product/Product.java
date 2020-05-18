@@ -28,7 +28,7 @@ public class Product {
     private static ArrayList<Product> allProducts = new ArrayList<>();
     private static ArrayList<Purchaser> allPurchaser = new ArrayList<>();
 
-    public Product(Category category, String name, String companyName, int price, String explanationText) {
+    public Product(Category category, String name, String companyName, double price, String explanationText) {
         this.productID = produceProductId();
         this.category = category;
         this.name = name;
