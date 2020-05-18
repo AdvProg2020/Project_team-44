@@ -7,6 +7,7 @@ import model.buyLog.BuyLog;
 import model.product.Product;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public abstract class PurchaserAccountController {
     static String discountCode;
@@ -80,10 +81,10 @@ public abstract class PurchaserAccountController {
         return allDiscounts;
     }
 
-    public static void getCodedDiscount(String discountCode) throws PurchaserNotOwnsCodedDiscountException {
+    public static void getCodedDiscount(String discountCode) throws PurchaserNotOwnsCodedDiscountException, CodedDiscountExpiresException {
         ValidationController.checkPurchaserOwnsCodedDiscount((Purchaser) LoginPageController.loggedInAccount
                 , CodedDiscount.getCodedDiscountByCode(discountCode));
-        ValidationController.checkCodedDiscountTime(CodedDiscount.getCodedDiscountByCode(discountCode), );
+        ValidationController.checkCodedDiscountTime(CodedDiscount.getCodedDiscountByCode(discountCode), new Date());
 
     }
 
@@ -92,6 +93,7 @@ public abstract class PurchaserAccountController {
                 , ((Purchaser) LoginPageController.loggedInAccount).getCartMoneyToPay());
         (LoginPageController.loggedInAccount).setBalance(( LoginPageController.loggedInAccount).getBalance()
                 - ((Purchaser) LoginPageController.loggedInAccount).getCartMoneyToPay());
+
         ((Purchaser) LoginPageController.loggedInAccount).purchase();
     }
 

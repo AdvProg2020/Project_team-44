@@ -186,7 +186,7 @@ public abstract class ValidationController {
     }
 
     public static void checkTime(Date date) throws TimeExpiresException {
-        if (date.after()) {
+        if (date.after(new Date())) {
             throw new TimeExpiresException("Times over");
         }
     }
