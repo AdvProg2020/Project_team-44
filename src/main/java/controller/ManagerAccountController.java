@@ -11,7 +11,6 @@ import model.requests.Request;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public abstract class ManagerAccountController {
     public static ArrayList<String> processViewPersonalInfo() {
@@ -56,8 +55,7 @@ public abstract class ManagerAccountController {
     }
 
     public static void processCreateDiscountCode(String initialDate, String finalDate, int discountPercentage, int maxAuthorizedPrice) throws ParseException {
-//        Date initial = new SimpleDateFormat("dd/MM/yyyy").parse(initialDate);
-        Manager.createCodedDiscount(new SimpleDateFormat("dd/MM/yyyy").parse(initialDate),
+        Manager.createCodedDiscount("",new SimpleDateFormat("dd/MM/yyyy").parse(initialDate),
                 new SimpleDateFormat("dd/MM/yyyy").parse(finalDate), discountPercentage, maxAuthorizedPrice);
     }
 
