@@ -55,7 +55,7 @@ public abstract class ManagerAccountController {
     }
 
     public static void processCreateDiscountCode(String initialDate, String finalDate, int discountPercentage, int maxAuthorizedPrice) throws ParseException {
-        Manager.createCodedDiscount("",new SimpleDateFormat("dd/MM/yyyy").parse(initialDate),
+        Manager.createCodedDiscount(new SimpleDateFormat("dd/MM/yyyy").parse(initialDate),
                 new SimpleDateFormat("dd/MM/yyyy").parse(finalDate), discountPercentage, maxAuthorizedPrice);
     }
 
@@ -89,7 +89,7 @@ public abstract class ManagerAccountController {
         return Request.getRequestById(requestId).getRequestDetails();
     }
 
-    public static void processAcceptRequestEach(String requestId) throws RequestNotExistsException {
+    public static void processAcceptRequestEach(String requestId) throws RequestNotExistsException, ParseException {
         ValidationController.checkRequestExistence(requestId);
         ((Manager) LoginPageController.loggedInAccount).accept(requestId);
     }
@@ -103,15 +103,28 @@ public abstract class ManagerAccountController {
         return Category.getAllCategoryNames();
     }
 
-    public static void processEditCategoryEach(String category) throws CategoryNotExistsException {
+    public static void processEditCategoryEachForName(String category, String newName) throws CategoryNotExistsException {
         ValidationController.checkCategoryExistence(category);
         /*TODO*/
+    }
+
+    public static void processEditCategoryEach(String category) {
+
     }
 
     public static void processAddCategoryEach(String category) throws CategoryNotExistsException {
         ValidationController.checkCategoryExistence(category);
         ((Manager) LoginPageController.loggedInAccount).addCategory(category);
 //        Manager.addCategory(category);
+    }
+
+    public static ArrayList<String> getCategoryProducts(String categoryName) {
+        ArrayList<String> allProducts = new ArrayList<>();
+        for (Category category : Category.getCategoryByName(categoryName).getSubCategories()) {
+            getCategoryProducts(category.getName());
+        }
+        allProducts = Category.getCategoryByName(categoryName).getAllSubProductsName();
+        return allProducts;
     }
 
     public static void processRemoveCategoryEach(String category) throws CategoryNotExistsException {
