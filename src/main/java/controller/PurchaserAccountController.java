@@ -9,6 +9,7 @@ import model.product.Product;
 import java.util.ArrayList;
 
 public abstract class PurchaserAccountController {
+    static String discountCode;
     public static ArrayList<String> processViewPersonalInfo() {
         return LoginPageController.loggedInAccount.getInfo();
     }
@@ -18,7 +19,7 @@ public abstract class PurchaserAccountController {
     }
 
     public static ArrayList<String> processShowProductsEach() {
-        return ((Purchaser) LoginPageController.loggedInAccount).getCartProducts();
+        return ((Purchaser) LoginPageController.loggedInAccount).getCartProductNames();
     }
 
     public static void processViewProductsEach(String productId) throws ProductNotExistsInCartException {
@@ -83,12 +84,13 @@ public abstract class PurchaserAccountController {
         ValidationController.checkPurchaserOwnsCodedDiscount((Purchaser) LoginPageController.loggedInAccount
                 , CodedDiscount.getCodedDiscountByCode(discountCode));
         ValidationController.checkCodedDiscountTime(CodedDiscount.getCodedDiscountByCode(discountCode), );
+
     }
 
     public static void processPayment() throws NotEnoughMoneyToPayException {
         ValidationController.checkEnoughMoneyToPay(((Purchaser) LoginPageController.loggedInAccount)
                 , ((Purchaser) LoginPageController.loggedInAccount).getCartMoneyToPay());
-        ((Purchaser) LoginPageController.loggedInAccount).setBalance(((Purchaser) LoginPageController.loggedInAccount).getBalance()
+        (LoginPageController.loggedInAccount).setBalance(( LoginPageController.loggedInAccount).getBalance()
                 - ((Purchaser) LoginPageController.loggedInAccount).getCartMoneyToPay());
         ((Purchaser) LoginPageController.loggedInAccount).purchase();
     }

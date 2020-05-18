@@ -107,6 +107,10 @@ public abstract class Account {
         isLoggedIn = loggedIn;
     }
 
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
     public static Account getAccountByUsername(String username) {
         for (Account account : allAccounts) {
             if (account.getUserName().equals(username)) {

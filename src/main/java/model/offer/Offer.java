@@ -22,6 +22,7 @@ public class Offer {
         this.initialDate = initialDate;
         this.finalDate = finalDate;
         this.discountPercentage = discountPercentage;
+        allOffers.add(this);
     }
 
     public Date getInitialDate() {

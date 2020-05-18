@@ -5,12 +5,11 @@ import java.util.Random;
 
 public class Request {
     protected String requestId;
-    protected RequestStatus status;
+    protected RequestStatus status = RequestStatus.IN_PROGRESS;
     protected static ArrayList<Request> allRequests = new ArrayList<>();
 
     public Request() {
         this.requestId = produceRequestId();
-        this.status = RequestStatus.IN_PROGRESS;
         allRequests.add(this);
     }
 

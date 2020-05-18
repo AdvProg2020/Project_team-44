@@ -7,7 +7,7 @@ public class Comment {
     private Account commenter;
     private Product product;
     private String commentText;
-    private CommentStatus status;
+    private CommentStatus status = CommentStatus.IN_PROGRESS;
     private String title;
     private boolean isCommenterEqualsBuyer;
 

@@ -30,7 +30,7 @@ public abstract class ProductPageController {
     }
 
     public static ArrayList<String> processCompare(String productID) {
-        return compareTwoProducts(ProductsPageController.selectedProduct.getProductID(), productID);
+        return ((Purchaser) LoginPageController.loggedInAccount).compareTwoProducts(ProductsPageController.selectedProduct.getProductID(), productID);
     }
 
     public static void processAddComment(String title, String content) {
