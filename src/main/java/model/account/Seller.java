@@ -85,8 +85,8 @@ public class Seller extends Account {
         productsToSell.remove(requestedProduct);
     }
 
-    public void addProductRequest(Category category, String name, String companyName, int price, String explanationText) {
-        new RequestForAddProduct(this, category, name, companyName, price, explanationText);
+    public void addProductRequest(Category category, String name, int price, String explanationText) {
+        new RequestForAddProduct(this, category, name, price, explanationText);
     }
 
 

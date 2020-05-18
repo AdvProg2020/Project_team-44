@@ -152,4 +152,11 @@ public class Product {
         logId += rand;
         return logId;
     }
+    public Product getProductByName(String productName){
+        for (Product allProduct : allProducts) {
+            if (allProduct.getName().equals(productName))
+                return allProduct;
+        }
+        return null;
+    }
 }
