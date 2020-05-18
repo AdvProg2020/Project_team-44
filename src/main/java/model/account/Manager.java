@@ -42,13 +42,13 @@ public class Manager extends Account {
         Request.getRequestById(requestId).setStatus(RequestStatus.VERIFIED);
         String firstPartId = getMatcher(requestId, "(.*)_\\d+").group(1);
         if (firstPartId.equalsIgnoreCase("RequestForAddOff")) {
-
-        } else if (firstPartId.equalsIgnoreCase("RequestForAddProduct")) {
             doRequestForAddOf(requestId);
-        } else if (firstPartId.equalsIgnoreCase("RequestForEditOff")) {
+        } else if (firstPartId.equalsIgnoreCase("RequestForAddProduct")) {
             doRequestForAddProduct(requestId);
-        } else if (firstPartId.equalsIgnoreCase("RequestForEditProduct")) {
+        } else if (firstPartId.equalsIgnoreCase("RequestForEditOff")) {
             doRequestForEditOff(requestId);
+        } else if (firstPartId.equalsIgnoreCase("RequestForEditProduct")) {
+            doRequestForEditProduct(requestId);
         } else if (firstPartId.equalsIgnoreCase("RequestForRemoveProduct")) {
             doRequestForRemoveProduct(requestId);
         } else if (firstPartId.equalsIgnoreCase("RequestForSeller")) {
@@ -171,7 +171,7 @@ public class Manager extends Account {
         }
     }
 
-    public void addCategory(String name) {
-        new Category(name);
+    public void addCategory(String name, Category parent) {
+        new Category(name, parent);
     }
 }
