@@ -46,6 +46,10 @@ public class Offer {
         return discountPercentage;
     }
 
+    public ArrayList<Product> getProductList() {
+        return productList;
+    }
+
     public void setProductList(ArrayList<Product> productList) {
         this.productList = productList;
     }

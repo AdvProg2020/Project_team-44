@@ -5,12 +5,15 @@ import model.Category;
 import model.CodedDiscount;
 import model.account.Account;
 import model.account.Manager;
+import model.account.Seller;
+import model.offer.Offer;
 import model.product.Product;
 import model.requests.Request;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class ManagerAccountController {
     public static ArrayList<String> processViewPersonalInfo() {
@@ -44,14 +47,12 @@ public abstract class ManagerAccountController {
             , String telephoneNumber) throws UsernameNotExistsException {
         ValidationController.checkUsernameExistence(username);
         Manager manager = new Manager(username, firstName, lastName, email, telephoneNumber, password);
-        /**DONE**/
     }
 
 
     public static void processRemoveProductEach(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
         Product.getAllProducts().remove(Product.getProductByID(productId));
-        /**DONE**/
     }
 
     public static void processCreateDiscountCode(String initialDate, String finalDate, int discountPercentage, int maxAuthorizedPrice) throws ParseException {
@@ -71,13 +72,11 @@ public abstract class ManagerAccountController {
     public static void processEditDiscountCodeEach(String code, String field, String newValue) throws CodedDiscountNotExistsException, ParseException {
         ValidationController.checkCodedDiscountExistence(code);
         Manager.editCodedDiscount(code, field, newValue);
-        /**DONE**/
     }
 
     public static void processRemoveDiscountCodeEach(String code) throws CodedDiscountNotExistsException {
         ValidationController.checkCodedDiscountExistence(code);
         CodedDiscount.getAllCodedDiscounts().remove(CodedDiscount.getCodedDiscountByCode(code));
-        /**DONE**/
     }
 
     public static ArrayList<String> processManageRequests() {
@@ -108,28 +107,41 @@ public abstract class ManagerAccountController {
         /*TODO*/
     }
 
-    public static void processEditCategoryEach(String category) {
+    public static void processEditCategoryEachForAttributes(String category, ArrayList<HashMap<String, ArrayList<String>>>) {
 
     }
 
-    public static void processAddCategoryEach(String category) throws CategoryNotExistsException {
+    public static void processAddCategoryEach(String category, String parentCategory) throws CategoryNotExistsException {
         ValidationController.checkCategoryExistence(category);
-        ((Manager) LoginPageController.loggedInAccount).addCategory(category);
-//        Manager.addCategory(category);
+        ValidationController.checkCategoryExistence(parentCategory);
+        ((Manager) LoginPageController.loggedInAccount).addCategory(category, Category.getCategoryByName(parentCategory));
     }
 
-    public static ArrayList<String> getCategoryProducts(String categoryName) {
+    public static ArrayList<String> getCategoryProducts(String categoryName) throws CategoryNotExistsException {
+        ValidationController.checkCategoryExistence(categoryName);
         ArrayList<String> allProducts = new ArrayList<>();
         for (Category category : Category.getCategoryByName(categoryName).getSubCategories()) {
-            getCategoryProducts(category.getName());
+            allProducts.addAll(getCategoryProducts(category.getName()));
         }
-        allProducts = Category.getCategoryByName(categoryName).getAllSubProductsName();
+        allProducts.addAll(Category.getCategoryByName(categoryName).getAllSubProductsName());
         return allProducts;
     }
 
-    public static void processRemoveCategoryEach(String category) throws CategoryNotExistsException {
-        ValidationController.checkCategoryExistence(category);
-        Category.getAllCategories().remove(Category.getCategoryByName(category));
+    public static void processRemoveCategoryEach(String categoryName) throws CategoryNotExistsException {
+        ValidationController.checkCategoryExistence(categoryName);
+        for (Category category : Category.getCategoryByName(categoryName).getSubCategories()) {
+            processRemoveCategoryEach(category.getName());
+        }
+        for (Product product : Category.getCategoryByName(categoryName).getAllSubProducts()) {
+            Product.getAllProducts().remove(product);
+            for (Offer offer : Offer.getAllOffers()) {
+                offer.getProductList().remove(product);
+            }
+            for (Seller seller : product.getAllSellers()) {
+                seller.getProductsToSell().remove(product);
+            }
+        }
+        Category.getAllCategories().remove(Category.getCategoryByName(categoryName));
     }
 
 

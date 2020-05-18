@@ -42,13 +42,13 @@ public class Manager extends Account {
         Request.getRequestById(requestId).setStatus(RequestStatus.VERIFIED);
         String firstPartId = getMatcher(requestId, "(.*)_\\d+").group(1);
         if (firstPartId.equalsIgnoreCase("RequestForAddOff")) {
-
-        } else if (firstPartId.equalsIgnoreCase("RequestForAddProduct")) {
             doRequestForAddOf(requestId);
-        } else if (firstPartId.equalsIgnoreCase("RequestForEditOff")) {
+        } else if (firstPartId.equalsIgnoreCase("RequestForAddProduct")) {
             doRequestForAddProduct(requestId);
-        } else if (firstPartId.equalsIgnoreCase("RequestForEditProduct")) {
+        } else if (firstPartId.equalsIgnoreCase("RequestForEditOff")) {
             doRequestForEditOff(requestId);
+        } else if (firstPartId.equalsIgnoreCase("RequestForEditProduct")) {
+            doRequestForEditProduct(requestId);
         } else if (firstPartId.equalsIgnoreCase("RequestForRemoveProduct")) {
             doRequestForRemoveProduct(requestId);
         } else if (firstPartId.equalsIgnoreCase("RequestForSeller")) {
@@ -73,15 +73,19 @@ public class Manager extends Account {
     public void doRequestForEditOff(String requestId) throws ParseException {
         RequestForEditOff request = (RequestForEditOff) RequestForEditOff.getRequestById(requestId);
         if (request.getField().equalsIgnoreCase("productList")) {
-            request.getOffer().setProductList(request.getProductList());
+            ArrayList<Product> productList = new ArrayList<>();
+            for (String id : request.getNewValue()) {
+                productList.add(Product.getProductByID(id));
+            }
+            request.getOffer().setProductList(productList);
         } else if (request.getField().equalsIgnoreCase("initialDate")) {
-            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(request.getNewValue());
+            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(request.getNewValue().get(0));
             request.getOffer().setInitialDate(date);
         } else if (request.getField().equalsIgnoreCase("finalDate")) {
-            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(request.getNewValue());
+            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(request.getNewValue().get(0));
             request.getOffer().setFinalDate(date);
         } else if (request.getField().equalsIgnoreCase("discountPercentage")) {
-            request.getOffer().setDiscountPercentage(Integer.parseInt(request.getNewValue()));
+            request.getOffer().setDiscountPercentage(Integer.parseInt(request.getNewValue().get(0)));
         }
     }
 
@@ -171,7 +175,7 @@ public class Manager extends Account {
         }
     }
 
-    public void addCategory(String name) {
-        new Category(name);
+    public void addCategory(String name, Category parent) {
+        new Category(name, parent);
     }
 }

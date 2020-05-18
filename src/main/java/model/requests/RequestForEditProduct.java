@@ -12,15 +12,13 @@ public class RequestForEditProduct extends Request {
     private Seller seller;
     private Product product;
     private String field;
-    private String oldValue;
     private String newValue;
     private static ArrayList<RequestForEditProduct> allRequestsForEditProduct = new ArrayList<>();
 
-    public RequestForEditProduct(Seller seller, Product product, String field, String oldValue, String newValue) {
+    public RequestForEditProduct(Seller seller, Product product, String field, String newValue) {
         this.seller = seller;
         this.product = product;
         this.field = field;
-        this.oldValue = oldValue;
         this.newValue = newValue;
         allRequestsForEditProduct.add(this);
     }
@@ -35,10 +33,6 @@ public class RequestForEditProduct extends Request {
 
     public String getField() {
         return field;
-    }
-
-    public String getOldValue() {
-        return oldValue;
     }
 
     public String getNewValue() {
@@ -65,7 +59,6 @@ public class RequestForEditProduct extends Request {
         details.add(String.valueOf(this.getProduct().getPrice()));
         details.add(this.getProduct().getExplanationText());
         details.add(this.getField());
-        details.add(this.getOldValue());
         details.add(this.getNewValue());
         return super.getRequestDetails();
     }
