@@ -36,7 +36,7 @@ public class ManagerAccountMenu extends Menu {
                 String initialDate = scanner.nextLine();
                 if (initialDate.equalsIgnoreCase("back"))
                     this.backInExecute();
-                if (!initialDate.matches("[1-31]/[1-12]/\\d{4}"))
+                if (!initialDate.matches("^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$"))
                     this.invalidCommandInExecute();
                 System.out.println("Please enter the final date :");
                 String finalDate = scanner.next();
