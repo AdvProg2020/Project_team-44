@@ -60,7 +60,7 @@ public class Purchaser extends Account {
             double discountCodeAmountUsed = 0;
             discountCodeAmountUsed += this.getCartMoneyToPay() * CodedDiscount.getCodedDiscountByCode(discountCode).getDiscountPercentage();
             new BuyLog(getCurrentDate(), this.getCartMoneyToPay(), discountCodeAmountUsed, getCartProducts(), this.getSellerSelectedForEachProduct());
-            new s
+            new SellLog(getCurrentDate(), this.getCartMoneyToPay(), )
         }
 
         new BuyLog(java.time.LocalTime.now(), this.getCartMoneyToPay(), , this.getCart().keySet(), seller.getFirstName(), seller.getLastName());
@@ -68,7 +68,6 @@ public class Purchaser extends Account {
     }
 
     public static Date getCurrentDate() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         Date now = new Date();
         return now;
     }

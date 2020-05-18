@@ -19,7 +19,7 @@ public class SellLog {
     private SellLogStatus status = SellLogStatus.IN_PROGRESS;
     private static ArrayList<SellLog> allSellLogs = new ArrayList<>();
 
-    public SellLog(Date date, int moneyGained, int offerLossMoney, ArrayList<Product> allSellProducts, String buyerFirstName, String buyerLastName) {
+    public SellLog(Date date, double moneyGained, double offerLossMoney, ArrayList<Product> allSellProducts, String buyerFirstName, String buyerLastName) {
         this.logID = produceSellLogId();
         this.date = date;
         this.moneyGained = moneyGained;
