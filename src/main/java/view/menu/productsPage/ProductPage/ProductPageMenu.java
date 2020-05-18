@@ -15,9 +15,9 @@ public class ProductPageMenu extends Menu {
         submenus.put(1, getDigestMenu());
         submenus.put(2, getAddToCartMenu());
         submenus.put(3, getSelectSellerMenu());
-        submenus.put(4,getAttributesMenu());
-        submenus.put(5,getCompareProductMenu());
-        submenus.put(6,new CommentsMenu(this));
+        submenus.put(4, getAttributesMenu());
+        submenus.put(5, getCompareProductMenu());
+        submenus.put(6, new CommentsMenu(this));
         this.setSubmenus(submenus);
     }
 
@@ -105,11 +105,12 @@ public class ProductPageMenu extends Menu {
             }
         };
     }
-    private Menu getAttributesMenu(){
-        return new Menu("Attributes Menu",this) {
+
+    private Menu getAttributesMenu() {
+        return new Menu("Attributes Menu", this) {
             @Override
             public void show() {
-                System.out.println(this.getName()+":");
+                System.out.println(this.getName() + ":");
             }
 
             @Override
@@ -127,11 +128,12 @@ public class ProductPageMenu extends Menu {
             }
         };
     }
-    private Menu getCompareProductMenu(){
-        return new Menu("Compare Product Menu",this) {
+
+    private Menu getCompareProductMenu() {
+        return new Menu("Compare Product Menu", this) {
             @Override
             public void show() {
-                System.out.println(this.getName()+":");
+                System.out.println(this.getName() + ":");
                 System.out.println("Please enter your productId :");
             }
 

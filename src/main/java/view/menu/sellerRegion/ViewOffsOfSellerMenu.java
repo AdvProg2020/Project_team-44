@@ -83,7 +83,7 @@ public class ViewOffsOfSellerMenu extends Menu {
                 if (newValue.equalsIgnoreCase("back"))
                     this.backInExecute();
                 try {
-                    SellerAccountController.processEditOffEach(offId,field,oldValue,newValue);
+                    SellerAccountController.processEditOffEach(offId, field, oldValue, newValue);
                     this.execute();
                 } catch (ProductIdNotExistsException EditOffError) {
                     System.err.println(EditOffError.getMessage());

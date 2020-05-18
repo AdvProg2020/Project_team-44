@@ -13,7 +13,7 @@ public class SellerAccountMenu extends Menu {
         submenus.put(2, getViewCompanyInformationMenu());
         submenus.put(3, getViewSaleHistoryMenu());
         submenus.put(4, new ManageProductsForSellerMenu(this));
-        submenus.put(5,getShowCategoriesMenu());
+        submenus.put(5, getShowCategoriesMenu());
         submenus.put(6, new ViewOffsOfSellerMenu(this));
         submenus.put(7, getViewBalanceMenu());
         this.setSubmenus(submenus);
@@ -91,9 +91,9 @@ public class SellerAccountMenu extends Menu {
 
             @Override
             public void menuWork() {
-                int i=1;
+                int i = 1;
                 for (String category : SellerAccountController.processShowCategory()) {
-                    System.out.println(i+"- "+category);
+                    System.out.println(i + "- " + category);
                     i++;
                 }
             }

@@ -69,7 +69,7 @@ public class RegisterAndLoginMenu extends Menu {
                     this.invalidCommandInExecute();
                 else {
                     String type = input.split("\\s")[2];
-                    if(LoginPageController.isIsMainManagerLogged() && type.equalsIgnoreCase("manager")){
+                    if (LoginPageController.isIsMainManagerLogged() && type.equalsIgnoreCase("manager")) {
                         System.err.println("we have manager!");
                         this.execute();
                         this.show();

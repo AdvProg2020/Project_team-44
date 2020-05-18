@@ -15,27 +15,29 @@ public class MainMenu extends Menu {
         super("Main Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, new ProductsPageMenu(this));
-        submenus.put(2,new OffsMenu(this));
+        submenus.put(2, new OffsMenu(this));
         this.setSubmenus(submenus);
 
     }
+
     @Override
-    public void show(){
-        System.out.println(this.getName()+":");
-        System.out.println("1-"+this.getSubmenus().get(1).getName());
-        System.out.println("2-"+this.getSubmenus().get(2).getName());
-        if(LoginPageController.getLoggedInAccountType().equals("null"))
+    public void show() {
+        System.out.println(this.getName() + ":");
+        System.out.println("1-" + this.getSubmenus().get(1).getName());
+        System.out.println("2-" + this.getSubmenus().get(2).getName());
+        if (LoginPageController.getLoggedInAccountType().equals("null"))
             System.out.println("3-Register And Login Menu");
-        if(LoginPageController.getLoggedInAccountType().equals("seller"))
+        if (LoginPageController.getLoggedInAccountType().equals("seller"))
             System.out.println("3-Seller Account Menu");
-        if(LoginPageController.getLoggedInAccountType().equals("purchaser"))
+        if (LoginPageController.getLoggedInAccountType().equals("purchaser"))
             System.out.println("3-Purchaser Account Menu");
-        if(LoginPageController.getLoggedInAccountType().equals("manager"))
+        if (LoginPageController.getLoggedInAccountType().equals("manager"))
             System.out.println("3-Manager Account Menu");
         System.out.println("4-Exit");
     }
+
     @Override
-    public void execute(){
+    public void execute() {
         Menu nextMenu = null;
         String input = scanner.nextLine();
         if (!input.matches("\\d+")) {
@@ -46,19 +48,18 @@ public class MainMenu extends Menu {
             if (menuNumber == 0 || menuNumber > 4) {
                 System.err.println("your menu number is invalid!");
                 this.execute();
-            }
-            else if(menuNumber==1)
+            } else if (menuNumber == 1)
                 nextMenu = this.getSubmenus().get(1);
-            else if(menuNumber == 2)
+            else if (menuNumber == 2)
                 nextMenu = this.getSubmenus().get(2);
-            else if(menuNumber==4)
+            else if (menuNumber == 4)
                 System.exit(0);
-            else{
-                if(LoginPageController.getLoggedInAccountType().equals("null"))
+            else {
+                if (LoginPageController.getLoggedInAccountType().equals("null"))
                     nextMenu = new RegisterAndLoginMenu(this);
-                else if(LoginPageController.getLoggedInAccountType().equals("seller"))
+                else if (LoginPageController.getLoggedInAccountType().equals("seller"))
                     nextMenu = new SellerAccountMenu(this);
-                else if(LoginPageController.getLoggedInAccountType().equals("purchaser"))
+                else if (LoginPageController.getLoggedInAccountType().equals("purchaser"))
                     nextMenu = new PurchaserAccountMenu(this);
                 else
                     nextMenu = new ManagerAccountMenu(this);
