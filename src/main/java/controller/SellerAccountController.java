@@ -13,6 +13,7 @@ import model.product.Product;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class SellerAccountController {
     public static ArrayList<String> processViewPersonalInfo() {
@@ -51,12 +52,12 @@ public abstract class SellerAccountController {
 
     public static void processEditProduct(String productId, String field, String newValue) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
-        ((Seller) LoginPageController.loggedInAccount).editProductRequest(, Product.getProductByID(productId), field, , newValue);
+        ((Seller) LoginPageController.loggedInAccount).editProductRequest(Product.getProductByID(productId), field, newValue);
     }
 
     public static void processAddProduct(String category, String productName, int price, String explanationText) throws CategoryNotExistsException {
         ValidationController.checkCategoryExistence(category);
-        ((Seller) LoginPageController.loggedInAccount).addProductRequest(, Category.getCategoryByName(category), productName, , price, explanationText);
+        ((Seller) LoginPageController.loggedInAccount).addProductRequest(Category.getCategoryByName(category), productName, price, explanationText);
     }
 
     public static void processRemoveProduct(String productId) throws ProductIdNotExistsException {
@@ -80,7 +81,7 @@ public abstract class SellerAccountController {
     public static void processEditOffEach(String offId, String field, ArrayList<String> newValue) throws ProductIdNotExistsException {
         ValidationController.checkOfferExistence(offId);
 //        checkFields => enum field
-        ((Seller) LoginPageController.loggedInAccount).editOffersRequest(, Offer.getOfferById(offId), field, , newValue);
+        ((Seller) LoginPageController.loggedInAccount).editOffersRequest(Offer.getOfferById(offId), field, newValue);
     }
 
     public static void processAddOffEach(ArrayList<String> productListIds, String initialDate,
@@ -95,7 +96,7 @@ public abstract class SellerAccountController {
         for (String productId : productListIds) {
             allProducts.add(Product.getProductByID(productId));
         }
-        ((Seller) LoginPageController.loggedInAccount).addOfferRequest(, allProducts, new SimpleDateFormat("dd/MM/yyyy").parse(initialDate), new SimpleDateFormat("dd/MM/yyyy").parse(finalDate), discountPercentage);
+        ((Seller) LoginPageController.loggedInAccount).addOfferRequest(allProducts, new SimpleDateFormat("dd/MM/yyyy").parse(initialDate), new SimpleDateFormat("dd/MM/yyyy").parse(finalDate), discountPercentage);
     }
 
     public static double processViewBalance() {
