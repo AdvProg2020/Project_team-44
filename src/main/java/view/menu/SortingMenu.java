@@ -3,7 +3,6 @@ package view.menu;
 import controller.ProductsPageController;
 import exception.SortNotExistsException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SortingMenu extends Menu {
@@ -35,8 +34,11 @@ public class SortingMenu extends Menu {
 
             @Override
             public void menuWork() {
-                ArrayList<String> showSort = new ArrayList<>();
-                showSort = ProductsPageController.processShowAvailableSortsEach();
+                int i = 1;
+                for (String showAvailableSortsEach : ProductsPageController.processShowAvailableSortsEach()) {
+                    System.out.println(i + "sort by " + showAvailableSortsEach);
+                    i++;
+                }
 
             }
         };

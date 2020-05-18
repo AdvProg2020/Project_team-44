@@ -1,6 +1,5 @@
 package view.menu;
 
-import controller.LoginPageController;
 import controller.ProductsPageController;
 
 import java.util.HashMap;
@@ -34,7 +33,11 @@ public class ProductsPageMenu extends Menu {
 
             @Override
             public void menuWork() {
-                ProductsPageController.processViewCategories();
+                int i = 1;
+                for (String viewCategory : ProductsPageController.processViewCategories()) {
+                    System.out.println(i + "- " + viewCategory);
+                    i++;
+                }
             }
         };
     }
