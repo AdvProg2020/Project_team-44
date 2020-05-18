@@ -1,6 +1,7 @@
 package view.menu.purchaseRegion;
 
 import controller.PurchaserAccountController;
+import exception.CodedDiscountExpiresException;
 import exception.NotEnoughMoneyToPayException;
 import exception.PurchaserNotOwnsCodedDiscountException;
 import view.menu.Menu;
@@ -60,7 +61,7 @@ public class PurchaseMenu extends Menu {
                                 PurchaserAccountController.getCodedDiscount(discountCodeInput);
                                 getPaymentMenu().show();
                                 getPaymentMenu().execute();
-                            } catch (PurchaserNotOwnsCodedDiscountException discountCodeError) {
+                            } catch (PurchaserNotOwnsCodedDiscountException | CodedDiscountExpiresException discountCodeError) {
                                 System.err.println(discountCodeError.getMessage());
                                 this.execute();
                             }

@@ -55,14 +55,20 @@ public class MainMenu extends Menu {
             else if (menuNumber == 4)
                 System.exit(0);
             else {
-                if (LoginPageController.getLoggedInAccountType().equals("null"))
-                    nextMenu = new RegisterAndLoginMenu(this);
-                else if (LoginPageController.getLoggedInAccountType().equals("seller"))
-                    nextMenu = new SellerAccountMenu(this);
-                else if (LoginPageController.getLoggedInAccountType().equals("purchaser"))
-                    nextMenu = new PurchaserAccountMenu(this);
-                else
-                    nextMenu = new ManagerAccountMenu(this);
+                switch (LoginPageController.getLoggedInAccountType()) {
+                    case "null":
+                        nextMenu = new RegisterAndLoginMenu(this);
+                        break;
+                    case "seller":
+                        nextMenu = new SellerAccountMenu(this);
+                        break;
+                    case "purchaser":
+                        nextMenu = new PurchaserAccountMenu(this);
+                        break;
+                    default:
+                        nextMenu = new ManagerAccountMenu(this);
+                        break;
+                }
             }
             nextMenu.show();
             nextMenu.menuWork();

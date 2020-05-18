@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class ManageProductsForSellerMenu extends Menu {
     public ManageProductsForSellerMenu(Menu parent) {
         super("Manager Products For Seller Menu", parent);
-        HashMap<Integer, Menu> submenus = new HashMap<Integer, Menu>();
+        HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getViewProductMenu());
         submenus.put(2, getViewBuyersOfProductMenu());
         submenus.put(3, getEditProductMenu());
@@ -108,17 +108,13 @@ public class ManageProductsForSellerMenu extends Menu {
                 String field = scanner.nextLine();
                 if (field.equalsIgnoreCase("back"))
                     this.backInExecute();
-                System.out.println("Please enter your old value");
-                String oldValue = scanner.nextLine();
-                if (oldValue.equalsIgnoreCase("back"))
-                    this.backInExecute();
                 System.out.println("Please enter your new value");
                 String newValue = scanner.nextLine();
                 if (newValue.equalsIgnoreCase("back"))
                     this.backInExecute();
                 try {
-                    SellerAccountController.processEditProduct(productId, field, newValue, oldValue);
-                    this.execute();
+                    SellerAccountController.processEditProduct(productId, field, newValue);
+                    this.backInExecute();
                 } catch (ProductIdNotExistsException EditProductError) {
                     System.err.println(EditProductError.getMessage());
                     this.execute();

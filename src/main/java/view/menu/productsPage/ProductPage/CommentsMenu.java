@@ -31,12 +31,13 @@ public class CommentsMenu extends Menu {
                 String title = scanner.nextLine();
                 if (title.equalsIgnoreCase("back"))
                     this.backInExecute();
+                System.out.println("Please enter your content");
                 String content = scanner.nextLine();
                 if (content.equalsIgnoreCase("back"))
                     this.backInExecute();
                 ProductPageController.processAddComment(title, content);
                 System.out.println("Your comment add");
-                this.execute();
+                this.backInExecute();
             }
         };
     }

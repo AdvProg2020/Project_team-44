@@ -82,11 +82,8 @@ public class ViewDiscountCodesMenu extends Menu {
                         ManagerAccountController.processEditDiscountCodeEach(code, field, newValue);
                         System.out.println("edit discount code successful");
                         this.execute();
-                    } catch (CodedDiscountNotExistsException editDiscountCodeError) {
+                    } catch (CodedDiscountNotExistsException | ParseException editDiscountCodeError) {
                         System.err.println(editDiscountCodeError.getMessage());
-                        this.execute();
-                    } catch (ParseException parsExceptionError) {
-                        System.err.println(parsExceptionError.getMessage());
                         this.execute();
                     }
 

@@ -1,9 +1,12 @@
 package view.menu.managerRegion;
 
 import controller.ManagerAccountController;
+import exception.CategoryAlreadyExistsException;
 import exception.CategoryNotExistsException;
 import view.menu.Menu;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class ManageCategoriesMenu extends Menu {
@@ -30,7 +33,7 @@ public class ManageCategoriesMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter your category:");
+                System.out.println("Please enter your category");
             }
 
             @Override
@@ -42,15 +45,47 @@ public class ManageCategoriesMenu extends Menu {
                     this.invalidCommandInExecute();
                 else {
                     String category = input.substring(5);
+                    System.out.println("Please enter your field");
+                    String field = scanner.nextLine();
+                    if (field.equalsIgnoreCase("back"))
+                        this.backInExecute();
+                    if (!field.matches("(name|attributes)"))
+                        this.invalidCommandInExecute();
+                    if (field.equalsIgnoreCase("name")) {
+                        System.out.println("Please enter category new name");
+                        String newName = scanner.nextLine();
+                        if (newName.equalsIgnoreCase("back"))
+                            this.backInExecute();
+                        try {
+                            ManagerAccountController.processEditCategoryEachForName(category, newName);
+                            System.out.println("edit category successful");
+                            this.execute();
+                        } catch (CategoryNotExistsException | CategoryAlreadyExistsException editCategoryError) {
+                            System.err.println(editCategoryError.getMessage());
+                            this.execute();
+                        }
+                    }
+                    int counter = 1;
+                    ArrayList<HashMap<String, ArrayList<String>>> attributesForEdit = new ArrayList<>();
                     try {
-                        ManagerAccountController.processEditCategoryEach(category);
+                        for (String categoryProduct : ManagerAccountController.getCategoryProducts(category)) {
+                            HashMap<String, ArrayList<String>> attributesForThisCategory = new HashMap<>();
+                            System.out.println(counter + "- Please enter the new attributes for " + categoryProduct);
+                            String newAttributes = scanner.nextLine();
+                            if (newAttributes.equalsIgnoreCase("back"))
+                                this.backInExecute();
+                            ArrayList<String> attributes = new ArrayList<>();
+                            Collections.addAll(attributes, newAttributes.split(","));
+                            attributesForThisCategory.put(category, attributes);
+                            attributesForEdit.add(attributesForThisCategory);
+                        }
+                        ManagerAccountController.processEditCategoryEachForAttributes(category, attributesForEdit);
                         System.out.println("edit category successful");
                         this.execute();
-                    } catch (CategoryNotExistsException editCategoryError) {
-                        System.err.println(editCategoryError.getMessage());
+                    } catch (CategoryNotExistsException categoryNotExitsError) {
+                        System.err.println(categoryNotExitsError.getMessage());
                         this.execute();
                     }
-
                 }
             }
         };
@@ -73,8 +108,12 @@ public class ManageCategoriesMenu extends Menu {
                     this.invalidCommandInExecute();
                 else {
                     String category = input.substring(4);
+                    System.out.println("Please enter the father category");
+                    String fatherCategory = scanner.nextLine();
+                    if (fatherCategory.equalsIgnoreCase("back"))
+                        this.backInExecute();
                     try {
-                        ManagerAccountController.processAddCategoryEach(category);
+                        ManagerAccountController.processAddCategoryEach(category, fatherCategory);
                         System.out.println("Add category successful");
                         this.execute();
                     } catch (CategoryNotExistsException addCategoryError) {

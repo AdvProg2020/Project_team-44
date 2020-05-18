@@ -35,7 +35,11 @@ public class SortingInOffsMenu extends Menu {
 
             @Override
             public void menuWork() {
-                OffersPageController.processShowAvailableSortsEach();
+                int i = 1;
+                for (String showAvailableSortsEach : OffersPageController.processShowAvailableSortsEach()) {
+                    System.out.println(i + "- " + showAvailableSortsEach);
+                    i++;
+                }
             }
 
         };

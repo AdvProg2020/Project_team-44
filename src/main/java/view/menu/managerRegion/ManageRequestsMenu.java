@@ -4,6 +4,7 @@ import controller.ManagerAccountController;
 import exception.RequestNotExistsException;
 import view.menu.Menu;
 
+import java.text.ParseException;
 import java.util.HashMap;
 
 public class ManageRequestsMenu extends Menu {
@@ -76,9 +77,9 @@ public class ManageRequestsMenu extends Menu {
                     String requestId = input.substring(7);
                     try {
                         ManagerAccountController.processAcceptRequestEach(requestId);
-                        System.out.println("Accept request");
+                        System.out.println("accept request");
                         this.execute();
-                    } catch (RequestNotExistsException requestAcceptError) {
+                    } catch (RequestNotExistsException | ParseException requestAcceptError) {
                         System.err.println(requestAcceptError.getMessage());
                         this.execute();
                     }

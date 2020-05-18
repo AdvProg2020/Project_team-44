@@ -4,6 +4,7 @@ import controller.SellerAccountController;
 import exception.ProductIdNotExistsException;
 import view.menu.Menu;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ViewOffsOfSellerMenu extends Menu {
@@ -75,16 +76,21 @@ public class ViewOffsOfSellerMenu extends Menu {
                 if (field.equalsIgnoreCase("back"))
                     this.backInExecute();
                 System.out.println("Please enter your old value");
-                String oldValue = scanner.nextLine();
-                if (oldValue.equalsIgnoreCase("back"))
-                    this.backInExecute();
                 System.out.println("Please enter your new value");
-                String newValue = scanner.nextLine();
-                if (newValue.equalsIgnoreCase("back"))
-                    this.backInExecute();
+                ArrayList<String> newValue  = new ArrayList<>();
+                while(true){
+                    String input = scanner.nextLine();
+                    if(input.equalsIgnoreCase("back"))
+                        this.backInExecute();
+                    else if(input.equalsIgnoreCase("end"))
+                        break;
+                    else
+                        newValue.add(input);
+                }
                 try {
-                    SellerAccountController.processEditOffEach(offId, field, oldValue, newValue);
-                    this.execute();
+                    SellerAccountController.processEditOffEach(offId, field, newValue);
+                    System.out.println("edit off successful");
+                    this.backInExecute();
                 } catch (ProductIdNotExistsException EditOffError) {
                     System.err.println(EditOffError.getMessage());
                     this.execute();

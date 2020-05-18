@@ -1,7 +1,6 @@
 package view.menu;
 
 import controller.LoginPageController;
-import controller.ManagerAccountController;
 import exception.UsernameExistsException;
 import exception.UsernameNotExistsException;
 import exception.WrongPasswordException;
@@ -82,17 +81,27 @@ public class RegisterAndLoginMenu extends Menu {
                     this.backInExecute();
                 }
                 String companyName = null;
+                String companyPhone = null;
                 if (type.equals("seller")) {
                     System.out.println("Please enter your company name");
                     companyName = scanner.nextLine();
                     if (companyName.equalsIgnoreCase("back"))
                         this.backInExecute();
+                    System.out.println("Please enter your company phone number");
+                    companyPhone = scanner.nextLine();
+                    if(companyPhone.equalsIgnoreCase("back"))
+                        this.backInExecute();
                 }
+                System.out.println("Please enter your address");
+                String address;
+                address = scanner.nextLine();
+                if(address.equalsIgnoreCase("back"))
+                    this.backInExecute();
                 try {
                     LoginPageController.processCreateAccount(type, info.get(0), info.get(1),
-                            info.get(2), info.get(3), info.get(4), info.get(5), companyName);
+                            info.get(2), info.get(3), info.get(4), info.get(5), companyName , address ,companyPhone);
                     System.out.println("register successful");
-                    this.execute();
+                    this.backInExecute();
                 } catch (UsernameExistsException registerError) {
                     System.err.println(registerError.getMessage());
                     this.execute();
