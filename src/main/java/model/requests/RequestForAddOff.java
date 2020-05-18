@@ -38,6 +38,10 @@ public class RequestForAddOff extends Request {
         return finalDate;
     }
 
+    public ArrayList<Product> getProductList() {
+        return productList;
+    }
+
     public int getDiscountPercentage() {
         return discountPercentage;
     }
@@ -60,5 +64,10 @@ public class RequestForAddOff extends Request {
         details.add(strDate);
         details.add(String.valueOf(this.getDiscountPercentage()));
         return details;
+    }
+
+    @Override
+    public String getRequestId() {
+        return super.getRequestId();
     }
 }

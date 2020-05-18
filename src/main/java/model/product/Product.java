@@ -8,13 +8,14 @@ import model.comment.Comment;
 import model.offer.Offer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Product {
     private String productID;
     private Category category;
     private ProductStatus status = ProductStatus.IN_CREATION_PROGRESS;
-    private ArrayList<String> categoryAttributes = new ArrayList<>();
+    private HashMap<String, String> categoryAttributes = new HashMap<>();
     private String name;
     private String companyName;
     private double price;
@@ -22,7 +23,6 @@ public class Product {
     private boolean isAvailable;
     private ArrayList<Comment> allComments = new ArrayList<>();
     private String explanationText;
-    private int availableNumber;
     private Offer offer;
     private ArrayList<Rating> allRating = new ArrayList<>();
     private static ArrayList<Product> allProducts = new ArrayList<>();
@@ -63,7 +63,7 @@ public class Product {
         return status;
     }
 
-    public ArrayList<String> getCategoryAttributes() {
+    public HashMap<String, String> getCategoryAttributes() {
         return categoryAttributes;
     }
 
@@ -95,10 +95,6 @@ public class Product {
         return explanationText;
     }
 
-    public int getAvailableNumber() {
-        return availableNumber;
-    }
-
     public Offer getOffer() {
         return offer;
     }
@@ -109,6 +105,26 @@ public class Product {
 
     public static ArrayList<Purchaser> getAllPurchaser() {
         return allPurchaser;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+    public void setExplanationText(String explanationText) {
+        this.explanationText = explanationText;
     }
 
     public float getAverageRating() {

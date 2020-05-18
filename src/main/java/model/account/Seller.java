@@ -12,12 +12,13 @@ import model.sellLog.SellLog;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Seller extends Account {
     private String companyName;
     private String companyAddress;
     private String companyTelephone;
-    private ArrayList<Product> productsToSell;
+    private HashMap<Product, Integer> productsToSell;
     private ArrayList<Offer> offersList;
 
     public Seller(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password, String companyName, String companyAddress, String companyTelephone) {
@@ -25,7 +26,7 @@ public class Seller extends Account {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyTelephone = companyTelephone;
-        this.productsToSell = new ArrayList<>();
+        this.productsToSell = new HashMap<>();
     }
 
     public String getCompanyName() {

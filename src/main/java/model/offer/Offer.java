@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 public class Offer {
     private String offerID;
@@ -16,8 +17,8 @@ public class Offer {
     private int discountPercentage;
     private static ArrayList<Offer> allOffers = new ArrayList<>();
 
-    public Offer(String offerID, ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage) {
-        this.offerID = offerID;
+    public Offer(ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage) {
+        this.offerID = produceOfferId();
         this.productList = productList;
         this.initialDate = initialDate;
         this.finalDate = finalDate;
@@ -43,6 +44,22 @@ public class Offer {
 
     public int getDiscountPercentage() {
         return discountPercentage;
+    }
+
+    public void setProductList(ArrayList<Product> productList) {
+        this.productList = productList;
+    }
+
+    public void setInitialDate(Date initialDate) {
+        this.initialDate = initialDate;
+    }
+
+    public void setFinalDate(Date finalDate) {
+        this.finalDate = finalDate;
+    }
+
+    public void setDiscountPercentage(int discountPercentage) {
+        this.discountPercentage = discountPercentage;
     }
 
     public void setStatus(OfferStatus status) {
@@ -75,5 +92,15 @@ public class Offer {
         strDate = dateFormat.format(this.getFinalDate());
         info.add(strDate);
         return info;
+    }
+    public String produceOfferId() {
+        String logId = "Offer";
+        Random random = new Random();
+        int min = 4;
+        int max = 100000000;
+        int range = max - min;
+        int rand = random.nextInt(range) + min;
+        logId += rand;
+        return logId;
     }
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class RequestForSeller extends Request {
     private String companyName;
+    private String companyAddress;
+    private String companyTelephone;
     private String userName;
     private String firstName;
     private String lastName;
@@ -13,9 +15,11 @@ public class RequestForSeller extends Request {
 
     private ArrayList<RequestForSeller> allRequestsForSeller = new ArrayList<>();
 
-    public RequestForSeller(String companyName, String userName, String firstName
+    public RequestForSeller(String companyName, String companyAddress, String companyTelephone, String userName, String firstName
             , String lastName, String eMail, String telephoneNumber, String password) {
         this.companyName = companyName;
+        this.companyAddress = companyAddress;
+        this.companyTelephone = companyTelephone;
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -51,6 +55,14 @@ public class RequestForSeller extends Request {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getCompanyAddress() {
+        return companyAddress;
+    }
+
+    public String getCompanyTelephone() {
+        return companyTelephone;
     }
 
     @Override

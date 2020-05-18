@@ -83,7 +83,6 @@ public class Purchaser extends Account {
         if (Product.getProductByID(secondProductId).isAvailable())
             isAvailableSecond = "Yes";
         info.add("isAvailable:    " + isAvailableFirst + "    " + isAvailableSecond);
-        info.add("availableNumber:    " + Product.getProductByID(firstProductId).getAvailableNumber() + "    " + Product.getProductByID(secondProductId).getAvailableNumber());
         return info;
     }
 

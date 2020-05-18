@@ -2,14 +2,14 @@ package model.account;
 
 import model.Category;
 import model.CodedDiscount;
-import model.requests.Request;
-import model.requests.RequestStatus;
+import model.offer.Offer;
+import model.product.Product;
+import model.requests.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,22 +38,90 @@ public class Manager extends Account {
         return matcher;
     }
 
-    public void accept(String requestId) {
+    public void accept(String requestId) throws ParseException {
         Request.getRequestById(requestId).setStatus(RequestStatus.VERIFIED);
         String firstPartId = getMatcher(requestId, "(.*)_\\d+").group(1);
-        if (firstPartId.equalsIgnoreCase("RequestForAddOff")){
+        if (firstPartId.equalsIgnoreCase("RequestForAddOff")) {
 
-        }else if (firstPartId.equalsIgnoreCase("RequestForAddProduct")){
-
-        }else if (firstPartId.equalsIgnoreCase("RequestForEditOff")){
-
-        }else if (firstPartId.equalsIgnoreCase("RequestForEditProduct")){
-
-        }else if (firstPartId.equalsIgnoreCase("RequestForRemoveProduct")){
-
-        }else if (firstPartId.equalsIgnoreCase("RequestForSeller")){
-
+        } else if (firstPartId.equalsIgnoreCase("RequestForAddProduct")) {
+            doRequestForAddOf(requestId);
+        } else if (firstPartId.equalsIgnoreCase("RequestForEditOff")) {
+            doRequestForAddProduct(requestId);
+        } else if (firstPartId.equalsIgnoreCase("RequestForEditProduct")) {
+            doRequestForEditOff(requestId);
+        } else if (firstPartId.equalsIgnoreCase("RequestForRemoveProduct")) {
+            doRequestForRemoveProduct(requestId);
+        } else if (firstPartId.equalsIgnoreCase("RequestForSeller")) {
+            doRequestForSeller(requestId);
         }
+    }
+
+    public void doRequestForAddOf(String requestId) {
+        RequestForAddOff request = (RequestForAddOff) RequestForAddOff.getRequestById(requestId);
+        new Offer(request.getProductList(), request.getInitialDate(), request.getFinalDate(), request.getDiscountPercentage());
+    }
+
+    public void doRequestForAddProduct(String requestId) {
+        RequestForAddProduct request = (RequestForAddProduct) RequestForAddProduct.getRequestById(requestId);
+        if (getProductWithInfo(request.getCategory(), request.getName(), request.getPrice(), request.getExplanationText()) == null) {
+            new Product(request.getCategory(), request.getName(), request.getSeller().getCompanyName(), request.getPrice(), request.getExplanationText());
+        } else {
+            getProductWithInfo(request.getCategory(), request.getName(), request.getPrice(), request.getExplanationText()).getAllSellers().add(request.getSeller());
+        }
+    }
+
+    public void doRequestForEditOff(String requestId) throws ParseException {
+        RequestForEditOff request = (RequestForEditOff) RequestForEditOff.getRequestById(requestId);
+        if (request.getField().equalsIgnoreCase("productList")) {
+            request.getOffer().setProductList(request.getProductList());
+        } else if (request.getField().equalsIgnoreCase("initialDate")) {
+            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(request.getNewValue());
+            request.getOffer().setInitialDate(date);
+        } else if (request.getField().equalsIgnoreCase("finalDate")) {
+            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(request.getNewValue());
+            request.getOffer().setFinalDate(date);
+        } else if (request.getField().equalsIgnoreCase("discountPercentage")) {
+            request.getOffer().setDiscountPercentage(Integer.parseInt(request.getNewValue()));
+        }
+    }
+
+    public void doRequestForEditProduct(String requestId) {
+        RequestForEditProduct request = (RequestForEditProduct) RequestForEditProduct.getRequestById(requestId);
+        if (request.getField().equalsIgnoreCase("name")){
+            request.getProduct().setName(request.getNewValue());
+        }else if (request.getField().equalsIgnoreCase("companyName")){
+            request.getProduct().setCompanyName(request.getNewValue());
+        }else if (request.getField().equalsIgnoreCase("price")){
+            request.getProduct().setPrice(Double.parseDouble(request.getNewValue()));
+        }else if (request.getField().equalsIgnoreCase("explanationText")){
+            request.getProduct().setExplanationText(request.getNewValue());
+        }else if (request.getField().equalsIgnoreCase("isAvailable")){
+            if (request.getNewValue() == "yes"){
+                request.getProduct().setAvailable(true);
+            }else if (request.getNewValue() == "no")
+            request.getProduct().setAvailable(false);
+        }
+    }
+
+    public void doRequestForRemoveProduct(String requestId) {
+        RequestForRemoveProduct request = (RequestForRemoveProduct) RequestForRemoveProduct.getRequestById(requestId);
+        //Product.getAllProducts().remove(request.getProduct());
+        Product product = request.getProduct();
+        product = null;
+    }
+
+    public void doRequestForSeller(String requestId) {
+        RequestForSeller request = (RequestForSeller) RequestForSeller.getRequestById(requestId);
+        new Seller(request.getUserName(), request.getFirstName(), request.getLastName(), request.getEMail(), request.getTelephoneNumber(), request.getPassword(), request.getCompanyName(), request.getCompanyAddress(), request.getCompanyTelephone());
+    }
+
+    public Product getProductWithInfo(Category category, String name, double price, String explanationText) {
+        for (Product allProduct : Product.getAllProducts()) {
+            if (allProduct.getCategory().equals(category) && allProduct.getName().equals(name) && allProduct.getPrice() == price && allProduct.getExplanationText().equals(explanationText)) {
+                return allProduct;
+            }
+        }
+        return null;
     }
 
     public void decline(String requestId) {
