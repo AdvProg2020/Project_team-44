@@ -1,8 +1,7 @@
-package view.menu;
+package view.menu.productsPage;
 
 import controller.ProductsPageController;
-import view.menu.productsPage.FilteringMenu;
-import view.menu.productsPage.SortingMenu;
+import view.menu.Menu;
 
 import java.util.HashMap;
 
@@ -11,9 +10,9 @@ public class ProductsPageMenu extends Menu {
         super("Products Page Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getViewCategoriesMenu());
-        submenus.put(2, new FilteringMenu(this));
-        submenus.put(3, new SortingMenu(this));
-        submenus.put(4, new ShowProductsMenu(this));
+        submenus.put(2, new FilteringInProductsPageMenu(this));
+        submenus.put(3, new SortingInProductsPageMenu(this));
+        submenus.put(4, new ShowProductsInProductsPageMenu(this));
         this.setSubmenus(submenus);
     }
 

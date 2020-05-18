@@ -33,7 +33,6 @@ public final class CreateDiscountCodeRegex extends Regex {
         for (int counter = 0; counter < 4; ) {
             System.out.println(CreateDiscountCodeRegex.getRegexByCounter(counter).getOutputString());
             if ((command = scanner.nextLine()).matches("back")) {
-                System.out.println("back");
                 return null;
             }
             if (CreateDiscountCodeRegex.getRegexByCounter(counter).getStringMatcher(command).matches()) {

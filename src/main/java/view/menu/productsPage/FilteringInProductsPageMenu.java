@@ -6,15 +6,14 @@ import view.menu.Menu;
 
 import java.util.HashMap;
 
-public class FilteringMenu extends Menu {
-    public FilteringMenu(Menu parent) {
+public class FilteringInProductsPageMenu extends Menu {
+    public FilteringInProductsPageMenu(Menu parent) {
         super("Filtering Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getShowAvailableFiltersMenu());
         submenus.put(2, getShowProductsWithFilterMenu());
         submenus.put(3, getCurrentFiltersMenu());
         submenus.put(4, getDisableFilterMenu());
-
         this.setSubmenus(submenus);
     }
 
@@ -112,6 +111,7 @@ public class FilteringMenu extends Menu {
                     String selectedFilter = input.substring(15);
                     try {
                         ProductsPageController.processDeleteFilterEach(selectedFilter);
+                        System.out.println("disable filter successful");
                         this.execute();
                     } catch (FilterNotExistsException disableFilterError) {
                         System.out.println(disableFilterError.getMessage());

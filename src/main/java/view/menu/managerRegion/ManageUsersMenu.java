@@ -3,7 +3,9 @@ package view.menu.managerRegion;
 import controller.ManagerAccountController;
 import exception.UsernameNotExistsException;
 import view.menu.Menu;
+import view.menu.regexEnumForInput.RegisterRegex;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ManageUsersMenu extends Menu {
@@ -93,41 +95,18 @@ public class ManageUsersMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("please enter your username");
+                System.out.println("please enter your information :");
             }
 
             @Override
             public void execute() {
-                String userName = scanner.nextLine();
-                if (userName.equalsIgnoreCase("back"))
+                ArrayList<String> info = RegisterRegex.checkRegex(scanner);
+                if (info == null) {
                     this.backInExecute();
-                else {
-                    System.out.println("Please enter your password");
-                    String passWord = scanner.nextLine();
-                    if (passWord.equalsIgnoreCase("back"))
-                        this.backInExecute();
-                    System.out.println("Please enter your name");
-                    String name = scanner.nextLine();
-                    if (name.equalsIgnoreCase("back"))
-                        this.backInExecute();
-                    if (!name.matches("([A-Z]|[a-z])+ ([A-Z]|[a-z])+"))
-                        this.invalidCommandInExecute();
-                    String firstName = name.split("\\s")[0];
-                    String lastName = name.split("\\s")[1];
-                    System.out.println("Please enter your email");
-                    String email = scanner.nextLine();
-                    if (email.equalsIgnoreCase("back"))
-                        this.backInExecute();
-                    if (!email.matches("\\w+@\\w+.com"))
-                        this.invalidCommandInExecute();
-                    System.out.println("please enter your phoneNumber");
-                    String phoneNumber = scanner.nextLine();
-                    if (phoneNumber.equalsIgnoreCase("back"))
-                        this.backInExecute();
-                    if (!phoneNumber.matches("09\\d{9}"))
-                        this.invalidCommandInExecute();
+                } else {
                     try {
-                        ManagerAccountController.processCreateManagerProfileEach(userName, passWord, firstName, lastName, email, phoneNumber);
+                        ManagerAccountController.processCreateManagerProfileEach(info.get(0), info.get(1),
+                                info.get(2), info.get(3), info.get(4), info.get(5));
                         System.out.println("create new manager successful");
                         this.execute();
                     } catch (UsernameNotExistsException createManagerError) {

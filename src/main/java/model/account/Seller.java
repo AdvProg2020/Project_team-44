@@ -8,15 +8,17 @@ import model.requests.RequestForAddOff;
 import model.requests.RequestForAddProduct;
 import model.requests.RequestForEditOff;
 import model.requests.RequestForEditProduct;
+import model.sellLog.SellLog;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Seller extends Account {
     private String companyName;
     private String companyAddress;
     private String companyTelephone;
-    private ArrayList<Product> productsToSell;
+    private HashMap<Product, Integer> productsToSell;
     private ArrayList<Offer> offersList;
 
     public Seller(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password, String companyName, String companyAddress, String companyTelephone) {
@@ -24,7 +26,7 @@ public class Seller extends Account {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyTelephone = companyTelephone;
-        this.productsToSell = new ArrayList<>();
+        this.productsToSell = new HashMap<>();
     }
 
     public String getCompanyName() {
@@ -51,7 +53,7 @@ public class Seller extends Account {
         this.companyTelephone = companyTelephone;
     }
 
-    public ArrayList<Product> getProductsToSell() {
+    public HashMap<Product, Integer> getProductsToSell() {
         return productsToSell;
     }
 
@@ -77,28 +79,28 @@ public class Seller extends Account {
 
     public void deleteProductRequest(String productId) {
         Product requestedProduct = null;
-        for (Product product : productsToSell) {
-            if (product.getProductID().equalsIgnoreCase(productId))
+        for (Product product : productsToSell.keySet()) {
+            if (product.getProductID().equals(productId))
                 requestedProduct = product;
         }
         productsToSell.remove(requestedProduct);
     }
 
-    public void addProductRequest(Seller seller, Category category, String name, String companyName, int price, String explanationText) {
-        new RequestForAddProduct(seller, category, name, companyName, price, explanationText);
+    public void addProductRequest(Category category, String name, int price, String explanationText) {
+        new RequestForAddProduct(this, category, name, price, explanationText);
     }
 
 
-    public void editProductRequest(Seller seller, Product product, String field, String oldValue, String newValue) {
-        new RequestForEditProduct(seller, product, field, oldValue, newValue);
+    public void editProductRequest(Product product, String field, String oldValue, String newValue) {
+        new RequestForEditProduct(this, product, field, oldValue, newValue);
     }
 
-    public void editOffersRequest(Seller seller, Offer offer, String field, String oldValue, String newValue) {
-        new RequestForEditOff(seller, offer, field, oldValue, newValue);
+    public void editOffersRequest(Offer offer, String field, String newValue, ArrayList<Product> productList) {
+        new RequestForEditOff(this, offer, field, newValue, productList);
     }
 
-    public void addOfferRequest(Seller seller, ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage) {
-        new RequestForAddOff(seller, productList, initialDate, finalDate, discountPercentage);
+    public void addOfferRequest(ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage) {
+        new RequestForAddOff(this, productList, initialDate, finalDate, discountPercentage);
     }
 
     public ArrayList<String> getCompanyInfo() {
@@ -121,17 +123,15 @@ public class Seller extends Account {
 
     public ArrayList<String> getAllSellLogIds() {
         ArrayList<String> sellLogIds = new ArrayList<>();
-        for (BuyLog allBuyLog : BuyLog.getAllBuyLogs()) {
-            if (allBuyLog.getSellerFirstName().equalsIgnoreCase(this.getFirstName()) && allBuyLog.getSellerLastName().equalsIgnoreCase(this.getLastName())) {
-                sellLogIds.add(allBuyLog.getLogID());
-            }
+        for (SellLog sellLog : sellLogListHistory) {
+            sellLogIds.add(sellLog.getLogID());
         }
         return sellLogIds;
     }
 
     public ArrayList<String> getProductsToSellIds() {
         ArrayList<String> productIds = new ArrayList<>();
-        for (Product product : this.getProductsToSell()) {
+        for (Product product : this.getProductsToSell().keySet()) {
             productIds.add(product.getProductID());
         }
         return productIds;

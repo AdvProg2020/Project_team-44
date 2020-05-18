@@ -1,21 +1,30 @@
-package view.menu;
+package view.menu.offsPage;
 
+import controller.OffersPageController;
 import controller.ProductsPageController;
 import exception.ProductIdNotExistsException;
+import view.menu.Menu;
+import view.menu.productsPage.ProductPage.ProductPageMenu;
 
 import java.util.HashMap;
 
-public class ShowProductsMenu extends Menu {
-    public ShowProductsMenu(Menu parent) {
-        super("Show Products Menu", parent);
+public class OffsMenu extends Menu {
+    public OffsMenu(Menu parent) {
+        super("Offs Menu", parent);
         HashMap<Integer, Menu> submenus = new HashMap<>();
         submenus.put(1, getShowProductMenu());
+        submenus.put(2, new FilteringInOffsMenu(this));
+        submenus.put(3, new SortingInOffsMenu(this));
         this.setSubmenus(submenus);
     }
 
     @Override
     public void menuWork() {
-        ProductsPageController.processShowProducts();
+        int i = 1;
+        for (String showOff : OffersPageController.processShowOffs()) {
+            System.out.println(i + "- " + showOff);
+            i++;
+        }
     }
 
     private Menu getShowProductMenu() {
@@ -38,9 +47,12 @@ public class ShowProductsMenu extends Menu {
                     String productId = input.substring(13);
                     try {
                         ProductsPageController.processShowProduct(productId);
-                        Menu productMenu = new Pro
+                        Menu productMenu = new ProductPageMenu(this);
+                        productMenu.show();
+                        productMenu.menuWork();
+                        productMenu.execute();
                     } catch (ProductIdNotExistsException showProductError) {
-                        System.out.println(showProductError.getMessage());
+                        System.err.println(showProductError.getMessage());
                         this.execute();
                     }
 

@@ -1,10 +1,13 @@
 package view.menu;
 
 import controller.LoginPageController;
+import controller.ManagerAccountController;
 import exception.UsernameExistsException;
 import exception.UsernameNotExistsException;
 import exception.WrongPasswordException;
+import view.menu.regexEnumForInput.RegisterRegex;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -57,58 +60,42 @@ public class RegisterAndLoginMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter your type and userName");
+                System.out.println("Please enter your type and information :");
             }
 
             @Override
             public void execute() {
+                System.out.println("Please enter your type");
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (!input.matches("create account (manager|seller|purchaser) \\S+"))
+                if (!input.matches("create account (manager|seller|purchaser)"))
                     this.invalidCommandInExecute();
-                else {
-                    String type = input.split("\\s")[2];
-                    String userName = input.split("\\s")[3];
-                    System.out.println("Please enter your password");
-                    String passWord = scanner.nextLine();
-                    if (passWord.equalsIgnoreCase("back"))
+                String type = input.split("\\s")[2];
+                if (LoginPageController.isIsMainManagerLogged() && type.equalsIgnoreCase("manager")) {
+                    System.err.println("we have manager!");
+                    this.execute();
+                    this.show();
+                }
+                ArrayList<String> info = RegisterRegex.checkRegex(scanner);
+                if (info == null) {
+                    this.backInExecute();
+                }
+                String companyName = null;
+                if (type.equals("seller")) {
+                    System.out.println("Please enter your company name");
+                    companyName = scanner.nextLine();
+                    if (companyName.equalsIgnoreCase("back"))
                         this.backInExecute();
-                    System.out.println("Please enter your name");
-                    String name = scanner.nextLine();
-                    if (name.equalsIgnoreCase("back"))
-                        this.backInExecute();
-                    if (!name.matches("([A-Z]|[a-z])+ ([A-Z]|[a-z])+"))
-                        this.invalidCommandInExecute();
-                    String firstName = name.split("\\s")[0];
-                    String lastName = name.split("\\s")[1];
-                    System.out.println("Please enter your email");
-                    String email = scanner.nextLine();
-                    if (email.equalsIgnoreCase("back"))
-                        this.backInExecute();
-                    if (!email.matches("\\w+@\\w+.com"))
-                        this.invalidCommandInExecute();
-                    System.out.println("please enter your phoneNumber");
-                    String phoneNumber = scanner.nextLine();
-                    if (phoneNumber.equalsIgnoreCase("back"))
-                        this.backInExecute();
-                    if (!phoneNumber.matches("09\\d{9}"))
-                        this.invalidCommandInExecute();
-                    String companyName = null;
-                    if (type.equals("seller")) {
-                        companyName = scanner.nextLine();
-                        if (companyName.equalsIgnoreCase("back"))
-                            this.backInExecute();
-                    }
-                    try {
-                        LoginPageController.processCreateAccount(type, userName, passWord, firstName, lastName, email, phoneNumber, companyName);
-                        System.out.println("register successful");
-                        getLoginMenu().show();
-                        getLoginMenu().execute();
-                    } catch (UsernameExistsException registerError) {
-                        System.err.println(registerError.getMessage());
-                        this.execute();
-                    }
+                }
+                try {
+                    LoginPageController.processCreateAccount(type, info.get(0), info.get(1),
+                            info.get(2), info.get(3), info.get(4), info.get(5), companyName);
+                    System.out.println("register successful");
+                    this.execute();
+                } catch (UsernameExistsException registerError) {
+                    System.err.println(registerError.getMessage());
+                    this.execute();
                 }
             }
         };

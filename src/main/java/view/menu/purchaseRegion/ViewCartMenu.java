@@ -3,7 +3,6 @@ package view.menu.purchaseRegion;
 import controller.PurchaserAccountController;
 import exception.ProductNotExistsInCartException;
 import view.menu.Menu;
-import view.menu.purchaseRegion.PurchaseMenu;
 
 import java.util.HashMap;
 
@@ -14,7 +13,7 @@ public class ViewCartMenu extends Menu {
         submenus.put(1, getShowProductsMenu());
         submenus.put(2, getViewProductMenu());
         submenus.put(3, getIncreaseProductMenu());
-        submenus.put(4,getDecreaseProductMenu());
+        submenus.put(4, getDecreaseProductMenu());
         submenus.put(5, getShowTotalPriceMenu());
         submenus.put(6, new PurchaseMenu(this));
         this.setSubmenus(submenus);
@@ -22,7 +21,7 @@ public class ViewCartMenu extends Menu {
 
     @Override
     public void menuWork() {
-        PurchaserAccountController.processViewCart();
+
     }
 
     private Menu getShowProductsMenu() {
@@ -36,9 +35,9 @@ public class ViewCartMenu extends Menu {
             public void execute() {
                 String input = scanner.nextLine();
                 if (input.equals("show products")) {
-                    int i=1;
+                    int i = 1;
                     for (String showProductsEach : PurchaserAccountController.processShowProductsEach()) {
-                        System.out.println(i+"- "+showProductsEach);
+                        System.out.println(i + "- " + showProductsEach);
                         i++;
                     }
                     this.execute();
@@ -157,7 +156,7 @@ public class ViewCartMenu extends Menu {
 
             @Override
             public void menuWork() {
-                System.out.println("Total price :"+PurchaserAccountController.processShowTotalPriceEach());
+                System.out.println("Total price :" + PurchaserAccountController.processShowTotalPriceEach());
             }
         };
     }
