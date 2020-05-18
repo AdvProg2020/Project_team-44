@@ -3,6 +3,7 @@ package model.requests;
 
 import model.account.Seller;
 import model.offer.Offer;
+import model.product.Product;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,16 +13,16 @@ public class RequestForEditOff extends Request {
     private Seller seller;
     private Offer offer;
     private String field;
-    private String oldValue;
     private String newValue;
+    private ArrayList<Product> productList = new ArrayList<>();
     private static ArrayList<RequestForEditOff> allRequestsForEditOff = new ArrayList<>();
 
-    public RequestForEditOff(Seller seller, Offer offer, String field, String oldValue, String newValue) {
+    public RequestForEditOff(Seller seller, Offer offer, String field, String newValue, ArrayList<Product> productList) {
         this.seller = seller;
         this.offer = offer;
         this.field = field;
-        this.oldValue = oldValue;
         this.newValue = newValue;
+        this.productList = productList;
         allRequestsForEditOff.add(this);
     }
 
@@ -37,12 +38,12 @@ public class RequestForEditOff extends Request {
         return field;
     }
 
-    public String getOldValue() {
-        return oldValue;
-    }
-
     public String getNewValue() {
         return newValue;
+    }
+
+    public ArrayList<Product> getProductList() {
+        return productList;
     }
 
     public static ArrayList<RequestForEditOff> getAllRequestsForEditOff() {
@@ -67,7 +68,6 @@ public class RequestForEditOff extends Request {
         strDate = dateFormat.format(this.getOffer().getFinalDate());
         details.add(strDate);
         details.add(this.getField());
-        details.add(this.getOldValue());
         details.add(this.getNewValue());
         return details;
     }

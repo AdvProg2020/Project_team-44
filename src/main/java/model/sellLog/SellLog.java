@@ -14,19 +14,19 @@ public class SellLog {
     private double moneyGained;
     private double offerLossMoney;//if offer exists
     private ArrayList<Product> allSellProducts;
-    private String buyerFirstName;
-    private String buyerLastName;
+    private String purchaserFirstName;
+    private String purchaserLastName;
     private SellLogStatus status = SellLogStatus.IN_PROGRESS;
     private static ArrayList<SellLog> allSellLogs = new ArrayList<>();
 
-    public SellLog(Date date, int moneyGained, int offerLossMoney, ArrayList<Product> allSellProducts, String buyerFirstName, String buyerLastName) {
+    public SellLog(Date date, double moneyGained, double offerLossMoney, ArrayList<Product> allSellProducts, String purchaserFirstName, String purchaserLastName) {
         this.logID = produceSellLogId();
         this.date = date;
         this.moneyGained = moneyGained;
         this.offerLossMoney = offerLossMoney;
         this.allSellProducts = allSellProducts;
-        this.buyerFirstName = buyerFirstName;
-        this.buyerLastName = buyerLastName;
+        this.purchaserFirstName = purchaserFirstName;
+        this.purchaserLastName = this.purchaserLastName;
         allSellLogs.add(this);
     }
 
@@ -46,12 +46,12 @@ public class SellLog {
         return offerLossMoney;
     }
 
-    public String getBuyerFirstName() {
-        return buyerFirstName;
+    public String getPurchaserFirstName() {
+        return purchaserFirstName;
     }
 
-    public String getBuyerLastName() {
-        return buyerLastName;
+    public String getPurchaserLastName() {
+        return purchaserLastName;
     }
 
     public SellLogStatus getStatus() {
@@ -71,8 +71,8 @@ public class SellLog {
         sellLogInfo.add(strDate);
         sellLogInfo.add(String.valueOf(this.getMoneyGained()));
         sellLogInfo.add(String.valueOf(this.getOfferLossMoney()));
-        sellLogInfo.add(this.getBuyerFirstName());
-        sellLogInfo.add(this.getBuyerLastName());
+        sellLogInfo.add(this.getPurchaserFirstName());
+        sellLogInfo.add(this.getPurchaserLastName());
         sellLogInfo.add(this.getStatus().toString());
         return sellLogInfo;
     }

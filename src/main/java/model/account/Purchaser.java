@@ -1,21 +1,31 @@
 package model.account;
 
+import model.CodedDiscount;
 import model.Rating;
 import model.buyLog.BuyLog;
 import model.product.Product;
 import model.sellLog.SellLog;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
 public class Purchaser extends Account {
     private HashMap<Product, Integer> cart;
+    private HashMap<Product, Seller> sellerSelectedForEachProduct = new HashMap<>();
     private String address;
+
     public Purchaser(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password, String address) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
         this.cart = new HashMap<>();
         this.address = address;
+    }
+
+    public HashMap<Product, Seller> getSellerSelectedForEachProduct() {
+        return sellerSelectedForEachProduct;
     }
 
     public HashMap<Product, Integer> getCart() {
@@ -44,13 +54,19 @@ public class Purchaser extends Account {
         new Rating(product, this, rating);
     }
 
-    public void purchase(Date date, Seller seller) {
+    public void purchase(String discountCode) {
         for (Product product : this.getCart().keySet()) {
             product.getAllPurchaser().add(this);
+            double discountCodeAmountUsed = 0;
+            discountCodeAmountUsed += this.getCartMoneyToPay() * CodedDiscount.getCodedDiscountByCode(discountCode).getDiscountPercentage();
+            new BuyLog(getCurrentDate(), this.getCartMoneyToPay(), discountCodeAmountUsed, getCartProducts(), this.getSellerSelectedForEachProduct());
+            new SellLog(getCurrentDate(), this.getCartMoneyToPay(), getOfferLossesMoney(), getCartProducts(), this.getFirstName(), this.getLastName());
         }
+    }
 
-        new BuyLog(date, this.getCartMoneyToPay(), , this.getCart().keySet(), )
-
+    public static Date getCurrentDate() {
+        Date now = new Date();
+        return now;
     }
 
     public ArrayList<String> compareTwoProducts(String firstProductId, String secondProductId) {
@@ -67,7 +83,6 @@ public class Purchaser extends Account {
         if (Product.getProductByID(secondProductId).isAvailable())
             isAvailableSecond = "Yes";
         info.add("isAvailable:    " + isAvailableFirst + "    " + isAvailableSecond);
-        info.add("availableNumber:    " + Product.getProductByID(firstProductId).getAvailableNumber() + "    " + Product.getProductByID(secondProductId).getAvailableNumber());
         return info;
     }
 
@@ -106,5 +121,24 @@ public class Purchaser extends Account {
             money += product.getPrice() * this.getCart().get(product);
         }
         return money;
+    }
+
+    public ArrayList<Product> getCartProducts() {
+        ArrayList<Product> products = new ArrayList<>();
+        for (Product product : this.getCart().keySet()) {
+            products.add(product);
+        }
+        return products;
+    }
+
+    public double getOfferLossesMoney() {
+        double offAmount = 0;
+        for (Product product : this.getCart().keySet()) {
+            int num = this.getCart().get(product);
+            if (product.getOffer() != null) {
+                offAmount += ((product.getOffer().getDiscountPercentage() * product.getPrice()) / (100 - product.getOffer().getDiscountPercentage())) * this.getCart().get(product);
+            }
+        }
+        return offAmount;
     }
 }
