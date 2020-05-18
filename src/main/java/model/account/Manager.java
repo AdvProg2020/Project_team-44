@@ -82,8 +82,8 @@ public class Manager extends Account {
         }
     }
 
-    public static void createCodedDiscount(String discountCode, Date initialDate, Date finalDate, int discountPercentage, int maxAuthorizedPrice) {
-        new CodedDiscount(discountCode, initialDate, finalDate, discountPercentage, maxAuthorizedPrice);
+    public static void createCodedDiscount(Date initialDate, Date finalDate, int discountPercentage, int maxAuthorizedPrice) {
+        new CodedDiscount(initialDate, finalDate, discountPercentage, maxAuthorizedPrice);
     }
 
     public void editCategoryEach(String categoryName, String field, String oldValue, String newValue) {

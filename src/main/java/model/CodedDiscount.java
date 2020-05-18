@@ -107,7 +107,7 @@ public class CodedDiscount {
     }
 
     public String produceDiscountCode() {
-        String code = "discountCode";
+        String code = "discountCode_";
         Random random = new Random();
         int min = 0;
         int max = 100000000;
