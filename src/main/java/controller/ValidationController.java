@@ -197,4 +197,10 @@ public abstract class ValidationController {
         }
     }
 
+    public static void checkCategoryAlreadyExists(Category category) throws CategoryAlreadyExistsException {
+        if(Category.getAllCategories().contains(category)){
+            throw new CategoryAlreadyExistsException("Category already exists");
+        }
+    }
+
 }

@@ -102,12 +102,14 @@ public abstract class ManagerAccountController {
         return Category.getAllCategoryNames();
     }
 
-    public static void processEditCategoryEachForName(String category, String newName) throws CategoryNotExistsException {
+    public static void processEditCategoryEachForName(String category, String newName) throws CategoryNotExistsException, CategoryAlreadyExistsException {
         ValidationController.checkCategoryExistence(category);
-        /*TODO*/
+        ValidationController.checkCategoryAlreadyExists(Category.getCategoryByName(newName));//null
+        Category.getCategoryByName(category).setName(newName);
     }
 
-    public static void processEditCategoryEachForAttributes(String category, ArrayList<HashMap<String, ArrayList<String>>>) {
+    public static void processEditCategoryEachForAttributes(
+            String category, ArrayList<HashMap<String, ArrayList<String> > > allProductsNewInfo) {
 
     }
 
