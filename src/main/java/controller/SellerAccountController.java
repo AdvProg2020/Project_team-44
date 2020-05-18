@@ -1,9 +1,6 @@
 package controller;
 
-import exception.CategoryNotExistsException;
-import exception.ProductIdNotExistsException;
-import exception.SellerNotOwnsProductException;
-import exception.TimeExpiresException;
+import exception.*;
 import model.Category;
 import model.account.Purchaser;
 import model.account.Seller;
@@ -13,14 +10,14 @@ import model.product.Product;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public abstract class SellerAccountController {
     public static ArrayList<String> processViewPersonalInfo() {
         return LoginPageController.loggedInAccount.getInfo();
     }
 
-    public static void processEditFieldEach(String field, String newValue) {
+    public static void processEditFieldEach(String field, String newValue) throws SellerFieldsNotExistException {
+        ValidationController.checkSellerFieldExistence(field);
         LoginPageController.loggedInAccount.editInfo(field, newValue);
     }
 
@@ -50,8 +47,10 @@ public abstract class SellerAccountController {
         return allInfo;
     }
 
-    public static void processEditProduct(String productId, String field, String newValue) throws ProductIdNotExistsException {
+    public static void processEditProduct(String productId, String field, String newValue)
+            throws ProductIdNotExistsException, ProductFieldsNotException {
         ValidationController.checkProductExistence(productId);
+        ValidationController.checkProductFieldExistence(field);
         ((Seller) LoginPageController.loggedInAccount).editProductRequest(Product.getProductByID(productId), field, newValue);
     }
 
@@ -79,14 +78,15 @@ public abstract class SellerAccountController {
         return Offer.getOfferById(offId).getOfferInfo();
     }
 
-    public static void processEditOffEach(String offId, String field, ArrayList<String> newValue) throws ProductIdNotExistsException {
+    public static void processEditOffEach(String offId, String field, ArrayList<String> newValue)
+            throws ProductIdNotExistsException, OfferFieldNotExistsException {
         ValidationController.checkOfferExistence(offId);
-//        checkFields => enum field
+        ValidationController.checkOfferFieldExistence(field);
         ((Seller) LoginPageController.loggedInAccount).editOffersRequest(Offer.getOfferById(offId), field, newValue);
     }
 
-    public static void processAddOffEach(ArrayList<String> productListIds, String initialDate,
-                                         String finalDate, int discountPercentage) throws SellerNotOwnsProductException, ParseException, TimeExpiresException {
+    public static void processAddOffEach(ArrayList<String> productListIds, String initialDate, String finalDate,
+                                         int discountPercentage) throws SellerNotOwnsProductException, ParseException, TimeExpiresException {
         for (String productId : productListIds) {
             ValidationController.checkProductBelongToSeller((Seller) LoginPageController.loggedInAccount,
                     Product.getProductByID(productId));
