@@ -8,6 +8,7 @@ import model.comment.Comment;
 import model.offer.Offer;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -27,6 +28,8 @@ public class Product {
     private ArrayList<Rating> allRating = new ArrayList<>();
     private static ArrayList<Product> allProducts = new ArrayList<>();
     private static ArrayList<Purchaser> allPurchaser = new ArrayList<>();
+    private Date generatedDate;
+    private int viewTimes;
 
     public Product(Category category, String name, String companyName, double price, String explanationText) {
         this.productID = produceProductId();
@@ -35,6 +38,7 @@ public class Product {
         this.companyName = companyName;
         this.price = price;
         this.explanationText = explanationText;
+        this.generatedDate = new Date();
         allProducts.add(this);
     }
 
@@ -107,6 +111,14 @@ public class Product {
         return allPurchaser;
     }
 
+    public int getViewTimes() {
+        return viewTimes;
+    }
+
+    public Date getGeneratedDate() {
+        return generatedDate;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -125,6 +137,10 @@ public class Product {
 
     public void setExplanationText(String explanationText) {
         this.explanationText = explanationText;
+    }
+
+    public void setViewTimes() {
+        this.viewTimes++;
     }
 
     public float getAverageRating() {
@@ -158,6 +174,7 @@ public class Product {
         info.add(sellers);
         return info;
     }
+
     public String produceProductId() {
         String logId = "Product_";
         Random random = new Random();
@@ -168,7 +185,8 @@ public class Product {
         logId += rand;
         return logId;
     }
-    public Product getProductByName(String productName){
+
+    public Product getProductByName(String productName) {
         for (Product allProduct : allProducts) {
             if (allProduct.getName().equals(productName))
                 return allProduct;

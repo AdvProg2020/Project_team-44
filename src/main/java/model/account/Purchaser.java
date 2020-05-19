@@ -57,11 +57,21 @@ public class Purchaser extends Account {
     public void purchase(String discountCode) {
         for (Product product : this.getCart().keySet()) {
             product.getAllPurchaser().add(this);
-            double discountCodeAmountUsed = 0;
-            discountCodeAmountUsed += this.getCartMoneyToPay() * CodedDiscount.getCodedDiscountByCode(discountCode).getDiscountPercentage();
-            new BuyLog(getCurrentDate(), this.getCartMoneyToPay(), discountCodeAmountUsed, getCartProducts(), this.getSellerSelectedForEachProduct());
-            new SellLog(getCurrentDate(), this.getCartMoneyToPay(), getOfferLossesMoney(), getCartProducts(), this.getFirstName(), this.getLastName());
+            Seller seller = this.getSellerSelectedForEachProduct().get(product);
+            if (seller.getProductsToSell().get(product) >= this.getCart().get(product)) {
+                seller.setBalance(seller.getBalance() + (product.getPrice() * this.getCart().get(product)));
+                seller.getProductsToSell().replace(product, seller.getProductsToSell().get(product) - this.getCart().get(product));
+                if (seller.getProductsToSell().get(product) == this.getCart().get(product)) {
+                    seller.getProductsToSell().remove(product);
+                }
+            }
         }
+        double discountCodeAmountUsed = 0;
+        discountCodeAmountUsed += this.getCartMoneyToPay() * CodedDiscount.getCodedDiscountByCode(discountCode).getDiscountPercentage() / 100;
+        new BuyLog(getCurrentDate(), this.getCartMoneyToPay() - discountCodeAmountUsed, discountCodeAmountUsed, getCartProducts(), this.getSellerSelectedForEachProduct());
+        new SellLog(getCurrentDate(), this.getCartMoneyToPay(), getOfferLossesMoney(), getCartProducts(), this.getFirstName(), this.getLastName());
+        this.setBalance(this.getBalance() - this.getCartMoneyToPay() + discountCodeAmountUsed);
+        this.getCart().clear();
     }
 
     public static Date getCurrentDate() {
@@ -84,19 +94,6 @@ public class Purchaser extends Account {
             isAvailableSecond = "Yes";
         info.add("isAvailable:    " + isAvailableFirst + "    " + isAvailableSecond);
         return info;
-    }
-
-    public void watchProducts() {
-
-    }
-
-
-    public void filterProducts() {
-
-    }
-
-    public void searchProducts() {
-
     }
 
     public ArrayList<String> getAllBuyLogIds() {
