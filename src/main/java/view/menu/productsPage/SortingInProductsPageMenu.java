@@ -37,7 +37,7 @@ public class SortingInProductsPageMenu extends Menu {
             public void menuWork() {
                 int i = 1;
                 for (String showAvailableSortsEach : ProductsPageController.processShowAvailableSortsEach()) {
-                    System.out.println(i + "sort by " + showAvailableSortsEach);
+                    System.out.println(i + "- sort by " + showAvailableSortsEach);
                     i++;
                 }
 
@@ -50,11 +50,11 @@ public class SortingInProductsPageMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter the sort");
             }
 
             @Override
             public void execute() {
+                System.out.println("Please enter the sort");
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
@@ -62,8 +62,22 @@ public class SortingInProductsPageMenu extends Menu {
                     this.invalidCommandInExecute();
                 else {
                     String availableSort = input.substring(5);
+                    System.out.println("Do you like sorting from up or down?");
+                    String upDown = scanner.nextLine();
+                    if (upDown.equalsIgnoreCase("back"))
+                        this.backInExecute();
+                    if (!upDown.equalsIgnoreCase("up") && !upDown.equalsIgnoreCase("down"))
+                        this.invalidCommandInExecute();
+                    boolean isUp = true;
+                    if (upDown.equalsIgnoreCase("down"))
+                        isUp = false;
                     try {
-                        ProductsPageController.processSortEach(availableSort);
+                        ProductsPageController.processSortEach(availableSort, isUp);
+                        int i = 1;
+                        for (String product : ProductsPageController.processShowProducts()) {
+                            System.out.println(i + "- " + product);
+                            i++;
+                        }
                         this.execute();
                     } catch (SortNotExistsException sortError) {
                         System.err.println(sortError.getMessage());
@@ -92,7 +106,7 @@ public class SortingInProductsPageMenu extends Menu {
 
             @Override
             public void menuWork() {
-                System.out.println(ProductsPageController.processCurrentSortEach());
+                System.out.println("Current sort is " + ProductsPageController.processCurrentSortEach());
             }
         };
     }

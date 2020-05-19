@@ -38,7 +38,7 @@ public class FilteringInProductsPageMenu extends Menu {
             public void menuWork() {
                 int i = 1;
                 for (String filter : ProductsPageController.processShowAvailableFiltersEach()) {
-                    System.out.println(i + "- " + filter);
+                    System.out.println(i + "- filter by " + filter);
                     i++;
                 }
             }
