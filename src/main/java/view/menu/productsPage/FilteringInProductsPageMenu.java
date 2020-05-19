@@ -1,6 +1,7 @@
 package view.menu.productsPage;
 
 import controller.ProductsPageController;
+import exception.CategoryNotExistsException;
 import exception.FilterNotExistsException;
 import view.menu.Menu;
 
@@ -35,7 +36,11 @@ public class FilteringInProductsPageMenu extends Menu {
 
             @Override
             public void menuWork() {
-                ProductsPageController.processShowAvailableFiltersEach();
+                int i = 1;
+                for (String filter : ProductsPageController.processShowAvailableFiltersEach()) {
+                    System.out.println(i + "- " + filter);
+                    i++;
+                }
             }
         };
     }
@@ -45,23 +50,32 @@ public class FilteringInProductsPageMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter the filter");
             }
 
             @Override
             public void execute() {
+                System.out.println("Please enter the field of the filter");
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
                 else if (!input.matches("filter \\w+"))
                     this.invalidCommandInExecute();
                 else {
-                    String availableFilter = input.substring(7);
+                    String filed = input.substring(7);
+                    System.out.println("Please enter your filteringItem that we filter with this");
+                    String filter = scanner.nextLine();
+                    if (filter.equalsIgnoreCase("back"))
+                        this.backInExecute();
                     try {
-                        ProductsPageController.processFilterEach(availableFilter);
+                        ProductsPageController.processFilter(filed, filter);
+                        int i = 1;
+                        for (String product : ProductsPageController.processShowProducts()) {
+                            System.out.println(i + "- " + product);
+                            i++;
+                        }
                         this.execute();
-                    } catch (FilterNotExistsException filterError) {
-                        System.out.println(filterError.getMessage());
+                    } catch (FilterNotExistsException | CategoryNotExistsException filterError) {
+                        System.err.println(filterError.getMessage());
                         this.execute();
                     }
                 }
@@ -87,7 +101,11 @@ public class FilteringInProductsPageMenu extends Menu {
 
             @Override
             public void menuWork() {
-                ProductsPageController.processCurrentFilterEach();
+                int i = 1;
+                for (String currentFilter : ProductsPageController.processCurrentFilterEach()) {
+                    System.out.println(i + "- " + currentFilter);
+                    i++;
+                }
             }
         };
     }
@@ -112,9 +130,9 @@ public class FilteringInProductsPageMenu extends Menu {
                     try {
                         ProductsPageController.processDeleteFilterEach(selectedFilter);
                         System.out.println("disable filter successful");
-                        this.execute();
+                        this.backInExecute();
                     } catch (FilterNotExistsException disableFilterError) {
-                        System.out.println(disableFilterError.getMessage());
+                        System.err.println(disableFilterError.getMessage());
                         this.execute();
                     }
                 }
