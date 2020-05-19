@@ -1,11 +1,11 @@
 package controller;
 
-import controller.enums.CodedDiscountFields;
-import controller.enums.OfferFields;
-import controller.enums.ProductFields;
-import controller.enums.accountFields.ManagerFields;
-import controller.enums.accountFields.PurchaserFields;
-import controller.enums.accountFields.SellerFields;
+import controller.fields.CodedDiscountFields;
+import controller.fields.OfferFields;
+import controller.fields.ProductFields;
+import controller.fields.accountFields.ManagerFields;
+import controller.fields.accountFields.PurchaserFields;
+import controller.fields.accountFields.SellerFields;
 import exception.*;
 import model.Category;
 import model.CodedDiscount;
@@ -110,10 +110,9 @@ public abstract class ValidationController {
     }
 
     static void checkFilterExistence(String availableFilter) throws FilterNotExistsException {
-        for (String filter : allFilters()) {
+        for (String filter : ProductsPageController.allFilters) {
             if (availableFilter.equals(filter)) {
                 return;
-
             }
         }
         throw new FilterNotExistsException("Wrong filter.");
@@ -254,6 +253,7 @@ public abstract class ValidationController {
         }
         throw new ManagerFieldsNotExistException("Wrong field.");
     }
+
     public static void checkCodedDiscountFieldExistence(String field) throws CodedDiscountFieldsNotExistException {
         for (CodedDiscountFields codedDiscountFields : CodedDiscountFields.values()) {
             if (codedDiscountFields.toString().equals(field)) {
