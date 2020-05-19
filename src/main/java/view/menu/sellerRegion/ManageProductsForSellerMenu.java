@@ -1,6 +1,7 @@
 package view.menu.sellerRegion;
 
 import controller.SellerAccountController;
+import exception.CategoryNotExistsException;
 import exception.ProductFieldsNotException;
 import exception.ProductIdNotExistsException;
 import view.menu.Menu;
@@ -129,24 +130,37 @@ public class ManageProductsForSellerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter product Id:");
+                System.out.println("Please enter your product information :");
             }
 
             @Override
             public void execute() {
-                String input = scanner.nextLine();
-                if (input.equalsIgnoreCase("back"))
+                System.out.println("Please enter the category");
+                String category = scanner.nextLine();
+                if (category.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (!input.matches("remove product \\w+"))
+                System.out.println("Please enter the product name");
+                String productName = scanner.nextLine();
+                if (productName.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                System.out.println("Please enter the product price");
+                String productPrice = scanner.nextLine();
+                if (productPrice.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                if (!productPrice.matches("\\d+"))
                     this.invalidCommandInExecute();
-                else {
-                    String productId = input.substring(15);
-                    try {
-                        SellerAccountController.processRemoveProduct(productId);
-                    } catch (ProductIdNotExistsException RemoveProductError) {
-                        System.out.println(RemoveProductError.getMessage());
-                        this.execute();
-                    }
+                int price = Integer.parseInt(productPrice);
+                System.out.println("Please enter the explanation text");
+                String explanationText = scanner.nextLine();
+                if (explanationText.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                try {
+                    SellerAccountController.processAddProduct(category, productName, price, explanationText);
+                    System.out.println("your request for add this product sent to manger");
+                    this.backInExecute();
+                } catch (CategoryNotExistsException addProductError) {
+                    System.err.println(addProductError.getMessage());
+                    this.execute();
                 }
             }
         };

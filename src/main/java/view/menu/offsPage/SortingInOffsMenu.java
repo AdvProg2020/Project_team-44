@@ -50,11 +50,11 @@ public class SortingInOffsMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter the sort");
             }
 
             @Override
             public void execute() {
+                System.out.println("Please enter the sort");
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
@@ -62,8 +62,22 @@ public class SortingInOffsMenu extends Menu {
                     this.invalidCommandInExecute();
                 else {
                     String availableSort = input.substring(5);
+                    System.out.println("Do you like sorting from up or down?");
+                    String upDown = scanner.nextLine();
+                    if (upDown.equalsIgnoreCase("back"))
+                        this.backInExecute();
+                    if (!upDown.equalsIgnoreCase("up") && !upDown.equalsIgnoreCase("down"))
+                        this.invalidCommandInExecute();
+                    boolean isUp = true;
+                    if (upDown.equalsIgnoreCase("down"))
+                        isUp = false;
                     try {
-                        OffersPageController.processSortEach(availableSort);
+                        OffersPageController.processSortEach(availableSort, isUp);
+                        int i = 1;
+                        for (String off : OffersPageController.processShowOffs()) {
+                            System.out.println(i + "- " + off);
+                            i++;
+                        }
                         this.execute();
                     } catch (SortNotExistsException sortError) {
                         System.err.println(sortError.getMessage());

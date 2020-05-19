@@ -46,7 +46,7 @@ public class OffsMenu extends Menu {
                 else {
                     String productId = input.substring(13);
                     try {
-                        ProductsPageController.processShowProduct(productId);
+                        OffersPageController.processShowProduct(productId);
                         Menu productMenu = new ProductPageMenu(this);
                         productMenu.show();
                         productMenu.menuWork();

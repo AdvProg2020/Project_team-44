@@ -3,8 +3,11 @@ package view.menu.sellerRegion;
 import controller.SellerAccountController;
 import exception.OfferFieldNotExistsException;
 import exception.ProductIdNotExistsException;
+import exception.SellerNotOwnsProductException;
+import exception.TimeExpiresException;
 import view.menu.Menu;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -78,12 +81,12 @@ public class ViewOffsOfSellerMenu extends Menu {
                     this.backInExecute();
                 System.out.println("Please enter your old value");
                 System.out.println("Please enter your new value");
-                ArrayList<String> newValue  = new ArrayList<>();
-                while(true){
+                ArrayList<String> newValue = new ArrayList<>();
+                while (true) {
                     String input = scanner.nextLine();
-                    if(input.equalsIgnoreCase("back"))
+                    if (input.equalsIgnoreCase("back"))
                         this.backInExecute();
-                    else if(input.equalsIgnoreCase("end"))
+                    else if (input.equalsIgnoreCase("end"))
                         break;
                     else
                         newValue.add(input);
@@ -105,26 +108,48 @@ public class ViewOffsOfSellerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter your offId:");
+                System.out.println("Please enter your new off information :");
             }
 
             @Override
             public void execute() {
-                String input = scanner.nextLine();
-                if (input.equalsIgnoreCase("back"))
+                System.out.println("Please enter your productsId's that you want use this off");
+                ArrayList<String> productIds = new ArrayList<>();
+                while (true) {
+                    String productId = scanner.nextLine();
+                    if (productId.equalsIgnoreCase("back"))
+                        this.backInExecute();
+                    else if (productId.equalsIgnoreCase("end"))
+                        break;
+                    else
+                        productIds.add(productId);
+                }
+                System.out.println("Please enter your initial date");
+                String initialDate = scanner.nextLine();
+                if (initialDate.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (!input.matches("view \\w+"))
+                if (!initialDate.matches("^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)(\\d){4}$"))
                     this.invalidCommandInExecute();
-                else {
-                    String offId = input.substring(5);
-                    try {
-                        SellerAccountController.processViewOffEach(offId);
-                        this.execute();
-                    } catch (ProductIdNotExistsException viewOffError) {
-                        System.err.println(viewOffError.getMessage());
-                        this.execute();
-                    }
+                System.out.println("Please enter your final date");
+                String finalDate = scanner.nextLine();
+                if (finalDate.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                if (!finalDate.matches("^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)(\\d){4}$"))
+                    this.invalidCommandInExecute();
+                String discountPercentage = scanner.nextLine();
+                if (discountPercentage.equalsIgnoreCase("back"))
+                    this.backInExecute();
+                if (!discountPercentage.matches("[0-9][0-9]"))
+                    this.invalidCommandInExecute();
+                int percent = Integer.parseInt(discountPercentage);
+                try {
+                    SellerAccountController.processAddOffEach(productIds, initialDate, finalDate, percent);
+                    System.out.println("your request for add this off sent to manger");
+                    this.backInExecute();
 
+                } catch (ParseException | SellerNotOwnsProductException | TimeExpiresException addOffError) {
+                    System.err.println(addOffError.getMessage());
+                    this.execute();
                 }
             }
         };

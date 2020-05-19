@@ -1,6 +1,7 @@
 package view.menu.offsPage;
 
 import controller.OffersPageController;
+import exception.CategoryNotExistsException;
 import exception.FilterNotExistsException;
 import view.menu.Menu;
 
@@ -35,7 +36,11 @@ public class FilteringInOffsMenu extends Menu {
 
             @Override
             public void menuWork() {
-                OffersPageController.processShowAvailableFiltersEach();
+                int i = 1;
+                for (String filtersEach : OffersPageController.processShowAvailableFiltersEach()) {
+                    System.out.println(i + "- " + filtersEach);
+                    i++;
+                }
             }
         };
     }
@@ -45,23 +50,32 @@ public class FilteringInOffsMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Please enter the filter");
             }
 
             @Override
             public void execute() {
+                System.out.println("Please enter the field of the filter");
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
                 else if (!input.matches("filter \\w+"))
                     this.invalidCommandInExecute();
                 else {
-                    String availableFilter = input.substring(7);
+                    String filed = input.substring(7);
+                    System.out.println("Please enter your filteringItem that we filter with this");
+                    String filter = scanner.nextLine();
+                    if (filter.equalsIgnoreCase("back"))
+                        this.backInExecute();
                     try {
-                        OffersPageController.processFilterEach(availableFilter);
+                        OffersPageController.processFilterEach(filed, filter);
+                        int i = 1;
+                        for (String off : OffersPageController.processShowOffs()) {
+                            System.out.println(i + "- " + off);
+                            i++;
+                        }
                         this.execute();
-                    } catch (FilterNotExistsException filterError) {
-                        System.out.println(filterError.getMessage());
+                    } catch (FilterNotExistsException | CategoryNotExistsException filterError) {
+                        System.err.println(filterError.getMessage());
                         this.execute();
                     }
                 }
@@ -87,7 +101,11 @@ public class FilteringInOffsMenu extends Menu {
 
             @Override
             public void menuWork() {
-                OffersPageController.processCurrentFilterEach();
+                int i = 1;
+                for (String filterEach : OffersPageController.processCurrentFilterEach()) {
+                    System.out.println(i + "- " + filterEach);
+                    i++;
+                }
             }
         };
     }
@@ -111,10 +129,15 @@ public class FilteringInOffsMenu extends Menu {
                     String selectedFilter = input.substring(15);
                     try {
                         OffersPageController.processDeleteFilterEach(selectedFilter);
+                        int i = 1;
+                        for (String off : OffersPageController.processShowOffs()) {
+                            System.out.println(i + "- " + off);
+                            i++;
+                        }
                         System.out.println("disable filter successful");
-                        this.execute();
+                        this.backInExecute();
                     } catch (FilterNotExistsException disableFilterError) {
-                        System.out.println(disableFilterError.getMessage());
+                        System.err.println(disableFilterError.getMessage());
                         this.execute();
                     }
                 }

@@ -124,7 +124,10 @@ public class ProductPageMenu extends Menu {
 
             @Override
             public void menuWork() {
-                ProductPageController.processShowAttributes();
+                int i = 1;
+                for (String attribute : ProductPageController.processShowAttributes().keySet()) {
+                    System.out.println(i + "- " + attribute + " : " + ProductPageController.processShowAttributes().get(attribute));
+                }
             }
         };
     }

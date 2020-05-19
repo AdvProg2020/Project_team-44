@@ -89,17 +89,17 @@ public class RegisterAndLoginMenu extends Menu {
                         this.backInExecute();
                     System.out.println("Please enter your company phone number");
                     companyPhone = scanner.nextLine();
-                    if(companyPhone.equalsIgnoreCase("back"))
+                    if (companyPhone.equalsIgnoreCase("back"))
                         this.backInExecute();
                 }
                 System.out.println("Please enter your address");
                 String address;
                 address = scanner.nextLine();
-                if(address.equalsIgnoreCase("back"))
+                if (address.equalsIgnoreCase("back"))
                     this.backInExecute();
                 try {
                     LoginPageController.processCreateAccount(type, info.get(0), info.get(1),
-                            info.get(2), info.get(3), info.get(4), info.get(5), companyName , address ,companyPhone);
+                            info.get(2), info.get(3), info.get(4), info.get(5), companyName, address, companyPhone);
                     System.out.println("register successful");
                     this.backInExecute();
                 } catch (UsernameExistsException registerError) {
@@ -135,11 +135,8 @@ public class RegisterAndLoginMenu extends Menu {
                         parent.show();
                         parent.menuWork();
                         parent.execute();
-                    } catch (UsernameNotExistsException userNameError) {
+                    } catch (UsernameNotExistsException | WrongPasswordException userNameError) {
                         System.err.println(userNameError.getMessage());
-                        this.execute();
-                    } catch (WrongPasswordException passWordError) {
-                        System.err.println(passWordError.getMessage());
                         this.execute();
                     }
                 }
