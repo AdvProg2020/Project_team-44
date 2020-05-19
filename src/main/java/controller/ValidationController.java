@@ -1,5 +1,11 @@
 package controller;
 
+import controller.fields.CodedDiscountFields;
+import controller.fields.OfferFields;
+import controller.fields.ProductFields;
+import controller.fields.accountFields.ManagerFields;
+import controller.fields.accountFields.PurchaserFields;
+import controller.fields.accountFields.SellerFields;
 import exception.*;
 import model.Category;
 import model.CodedDiscount;
@@ -104,10 +110,9 @@ public abstract class ValidationController {
     }
 
     static void checkFilterExistence(String availableFilter) throws FilterNotExistsException {
-        for (String filter : allFilters()) {
+        for (String filter : ProductsPageController.allFilters) {
             if (availableFilter.equals(filter)) {
                 return;
-
             }
         }
         throw new FilterNotExistsException("Wrong filter.");
@@ -175,10 +180,11 @@ public abstract class ValidationController {
     }
 
     public static void checkProductBelongToSeller(Seller seller, Product product) throws SellerNotOwnsProductException {
-        if(!seller.getProductsToSell().contains(product)){
+        if (!seller.getProductsToSell().contains(product)) {
             throw new SellerNotOwnsProductException("This Seller Doesnt sell this product.");
         }
     }
+
     public static void checkOfferTime(Offer offer, Date date) throws OfferExpiresException {
         if (date.after(offer.getFinalDate())) {
             throw new OfferExpiresException("Times over");
@@ -186,15 +192,76 @@ public abstract class ValidationController {
     }
 
     public static void checkTime(Date date) throws TimeExpiresException {
-        if (date.after()) {
+        if (date.after(new Date())) {
             throw new TimeExpiresException("Times over");
         }
     }
 
     public static void checkProductExistenceInCategory(Category category, Product product) throws ProductExistsINCategoryException {
-        if(category.getAllSubProducts().contains(product)){
+        if (category.getAllSubProducts().contains(product)) {
             throw new ProductExistsINCategoryException("We have this product already");
         }
     }
+
+    public static void checkCategoryAlreadyExists(Category category) throws CategoryAlreadyExistsException {
+        if (Category.getAllCategories().contains(category)) {
+            throw new CategoryAlreadyExistsException("Category already exists");
+        }
+    }
+
+    public static void checkOfferFieldExistence(String field) throws OfferFieldNotExistsException {
+        for (OfferFields offerField : OfferFields.values()) {
+            if (offerField.toString().equals(field)) {
+                return;
+            }
+        }
+        throw new OfferFieldNotExistsException("Wrong field.");
+    }
+
+    public static void checkProductFieldExistence(String field) throws ProductFieldsNotException {
+        for (ProductFields productFields : ProductFields.values()) {
+            if (productFields.toString().equals(field)) {
+                return;
+            }
+        }
+        throw new ProductFieldsNotException("Wrong field.");
+    }
+
+    public static void checkPurchaserFieldExistence(String field) throws PurchaserFieldsNotExistException {
+        for (PurchaserFields purchaserFields : PurchaserFields.values()) {
+            if (purchaserFields.toString().equals(field)) {
+                return;
+            }
+        }
+        throw new PurchaserFieldsNotExistException("Wrong field.");
+    }
+
+    public static void checkSellerFieldExistence(String field) throws SellerFieldsNotExistException {
+        for (SellerFields sellerFields : SellerFields.values()) {
+            if (sellerFields.toString().equals(field)) {
+                return;
+            }
+        }
+        throw new SellerFieldsNotExistException("Wrong field.");
+    }
+
+    public static void checkManagerFieldExistence(String field) throws ManagerFieldsNotExistException {
+        for (ManagerFields managerFields : ManagerFields.values()) {
+            if (managerFields.toString().equals(field)) {
+                return;
+            }
+        }
+        throw new ManagerFieldsNotExistException("Wrong field.");
+    }
+
+    public static void checkCodedDiscountFieldExistence(String field) throws CodedDiscountFieldsNotExistException {
+        for (CodedDiscountFields codedDiscountFields : CodedDiscountFields.values()) {
+            if (codedDiscountFields.toString().equals(field)) {
+                return;
+            }
+        }
+        throw new CodedDiscountFieldsNotExistException("Wrong field.");
+    }
+
 
 }

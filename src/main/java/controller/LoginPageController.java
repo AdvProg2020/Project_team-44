@@ -31,17 +31,17 @@ public abstract class LoginPageController {
     }
 
     public static void processCreateAccount(String type, String username, String password, String firstName, String lastName, String email
-            , String telephoneNumber, String companyName) throws UsernameExistsException {
+            , String telephoneNumber, String companyName, String companyAddress, String companyTelephoneNumber) throws UsernameExistsException {
         ValidationController.checkUsernameForRegistration(username);
         if (type.equalsIgnoreCase("manager")) {
             Manager manager = new Manager(username, firstName, lastName, email, telephoneNumber, password);
             isMainManagerLogged = true;
         } else if (type.equalsIgnoreCase("seller")) {
-            RequestForSeller requestForSeller = new RequestForSeller(companyName, username, firstName,
+            RequestForSeller requestForSeller = new RequestForSeller(companyName, companyAddress, companyTelephoneNumber, username, firstName,
                     lastName, email, telephoneNumber, password);
 
         } else {
-            Purchaser purchaser = new Purchaser(username, firstName, lastName, email, telephoneNumber, password);
+            Purchaser purchaser = new Purchaser(username, firstName, lastName, email, telephoneNumber, password, companyAddress);
         }
     }
 

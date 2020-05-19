@@ -13,47 +13,42 @@ import model.requests.Request;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class ManagerAccountController {
     public static ArrayList<String> processViewPersonalInfo() {
         return LoginPageController.loggedInAccount.getInfo();
-        /**DONE**/
     }
 
-    public static void processEditFieldEach(String field, String newValue) {
+    public static void processEditFieldEach(String field, String newValue) throws ManagerFieldsNotExistException {
+        ValidationController.checkManagerFieldExistence(field);
         LoginPageController.loggedInAccount.editInfo(field, newValue);
-        /**DONE**/
     }
 
     public static ArrayList<String> processManageUsers() {
         return Manager.showAllUsers();
-        /**DONE**/
     }
 
     public static ArrayList<String> processViewUserInfoEach(String username) throws UsernameNotExistsException {
         ValidationController.checkUsernameExistence(username);
         return Account.getAccountByUsername(username).getInfo();
-        /**DONE**/
     }
 
     public static void processDeleteUserEach(String username) throws UsernameNotExistsException {
         ValidationController.checkUsernameExistence(username);
         Account.getAllAccounts().remove(Account.getAccountByUsername(username));
-        /**DONE**/
     }
 
     public static void processCreateManagerProfileEach(String username, String password, String firstName, String lastName, String email
             , String telephoneNumber) throws UsernameNotExistsException {
         ValidationController.checkUsernameExistence(username);
         Manager manager = new Manager(username, firstName, lastName, email, telephoneNumber, password);
-        /**DONE**/
     }
 
 
     public static void processRemoveProductEach(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
         Product.getAllProducts().remove(Product.getProductByID(productId));
-        /**DONE**/
     }
 
     public static void processCreateDiscountCode(String initialDate, String finalDate, int discountPercentage, int maxAuthorizedPrice) throws ParseException {
@@ -70,16 +65,16 @@ public abstract class ManagerAccountController {
         return CodedDiscount.getCodedDiscountByCode(code).getCodedDiscountInfo();
     }
 
-    public static void processEditDiscountCodeEach(String code, String field, String newValue) throws CodedDiscountNotExistsException, ParseException {
+    public static void processEditDiscountCodeEach(String code, String field, String newValue)
+            throws CodedDiscountNotExistsException, ParseException, CodedDiscountFieldsNotExistException {
         ValidationController.checkCodedDiscountExistence(code);
+        ValidationController.checkCodedDiscountFieldExistence(field);
         Manager.editCodedDiscount(code, field, newValue);
-        /**DONE**/
     }
 
     public static void processRemoveDiscountCodeEach(String code) throws CodedDiscountNotExistsException {
         ValidationController.checkCodedDiscountExistence(code);
         CodedDiscount.getAllCodedDiscounts().remove(CodedDiscount.getCodedDiscountByCode(code));
-        /**DONE**/
     }
 
     public static ArrayList<String> processManageRequests() {
@@ -105,19 +100,21 @@ public abstract class ManagerAccountController {
         return Category.getAllCategoryNames();
     }
 
-    public static void processEditCategoryEachForName(String category, String newName) throws CategoryNotExistsException {
+    public static void processEditCategoryEachForName(String category, String newName) throws CategoryNotExistsException, CategoryAlreadyExistsException {
         ValidationController.checkCategoryExistence(category);
-        /*TODO*/
+        ValidationController.checkCategoryAlreadyExists(Category.getCategoryByName(newName));//null
+        Category.getCategoryByName(category).setName(newName);
     }
 
-    public static void processEditCategoryEachForAttributes(String category, ArrayList<Hash>) {
+    public static void processEditCategoryEachForAttributes(
+            String category, ArrayList<HashMap<String, ArrayList<String> > > allProductsNewInfo) {
 
     }
 
-    public static void processAddCategoryEach(String category) throws CategoryNotExistsException {
+    public static void processAddCategoryEach(String category, String parentCategory) throws CategoryNotExistsException {
         ValidationController.checkCategoryExistence(category);
-        ((Manager) LoginPageController.loggedInAccount).addCategory(category);
-//        Manager.addCategory(category);
+        ValidationController.checkCategoryExistence(parentCategory);//if parentCategoryNull
+        ((Manager) LoginPageController.loggedInAccount).addCategory(category, Category.getCategoryByName(parentCategory));
     }
 
     public static ArrayList<String> getCategoryProducts(String categoryName) throws CategoryNotExistsException {
@@ -138,7 +135,7 @@ public abstract class ManagerAccountController {
         for (Product product : Category.getCategoryByName(categoryName).getAllSubProducts()) {
             Product.getAllProducts().remove(product);
             for (Offer offer : Offer.getAllOffers()) {
-                offer.getAllProductList().remove(product);
+                offer.getProductList().remove(product);
             }
             for (Seller seller : product.getAllSellers()) {
                 seller.getProductsToSell().remove(product);
