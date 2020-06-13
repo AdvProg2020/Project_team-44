@@ -1,7 +1,11 @@
 package model;
 
+import com.google.gson.Gson;
 import model.account.Account;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -56,6 +60,17 @@ public class CodedDiscount {
         this.discountPercentage = discountPercentage;
         this.maxAuthorizedPrice = maxAuthorizedPrice;
         allCodedDiscounts.add(this);
+        createAndUpdateJson();
+    }
+
+    public void createAndUpdateJson() {
+        try {
+            Writer writer = new FileWriter("src/main/resources/CodedDiscounts/" + this.getDiscountCode() + ".json");
+            new Gson().toJson(this, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setInitialDate(Date initialDate) {

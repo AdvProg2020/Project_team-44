@@ -1,5 +1,6 @@
 package model.product;
 
+import com.google.gson.Gson;
 import model.Category;
 import model.Rating;
 import model.account.Purchaser;
@@ -7,6 +8,9 @@ import model.account.Seller;
 import model.comment.Comment;
 import model.offer.Offer;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -40,6 +44,17 @@ public class Product {
         this.explanationText = explanationText;
         this.generatedDate = new Date();
         allProducts.add(this);
+        createAndUpdateJson();
+    }
+
+    public void createAndUpdateJson() {
+        try {
+            Writer writer = new FileWriter("src/main/resources/Products/" + this.getProductID() + ".json");
+            new Gson().toJson(this, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static ArrayList<Product> getAllProducts() {

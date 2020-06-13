@@ -1,11 +1,15 @@
 package model.account;
 
+import com.google.gson.Gson;
 import model.Category;
 import model.CodedDiscount;
 import model.offer.Offer;
 import model.product.Product;
 import model.requests.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,6 +25,16 @@ public class Manager extends Account {
     public Manager(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
         allManagers.add(this);
+        createAndUpdateJson();
+    }
+    public void createAndUpdateJson() {
+        try {
+            Writer writer = new FileWriter("src/main/resources/Users/Managers/" + this.getUserName() + ".json");
+            new Gson().toJson(this, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<String> getRequestIdLists() {
@@ -54,6 +68,7 @@ public class Manager extends Account {
         } else if (firstPartId.equalsIgnoreCase("RequestForSeller")) {
             doRequestForSeller(requestId);
         }
+        System.out.println("alan");
     }
 
     public void doRequestForAddOf(String requestId) {

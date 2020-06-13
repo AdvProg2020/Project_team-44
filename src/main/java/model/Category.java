@@ -1,7 +1,11 @@
 package model;
 
+import com.google.gson.Gson;
 import model.product.Product;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 
 public class Category {
@@ -17,6 +21,17 @@ public class Category {
         this.attributes = parent.getAttributes();
         this.parent = parent;
         allCategories.add(this);
+        createAndUpdateJson();
+    }
+
+    public void createAndUpdateJson() {
+        try {
+            Writer writer = new FileWriter("src/main/resources/Categories/" + this.getName() + ".json");
+            new Gson().toJson(this, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setName(String name) {

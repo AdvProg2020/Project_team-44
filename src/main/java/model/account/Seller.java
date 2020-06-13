@@ -1,5 +1,6 @@
 package model.account;
 
+import com.google.gson.Gson;
 import model.Category;
 import model.buyLog.BuyLog;
 import model.offer.Offer;
@@ -10,6 +11,9 @@ import model.requests.RequestForEditOff;
 import model.requests.RequestForEditProduct;
 import model.sellLog.SellLog;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,6 +31,17 @@ public class Seller extends Account {
         this.companyAddress = companyAddress;
         this.companyTelephone = companyTelephone;
         this.productsToSell = new HashMap<>();
+        createAndUpdateJson();
+    }
+
+    public void createAndUpdateJson() {
+        try {
+            Writer writer = new FileWriter("src/main/resources/Users/Sellers/" + this.getUserName() + ".json");
+            new Gson().toJson(this, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getCompanyName() {
@@ -111,12 +126,12 @@ public class Seller extends Account {
         return companyInfo;
     }
 
-    public void editCompanyInfo(String field, String newValue){
-        if (field.equalsIgnoreCase("companyName")){
+    public void editCompanyInfo(String field, String newValue) {
+        if (field.equalsIgnoreCase("companyName")) {
             this.setCompanyName(newValue);
-        }else if (field.equalsIgnoreCase("companyAddress")){
+        } else if (field.equalsIgnoreCase("companyAddress")) {
             this.setCompanyAddress(newValue);
-        }else if (field.equalsIgnoreCase("companyTelephone")){
+        } else if (field.equalsIgnoreCase("companyTelephone")) {
             this.setCompanyTelephone(newValue);
         }
     }

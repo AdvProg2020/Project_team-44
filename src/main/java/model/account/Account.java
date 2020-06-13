@@ -1,9 +1,14 @@
 package model.account;
 
+import com.google.gson.Gson;
 import model.buyLog.BuyLog;
 import model.CodedDiscount;
 import model.sellLog.SellLog;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 
 public abstract class Account {
@@ -131,15 +136,15 @@ public abstract class Account {
     }
 
     public void editInfo(String field, String newValue) {
-        if (field.equalsIgnoreCase("firstName")){
+        if (field.equalsIgnoreCase("firstName")) {
             this.setFirstName(newValue);
-        }else if (field.equalsIgnoreCase("lastName")){
+        } else if (field.equalsIgnoreCase("lastName")) {
             this.setLastName(newValue);
-        }else if (field.equalsIgnoreCase("EMail")){
+        } else if (field.equalsIgnoreCase("EMail")) {
             this.setEMail(newValue);
-        }else if (field.equalsIgnoreCase("telephoneNumber")){
+        } else if (field.equalsIgnoreCase("telephoneNumber")) {
             this.setTelephoneNumber(newValue);
-        }else if (field.equalsIgnoreCase("password")){
+        } else if (field.equalsIgnoreCase("password")) {
             this.setPassword(newValue);
         }
     }

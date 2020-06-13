@@ -1,11 +1,15 @@
 package model.account;
 
+import com.google.gson.Gson;
 import model.CodedDiscount;
 import model.Rating;
 import model.buyLog.BuyLog;
 import model.product.Product;
 import model.sellLog.SellLog;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +26,17 @@ public class Purchaser extends Account {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
         this.cart = new HashMap<>();
         this.address = address;
+        createAndUpdateJson();
+    }
+
+    public void createAndUpdateJson() {
+        try {
+            Writer writer = new FileWriter("src/main/resources/Users/Purchasers/" + this.getUserName() + ".json");
+            new Gson().toJson(this, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public HashMap<Product, Seller> getSellerSelectedForEachProduct() {
