@@ -4,7 +4,7 @@ module team {
     requires com.google.gson;
     requires javafx.controls;
     requires java.desktop;
-    opens aa;
+    opens main;
     opens graphicView.mainMenu to javafx.fxml;
     exports graphicView.mainMenu to javafx.fxml;
     //requires kotlin.stdlib;
