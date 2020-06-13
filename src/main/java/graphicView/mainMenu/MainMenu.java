@@ -1,13 +1,9 @@
-package viewGraphic;
+package graphicView.mainMenu;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 
 public class MainMenu {
-
-    @FXML
-    private TextArea welcome;
 
     @FXML
     void onLogin(ActionEvent event) {

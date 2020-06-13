@@ -1,4 +1,4 @@
-package exception;
+package sample.exception;
 
 public class FilterNotExistsException extends Exception{
     public FilterNotExistsException(String message) {

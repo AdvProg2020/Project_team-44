@@ -1,14 +1,9 @@
 package model.account;
 
-import com.google.gson.Gson;
 import model.buyLog.BuyLog;
 import model.CodedDiscount;
 import model.sellLog.SellLog;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 
 public abstract class Account {

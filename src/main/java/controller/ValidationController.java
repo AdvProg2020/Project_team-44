@@ -1,12 +1,12 @@
-package controller;
+package sample.controller;
 
-import controller.fields.CodedDiscountFields;
-import controller.fields.OfferFields;
-import controller.fields.ProductFields;
-import controller.fields.accountFields.ManagerFields;
-import controller.fields.accountFields.PurchaserFields;
-import controller.fields.accountFields.SellerFields;
-import exception.*;
+import sample.controller.fields.CodedDiscountFields;
+import sample.controller.fields.OfferFields;
+import sample.controller.fields.ProductFields;
+import sample.controller.fields.accountFields.ManagerFields;
+import sample.controller.fields.accountFields.PurchaserFields;
+import sample.controller.fields.accountFields.SellerFields;
+import sample.exception.*;
 import model.Category;
 import model.CodedDiscount;
 import model.Sort.Sort;
@@ -180,7 +180,7 @@ public abstract class ValidationController {
     }
 
     public static void checkProductBelongToSeller(Seller seller, Product product) throws SellerNotOwnsProductException {
-        if (!seller.getProductsToSell().contains(product)) {
+        if (!seller.getProductsToSell().containsKey(product)) {
             throw new SellerNotOwnsProductException("This Seller Doesnt sell this product.");
         }
     }

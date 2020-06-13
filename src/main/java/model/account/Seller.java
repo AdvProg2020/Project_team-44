@@ -2,7 +2,6 @@ package model.account;
 
 import com.google.gson.Gson;
 import model.Category;
-import model.buyLog.BuyLog;
 import model.offer.Offer;
 import model.product.Product;
 import model.requests.RequestForAddOff;

@@ -1,4 +1,4 @@
-package exception;
+package sample.exception;
 
 public class UsernameExistsException extends Exception {
     public UsernameExistsException(String message) {

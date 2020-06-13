@@ -1,25 +1,21 @@
-package controller;
+package sample.controller;
 
 
-import controller.fields.OfferPageAvailableFilters;
-import controller.fields.ProductsPageAvailableFilters;
-import controller.sortComparators.PriceComparator;
-import controller.sortComparators.ScoreComparator;
-import controller.sortComparators.TimeComparator;
-import controller.sortComparators.ViewComparator;
-import exception.CategoryNotExistsException;
-import exception.FilterNotExistsException;
-import exception.ProductIdNotExistsException;
-import exception.SortNotExistsException;
+import sample.controller.fields.OfferPageAvailableFilters;
+import sample.controller.sortComparators.PriceComparator;
+import sample.controller.sortComparators.ScoreComparator;
+import sample.controller.sortComparators.TimeComparator;
+import sample.controller.sortComparators.ViewComparator;
+import sample.exception.CategoryNotExistsException;
+import sample.exception.FilterNotExistsException;
+import sample.exception.ProductIdNotExistsException;
+import sample.exception.SortNotExistsException;
 import model.Sort.Sort;
 import model.offer.Offer;
 import model.product.Product;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-
-import static controller.ProductsPageController.processFilterEachByName;
 
 public abstract class OffersPageController {
     static Sort currentOffersSort = Sort.VIEW;

@@ -1,4 +1,4 @@
-package exception;
+package sample.exception;
 
 public class OfferNotExistsException extends Exception {
     public OfferNotExistsException(String message) {

@@ -2,10 +2,7 @@ package model.requests;
 
 import model.Category;
 import model.account.Seller;
-import model.product.Product;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class RequestForAddProduct extends Request {

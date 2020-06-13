@@ -1,8 +1,8 @@
-package controller;
+package sample.controller;
 
-import exception.ProductAlreadyExistsInCartException;
-import exception.ProductIdNotExistsException;
-import exception.SellerUserNameNotExists;
+import sample.exception.ProductAlreadyExistsInCartException;
+import sample.exception.ProductIdNotExistsException;
+import sample.exception.SellerUserNameNotExists;
 import model.account.Account;
 import model.account.Purchaser;
 import model.account.Seller;

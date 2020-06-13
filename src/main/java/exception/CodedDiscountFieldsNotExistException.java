@@ -1,4 +1,4 @@
-package exception;
+package sample.exception;
 
 public class CodedDiscountFieldsNotExistException extends Exception{
     public CodedDiscountFieldsNotExistException(String message) {

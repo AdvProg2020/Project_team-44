@@ -1,6 +1,6 @@
-package controller;
+package sample.controller;
 
-import exception.*;
+import sample.exception.*;
 import model.Category;
 import model.CodedDiscount;
 import model.account.Account;

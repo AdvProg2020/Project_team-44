@@ -1,4 +1,4 @@
-package exception;
+package sample.exception;
 
 public class PurchaserNotOwnsCodedDiscountException extends Exception {
     public PurchaserNotOwnsCodedDiscountException(String message) {
