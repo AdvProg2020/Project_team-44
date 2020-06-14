@@ -3,10 +3,15 @@ module team {
     requires javafx.graphics;
     requires com.google.gson;
     requires javafx.controls;
-    requires java.desktop;
+    //requires java.desktop;
     opens main;
     opens graphicView.mainMenu to javafx.fxml;
-    exports graphicView.mainMenu to javafx.fxml;
-    //requires kotlin.stdlib;
-    //requires maven.artifact;
+    opens graphicView.productMenu to javafx.fxml;
+    opens model to com.google.gson;
+    opens model.account to com.google.gson;
+    opens model.sellLog to com.google.gson;
+    opens model.product to com.google.gson;
+    opens model.offer to com.google.gson;
+    opens model.buyLog to com.google.gson;
+    opens model.comment to com.google.gson;
 }

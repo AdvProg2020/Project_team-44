@@ -23,6 +23,7 @@ public class Seller extends Account {
     private String companyTelephone;
     private HashMap<Product, Integer> productsToSell;
     private ArrayList<Offer> offersList;
+    private static ArrayList<Seller> allSeller = new ArrayList<>();
 
     public Seller(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password, String companyName, String companyAddress, String companyTelephone) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
@@ -30,12 +31,21 @@ public class Seller extends Account {
         this.companyAddress = companyAddress;
         this.companyTelephone = companyTelephone;
         this.productsToSell = new HashMap<>();
+        allSeller.add(this);
         createAndUpdateJson();
+    }
+
+    public static ArrayList<Seller> getAllSeller() {
+        return allSeller;
+    }
+
+    public static void setAllSeller(ArrayList<Seller> allSeller) {
+        Seller.allSeller = allSeller;
     }
 
     public void createAndUpdateJson() {
         try {
-            Writer writer = new FileWriter("src/main/resources/Users/Sellers/" + this.getUserName() + ".json");
+            Writer writer = new FileWriter("src/main/resources/Accounts/Sellers/" + this.getUserName() + ".json");
             new Gson().toJson(this, writer);
             writer.close();
         } catch (IOException e) {

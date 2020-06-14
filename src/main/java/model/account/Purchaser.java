@@ -17,18 +17,28 @@ import java.util.HashMap;
 public class Purchaser extends Account {
     private HashMap<Product, Integer> cart;
     private HashMap<Product, Seller> sellerSelectedForEachProduct = new HashMap<>();
+    private static ArrayList<Purchaser> allPurchaser = new ArrayList<>();
     private String address;
 
     public Purchaser(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password, String address) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
         this.cart = new HashMap<>();
         this.address = address;
+        allPurchaser.add(this);
         createAndUpdateJson();
+    }
+
+    public static ArrayList<Purchaser> getAllPurchaser() {
+        return allPurchaser;
+    }
+
+    public static void setAllPurchaser(ArrayList<Purchaser> allPurchaser) {
+        Purchaser.allPurchaser = allPurchaser;
     }
 
     public void createAndUpdateJson() {
         try {
-            Writer writer = new FileWriter("src/main/resources/Users/Purchasers/" + this.getUserName() + ".json");
+            Writer writer = new FileWriter("src/main/resources/Accounts/Purchasers/" + this.getUserName() + ".json");
             new Gson().toJson(this, writer);
             writer.close();
         } catch (IOException e) {

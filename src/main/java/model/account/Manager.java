@@ -27,9 +27,18 @@ public class Manager extends Account {
         allManagers.add(this);
         createAndUpdateJson();
     }
+
+    public static ArrayList<Manager> getAllManagers() {
+        return allManagers;
+    }
+
+    public static void setAllManagers(ArrayList<Manager> allManagers) {
+        Manager.allManagers = allManagers;
+    }
+
     public void createAndUpdateJson() {
         try {
-            Writer writer = new FileWriter("src/main/resources/Users/Managers/" + this.getUserName() + ".json");
+            Writer writer = new FileWriter("src/main/resources/Accounts/Managers/" + this.getUserName() + ".json");
             new Gson().toJson(this, writer);
             writer.close();
         } catch (IOException e) {

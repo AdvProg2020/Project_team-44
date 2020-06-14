@@ -18,7 +18,7 @@ import java.util.Random;
 
 public class Product {
     private String productID;
-    private Category category;
+    private transient Category category;
     private ProductStatus status = ProductStatus.IN_CREATION_PROGRESS;
     private HashMap<String, String> categoryAttributes = new HashMap<>();
     private String name;
@@ -44,17 +44,25 @@ public class Product {
         this.explanationText = explanationText;
         this.generatedDate = new Date();
         allProducts.add(this);
-        createAndUpdateJson();
+        category.getAllSubProducts().add(this);
+        System.out.println("size   :   " + category.getAllSubProducts().size());
+        createAndUpdateJson(this);
+        updateAllParent(category);
+        category.createAndUpdateJson(category);
     }
 
-    public void createAndUpdateJson() {
+    public void createAndUpdateJson(Product product) {
         try {
-            Writer writer = new FileWriter("src/main/resources/Products/" + this.getProductID() + ".json");
-            new Gson().toJson(this, writer);
+            Writer writer = new FileWriter("src/main/resources/Products/" + product.getName() + ".json");
+            new Gson().toJson(product, writer);
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage() + "!!!!!!!!!!!!!!");
         }
+    }
+
+    public void updateAllParent(Category category) {
+        category.updateAllParent(category);
     }
 
     public static ArrayList<Product> getAllProducts() {
@@ -158,6 +166,14 @@ public class Product {
         this.viewTimes++;
     }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public static void setAllProducts(ArrayList<Product> allProducts) {
+        Product.allProducts = allProducts;
+    }
+
     public float getAverageRating() {
         float sum = 0;
         float num = 0;
@@ -208,4 +224,5 @@ public class Product {
         }
         return null;
     }
+
 }

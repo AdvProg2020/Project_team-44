@@ -111,6 +111,10 @@ public abstract class Account {
         this.balance = balance;
     }
 
+    public static void setAllAccounts(ArrayList<Account> allAccounts) {
+        Account.allAccounts = allAccounts;
+    }
+
     public static Account getAccountByUsername(String username) {
         for (Account account : allAccounts) {
             if (account.getUserName().equals(username)) {
