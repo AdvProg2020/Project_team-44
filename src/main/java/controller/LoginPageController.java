@@ -1,8 +1,8 @@
-package controller;
+package sample.controller;
 
-import exception.UsernameExistsException;
-import exception.UsernameNotExistsException;
-import exception.WrongPasswordException;
+import sample.exception.UsernameExistsException;
+import sample.exception.UsernameNotExistsException;
+import sample.exception.WrongPasswordException;
 import model.account.Account;
 import model.account.Manager;
 import model.account.Purchaser;

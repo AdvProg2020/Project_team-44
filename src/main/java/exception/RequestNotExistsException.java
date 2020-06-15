@@ -1,4 +1,4 @@
-package exception;
+package sample.exception;
 
 public class RequestNotExistsException extends Exception {
     public RequestNotExistsException(String message) {

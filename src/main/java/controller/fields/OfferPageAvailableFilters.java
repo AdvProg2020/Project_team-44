@@ -1,4 +1,4 @@
-package controller.fields;
+package sample.controller.fields;
 
 public enum  OfferPageAvailableFilters {
     INITIAL_DATE, FINAL_DATE, PERCENTAGE, SUB_PRODUCTS;

@@ -1,5 +1,5 @@
 package model.filtering;
 
-public class FilteringStatus {
-    
+public enum FilteringStatus {
+    CATEGORY, PRODUCT_NAME,
 }

@@ -3,7 +3,6 @@ package model.requests;
 
 import model.account.Seller;
 import model.offer.Offer;
-import model.product.Product;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

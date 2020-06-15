@@ -111,6 +111,10 @@ public abstract class Account {
         this.balance = balance;
     }
 
+    public static void setAllAccounts(ArrayList<Account> allAccounts) {
+        Account.allAccounts = allAccounts;
+    }
+
     public static Account getAccountByUsername(String username) {
         for (Account account : allAccounts) {
             if (account.getUserName().equals(username)) {
@@ -131,15 +135,15 @@ public abstract class Account {
     }
 
     public void editInfo(String field, String newValue) {
-        if (field.equalsIgnoreCase("firstName")){
+        if (field.equalsIgnoreCase("firstName")) {
             this.setFirstName(newValue);
-        }else if (field.equalsIgnoreCase("lastName")){
+        } else if (field.equalsIgnoreCase("lastName")) {
             this.setLastName(newValue);
-        }else if (field.equalsIgnoreCase("EMail")){
+        } else if (field.equalsIgnoreCase("EMail")) {
             this.setEMail(newValue);
-        }else if (field.equalsIgnoreCase("telephoneNumber")){
+        } else if (field.equalsIgnoreCase("telephoneNumber")) {
             this.setTelephoneNumber(newValue);
-        }else if (field.equalsIgnoreCase("password")){
+        } else if (field.equalsIgnoreCase("password")) {
             this.setPassword(newValue);
         }
     }

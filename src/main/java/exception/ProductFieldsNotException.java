@@ -1,4 +1,4 @@
-package exception;
+package sample.exception;
 
 public class ProductFieldsNotException extends Exception {
     public ProductFieldsNotException(String message) {

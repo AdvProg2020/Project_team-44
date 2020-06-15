@@ -1,4 +1,4 @@
-package exception;
+package sample.exception;
 
 public class CodedDiscountNotExistsException extends Exception {
     public CodedDiscountNotExistsException(String message) {

@@ -1,4 +1,4 @@
-package exception;
+package sample.exception;
 
 public class OrderNotExistsException extends Exception {
     public OrderNotExistsException(String message) {

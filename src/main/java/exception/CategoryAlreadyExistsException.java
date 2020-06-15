@@ -1,4 +1,4 @@
-package exception;
+package sample.exception;
 
 public class CategoryAlreadyExistsException extends Exception {
     public CategoryAlreadyExistsException(String message) {

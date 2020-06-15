@@ -1,7 +1,7 @@
 package model.account;
 
+import com.google.gson.Gson;
 import model.Category;
-import model.buyLog.BuyLog;
 import model.offer.Offer;
 import model.product.Product;
 import model.requests.RequestForAddOff;
@@ -10,6 +10,9 @@ import model.requests.RequestForEditOff;
 import model.requests.RequestForEditProduct;
 import model.sellLog.SellLog;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,6 +23,7 @@ public class Seller extends Account {
     private String companyTelephone;
     private HashMap<Product, Integer> productsToSell;
     private ArrayList<Offer> offersList;
+    private static ArrayList<Seller> allSeller = new ArrayList<>();
 
     public Seller(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password, String companyName, String companyAddress, String companyTelephone) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
@@ -27,6 +31,26 @@ public class Seller extends Account {
         this.companyAddress = companyAddress;
         this.companyTelephone = companyTelephone;
         this.productsToSell = new HashMap<>();
+        allSeller.add(this);
+        createAndUpdateJson();
+    }
+
+    public static ArrayList<Seller> getAllSeller() {
+        return allSeller;
+    }
+
+    public static void setAllSeller(ArrayList<Seller> allSeller) {
+        Seller.allSeller = allSeller;
+    }
+
+    public void createAndUpdateJson() {
+        try {
+            Writer writer = new FileWriter("src/main/resources/Accounts/Sellers/" + this.getUserName() + ".json");
+            new Gson().toJson(this, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getCompanyName() {
@@ -111,12 +135,12 @@ public class Seller extends Account {
         return companyInfo;
     }
 
-    public void editCompanyInfo(String field, String newValue){
-        if (field.equalsIgnoreCase("companyName")){
+    public void editCompanyInfo(String field, String newValue) {
+        if (field.equalsIgnoreCase("companyName")) {
             this.setCompanyName(newValue);
-        }else if (field.equalsIgnoreCase("companyAddress")){
+        } else if (field.equalsIgnoreCase("companyAddress")) {
             this.setCompanyAddress(newValue);
-        }else if (field.equalsIgnoreCase("companyTelephone")){
+        } else if (field.equalsIgnoreCase("companyTelephone")) {
             this.setCompanyTelephone(newValue);
         }
     }

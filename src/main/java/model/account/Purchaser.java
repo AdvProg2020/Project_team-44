@@ -1,14 +1,15 @@
 package model.account;
 
+import com.google.gson.Gson;
 import model.CodedDiscount;
 import model.Rating;
 import model.buyLog.BuyLog;
 import model.product.Product;
 import model.sellLog.SellLog;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,12 +17,33 @@ import java.util.HashMap;
 public class Purchaser extends Account {
     private HashMap<Product, Integer> cart;
     private HashMap<Product, Seller> sellerSelectedForEachProduct = new HashMap<>();
+    private static ArrayList<Purchaser> allPurchaser = new ArrayList<>();
     private String address;
 
     public Purchaser(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password, String address) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
         this.cart = new HashMap<>();
         this.address = address;
+        allPurchaser.add(this);
+        createAndUpdateJson();
+    }
+
+    public static ArrayList<Purchaser> getAllPurchaser() {
+        return allPurchaser;
+    }
+
+    public static void setAllPurchaser(ArrayList<Purchaser> allPurchaser) {
+        Purchaser.allPurchaser = allPurchaser;
+    }
+
+    public void createAndUpdateJson() {
+        try {
+            Writer writer = new FileWriter("src/main/resources/Accounts/Purchasers/" + this.getUserName() + ".json");
+            new Gson().toJson(this, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public HashMap<Product, Seller> getSellerSelectedForEachProduct() {
@@ -57,11 +79,21 @@ public class Purchaser extends Account {
     public void purchase(String discountCode) {
         for (Product product : this.getCart().keySet()) {
             product.getAllPurchaser().add(this);
-            double discountCodeAmountUsed = 0;
-            discountCodeAmountUsed += this.getCartMoneyToPay() * CodedDiscount.getCodedDiscountByCode(discountCode).getDiscountPercentage();
-            new BuyLog(getCurrentDate(), this.getCartMoneyToPay(), discountCodeAmountUsed, getCartProducts(), this.getSellerSelectedForEachProduct());
-            new SellLog(getCurrentDate(), this.getCartMoneyToPay(), getOfferLossesMoney(), getCartProducts(), this.getFirstName(), this.getLastName());
+            Seller seller = this.getSellerSelectedForEachProduct().get(product);
+            if (seller.getProductsToSell().get(product) >= this.getCart().get(product)) {
+                seller.setBalance(seller.getBalance() + (product.getPrice() * this.getCart().get(product)));
+                seller.getProductsToSell().replace(product, seller.getProductsToSell().get(product) - this.getCart().get(product));
+                if (seller.getProductsToSell().get(product) == this.getCart().get(product)) {
+                    seller.getProductsToSell().remove(product);
+                }
+            }
         }
+        double discountCodeAmountUsed = 0;
+        discountCodeAmountUsed += this.getCartMoneyToPay() * CodedDiscount.getCodedDiscountByCode(discountCode).getDiscountPercentage() / 100;
+        new BuyLog(getCurrentDate(), this.getCartMoneyToPay() - discountCodeAmountUsed, discountCodeAmountUsed, getCartProducts(), this.getSellerSelectedForEachProduct());
+        new SellLog(getCurrentDate(), this.getCartMoneyToPay(), getOfferLossesMoney(), getCartProducts(), this.getFirstName(), this.getLastName());
+        this.setBalance(this.getBalance() - this.getCartMoneyToPay() + discountCodeAmountUsed);
+        this.getCart().clear();
     }
 
     public static Date getCurrentDate() {
@@ -84,19 +116,6 @@ public class Purchaser extends Account {
             isAvailableSecond = "Yes";
         info.add("isAvailable:    " + isAvailableFirst + "    " + isAvailableSecond);
         return info;
-    }
-
-    public void watchProducts() {
-
-    }
-
-
-    public void filterProducts() {
-
-    }
-
-    public void searchProducts() {
-
     }
 
     public ArrayList<String> getAllBuyLogIds() {

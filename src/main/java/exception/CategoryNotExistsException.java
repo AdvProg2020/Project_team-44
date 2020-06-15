@@ -1,4 +1,4 @@
-package exception;
+package sample.exception;
 
 public class CategoryNotExistsException extends Exception {
     public CategoryNotExistsException(String message) {
