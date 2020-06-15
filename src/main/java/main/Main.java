@@ -12,9 +12,7 @@ import model.account.Purchaser;
 import model.account.Seller;
 import model.product.Product;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Main extends Application {
     static ArrayList<Category> all = new ArrayList<>();
