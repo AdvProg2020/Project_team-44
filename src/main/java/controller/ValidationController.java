@@ -180,8 +180,8 @@ public abstract class ValidationController {
     }
 
     public static void checkProductBelongToSeller(Seller seller, Product product) throws SellerNotOwnsProductException {
-        if (!seller.getProductsToSell().contains(product)) {
-            throw new SellerNotOwnsProductException("This Seller Doesnt sell this product.");
+        if (!seller.getProductsToSell().containsKey(product)) {
+            throw new SellerNotOwnsProductException("This Seller Doesn't sell this product.");
         }
     }
 

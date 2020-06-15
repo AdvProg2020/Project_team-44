@@ -55,10 +55,10 @@ public abstract class Menu {
             if (menuNumber == 0) {
                 System.err.println("your menu number is invalid!");
                 this.execute();
-            } else if (menuNumber == submenus.size() + 1) {
+            } else if (menuNumber == submenus.size() + 2) {
                 this.show();
                 nextMenu = this;
-            } else if (menuNumber == submenus.size() + 2) {
+            } else if (menuNumber == submenus.size() + 1) {
                 if (parent == null) {
                     System.exit(0);
                 } else
