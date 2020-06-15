@@ -95,18 +95,6 @@ public class Json<T> {
         T t = (T) category;
         return t;
     }
-//    public T getSubCategoryObject(String path) {
-//        Gson gson = new Gson();
-//        JsonReader reader = null;
-//        try {
-//            reader = new JsonReader(new FileReader(path));
-//        } catch (FileNotFoundException e) {
-//
-//        }
-//        Category category = gson.fromJson(reader, Category.class);
-//        T t = (T) category;
-//        return t;
-//    }
 
     public ArrayList<T> getAllJson(String folderPath, String kind) {
         ArrayList<T> all = new ArrayList<>();
@@ -127,8 +115,6 @@ public class Json<T> {
                 case "category":
                     all.add(getCategoryObject(s));
                     break;
-               // case "subCategory":
-
             }
         }
         return all;
