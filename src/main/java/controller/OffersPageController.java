@@ -42,7 +42,7 @@ public abstract class OffersPageController {
 
     public static void processShowProduct(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
-        ProductsPageController.selectedProduct.setViewTimes();
+//        ProductsPageController.selectedProduct.setViewTimes();
         ProductsPageController.selectedProduct = Product.getProductByID(productId);
     }
 
@@ -140,10 +140,12 @@ public abstract class OffersPageController {
         } else if (availableSort.equals(Sort.SCORE)) {
             currentOffersSort = Sort.SCORE;
             processSortByScore(isUp);
-        } else if (availableSort.equals(Sort.PRICE)) {
-            currentOffersSort = Sort.PRICE;
-            processSortByPrice(isUp);
-        } else {
+        }
+//        else if (availableSort.equals(Sort.PRICE)) {
+//            currentOffersSort = Sort.PRICE;
+//            processSortByPrice(isUp);
+//        }
+        else {
             currentOffersSort = Sort.VIEW;
             processSortByView(isUp);
         }
