@@ -103,20 +103,20 @@ public abstract class ProductsPageController {
     }
 
     public static void processSortEach(String availableSort, boolean isUp) throws SortNotExistsException {
-        ValidationController.checkSortExistence(availableSort);
-        if (availableSort.equals(Sort.TIME)) {
-            currentProductsSort = Sort.TIME;
-            processSortByTime(isUp);
-        } else if (availableSort.equals(Sort.SCORE)) {
-            currentProductsSort = Sort.SCORE;
-            processSortByScore(isUp);
-        } else if (availableSort.equals(Sort.PRICE)) {
-            currentProductsSort = Sort.PRICE;
-            processSortByPrice(isUp);
-        } else {
-            currentProductsSort = Sort.VIEW;
-            processSortByView(isUp);
-        }
+//        ValidationController.checkSortExistence(availableSort);
+//        if (availableSort.equals(Sort.TIME)) {
+//            currentProductsSort = Sort.TIME;
+//            processSortByTime(isUp);
+//        } else if (availableSort.equals(Sort.SCORE)) {
+//            currentProductsSort = Sort.SCORE;
+//            processSortByScore(isUp);
+//        } else if (availableSort.equals(Sort.PRICE)) {
+//            currentProductsSort = Sort.PRICE;
+//            processSortByPrice(isUp);
+//        } else {
+//            currentProductsSort = Sort.VIEW;
+//            processSortByView(isUp);
+//        }
     }
 
     public static void processSortByTime(boolean isUp) {
@@ -165,7 +165,7 @@ public abstract class ProductsPageController {
 
     public static void processShowProduct(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
-        ProductsPageController.selectedProduct.setViewTimes();
+//        ProductsPageController.selectedProduct.setViewTimes();
         ProductsPageController.selectedProduct = Product.getProductByID(productId);
     }
 

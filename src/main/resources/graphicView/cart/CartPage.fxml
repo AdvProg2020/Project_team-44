@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+
+
+<fx:root prefHeight="400.0" prefWidth="600.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.cart.CartPageController">
+   <children>
+      <TableView layoutX="100.0" layoutY="21.0" prefHeight="343.0" prefWidth="600.0" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn prefWidth="144.5" resizable="false" text="Product" />
+            <TableColumn prefWidth="77.0" resizable="false" text="Seller" />
+            <TableColumn prefWidth="114.0" resizable="false" text="Price Fee" />
+          <TableColumn prefWidth="75.5" resizable="false" text="Quantity" />
+            <TableColumn prefWidth="123.5" resizable="false" text="Amount" />
+            <TableColumn prefWidth="69.5" text="Remove" />
+        </columns>
+      </TableView>
+      <ToolBar layoutX="188.0" layoutY="343.0" prefHeight="57.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="343.0">
+        <items>
+            <Label text="Total Price :" />
+            <Label text="totalPriceLabel" />
+            <Region prefHeight="37.0" prefWidth="354.0" />
+            <Button mnemonicParsing="false" text="Checkout" />
+        </items>
+      </ToolBar>
+   </children>
+</fx:root>

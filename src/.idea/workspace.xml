@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4d6359c8-40ef-4034-a2c4-b8e509de1c79" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/controller/LoginPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/controller/LoginPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/controller/OffersPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/controller/OffersPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/controller/ProductsPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/controller/ProductsPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/controller/ValidationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/controller/ValidationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/controller/sortComparators/TimeComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/controller/sortComparators/TimeComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/controller/sortComparators/ViewComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/controller/sortComparators/ViewComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/CommandProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/MainMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/Menu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/RegisterAndLoginMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/managerRegion/ManageAllProductsMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/managerRegion/ManageCategoriesMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/managerRegion/ManageRequestsMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/managerRegion/ManageUsersMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/managerRegion/ManagerAccountMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/managerRegion/ViewDiscountCodesMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/managerRegion/ViewPersonalInfoOfManagerMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/offsPage/FilteringInOffsMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/offsPage/OffsMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/offsPage/SortingInOffsMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/productsPage/FilteringInProductsPageMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/productsPage/ProductPage/CommentsMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/productsPage/ProductPage/ProductPageMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/productsPage/ProductsPageMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/productsPage/ShowProductsInProductsPageMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/productsPage/SortingInProductsPageMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/purchaseRegion/PurchaseMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/purchaseRegion/PurchaserAccountMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/purchaseRegion/ViewCartMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/purchaseRegion/ViewOrdersMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/purchaseRegion/ViewPersonalInfoOfPurchaserMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/regexEnumForInput/CreateDiscountCodeRegex.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/regexEnumForInput/Regex.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/regexEnumForInput/RegisterRegex.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/sellerRegion/ManageProductsForSellerMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/sellerRegion/SellerAccountMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/sellerRegion/ViewOffsOfSellerMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/menu/sellerRegion/ViewPersonalInfoOfSellerMenu.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1dIJPzsKGZZfDaw6TmsUEY1Wnd5" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4d6359c8-40ef-4034-a2c4-b8e509de1c79" name="Default Changelist" comment="" />
+      <created>1592106653689</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1592106653689</updated>
+      <workItem from="1592106655128" duration="29000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="465" y="196" key="FileChooserDialogImpl" timestamp="1592106682664">
+      <screen x="0" y="0" width="1368" height="882" />
+    </state>
+    <state x="465" y="196" key="FileChooserDialogImpl/0.0.1368.882@0.0.1368.882" timestamp="1592106682664" />
+  </component>
+</project>
