@@ -1,6 +1,6 @@
-package sample.controller;
+package controller;
 
-import sample.exception.*;
+import exception.*;
 import model.CodedDiscount;
 import model.account.Purchaser;
 import model.buyLog.BuyLog;
