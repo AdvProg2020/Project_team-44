@@ -17,7 +17,7 @@ public abstract class LoginPageController {
     }
 
     public static Account getLoggedInAccount() {
-        return loggedInAccount;
+        return  loggedInAccount;
     }
 
     public static Account processCreateAccount(String type, String username, String password, String firstName, String lastName, String email
