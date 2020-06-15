@@ -1,4 +1,4 @@
-package sample.controller.sortComparators;
+package controller.sortComparators;
 
 import model.product.Product;
 

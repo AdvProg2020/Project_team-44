@@ -1,4 +1,4 @@
-package sample.exception;
+package exception;
 
 public class SellerUserNameNotExists extends Exception {
     public SellerUserNameNotExists(String message) {

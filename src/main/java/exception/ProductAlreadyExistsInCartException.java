@@ -1,4 +1,4 @@
-package sample.exception;
+package exception;
 
 public class ProductAlreadyExistsInCartException extends Exception {
     public ProductAlreadyExistsInCartException(String message) {

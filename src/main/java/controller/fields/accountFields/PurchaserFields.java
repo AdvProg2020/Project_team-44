@@ -1,4 +1,4 @@
-package sample.controller.fields.accountFields;
+package controller.fields.accountFields;
 
 public enum  PurchaserFields {
     USER_NAME, FIRST_NAME, LAST_NAME, EMAIL, TELEPHONE_NUMBER, PASSWORD, ADDRESS

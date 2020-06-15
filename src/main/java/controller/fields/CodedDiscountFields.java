@@ -1,4 +1,4 @@
-package sample.controller.fields;
+package controller.fields;
 
 public enum CodedDiscountFields {
     INITIAL_DATE,

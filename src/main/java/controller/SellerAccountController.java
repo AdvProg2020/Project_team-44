@@ -1,6 +1,6 @@
-package sample.controller;
+package controller;
+import exception.*;
 
-import sample.exception.*;
 import model.Category;
 import model.account.Purchaser;
 import model.account.Seller;

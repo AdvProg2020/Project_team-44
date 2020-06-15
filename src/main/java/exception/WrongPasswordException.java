@@ -1,4 +1,4 @@
-package sample.exception;
+package exception;
 
 public class WrongPasswordException extends Exception {
     public WrongPasswordException(String message) {

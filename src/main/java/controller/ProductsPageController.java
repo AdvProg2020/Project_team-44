@@ -1,14 +1,10 @@
-package sample.controller;
+package controller;
 
-import sample.controller.fields.ProductsPageAvailableFilters;
-import sample.controller.sortComparators.PriceComparator;
-import sample.controller.sortComparators.ScoreComparator;
-import sample.controller.sortComparators.TimeComparator;
-import sample.controller.sortComparators.ViewComparator;
-import sample.exception.CategoryNotExistsException;
-import sample.exception.FilterNotExistsException;
-import sample.exception.ProductIdNotExistsException;
-import sample.exception.SortNotExistsException;
+
+import controller.fields.ProductsPageAvailableFilters;
+import controller.sortComparators.*;
+import exception.*;
+
 import model.Category;
 import model.Sort.Sort;
 import model.product.Product;

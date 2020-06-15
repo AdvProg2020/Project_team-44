@@ -1,4 +1,4 @@
-package sample.exception;
+package exception;
 
 public class SellerFieldsNotExistException extends Exception {
     public SellerFieldsNotExistException(String message) {
