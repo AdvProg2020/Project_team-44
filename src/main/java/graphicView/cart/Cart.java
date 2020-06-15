@@ -7,17 +7,11 @@ package graphicView.cart;
  */
 public class Cart {
     private String productName;
-    private String seller;
-    private String priceFee;
-    private String quantity;
-    private String amount;
+    private Integer priceFee;
 
-    public Cart(String productName, String seller, String priceFee, String quantity, String amount) {
+    public Cart(String productName, Integer priceFee) {
         this.productName = productName;
-        this.seller = seller;
         this.priceFee = priceFee;
-        this.quantity = quantity;
-        this.amount = amount;
     }
 
     public String getProductName() {
@@ -28,35 +22,11 @@ public class Cart {
         this.productName = productName;
     }
 
-    public String getSeller() {
-        return seller;
-    }
-
-    public void setSeller(String seller) {
-        this.seller = seller;
-    }
-
-    public String getPriceFee() {
+    public Integer getPriceFee() {
         return priceFee;
     }
 
-    public void setPriceFee(String priceFee) {
+    public void setPriceFee(Integer priceFee) {
         this.priceFee = priceFee;
-    }
-
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getAmount() {
-        return amount;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
     }
 }

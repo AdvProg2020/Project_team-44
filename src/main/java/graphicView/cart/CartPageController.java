@@ -13,17 +13,20 @@ public class CartPageController implements Initializable {
     //    require to go to model
     public ObservableList<Cart> getCart() {
         ObservableList<Cart> carts = FXCollections.observableArrayList();
-        carts.add(new Cart("Apple", "Digikala", "5", "5", ""));
-        carts.add(new Cart("Boob", "Refah", "100", "28", ""));
-        carts.add(new Cart("Pussy", "Shahrvand", "1000", "2", ""));
-        carts.add(new Cart("Dick", "Shixon", "1", "1", ""));
+        carts.add(new Cart("Apple", 5));
+        carts.add(new Cart("Orange", 4));
+        carts.add(new Cart("Lemon", 3));
+        carts.add(new Cart("Banana", 2));
         return carts;
     }
+
     @FXML
     TableView<Cart> cartTableView = new TableView<>();
+    @FXML
+//    TableView<>
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
+
     }
 }
