@@ -171,6 +171,4 @@ public class ProductsMenu {
             return (int) (o2.getPrice() - o1.getPrice());
         }
     }
-
-
 }

@@ -17,6 +17,7 @@
                <items>
                   <CheckMenuItem fx:id="productNameItem" mnemonicParsing="false" onAction="#clickProductName" text="Product name" />
                   <CheckMenuItem fx:id="categoryItem" mnemonicParsing="false" onAction="#clickCategory" text="Category" />
+                  <CheckMenuItem mnemonicParsing="false" text="Offer" />
                </items>
                 </MenuButton>
                 <MenuButton fx:id="productsMenuButton" alignment="CENTER" mnemonicParsing="false" onShowing="#onGoods" style="-fx-background-color: transparent;" text="Products">
