@@ -18,6 +18,7 @@ public abstract class ProductsPageController {
     static ArrayList<Product> allFilteredProducts = Product.getAllProducts();
     static ArrayList<String> allFilters = new ArrayList<>();
 
+
     static {
         processSortByView(true);
     }
