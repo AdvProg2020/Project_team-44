@@ -54,6 +54,10 @@ public class Purchaser extends Account {
         return cart;
     }
 
+    public void setCart(HashMap<Product, Integer> cart) {
+        this.cart = cart;
+    }
+
     public String getAddress() {
         return address;
     }

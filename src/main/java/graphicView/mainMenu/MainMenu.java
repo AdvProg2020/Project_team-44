@@ -5,11 +5,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import main.Main;
 
 import java.io.IOException;
 
 public class MainMenu {
+    static Stage window;
+
+    public static void display() throws IOException {
+        window = new Stage();
+        Pane root = FXMLLoader.load(MainMenu.class.getResource("/graphicView/mainMenu/mainMenu.fxml"));
+        Scene scene = new Scene(root);
+        window.setScene(scene);
+        window.show();
+    }
 
     @FXML
     void onAccountRegion(ActionEvent event) {
