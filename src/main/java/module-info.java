@@ -1,12 +1,19 @@
 module team {
     requires javafx.fxml;
     requires javafx.graphics;
-    requires com.google.gson;
     requires javafx.controls;
-    //requires java.desktop;
+    requires java.desktop;
+    requires com.google.gson;
+    requires javafx.base;
+    requires com.jfoenix;
+
     opens main;
+    opens graphicView.userRegion.loginPanel to javafx.fxml;
     opens graphicView.mainMenu to javafx.fxml;
     opens graphicView.productMenu to javafx.fxml;
+    opens graphicView.cart to javafx.fxml, javafx.base;
+    opens graphicView.purchasePage to javafx.fxml;
+
     opens model to com.google.gson;
     opens model.account to com.google.gson;
     opens model.sellLog to com.google.gson;

@@ -6,17 +6,17 @@ import javafx.scene.control.TextField;
 
 public class InfoSetPanelController {
     @FXML
-    private  TextField firstNameField = new TextField();
+    private TextField firstNameField = new TextField();
     @FXML
-    private  TextField secondNameField = new TextField();
+    private TextField secondNameField = new TextField();
     @FXML
-    private  TextField telField = new TextField();
+    private TextField telField = new TextField();
     @FXML
-    private  TextField addressField = new TextField();
+    private TextField addressField = new TextField();
     @FXML
-    private  Label messageLabel = new Label();
+    private Label messageLabel = new Label();
 
-//    set on nextButton action
+    //    set on nextButton action
     public void goNext() {
         if (!firstNameField.getText().matches("[a-z|A-Z]+") ||
                 !secondNameField.getText().matches("[a-z|A-Z]+") ||

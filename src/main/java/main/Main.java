@@ -1,20 +1,12 @@
 package main;
 
+import graphicView.purchasePage.PurchasePage;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Category;
-import model.account.Account;
-import model.account.Manager;
-import model.account.Purchaser;
-import model.account.Seller;
 import model.product.Product;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Main extends Application {
     static ArrayList<Category> all = new ArrayList<>();
@@ -37,14 +29,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        window = stage;
-        Pane root = FXMLLoader.load(getClass().getResource("/graphicView/mainMenu/mainMenu.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+//        InfoSetPanel.display();
+//        LoginPanel.display();
+//        CartPage.display();
+        PurchasePage.display();
     }
-
-    //    public static void updateJson(String path, ) {
+//
+//        public static void updateJson(String path, ) {
 //
 //    }
     private static void setCategoryParent(ArrayList<Category> all) {

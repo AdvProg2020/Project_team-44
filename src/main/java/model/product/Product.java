@@ -217,7 +217,7 @@ public class Product {
         return logId;
     }
 
-    public Product getProductByName(String productName) {
+    public static Product getProductByName(String productName) {
         for (Product allProduct : allProducts) {
             if (allProduct.getName().equals(productName))
                 return allProduct;

@@ -8,6 +8,7 @@ import model.product.Product;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public abstract class PurchaserAccountController {
     static String discountCode;
@@ -96,4 +97,44 @@ public abstract class PurchaserAccountController {
         ((Purchaser) LoginPageController.loggedInAccount).purchase(PurchaserAccountController.discountCode);
     }
 
+    //    only called when user click the delete button, the case that quantity went 0 is handled in decreaseItemInCart
+    public static void deleteItemInCart(String productName) {
+        ((Purchaser) LoginPageController.getLoggedInAccount()).getCart().remove(Product.getProductByName(productName));
+    }
+
+    public static ArrayList<Product> getCartProducts() {
+        return ((Purchaser) LoginPageController.getLoggedInAccount()).getCartProducts();
+    }
+
+    //    increase means add one to products quantity, not adding a new product; increase has no limits
+    public static void increaseItemInCart(String productName) {
+        //  pre-actions to avoid hard coding
+        Purchaser currentPurchaser = ((Purchaser) LoginPageController.getLoggedInAccount());
+        HashMap<Product, Integer> currentPurchaserCart = currentPurchaser.getCart();
+        int currentProductQuantity = ((Purchaser) LoginPageController.getLoggedInAccount()).getCart().get(Product.getProductByName(productName));
+        Product increasedProduct = Product.getProductByName(productName);
+        //  increase by 1
+        currentPurchaserCart.replace(increasedProduct,
+                currentProductQuantity,
+                currentProductQuantity + 1);
+        // set temporary cart to the original one
+        ((Purchaser) LoginPageController.getLoggedInAccount()).setCart(currentPurchaserCart);
+    }
+
+    //  if quantity of product went to 0, the product would be deleted from the cart
+    public static void decreaseItemInCart(String productName) {
+        //  pre-actions to avoid hard coding
+        Purchaser currentPurchaser = ((Purchaser) LoginPageController.getLoggedInAccount());
+        HashMap<Product, Integer> currentPurchaserCart = currentPurchaser.getCart();
+        int currentProductQuantity = ((Purchaser) LoginPageController.getLoggedInAccount()).getCart().get(Product.getProductByName(productName));
+        Product decreasedProduct = Product.getProductByName(productName);
+        // remove if there was only 1 product left
+        if (currentProductQuantity == 1) {
+            currentPurchaserCart.remove(decreasedProduct);
+        } else { // decrease by 1
+            currentPurchaserCart.replace(decreasedProduct, currentProductQuantity, currentProductQuantity - 1);
+        }
+        //  set temporary cart to original one
+        ((Purchaser) LoginPageController.getLoggedInAccount()).setCart(currentPurchaserCart);
+    }
 }

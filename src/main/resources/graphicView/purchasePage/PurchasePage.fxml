@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="501.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.purchasePage.PurchasePageController">
+   <children>
+      <JFXTextField layoutX="238.0" layoutY="81.0" />
+      <JFXTextField layoutX="238.0" layoutY="189.0" AnchorPane.rightAnchor="95.0" />
+      <Label layoutX="105.0" layoutY="85.0" text="Address" />
+      <Label layoutX="105.0" layoutY="193.0" text="Tel" />
+      <Label layoutX="105.0" layoutY="291.0" text="Coded Discount" />
+      <JFXTextField layoutX="238.0" layoutY="287.0" />
+      <JFXButton disable="true" layoutX="247.0" layoutY="409.0" prefHeight="25.0" prefWidth="135.0" ripplerFill="#cb1818" text="Finish Purchase" />
+      <JFXButton layoutX="93.0" layoutY="409.0" text="back" />
+      <Label layoutX="105.0" layoutY="349.0" prefHeight="42.0" prefWidth="345.0" />
+   </children>
+</AnchorPane>
