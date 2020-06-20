@@ -65,16 +65,16 @@ public class Main extends Application {
         }
     }
 
-//    private static void reload() {
-//        Category.setAllCategories(new Json<Category>().getAllJson("src/main/resources/Categories", "category"));
-//        Product.setAllProducts(new Json<Product>().getAllJson("src/main/resources/Products", "product"));
-//        Manager.setAllManagers(new Json<Manager>().getAllJson("src/main/resources/Accounts/Managers", "manager"));
-//        Seller.setAllSeller(new Json<Seller>().getAllJson("src/main/resources/Accounts/Sellers", "seller"));
-//        Purchaser.setAllPurchaser(new Json<Purchaser>().getAllJson("src/main/resources/Accounts/Purchasers", "purchaser"));
-//        Account.getAllAccounts().addAll(Manager.getAllManagers());
-//        Account.getAllAccounts().addAll(Seller.getAllSeller());
-//        Account.getAllAccounts().addAll(Purchaser.getAllPurchaser());
-//        setCategoryParent(Category.getAllCategories());
-//        setProductCategory();
-//    }
+    private static void reload() {
+        Category.setAllCategories(new Json<Category>().getAllJson("src/main/resources/Categories", "category"));
+        Product.setAllProducts(new Json<Product>().getAllJson("src/main/resources/Products", "product"));
+        Manager.setAllManagers(new Json<Manager>().getAllJson("src/main/resources/Accounts/Managers", "manager"));
+        Seller.setAllSeller(new Json<Seller>().getAllJson("src/main/resources/Accounts/Sellers", "seller"));
+        Purchaser.setAllPurchaser(new Json<Purchaser>().getAllJson("src/main/resources/Accounts/Purchasers", "purchaser"));
+        Account.getAllAccounts().addAll(Manager.getAllManagers());
+        Account.getAllAccounts().addAll(Seller.getAllSeller());
+        Account.getAllAccounts().addAll(Purchaser.getAllPurchaser());
+        setCategoryParent(Category.getAllCategories());
+        setProductCategory();
+    }
 }
