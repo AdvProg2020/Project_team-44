@@ -12,7 +12,7 @@ public class SellLog {
     private String logID;
     private Date date;
     private double moneyGained;
-    private double offerLossMoney;//if offer exists
+    private double offerLossMoney;// if offer exists
     private ArrayList<Product> allSellProducts;
     private String purchaserFirstName;
     private String purchaserLastName;
@@ -26,7 +26,7 @@ public class SellLog {
         this.offerLossMoney = offerLossMoney;
         this.allSellProducts = allSellProducts;
         this.purchaserFirstName = purchaserFirstName;
-        this.purchaserLastName = this.purchaserLastName;
+        this.purchaserLastName = purchaserLastName;
         allSellLogs.add(this);
     }
 

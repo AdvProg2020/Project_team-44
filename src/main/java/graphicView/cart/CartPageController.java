@@ -96,10 +96,7 @@ public class CartPageController implements Initializable {
 
     @FXML
     private void gotoNextScene() {
-        checkoutButton.setOnAction(actionEvent -> {
-            System.out.println("We are fudged up!");
-        });
-
+        System.out.println("We are fudged up!");
     }
 
     // class that would be shown in Cart Table
@@ -135,7 +132,6 @@ public class CartPageController implements Initializable {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-
 
             //  decrease button
             decreaseButton.setOnAction(actionEvent -> {

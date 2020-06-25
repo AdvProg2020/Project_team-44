@@ -12,7 +12,9 @@ public class PurchasePage {
         Stage primaryStage = new Stage();
         Parent root = FXMLLoader.load(PurchasePage.class.getResource("/graphicView/purchasePage/PurchasePage.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 }

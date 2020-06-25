@@ -174,7 +174,7 @@ public abstract class ValidationController {
     }
 
     public static void checkEnoughMoneyToPay(Purchaser purchaser, double moneyToPay) throws NotEnoughMoneyToPayException {
-        if (purchaser.getBalance() < purchaser.getCartMoneyToPay()) {
+        if (purchaser.getBalance() < moneyToPay) {
             throw new NotEnoughMoneyToPayException("Not Enough money");
         }
     }

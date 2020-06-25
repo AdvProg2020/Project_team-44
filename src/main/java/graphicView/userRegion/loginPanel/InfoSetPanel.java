@@ -15,8 +15,7 @@ public class InfoSetPanel {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");
         window.setScene(new Scene(FXMLLoader.load(InfoSetPanel.class.getResource("InfoSetPanel.fxml"))));
-        window.setMaxHeight(280);
-        window.setMaxWidth(500);
+        window.setMaximized(true);
         window.show();
     }
 }

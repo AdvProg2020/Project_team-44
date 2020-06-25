@@ -16,8 +16,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginPanelController implements Initializable {
-//    pass this to next scene for adding properties
+    //    pass this to next scene for adding properties
     static Account registeringAccount;
+
+    public static Account getRegisteringAccount() {
+        return registeringAccount;
+    }
 
     final ObservableList<String> accountTypesList = FXCollections.observableArrayList("Head Manager",
             "Purchaser");
@@ -89,7 +93,7 @@ public class LoginPanelController implements Initializable {
         }
         try {
             resetFields();
-            registeringAccount =  LoginPageController.processCreateAccount(accountTypes.getValue().toLowerCase(),
+            registeringAccount = LoginPageController.processCreateAccount(accountTypes.getValue().toLowerCase(),
                     registerUsernameField.getText(),
                     registerPasswordField.getText(),
                     "",
