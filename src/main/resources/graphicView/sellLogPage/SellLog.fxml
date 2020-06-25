@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<AnchorPane prefHeight="418.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.sellLogPage.SellLogController">
+   <children>
+      <JFXToolbar layoutX="10.0" layoutY="321.0" prefHeight="63.0" prefWidth="600.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <left>
+            <JFXButton fx:id="backButton" buttonType="RAISED" onAction="#goPreviousScene" prefHeight="25.0" prefWidth="134.0" text="back" BorderPane.alignment="CENTER" />
+         </left>
+      </JFXToolbar>
+      <TableView fx:id="soldProductsTableView" layoutX="534.0" prefHeight="360.0" prefWidth="216.0" AnchorPane.leftAnchor="534.0" AnchorPane.topAnchor="0.0">
+        <columns>
+            <TableColumn fx:id="rowNumberColumn" prefWidth="75.0" text="num" />
+          <TableColumn fx:id="soldProductsColumn" prefWidth="135.0" text="All Sell Products" />
+        </columns>
+      </TableView>
+      <TableView fx:id="sellLogInfoTable" layoutX="-2.0" layoutY="-2.0" prefHeight="360.0" prefWidth="536.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="purchaserFirstNameColumn" prefWidth="75.0" text="First Name" />
+          <TableColumn fx:id="purchaserLastNameColumn" prefWidth="75.0" text="Last Name" />
+            <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="offerLossMoneyColumn" prefWidth="115.5" text="Offer Loss Money" />
+            <TableColumn minWidth="0.0" prefWidth="0.0" text="Column X" />
+            <TableColumn fx:id="moneyGainedColumn" prefWidth="102.5" text="Gained Money" />
+            <TableColumn fx:id="statusColumn" prefWidth="92.0" text="Status" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

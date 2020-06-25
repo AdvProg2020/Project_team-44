@@ -19,9 +19,23 @@ public class Purchaser extends Account {
     private HashMap<Product, Seller> sellerSelectedForEachProduct = new HashMap<>();
     private static ArrayList<Purchaser> allPurchaser = new ArrayList<>();
     private String address;
+    // address and tel for process purchase
+    // nothing to do with, cause we are not a real shop! but store them
+    private String purchaseAddress;
+    private String purchaseTel;
+
+    public void setPurchaseAddress(String purchaseAddress) {
+        this.purchaseAddress = purchaseAddress;
+    }
+
+    public void setPurchaseTel(String purchaseTel) {
+        this.purchaseTel = purchaseTel;
+    }
 
     public Purchaser(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password, String address) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
+        purchaseAddress = "";
+        purchaseTel = "";
         this.cart = new HashMap<>();
         this.address = address;
         allPurchaser.add(this);

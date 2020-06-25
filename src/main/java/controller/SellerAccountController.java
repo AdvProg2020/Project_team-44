@@ -23,6 +23,7 @@ public abstract class SellerAccountController {
 
     public static ArrayList<String> processViewCompanyInfo() {
         return ((Seller) LoginPageController.loggedInAccount).getCompanyInfo();
+
     }
 
     public static ArrayList<String> processViewSalesHistory() {

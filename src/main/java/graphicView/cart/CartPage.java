@@ -18,6 +18,7 @@ public class CartPage {
         window.setTitle("Hello World");
         Scene root = new Scene(FXMLLoader.load(CartPage.class.getResource("/graphicView/cart/CartPage.fxml")));
         window.setScene(root);
+        window.setMaximized(true);
         window.show();
     }
 }

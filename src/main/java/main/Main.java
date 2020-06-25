@@ -1,6 +1,14 @@
 package main;
 
+import graphicView.buyLogPage.BuyLog;
+import graphicView.buyLogPage.BuyLogPage;
+import graphicView.cart.CartPage;
+import graphicView.discountCodes.DiscountCodesPage;
 import graphicView.purchasePage.PurchasePage;
+import graphicView.sellLogPage.SellLog;
+import graphicView.sellLogPage.SellLogPage;
+import graphicView.userRegion.loginPanel.InfoSetPanel;
+import graphicView.userRegion.loginPanel.LoginPanel;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Category;
@@ -29,12 +37,20 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-//        InfoSetPanel.display();
-//        LoginPanel.display();
-//        CartPage.display();
+        InfoSetPanel.display();
+        LoginPanel.display();
+        CartPage.display();
         PurchasePage.display();
+        SellLogPage.display();
+        BuyLogPage.display();
+        SellLog.display();
+        BuyLog.display();
+        PurchasePage.display();
+        DiscountCodesPage.display();
     }
-//
+
+
+    //
 //        public static void updateJson(String path, ) {
 //
 //    }

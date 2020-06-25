@@ -13,6 +13,9 @@ module team {
     opens graphicView.productMenu to javafx.fxml;
     opens graphicView.cart to javafx.fxml, javafx.base;
     opens graphicView.purchasePage to javafx.fxml;
+    opens graphicView.sellLogPage to javafx.fxml, javafx.base;
+    opens graphicView.buyLogPage to javafx.fxml, javafx.base;
+    opens graphicView.discountCodes to javafx.fxml, javafx.base;
 
     opens model to com.google.gson;
     opens model.account to com.google.gson;
