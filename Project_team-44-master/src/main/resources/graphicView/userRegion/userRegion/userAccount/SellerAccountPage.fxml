@@ -12,163 +12,175 @@
 <?import javafx.scene.text.Font?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.userRegion.userAccount.SellerAccountPageController">
-   <children>
-      <Line endX="705.9999389648438" layoutX="193.0" layoutY="130.0" startX="-200.39999389648438" />
-      <ImageView fx:id="imageOfSeller" fitHeight="157.0" fitWidth="160.0" layoutX="48.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../../../Desktop/green%20target.png" />
-         </image>
-      </ImageView>
-      <Label alignment="CENTER" layoutX="74.0" layoutY="364.0" prefHeight="23.0" prefWidth="106.0" text="Seller">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="nameOfSeller" layoutX="344.0" layoutY="164.0" prefHeight="63.0" prefWidth="330.0">
-         <font>
-            <Font name="Arial Narrow" size="18.0" />
-         </font>
-         <textFill>
-            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-               <stops>
-                  <Stop color="BLACK" />
-                  <Stop color="BLACK" offset="1.0" />
-               </stops>
-            </RadialGradient>
-         </textFill>
-      </Label>
-      <Label fx:id="usernameOfSeller" layoutX="379.0" layoutY="213.0" prefHeight="63.0" prefWidth="330.0">
-         <font>
-            <Font name="Arial Narrow Bold" size="18.0" />
-         </font>
-         <textFill>
-            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-               <stops>
-                  <Stop color="BLACK" />
-                  <Stop color="BLACK" offset="1.0" />
-               </stops>
-            </RadialGradient>
-         </textFill>
-      </Label>
-      <Label layoutX="287.0" layoutY="276.0" prefHeight="63.0" prefWidth="114.0" text="phonenumber :">
-         <font>
-            <Font name="Arial Narrow Bold" size="18.0" />
-         </font>
-         <textFill>
-            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-               <stops>
-                  <Stop color="BLACK" />
-                  <Stop color="BLACK" offset="1.0" />
-               </stops>
-            </RadialGradient>
-         </textFill>
-      </Label>
-      <Hyperlink fx:id="phoneNumberOfSeller" layoutX="401.0" layoutY="276.0" prefHeight="63.0" prefWidth="300.0" text="Hyperlink">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Hyperlink>
-      <Label layoutX="288.0" layoutY="335.0" prefHeight="63.0" prefWidth="54.0" text="Email :">
-         <font>
-            <Font name="Arial Narrow Bold" size="18.0" />
-         </font>
-         <textFill>
-            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-               <stops>
-                  <Stop color="BLACK" />
-                  <Stop color="BLACK" offset="1.0" />
-               </stops>
-            </RadialGradient>
-         </textFill>
-      </Label>
-      <Hyperlink fx:id="emailOfSeller" layoutX="344.0" layoutY="335.0" prefHeight="63.0" prefWidth="400.0" text="Hyperlink">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Hyperlink>
-      <Label fx:id="passwordOfSeller" layoutX="379.0" layoutY="391.0" prefHeight="63.0" prefWidth="330.0">
-         <font>
-            <Font name="Arial Narrow Bold" size="18.0" />
-         </font>
-         <textFill>
-            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-               <stops>
-                  <Stop color="BLACK" />
-                  <Stop color="BLACK" offset="1.0" />
-               </stops>
-            </RadialGradient>
-         </textFill>
-      </Label>
-      <Label layoutX="288.0" layoutY="164.0" prefHeight="63.0" prefWidth="54.0" text="name :">
-         <font>
-            <Font name="Arial Narrow Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="287.0" layoutY="213.0" prefHeight="63.0" prefWidth="85.0" text="username :">
-         <font>
-            <Font name="Arial Narrow Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="287.0" layoutY="391.0" prefHeight="63.0" prefWidth="86.0" text="password :">
-         <font>
-            <Font name="Arial Narrow Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="287.0" layoutY="452.0" prefHeight="63.0" prefWidth="120.0" text="company name :">
-         <font>
-            <Font name="Arial Narrow Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="companyName" layoutX="409.0" layoutY="452.0" prefHeight="63.0" prefWidth="284.0">
-         <font>
-            <Font name="Arial Narrow" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="284.0" layoutY="504.0" prefHeight="63.0" prefWidth="157.0" text="company address :">
-         <font>
-            <Font name="Arial Narrow Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="companyAddress" layoutX="436.0" layoutY="504.0" prefHeight="63.0" prefWidth="439.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="284.0" layoutY="560.0" prefHeight="63.0" prefWidth="144.0" text="company phone :">
-         <font>
-            <Font name="Arial Narrow Bold" size="18.0" />
-         </font>
-      </Label>
-      <Hyperlink fx:id="companyPhone" layoutX="428.0" layoutY="560.0" prefHeight="63.0" prefWidth="273.0" text="Hyperlink">
-         <font>
-            <Font name="Arial Narrow" size="18.0" />
-         </font>
-      </Hyperlink>
-      <Button layoutX="727.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#viewSaleHistory" prefHeight="54.0" prefWidth="129.0" style="-fx-background-color: white;" text="view sale history">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <Button layoutX="539.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#editInformation" prefHeight="54.0" prefWidth="188.0" style="-fx-background-color: white;" text="edit information">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <Button layoutX="352.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#allProductsForSale" prefHeight="54.0" prefWidth="188.0" style="-fx-background-color: white;" text="all products for sale">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <Button layoutX="159.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#requestForAddProduct" prefHeight="54.0" prefWidth="188.0" style="-fx-background-color: white;" text="request for add product">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <Button layoutX="14.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#viewOffs" prefHeight="54.0" prefWidth="144.0" style="-fx-background-color: white;" text="view offs">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-   </children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0"
+      prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="graphicView.userRegion.userAccount.SellerAccountPageController">
+    <children>
+        <Line endX="705.9999389648438" layoutX="193.0" layoutY="130.0" startX="-200.39999389648438"/>
+        <ImageView fx:id="imageOfSeller" fitHeight="157.0" fitWidth="160.0" layoutX="48.0" layoutY="188.0"
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../../Desktop/green%20target.png"/>
+            </image>
+        </ImageView>
+        <Label alignment="CENTER" layoutX="74.0" layoutY="364.0" prefHeight="23.0" prefWidth="106.0" text="Seller">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+        <Label fx:id="nameOfSeller" layoutX="344.0" layoutY="164.0" prefHeight="63.0" prefWidth="330.0">
+            <font>
+                <Font name="Arial Narrow" size="18.0"/>
+            </font>
+            <textFill>
+                <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                    <stops>
+                        <Stop color="BLACK"/>
+                        <Stop color="BLACK" offset="1.0"/>
+                    </stops>
+                </RadialGradient>
+            </textFill>
+        </Label>
+        <Label fx:id="usernameOfSeller" layoutX="379.0" layoutY="213.0" prefHeight="63.0" prefWidth="330.0">
+            <font>
+                <Font name="Arial Narrow Bold" size="18.0"/>
+            </font>
+            <textFill>
+                <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                    <stops>
+                        <Stop color="BLACK"/>
+                        <Stop color="BLACK" offset="1.0"/>
+                    </stops>
+                </RadialGradient>
+            </textFill>
+        </Label>
+        <Label layoutX="287.0" layoutY="276.0" prefHeight="63.0" prefWidth="114.0" text="phonenumber :">
+            <font>
+                <Font name="Arial Narrow Bold" size="18.0"/>
+            </font>
+            <textFill>
+                <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                    <stops>
+                        <Stop color="BLACK"/>
+                        <Stop color="BLACK" offset="1.0"/>
+                    </stops>
+                </RadialGradient>
+            </textFill>
+        </Label>
+        <Hyperlink fx:id="phoneNumberOfSeller" layoutX="401.0" layoutY="276.0" prefHeight="63.0" prefWidth="300.0"
+                   text="Hyperlink">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Hyperlink>
+        <Label layoutX="288.0" layoutY="335.0" prefHeight="63.0" prefWidth="54.0" text="Email :">
+            <font>
+                <Font name="Arial Narrow Bold" size="18.0"/>
+            </font>
+            <textFill>
+                <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                    <stops>
+                        <Stop color="BLACK"/>
+                        <Stop color="BLACK" offset="1.0"/>
+                    </stops>
+                </RadialGradient>
+            </textFill>
+        </Label>
+        <Hyperlink fx:id="emailOfSeller" layoutX="344.0" layoutY="335.0" prefHeight="63.0" prefWidth="400.0"
+                   text="Hyperlink">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Hyperlink>
+        <Label fx:id="passwordOfSeller" layoutX="379.0" layoutY="391.0" prefHeight="63.0" prefWidth="330.0">
+            <font>
+                <Font name="Arial Narrow Bold" size="18.0"/>
+            </font>
+            <textFill>
+                <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                    <stops>
+                        <Stop color="BLACK"/>
+                        <Stop color="BLACK" offset="1.0"/>
+                    </stops>
+                </RadialGradient>
+            </textFill>
+        </Label>
+        <Label layoutX="288.0" layoutY="164.0" prefHeight="63.0" prefWidth="54.0" text="name :">
+            <font>
+                <Font name="Arial Narrow Bold" size="18.0"/>
+            </font>
+        </Label>
+        <Label layoutX="287.0" layoutY="213.0" prefHeight="63.0" prefWidth="85.0" text="username :">
+            <font>
+                <Font name="Arial Narrow Bold" size="18.0"/>
+            </font>
+        </Label>
+        <Label layoutX="287.0" layoutY="391.0" prefHeight="63.0" prefWidth="86.0" text="password :">
+            <font>
+                <Font name="Arial Narrow Bold" size="18.0"/>
+            </font>
+        </Label>
+        <Label layoutX="287.0" layoutY="452.0" prefHeight="63.0" prefWidth="120.0" text="company name :">
+            <font>
+                <Font name="Arial Narrow Bold" size="18.0"/>
+            </font>
+        </Label>
+        <Label fx:id="companyName" layoutX="409.0" layoutY="452.0" prefHeight="63.0" prefWidth="284.0">
+            <font>
+                <Font name="Arial Narrow" size="18.0"/>
+            </font>
+        </Label>
+        <Label layoutX="284.0" layoutY="504.0" prefHeight="63.0" prefWidth="157.0" text="company address :">
+            <font>
+                <Font name="Arial Narrow Bold" size="18.0"/>
+            </font>
+        </Label>
+        <Label fx:id="companyAddress" layoutX="436.0" layoutY="504.0" prefHeight="63.0" prefWidth="439.0">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+        <Label layoutX="284.0" layoutY="560.0" prefHeight="63.0" prefWidth="144.0" text="company phone :">
+            <font>
+                <Font name="Arial Narrow Bold" size="18.0"/>
+            </font>
+        </Label>
+        <Hyperlink fx:id="companyPhone" layoutX="428.0" layoutY="560.0" prefHeight="63.0" prefWidth="273.0"
+                   text="Hyperlink">
+            <font>
+                <Font name="Arial Narrow" size="18.0"/>
+            </font>
+        </Hyperlink>
+        <Button layoutX="727.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#viewSaleHistory"
+                prefHeight="54.0" prefWidth="129.0" style="-fx-background-color: white;" text="view sale history">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Button>
+        <Button layoutX="539.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#editInformation"
+                prefHeight="54.0" prefWidth="188.0" style="-fx-background-color: white;" text="edit information">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Button>
+        <Button layoutX="352.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#allProductsForSale"
+                prefHeight="54.0" prefWidth="188.0" style="-fx-background-color: white;" text="all products for sale">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Button>
+        <Button layoutX="159.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#requestForAddProduct"
+                prefHeight="54.0" prefWidth="188.0" style="-fx-background-color: white;" text="request for add product">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Button>
+        <Button layoutX="14.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#viewOffs" prefHeight="54.0"
+                prefWidth="144.0" style="-fx-background-color: white;" text="view offs">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Button>
+    </children>
 </Pane>
