@@ -1,47 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1250.0" style="-fx-background-color: #F7F7F7;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.productMenu.ProductsMenu">
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1250.0" style="-fx-background-color: #F7F7F7;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.productMenu.ProductsMenu">
     <children>
-        <ButtonBar layoutX="18.0" layoutY="18.0" prefHeight="40.0" prefWidth="1198.0">
-            <buttons>
-                <MenuButton fx:id="filterMenuButton" alignment="TOP_CENTER" mnemonicParsing="false" onShowing="#onFilters" prefHeight="48.0" prefWidth="401.0" style="-fx-background-color: transparent;" text="Filter">
-                    <font>
-                        <Font size="25.0" />
-                    </font>
-               <items>
-                  <CheckMenuItem fx:id="productNameItem" mnemonicParsing="false" onAction="#clickProductName" text="Product name" />
-                  <CheckMenuItem fx:id="categoryItem" mnemonicParsing="false" onAction="#clickCategory" text="Category" />
-                  <CheckMenuItem mnemonicParsing="false" text="Offer" />
-               </items>
-                </MenuButton>
-                <MenuButton fx:id="productsMenuButton" alignment="CENTER" mnemonicParsing="false" onShowing="#onGoods" style="-fx-background-color: transparent;" text="Products">
-                    <font>
-                        <Font size="25.0" />
-                    </font>
-                </MenuButton>
-                <MenuButton fx:id="categoriesMenuButton" alignment="CENTER" mnemonicParsing="false" onShowing="#onCategories" style="-fx-background-color: transparent;" text="Categories">
-                    <font>
-                        <Font size="25.0" />
-                    </font>
-                </MenuButton>
-                <MenuButton fx:id="sortMenuButton" alignment="CENTER" mnemonicParsing="false" onShowing="#onSort" style="-fx-background-color: transparent;" text="Sort">
-                    <font>
-                        <Font size="25.0" />
-                    </font>
-                    <items>
-                        <CheckMenuItem fx:id="timeItem" mnemonicParsing="false" onAction="#clickTime" text="Time" />
-                        <CheckMenuItem fx:id="scoreItem" mnemonicParsing="false" onAction="#clickScore" text="Score" />
-                        <CheckMenuItem fx:id="viewItem" mnemonicParsing="false" onAction="#clickView" text="View" />
-                        <CheckMenuItem fx:id="priceItem" mnemonicParsing="false" onAction="#clickPrice" text="Price" />
-                    </items>
-                </MenuButton>
-            </buttons>
-        </ButtonBar>
+          <MenuButton fx:id="categoriesMenuButton" alignment="CENTER" mnemonicParsing="false" onMouseEntered="#onCategories" style="-fx-background-color: transparent;" text="Categories">
+              <font>
+                  <Font size="25.0" />
+              </font>
+          </MenuButton>
     </children>
 </Pane>

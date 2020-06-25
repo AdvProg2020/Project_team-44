@@ -88,7 +88,7 @@ public class Manager extends Account {
     public void doRequestForAddProduct(String requestId) {
         RequestForAddProduct request = (RequestForAddProduct) RequestForAddProduct.getRequestById(requestId);
         if (getProductWithInfo(request.getCategory(), request.getName(), request.getPrice(), request.getExplanationText()) == null) {
-            new Product(request.getCategory(), request.getName(), request.getSeller().getCompanyName(), request.getPrice(), request.getExplanationText());
+            new Product(request.getCategory(), request.getName(), request.getSeller().getCompanyName(), request.getPrice(), request.getExplanationText(), request.getCategory().getImageName());
 
         } else {
             getProductWithInfo(request.getCategory(), request.getName(), request.getPrice(), request.getExplanationText()).getAllSellers().add(request.getSeller());
@@ -116,19 +116,19 @@ public class Manager extends Account {
 
     public void doRequestForEditProduct(String requestId) {
         RequestForEditProduct request = (RequestForEditProduct) RequestForEditProduct.getRequestById(requestId);
-        if (request.getField().equalsIgnoreCase("name")){
+        if (request.getField().equalsIgnoreCase("name")) {
             request.getProduct().setName(request.getNewValue());
-        }else if (request.getField().equalsIgnoreCase("companyName")){
+        } else if (request.getField().equalsIgnoreCase("companyName")) {
             request.getProduct().setCompanyName(request.getNewValue());
-        }else if (request.getField().equalsIgnoreCase("price")){
+        } else if (request.getField().equalsIgnoreCase("price")) {
             request.getProduct().setPrice(Double.parseDouble(request.getNewValue()));
-        }else if (request.getField().equalsIgnoreCase("explanationText")){
+        } else if (request.getField().equalsIgnoreCase("explanationText")) {
             request.getProduct().setExplanationText(request.getNewValue());
-        }else if (request.getField().equalsIgnoreCase("isAvailable")){
-            if (request.getNewValue() == "yes"){
+        } else if (request.getField().equalsIgnoreCase("isAvailable")) {
+            if (request.getNewValue() == "yes") {
                 request.getProduct().setAvailable(true);
-            }else if (request.getNewValue() == "no")
-            request.getProduct().setAvailable(false);
+            } else if (request.getNewValue() == "no")
+                request.getProduct().setAvailable(false);
         }
     }
 
@@ -200,7 +200,7 @@ public class Manager extends Account {
         }
     }
 
-    public void addCategory(String name, Category parent) {
-        new Category(name, parent);
+    public void addCategory(String name, Category parent, String imageName) {
+        new Category(name, parent, imageName);
     }
 }

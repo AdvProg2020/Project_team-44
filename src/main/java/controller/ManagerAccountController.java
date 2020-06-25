@@ -107,14 +107,14 @@ public abstract class ManagerAccountController {
     }
 
     public static void processEditCategoryEachForAttributes(
-            String category, ArrayList<HashMap<String, ArrayList<String> > > allProductsNewInfo) {
+            String category, ArrayList<HashMap<String, ArrayList<String>>> allProductsNewInfo) {
 
     }
 
-    public static void processAddCategoryEach(String category, String parentCategory) throws CategoryNotExistsException {
+    public static void processAddCategoryEach(String category, String parentCategory, String imageName) throws CategoryNotExistsException {
         ValidationController.checkCategoryExistence(category);
         ValidationController.checkCategoryExistence(parentCategory);//if parentCategoryNull
-        ((Manager) LoginPageController.loggedInAccount).addCategory(category, Category.getCategoryByName(parentCategory));
+        ((Manager) LoginPageController.loggedInAccount).addCategory(category, Category.getCategoryByName(parentCategory), imageName);
     }
 
     public static ArrayList<String> getCategoryProducts(String categoryName) throws CategoryNotExistsException {

@@ -1,6 +1,8 @@
 package model.product;
 
 import com.google.gson.Gson;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.Category;
 import model.Rating;
 import model.account.Purchaser;
@@ -8,6 +10,7 @@ import model.account.Seller;
 import model.comment.Comment;
 import model.offer.Offer;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -34,8 +37,9 @@ public class Product {
     private static ArrayList<Purchaser> allPurchaser = new ArrayList<>();
     private Date generatedDate;
     private int viewTimes;
+    private String imageName;
 
-    public Product(Category category, String name, String companyName, double price, String explanationText) {
+    public Product(Category category, String name, String companyName, double price, String explanationText, String imageName) {
         this.productID = produceProductId();
         this.category = category;
         this.name = name;
@@ -43,12 +47,20 @@ public class Product {
         this.price = price;
         this.explanationText = explanationText;
         this.generatedDate = new Date();
+        this.imageName = imageName;
         allProducts.add(this);
         category.getAllSubProducts().add(this);
-        System.out.println("size   :   " + category.getAllSubProducts().size());
         createAndUpdateJson(this);
         updateAllParent(category);
         category.createAndUpdateJson(category);
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setAllSellers(ArrayList<Seller> allSellers) {
+        this.allSellers = allSellers;
     }
 
     public void createAndUpdateJson(Product product) {

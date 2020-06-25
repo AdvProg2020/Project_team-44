@@ -111,6 +111,14 @@ public abstract class Account {
         this.balance = balance;
     }
 
+    public void setAllDiscountCodes(ArrayList<CodedDiscount> allDiscountCodes) {
+        this.allDiscountCodes = allDiscountCodes;
+    }
+
+    public void setBuyLogListHistory(ArrayList<BuyLog> buyLogListHistory) {
+        this.buyLogListHistory = buyLogListHistory;
+    }
+
     public static void setAllAccounts(ArrayList<Account> allAccounts) {
         Account.allAccounts = allAccounts;
     }

@@ -1,8 +1,12 @@
 package model;
 
 import com.google.gson.Gson;
+import javafx.scene.control.CheckBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.product.Product;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -15,17 +19,24 @@ public class Category {
     private ArrayList<String> attributes;
     private static ArrayList<Category> allCategories = new ArrayList<>();
     private transient Category parent = null;
+    private String imageName;
 
-    public Category(String name, Category parent) {
+    public Category(String name, Category parent, String imageName) {
         this.name = name;
         if (parent != null) {
             this.attributes = parent.getAttributes();
             this.parent = parent;
+            this.imageName = imageName;
             parent.getSubCategories().add(this);
             updateAllParent(parent);
         }
         allCategories.add(this);
         createAndUpdateJson(this);
+    }
+
+
+    public String getImageName() {
+        return imageName;
     }
 
     public static ArrayList<Category> getAllCategories() {
