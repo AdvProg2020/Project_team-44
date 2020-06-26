@@ -18,6 +18,14 @@ public class Comment {
         this.title = title;
     }
 
+    public String getCommentText() {
+        return commentText;
+    }
+
+    public Account getCommenter() {
+        return commenter;
+    }
+
     public void setStatus(CommentStatus status) {
         this.status = status;
     }

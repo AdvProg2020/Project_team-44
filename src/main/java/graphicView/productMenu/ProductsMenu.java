@@ -1,8 +1,12 @@
 package graphicView.productMenu;
 
+import controller.LoginPageController;
+import controller.ProductPageController;
 import controller.ProductsPageController;
-import exception.CategoryNotExistsException;
 import exception.FilterNotExistsException;
+import exception.ProductAlreadyExistsInCartException;
+import exception.ProductIdNotExistsException;
+import exception.SellerUserNameNotExists;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -17,41 +21,52 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import main.Main;
 import model.Category;
+import model.Rating;
+import model.account.Purchaser;
+import model.account.Seller;
+import model.comment.Comment;
 import model.product.Product;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import static controller.ProductsPageController.processFilter;
-
 public class ProductsMenu {
-    public TextField minPriceId;
-    public TextField maxPriceId;
     public Menu id;
     public Pane root;
     private TableView<CategoryProperty> tableView;
     private ArrayList<Product> productsToShow = new ArrayList<>();
+    private ArrayList<Product> categoryFilterProducts = new ArrayList<>();
     private static ArrayList<CategoryProperty> allCategoryProperty = new ArrayList<>();
+    private ArrayList<Category> allowedCategory = new ArrayList<>();
     private Scene previousScene;
-    private ArrayList<Product> sorted = ProductsPageController.getAllFilteredProducts();
-    private boolean isCalledFromOnCategories = false;
-    @FXML
-    public MenuButton productsMenuButton;
+    private double xLayoutTable;
+    private double yLayoutTable;
+    private Pane secondRoot;
+    private Pane productRoot;
+    private TextField minPriceField;
+    private TextField maxPriceField;
+    private TextField search;
+    private Button back;
+    private Label minPrice;
+    private Label maxPrice;
+
     public MenuButton categoriesMenuButton;
-    public MenuButton filterMenuButton;
     public CheckMenuItem timeItem;
     public CheckMenuItem scoreItem;
     public CheckMenuItem viewItem;
     public CheckMenuItem priceItem;
 
+
     private ObservableList<CategoryProperty> getCategoryProperties(ArrayList<Category> subCategories) {
+        allCategoryProperty.clear();
         ObservableList<CategoryProperty> categoryProperties = FXCollections.observableArrayList();
         for (Category subCategory : subCategories) {
             categoryProperties.add(new CategoryProperty(subCategory));
@@ -59,12 +74,13 @@ public class ProductsMenu {
         return categoryProperties;
     }
 
-    public boolean isCalledFromOnCategories() {
-        return isCalledFromOnCategories;
-    }
-
-    public void setCalledFromOnCategories(boolean calledFromOnCategories) {
-        isCalledFromOnCategories = calledFromOnCategories;
+    private ObservableList<CommentProperty> getCommentProperties(Product product) {
+        allCategoryProperty.clear();
+        ObservableList<CommentProperty> commentProperties = FXCollections.observableArrayList();
+        for (Comment comment : product.getAllComments()) {
+            commentProperties.add(new CommentProperty(comment.getCommentText(), comment.getCommenter().getUserName()));
+        }
+        return commentProperties;
     }
 
     public void setTableView(Category category) {
@@ -77,9 +93,28 @@ public class ProductsMenu {
         tableView.setItems(getCategoryProperties(category.getSubCategories()));
         brand.setPrefWidth(200);
         tableView.setPrefWidth(brand.getWidth() + checkBox.getWidth() - 41);
-        tableView.setLayoutX(1200 - tableView.getWidth() - 240);
+        tableView.setLayoutX(Main.window.getScene().getWidth() - tableView.getPrefWidth());
         tableView.setLayoutY(125);
+        setXLayoutTable(tableView.getLayoutX());
+        setYLayoutTable(tableView.getLayoutY() + 440);
+        tableView.setBackground((new Background(new BackgroundFill(Color.LIGHTGRAY, null, null))));
         this.tableView = tableView;
+    }
+
+    public void setYLayoutTable(double yLayoutTable) {
+        this.yLayoutTable = yLayoutTable;
+    }
+
+    public void setXLayoutTable(double xLayoutTable) {
+        this.xLayoutTable = xLayoutTable;
+    }
+
+    public double getYLayoutTable() {
+        return yLayoutTable;
+    }
+
+    public double getXLayoutTable() {
+        return xLayoutTable;
     }
 
     public TableView<CategoryProperty> getTableView() {
@@ -95,42 +130,30 @@ public class ProductsMenu {
     }
 
     @FXML
-    public void onGoods(Event event) {
-        productsMenuButton.getItems().clear();
-        for (String processShowProduct : ProductsPageController.processShowProducts()) {
-            productsMenuButton.getItems().add(new MenuItem(processShowProduct));
-        }
-    }
-
-    @FXML
     public void onCategories(Event event) {
         categoriesMenuButton.getItems().clear();
         for (Category category : Category.getAllParents()) {
             Menu menu = new Menu(category.getName());
-            menu.setOnAction(actionEvent -> {
-                try {
-                    setTableView(Category.getCategoryByName(menu.getText()));
-                    setCalledFromOnCategories(true);
-                    for (Category subCategory : Category.getCategoryByName(menu.getText()).getSubCategories()) {
-                        productsToShow.addAll(subCategory.getAllSubProducts());
-                    }
-                    openTheSecondaryCategory(Main.window.getScene());
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            });
             categoriesMenuButton.getItems().add(menu);
             for (Category subCategory : category.getSubCategories()) {
-                Menu subMenu = new Menu(subCategory.getName());
+                MenuItem subMenu = new MenuItem(subCategory.getName());
                 subMenu.setOnAction(actionEvent -> {
+                    allowedCategory = Category.getCategoryByName(subMenu.getText()).getSubCategories();
+                    productsToShow.clear();
+                    categoryFilterProducts.clear();
                     try {
                         setTableView(Category.getCategoryByName(subMenu.getText()));
-                        setCalledFromOnCategories(true);
                         for (Category subCategory1 : Category.getCategoryByName(subMenu.getText()).getSubCategories()) {
-                            productsToShow.addAll(subCategory1.getAllSubProducts());
+                            categoryFilterProducts.addAll(subCategory1.getAllSubProducts());
                         }
-                        openTheSecondaryCategory(Main.window.getScene());
-                    } catch (FileNotFoundException e) {
+                        for (Product allSubProduct : Category.getCategoryByName(subMenu.getText()).getAllSubProducts()) {
+                            if (!categoryFilterProducts.contains(allSubProduct))
+                                categoryFilterProducts.add(allSubProduct);
+                        }
+                        productsToShow.addAll(categoryFilterProducts);
+                        setPreviousScene(Main.window.getScene());
+                        openTheSecondaryCategory(true);
+                    } catch (FileNotFoundException | FilterNotExistsException e) {
                         e.printStackTrace();
                     }
                 });
@@ -139,23 +162,80 @@ public class ProductsMenu {
         }
     }
 
-    public void openTheSecondaryCategory(Scene previousScene) throws FileNotFoundException {
-        Pane root = new Pane();
-        Button button = new Button("Back");
-        button.setFont(Font.font(20));
-        if (isCalledFromOnCategories()) {
-            setPreviousScene(previousScene);
-            setCalledFromOnCategories(false);
-        }
-        button.setOnAction(actionEvent -> Main.window.setScene(getPreviousScene()));
-        root.getChildren().add(button);
-        root.getChildren().add(getTableView());
+    public void openTheSecondaryCategory(boolean firstTime) throws FileNotFoundException, FilterNotExistsException {
+        if (firstTime) {
+            secondRoot = new Pane();
+            back = new Button("Back");
+            back.setFont(Font.font(20));
+            back.setLayoutX(1200);
+            back.setOnAction(actionEvent -> Main.window.setScene(getPreviousScene()));
+            secondRoot.getChildren().add(back);
+            secondRoot.getChildren().add(getTableView());
+            minPrice = new Label("Min Price");
+            minPriceField = new TextField("");
+            minPriceField.setFont(Font.font(12));
+            minPrice.setFont(Font.font(16));
+            minPrice.setLayoutX(getXLayoutTable());
+            minPrice.setLayoutY(getYLayoutTable());
+            minPriceField.setLayoutX(getXLayoutTable() + 85);
+            minPriceField.setLayoutY(getYLayoutTable());
+            maxPrice = new Label("Max Price");
+            maxPriceField = new TextField("");
+            maxPriceField.setFont(Font.font(12));
+            maxPrice.setFont(Font.font(16));
+            maxPrice.setLayoutX(getXLayoutTable());
+            maxPrice.setLayoutY(getYLayoutTable() + 39);
+            maxPriceField.setLayoutX(getXLayoutTable() + 85);
+            maxPriceField.setLayoutY(getYLayoutTable() + 39);
+            search = new TextField("");
+            search.setPromptText("Search Products");
+            search.setLayoutX(1050);
+            search.setLayoutY(50);
+            search.setFont(Font.font(17));
+            secondRoot.getChildren().addAll(minPrice, minPriceField, maxPrice, maxPriceField, search);
+        } else secondRoot.getChildren().remove(productRoot);
+        minPriceField.setOnAction(actionEvent -> {
+            try {
+                priceAction(maxPriceField.getText(), minPriceField.getText());
+                secondRoot.getChildren().remove(productRoot);
+                processShowProducts();
+            } catch (FilterNotExistsException | FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+
+        maxPriceField.setOnAction(actionEvent -> {
+            try {
+                priceAction(maxPriceField.getText(), minPriceField.getText());
+                secondRoot.getChildren().remove(productRoot);
+                processShowProducts();
+            } catch (FilterNotExistsException | FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+        search.setOnAction(actionEvent -> {
+            try {
+                productNameAction(search.getText());
+                secondRoot.getChildren().remove(productRoot);
+                processShowProducts();
+            } catch (FileNotFoundException | FilterNotExistsException e) {
+                e.printStackTrace();
+            }
+        });
+        processShowProducts();
+        ScrollPane scrollPane = new ScrollPane(secondRoot);
+        Main.window.setScene(new Scene(scrollPane));
+    }
+
+    public void processShowProducts() throws FileNotFoundException, FilterNotExistsException {
+        productRoot = new Pane();
         int i = 0;
         int yLayout = 200;
         int xLayout = 100;
+        checkSatisfiedInFilters();
         for (Product subProduct : productsToShow) {
             if (i == 3) {
-                yLayout += 300;
+                yLayout += 350;
                 i = 0;
             }
             ImageView imageView = new ImageView(new Image(new FileInputStream("src/main/resources/media/image/" + subProduct.getImageName())));
@@ -163,26 +243,224 @@ public class ProductsMenu {
             imageView.setFitHeight(169);
             Text productName = new Text(subProduct.getName());
             productName.setFont(Font.font(20));
+            productName.setOnMouseClicked(mouseEvent -> {
+                try {
+                    openProductPage(Main.window.getScene(), Product.getProductByName(productName.getText()));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            });
             Text productExplanation = new Text(subProduct.getExplanationText());
-            productExplanation.setFont(Font.font(20));
-            Text productPrice = new Text(String.valueOf(subProduct.getPrice()));
-            productPrice.setFont(Font.font(20));
+            productExplanation.setFont(Font.font(19));
+            Text productPrice = new Text("Price : " + subProduct.getPrice() + " $");
+            productPrice.setFont(Font.font(18));
+            Text rating = new Text("Rate : " + subProduct.getAverageRating());
+            rating.setFont(Font.font(17));
+            Text available;
+            if (subProduct.isAvailable())
+                available = new Text("Available : Yes");
+            else available = new Text("Available : No");
+            available.setFont(Font.font(16));
             VBox vBox = new VBox();
             vBox.setAlignment(Pos.CENTER);
             vBox.setSpacing(7);
-            vBox.getChildren().addAll(imageView, productName, productExplanation, productPrice);
+            vBox.getChildren().addAll(imageView, productName, productExplanation, productPrice, rating, available);
+            if (subProduct.getOffer() != null) {
+                Text offer = new Text("This is in Offer!");
+                offer.setFont(Font.font(17));
+                vBox.getChildren().add(offer);
+            }
+
             vBox.setLayoutX(xLayout + i * 300);
             vBox.setLayoutY(yLayout);
-            root.getChildren().add(vBox);
+
+            productRoot.getChildren().add(vBox);
             i++;
         }
-        Label minPrice = new Label("Min Price");
-        TextField minPriceField = new TextField("");
-        minPrice.setFont(Font.font(20));
-        minPriceField.setFont(Font.font(20));
-        minPrice.setAlignment(Pos.TOP_CENTER);
-        ScrollPane scrollPane = new ScrollPane(root);
-        Main.window.setScene(new Scene(scrollPane, 1200, 720));
+        secondRoot.getChildren().add(productRoot);
+    }
+
+    public void openProductPage(Scene previousScene, Product product) throws FileNotFoundException {
+        Pane productRoot = new Pane();
+        Button back = new Button("Back");
+        back.setLayoutX(1200);
+        back.setFont(Font.font(20));
+        back.setOnAction(actionEvent -> Main.window.setScene(previousScene));
+
+        ImageView imageView = new ImageView(new Image(new FileInputStream("src/main/resources/media/image/" + product.getImageName())));
+        imageView.setFitWidth(379);
+        imageView.setFitHeight(379);
+        imageView.setLayoutX(85);
+        imageView.setLayoutY(69);
+
+        Text price = new Text("Price : " + product.getPrice() + " $");
+        price.setFont(Font.font(21));
+        price.setLayoutX(376);
+        price.setLayoutY(500);
+
+        Text rate = new Text("Rate : " + product.getAverageRating());
+        rate.setFont(Font.font(18));
+        rate.setLayoutX(100);
+        rate.setLayoutY(500);
+
+        VBox first = new VBox();
+        first.setSpacing(15);
+        Text name = new Text(product.getName());
+        name.setFont(Font.font(29));
+        name.setTranslateY(-10);
+
+        Label productExplanation = new Label("Explanation");
+        productExplanation.setFont(Font.font(24));
+        productExplanation.setTextFill(Color.MEDIUMSEAGREEN);
+
+        Text explanation = new Text(product.getExplanationText());
+        explanation.setFont(Font.font(19));
+        explanation.setTranslateY(4);
+
+        Label categoryLabel = new Label("Category attributes :");
+        categoryLabel.setFont(Font.font(24));
+        categoryLabel.setTranslateY(23);
+        categoryLabel.setTextFill(Color.MEDIUMSEAGREEN);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        if (product.getCategory().getAttributes().size() > 0)
+            for (String s : product.getCategory().getAttributes()) {
+                stringBuilder.append(s + "\n\n");
+            }
+        Text categoryAttribute = new Text(stringBuilder.toString());
+        categoryAttribute.setTranslateY(20);
+        categoryAttribute.setFont(Font.font(19));
+
+        Button comment = new Button("Comment");
+        comment.setFont(Font.font(16));
+        comment.setTranslateY(35);
+        comment.setOnAction(actionEvent -> new Comment(LoginPageController.getLoggedInAccount(), product, comment.getText(), null));
+        TextField commentField = new TextField("");
+        commentField.setTranslateY(-10);
+        commentField.setTranslateX(comment.getLayoutX() + 150);
+        Button rating = new Button("Rate this product");
+        rate.setFont(Font.font(18));
+
+
+        TextField rateField = new TextField("");
+        rateField.setTranslateY(-40);
+        rateField.setTranslateX(rating.getLayoutX() + 150);
+        rating.setOnAction(actionEvent -> {
+            if (product.isPurchasedByPurchaser((Purchaser) (LoginPageController.getLoggedInAccount())))
+                new Rating(product, (Purchaser) (LoginPageController.getLoggedInAccount()), Integer.parseInt(rateField.getText()));
+        });
+
+        Button add = new Button("Add to cart");
+        add.setFont(Font.font(19));
+        add.setLayoutY(55);
+        add.setOnAction(actionEvent -> {
+            try {
+                ProductsPageController.processShowProduct(product.getProductID());
+                ProductPageController.processAddProductToCartEach();
+
+            } catch (ProductAlreadyExistsInCartException | ProductIdNotExistsException e) {
+                e.printStackTrace();
+            }
+        });
+
+        first.getChildren().addAll(name, productExplanation, explanation, categoryLabel, categoryAttribute, comment, commentField, rating, rateField, add);
+        first.setLayoutX(666);
+        first.setLayoutY(100);
+        HBox hBox = new HBox();
+        hBox.setSpacing(15);
+        ArrayList<CheckBox> allSellerCheckBoxes = new ArrayList<>();
+        for (Seller allSeller : product.getAllSellers()) {
+            Text seller = new Text(allSeller.getCompanyName());
+            seller.setTranslateX(15);
+            seller.setFont(Font.font(19));
+            CheckBox checkBox = new CheckBox();
+            checkBox.setTranslateX(10);
+            allSellerCheckBoxes.add(checkBox);
+            hBox.getChildren().addAll(seller, checkBox);
+            checkBox.setOnAction(actionEvent -> {
+                if (checkBox.isSelected()) {
+                    for (CheckBox allSellerCheckBox : allSellerCheckBoxes) {
+                        if (allSellerCheckBox != checkBox)
+                            allSellerCheckBox.setSelected(false);
+                    }
+                    try {
+                        ProductPageController.processSelectSellerEach(allSeller.getUserName());
+                    } catch (SellerUserNameNotExists sellerUserNameNotExists) {
+                        sellerUserNameNotExists.printStackTrace();
+                    }
+                }
+            });
+        }
+        hBox.setLayoutX(79);
+        hBox.setLayoutY(550);
+
+        VBox second = new VBox();
+        second.setSpacing(15);
+        TableView commentMenu = new TableView();
+        TableColumn<CommentProperty, String> commenter = new TableColumn("Account");
+        commenter.setCellValueFactory(new PropertyValueFactory<>("commenterUserName"));
+        TableColumn<CommentProperty, String> text = new TableColumn<>("Commented");
+        text.setCellValueFactory(new PropertyValueFactory<>("comment"));
+        commentMenu.getColumns().addAll(commenter, text);
+        commentMenu.setItems(getCommentProperties(product));
+        commenter.setPrefWidth(200);
+        text.setPrefWidth(800);
+        second.getChildren().add(commentMenu);
+        second.setLayoutY(777);
+        second.setLayoutX(150);
+        productRoot.getChildren().addAll(back, imageView, price, rate, first, hBox, second);
+        ScrollPane scrollPane = new ScrollPane(productRoot);
+        Main.window.setScene(new Scene(scrollPane));
+    }
+
+    public class CommentProperty {
+        private StringProperty comment;
+        private StringProperty commenterUserName;
+
+        public CommentProperty(String comment, String commenterUserName) {
+            this.comment = new SimpleStringProperty(comment);
+            this.commenterUserName = new SimpleStringProperty(commenterUserName);
+        }
+
+        public String getComment() {
+            return comment.get();
+        }
+
+        public StringProperty commentProperty() {
+            return comment;
+        }
+
+        public String getCommenterUserName() {
+            return commenterUserName.get();
+        }
+
+        public StringProperty commenterUserNameProperty() {
+            return commenterUserName;
+        }
+    }
+
+    public void checkSatisfiedInFilters() {
+        for (String allFilter : ProductsPageController.getAllFilters()) {
+            if (allFilter.startsWith("BY_PRICE_RANGE_")) {
+                int min = Integer.parseInt(allFilter.substring(15).split(",")[0]);
+                int max = Integer.parseInt(allFilter.substring(15).split(",")[1]);
+                for (int i = 0; i < productsToShow.size(); i++) {
+                    if (productsToShow.get(i).getPrice() < min || productsToShow.get(i).getPrice() > max) {
+                        productsToShow.remove(i);
+                        i--;
+                    }
+                }
+            }
+            if (allFilter.startsWith("BY_NAME_")) {
+                String name = allFilter.substring(8);
+                for (int i = 0; i < productsToShow.size(); i++) {
+                    if (!productsToShow.get(i).getName().startsWith(name)) {
+                        productsToShow.remove(i);
+                        i--;
+                    }
+                }
+            }
+        }
     }
 
     public class CategoryProperty {
@@ -195,33 +473,39 @@ public class ProductsMenu {
             this.checkBox = new CheckBox();
             this.name = new SimpleStringProperty(category.getName());
             allCategoryProperty.add(this);
-            checkBox.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    if (checkBox.isSelected()) {
-                        try {
-                            productsToShow.clear();
+            checkBox.setOnAction(actionEvent -> {
+                if (checkBox.isSelected()) {
+                    try {
+                        productsToShow.clear();
+                        allowedCategory.clear();
+                        for (CategoryProperty categoryProperty : allCategoryProperty) {
+                            if (categoryProperty.getCheckBox().isSelected()) {
+                                allowedCategory.add(categoryProperty.getCategory());
+                                productsToShow.addAll(categoryProperty.getCategory().getAllSubProducts());
+
+                            }
+                        }
+                        openTheSecondaryCategory(false);
+                    } catch (FileNotFoundException | FilterNotExistsException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        productsToShow.removeAll(this.getCategory().getAllSubProducts());
+                        allowedCategory.remove(this.getCategory());
+                        if (allowedCategory.size() == 0) {
                             for (CategoryProperty categoryProperty : allCategoryProperty) {
-                                if (categoryProperty.getCheckBox().isSelected()) {
-                                    productsToShow.addAll(categoryProperty.getCategory().getAllSubProducts());
-                                }
+                                allowedCategory.add(categoryProperty.getCategory());
                             }
-                            openTheSecondaryCategory(Main.window.getScene());
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
                         }
-                    } else {
-                        try {
-                            productsToShow.removeAll(category.getAllSubProducts());
-                            if (productsToShow.size() == 0) {
-                                for (CategoryProperty categoryProperty : allCategoryProperty) {
-                                    productsToShow.addAll(categoryProperty.getCategory().getAllSubProducts());
-                                }
+                        if (productsToShow.size() == 0) {
+                            for (CategoryProperty categoryProperty : allCategoryProperty) {
+                                productsToShow.addAll(categoryProperty.getCategory().getAllSubProducts());
                             }
-                            openTheSecondaryCategory(Main.window.getScene());
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
                         }
+                        openTheSecondaryCategory(false);
+                    } catch (FileNotFoundException | FilterNotExistsException e) {
+                        e.printStackTrace();
                     }
                 }
             });
@@ -246,8 +530,6 @@ public class ProductsMenu {
         viewItem.setSelected(false);
         priceItem.setSelected(false);
         ProductsPageController.processSortByTime(true);
-        sorted = ProductsPageController.getAllFilteredProducts();
-        onGoods(actionEvent);
     }
 
     public void clickScore(ActionEvent actionEvent) {
@@ -256,9 +538,7 @@ public class ProductsMenu {
         priceItem.setSelected(false);
         if (scoreItem.isSelected()) {
             ProductsPageController.processSortByScore(true);
-            sorted = ProductsPageController.getAllFilteredProducts();
         } else ProductsPageController.processDisableSortEach();
-        onGoods(actionEvent);
     }
 
     public void clickView(ActionEvent actionEvent) {
@@ -267,7 +547,6 @@ public class ProductsMenu {
         priceItem.setSelected(false);
         if (viewItem.isSelected()) {
             ProductsPageController.processSortByView(true);
-            sorted = ProductsPageController.getAllFilteredProducts();
         } else ProductsPageController.processDisableSortEach();
     }
 
@@ -277,37 +556,26 @@ public class ProductsMenu {
         viewItem.setSelected(false);
         if (priceItem.isSelected()) {
             ProductsPageController.processSortByPrice(true);
-            sorted = ProductsPageController.getAllFilteredProducts();
         } else ProductsPageController.processDisableSortEach();
-        onGoods(actionEvent);
     }
 
-    public void minAction(ActionEvent actionEvent) {
-
+    public void productNameAction(String productName) {
+        try {
+            if (productName != null)
+                ProductsPageController.processFilter("BY_NAME", productName, categoryFilterProducts, productsToShow, allowedCategory);
+        } catch (FilterNotExistsException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void maxAction(ActionEvent actionEvent) {
-    }
-
-    public void productNameAction(ActionEvent actionEvent) {
-//        try {
-//            ProductsPageController.processFilter("BY_NAME", productNameId.getText());
-//            sorted = ProductsPageController.getAllFilteredProducts();
-//            onGoods(actionEvent);
-//        } catch (CategoryNotExistsException e) {
-//            e.printStackTrace();
-//        } catch (FilterNotExistsException e) {
-//            e.printStackTrace();
-//        }
-    }
-
-    public void priceAction(ActionEvent actionEvent) throws CategoryNotExistsException, FilterNotExistsException {
-        if (!minPriceId.getText().isBlank() && maxPriceId.getText().isBlank()) {
-            processFilter("BY_PRICE", Integer.parseInt(minPriceId.getText()) + "," + Integer.MAX_VALUE);
-        } else if (!maxPriceId.getText().isBlank() && minPriceId.getText().isBlank()) {
-            processFilter("BY_PRICE", 0 + "," + Integer.parseInt(maxPriceId.getText()));
-        } else if (!minPriceId.getText().isBlank() && !maxPriceId.getText().isBlank()) {
-            processFilter("BY_PRICE", Integer.parseInt(minPriceId.getText()) + "," + Integer.parseInt(maxPriceId.getText()));
-        } else processFilter("BY_PRICE", -1 + "," + (-1));
+    public void priceAction(String maxPriceField, String minPriceField) throws FilterNotExistsException {
+        if (!minPriceField.isBlank() && maxPriceField.isBlank()) {
+            ProductsPageController.processFilter("BY_PRICE", Integer.parseInt(minPriceField) + "," + Integer.MAX_VALUE, categoryFilterProducts, productsToShow, allowedCategory);
+        } else if (!maxPriceField.isBlank() && minPriceField.isBlank()) {
+            ProductsPageController.processFilter("BY_PRICE", 0 + "," + Integer.parseInt(maxPriceField), categoryFilterProducts, productsToShow, allowedCategory);
+        } else if (!minPriceField.isBlank() && !maxPriceField.isBlank()) {
+            ProductsPageController.processFilter("BY_PRICE", Integer.parseInt(minPriceField) + "," + Integer.parseInt(maxPriceField), categoryFilterProducts, productsToShow, allowedCategory);
+        } else
+            ProductsPageController.processFilter("BY_PRICE", -1 + "," + Integer.MAX_VALUE, categoryFilterProducts, productsToShow, allowedCategory);
     }
 }

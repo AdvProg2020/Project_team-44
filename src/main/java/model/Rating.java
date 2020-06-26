@@ -12,6 +12,7 @@ public class Rating {
         this.product = product;
         this.purchaser = purchaser;
         this.rating = rating;
+        product.getAllRating().add(this);
     }
 
     public int getRating() {

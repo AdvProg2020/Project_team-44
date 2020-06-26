@@ -268,9 +268,13 @@ package controller;
 
 
 import controller.fields.ProductsPageAvailableFilters;
-import controller.sortComparators.*;
-import exception.*;
-
+import controller.sortComparators.PriceComparator;
+import controller.sortComparators.ScoreComparator;
+import controller.sortComparators.TimeComparator;
+import controller.sortComparators.ViewComparator;
+import exception.FilterNotExistsException;
+import exception.ProductIdNotExistsException;
+import exception.SortNotExistsException;
 import model.Category;
 import model.Sort.Sort;
 import model.product.Product;
@@ -286,6 +290,10 @@ public abstract class ProductsPageController {
 
     static {
         processSortByView(true);
+    }
+
+    public static ArrayList<String> getAllFilters() {
+        return allFilters;
     }
 
     public static ArrayList<Product> getAllFilteredProducts() {
@@ -304,83 +312,101 @@ public abstract class ProductsPageController {
         return allFilters;
     }
 
-    public static void processFilter(String field, String filter)
-            throws CategoryNotExistsException, FilterNotExistsException {
+    public static void processFilter(String field, String filter, ArrayList<Product> categoryFilterProducts, ArrayList<Product> productsToShow, ArrayList<Category> allowedCategory)
+            throws FilterNotExistsException {
         if (field.equals("BY_NAME")) {
-            processFilterEachByName(filter);
-        } else if (field.equals("BY_CATEGORY")) {
-            processFilterByCategory(filter);
+            processFilterEachByName(filter, categoryFilterProducts, productsToShow, allowedCategory);
         } else if (field.equals("BY_PRICE")) {
-            processFilterByPriceRange(Integer.parseInt(filter.split(",")[0]), Integer.parseInt(filter.split(",")[1]));
+            processFilterByPriceRange(Integer.parseInt(filter.split(",")[0]), Integer.parseInt(filter.split(",")[1]), categoryFilterProducts, productsToShow, allowedCategory);
         } else {
             throw new FilterNotExistsException("Wrong filter.");
         }
     }
 
-    static void processFilterEachByName(String availableFilter) {
-        allFilters.add("BY_NAME_" + availableFilter);
-        ArrayList<Product> tempFilteredProducts = new ArrayList<>(allFilteredProducts);
-        allFilteredProducts.clear();
-        for (Product product : tempFilteredProducts) {
-            if (product.getName().contains(availableFilter)) {
-                allFilteredProducts.add(product);
+    static void processFilterEachByName(String name, ArrayList<Product> categoryFilterProducts, ArrayList<Product> productsToShow, ArrayList<Category> allowedCategory) {
+        ArrayList<Product> temp = new ArrayList<>(categoryFilterProducts);
+        String filterName = null;
+        for (String allFilter : allFilters) {
+            if (allFilter.startsWith("BY_NAME_")) filterName = allFilter;
+            if (allFilter.startsWith("BY_PRICE_RANGE_")) {
+                int min = Integer.parseInt(allFilter.substring(15).split(",")[0]);
+                int max = Integer.parseInt(allFilter.substring(15).split(",")[1]);
+                for (Product product : categoryFilterProducts)
+                    if (product.getPrice() < min || product.getPrice() > max || !allowedCategory.contains(product.getCategory())) {
+                        temp.remove(product);
+                    }
+            }
+
+        }
+        if (filterName != null) {
+            allFilters.remove(filterName);
+        }
+        allFilters.add("BY_NAME_" + name);
+        for (int i = 0; i < temp.size(); i++) {
+            if (!temp.get(i).getName().startsWith(name) || !allowedCategory.contains(temp.get(i).getCategory())) {
+                temp.remove(i);
+                i--;
             }
         }
+        productsToShow.clear();
+        productsToShow.addAll(temp);
     }
 
-    static void processFilterByCategory(String categoryFilter) throws CategoryNotExistsException {
-        ValidationController.checkCategoryExistence(categoryFilter);
-        allFilters.add("BY_CATEGORY_" + categoryFilter.toUpperCase());
-        ArrayList<Product> tempFilteredProducts = new ArrayList<>(allFilteredProducts);
-        allFilteredProducts.clear();
-        for (Product product : tempFilteredProducts) {
-            if (ManagerAccountController.getCategoryProducts(categoryFilter).contains(product.getName())) {
-                allFilteredProducts.add(product);
+    static void processFilterByPriceRange(int minPrice, int maxPrice, ArrayList<Product> categoryFilterProducts, ArrayList<Product> productsToShow, ArrayList<Category> allowedCategory) {
+        ArrayList<Product> temp = new ArrayList<>(categoryFilterProducts);
+        String filterPrice = null;
+        for (String allFilter : allFilters) {
+            if (allFilter.startsWith("BY_PRICE_RANGE_")) filterPrice = allFilter;
+            if (allFilter.startsWith("BY_NAME_")) {
+                for (Product categoryFilterProduct : categoryFilterProducts)
+                    if (!categoryFilterProduct.getName().startsWith(allFilter.substring(8)) || !allowedCategory.contains(categoryFilterProduct.getCategory())) {
+                        temp.remove(categoryFilterProduct);
+                    }
             }
         }
-    }
-
-    static void processFilterByPriceRange(int minPrice, int maxPrice) {
+        if (filterPrice != null)
+            allFilters.remove(filterPrice);
         allFilters.add("BY_PRICE_RANGE_" + minPrice + "," + maxPrice);
-        ArrayList<Product> tempFilteredProducts = new ArrayList<>(allFilteredProducts);
-        allFilteredProducts.clear();
-        for (Product product : tempFilteredProducts) {
-            if (product.getPrice() <= maxPrice && product.getPrice() >= minPrice) {
-                allFilteredProducts.add(product);
+        for (int i = 0; i < temp.size(); i++) {
+            if (temp.get(i).getPrice() > maxPrice || temp.get(i).getPrice() < minPrice || !allowedCategory.contains(temp.get(i).getCategory())) {
+                temp.remove(i);
+                i--;
             }
         }
+        productsToShow.clear();
+        productsToShow.addAll(temp);
     }
 
     public static ArrayList<String> processCurrentFilterEach() {
         return allFilters;
     }
 
-    public static void processDeleteFilterEach(String selectedFilter) throws FilterNotExistsException {
-        allFilters.remove(selectedFilter);
-        allFilteredProducts = Product.getAllProducts();
-        for (String filter : allFilters) {
-            if (filter.startsWith("BY_NAME_")) {
-                try {
-                    processFilter("BY_NAME", filter.substring(9));
-                } catch (CategoryNotExistsException e) {
-                    e.printStackTrace();
-                }
-            } else if (filter.startsWith("BY_CATEGORY_")) {
-                try {
-                    processFilter("BY_CATEGORY", filter.substring(12));
-                } catch (CategoryNotExistsException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                try {
-                    processFilter("BY_PRICE_RANGE", filter.substring(15));
-                } catch (CategoryNotExistsException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-    }
+//    public static void processDeleteFilterEach(String selectedFilter) throws FilterNotExistsException {
+//        allFilters.remove(selectedFilter);
+//        allFilteredProducts = Product.getAllProducts();
+//        for (String filter : allFilters) {
+//            if (filter.startsWith("BY_NAME_")) {
+//                try {
+//                    processFilter("BY_NAME", filter.substring(9));
+//                } catch (CategoryNotExistsException e) {
+//                    e.printStackTrace();
+//                }
+//            } else if (filter.startsWith("BY_CATEGORY_")) {
+//                try {
+//                    processFilter("BY_CATEGORY", filter.substring(12));
+//                } catch (CategoryNotExistsException e) {
+//                    e.printStackTrace();
+//                }
+//            } else {
+//                try {
+//                    processFilter("BY_PRICE_RANGE", filter.substring(15));
+//                } catch (CategoryNotExistsException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//
+//    }
 
     public static ArrayList<String> processShowAvailableSortsEach() {
         ArrayList<String> allSorts = new ArrayList<>();
