@@ -34,6 +34,10 @@ public abstract class Account {
         this.buyLogListHistory = new ArrayList<>();
         allAccounts.add(this);
     }
+    // just for test
+    public void setSellLogListHistory(ArrayList<SellLog> sellLogListHistory) {
+        this.sellLogListHistory = sellLogListHistory;
+    }
 
     public String getUserName() {
         return userName;

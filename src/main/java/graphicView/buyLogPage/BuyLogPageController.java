@@ -1,25 +1,40 @@
 package graphicView.buyLogPage;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import model.account.Purchaser;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class BuyLogPageController implements Initializable {
+    private static String currentBuyLogId;
+
+    public static String getCurrentBuyLogId() {
+        return currentBuyLogId;
+    }
+
+    public static void setCurrentBuyLogId(String currentBuyLogId) {
+        BuyLogPageController.currentBuyLogId = currentBuyLogId;
+    }
+
     @FXML
     private TableView<BuyLogIds> buyLogIdsTableView;
 
     @FXML
-    private TableColumn<BuyLogIds, StringProperty> buyLogIdColumn;
+    private TableColumn<BuyLogIds, Label> buyLogIdColumn;
 
     @FXML
     private Button backButton = new Button();
@@ -27,29 +42,44 @@ public class BuyLogPageController implements Initializable {
     // define to use in table for show
     public class BuyLogIds {
         // change the type label to use set on action function
-        private StringProperty buyLogId;
+        private Label buyLogId;
 
         public BuyLogIds(String buyLogId) {
-            this.buyLogId = new SimpleStringProperty(buyLogId);
+            this.buyLogId = new Label(buyLogId);
+            this.buyLogId.setOnMousePressed(actionEvent -> {
+                playButtonSound();
+                setCurrentBuyLogId(buyLogId);
+                BuyLogPage.window.close();
+                try {
+                    BuyLog.display();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
         }
 
-        public StringProperty buyLogIdProperty() {
+        public Label getBuyLogId() {
             return buyLogId;
         }
     }
 
     ObservableList<BuyLogIds> getBuyLogIds() {
         ObservableList<BuyLogIds> buyLogs = FXCollections.observableArrayList();
-        buyLogs.add(new BuyLogIds("1234"));
-        buyLogs.add(new BuyLogIds("4567"));
-        buyLogs.add(new BuyLogIds("2373"));
-        buyLogs.add(new BuyLogIds("1999"));
+        for (String sellLogId : ((Purchaser) LoginPanelController.getLoggedInAccount()).getAllBuyLogIds()) {
+            buyLogs.add(new BuyLogIds(sellLogId));
+        }
         return buyLogs;
     }
 
     @FXML
     private void goPreviousScene() {
+        playButtonSound();
         System.out.println("back");
+    }
+
+    private void playButtonSound() {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
+        mediaPlayer.play();
     }
 
     @Override

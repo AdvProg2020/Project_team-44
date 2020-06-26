@@ -60,7 +60,7 @@ public class CodedDiscount {
         this.discountPercentage = discountPercentage;
         this.maxAuthorizedPrice = maxAuthorizedPrice;
         allCodedDiscounts.add(this);
-        createAndUpdateJson();
+//        createAndUpdateJson();
     }
 
     public void createAndUpdateJson() {

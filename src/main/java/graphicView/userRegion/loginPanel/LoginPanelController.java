@@ -1,6 +1,7 @@
 package graphicView.userRegion.loginPanel;
 
 import controller.LoginPageController;
+import controller.ValidationController;
 import exception.UsernameExistsException;
 import exception.UsernameNotExistsException;
 import exception.WrongPasswordException;
@@ -9,21 +10,30 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import main.Main;
 import model.account.Account;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginPanelController implements Initializable {
     //    pass this to next scene for adding properties
-    static Account registeringAccount;
+    private static Account loggedInAccount;
 
-    public static Account getRegisteringAccount() {
-        return registeringAccount;
+    public static void setLoggedInAccount(Account loggedInAccount) {
+        LoginPanelController.loggedInAccount = loggedInAccount;
+    }
+
+    public static Account getLoggedInAccount() {
+        return loggedInAccount;
     }
 
     final ObservableList<String> accountTypesList = FXCollections.observableArrayList("Head Manager",
+            "Seller",
             "Purchaser");
     @FXML
     private ComboBox<String> accountTypes = new ComboBox<>();
@@ -67,6 +77,7 @@ public class LoginPanelController implements Initializable {
     @FXML
 //    set on registerButton action
     private void processRegister() {
+        playButtonSound();
 //           if agrees the terms, then can register
         if (!agreeButton.isSelected()) {
             registerMessageText.setText("Agree terms first!");
@@ -92,24 +103,23 @@ public class LoginPanelController implements Initializable {
             return;
         }
         try {
-            resetFields();
-            registeringAccount = LoginPageController.processCreateAccount(accountTypes.getValue().toLowerCase(),
-                    registerUsernameField.getText(),
-                    registerPasswordField.getText(),
-                    "",
-                    "",
-                    registerEmailField.getText(),
-                    "",
-                    null,
-                    "",
-                    null);
+            ValidationController.checkUsernameForRegistration(registerUsernameField.getText());
             LoginPanel.window.close();
-            try {
-                InfoSetPanel.display();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (accountTypes.getValue().equals("Head Manager")) {
+                ManagerInfoSetPanel.display(registerUsernameField.getText(),
+                        registerPasswordField.getText(),
+                        registerEmailField.getText());
+            } else if (accountTypes.getValue().equals("Seller")) {
+                SellerInfoSetPanel.display(registerUsernameField.getText(),
+                        registerPasswordField.getText(),
+                        registerEmailField.getText());
+            } else {
+                PurchaserInfoSetPanel.display(registerUsernameField.getText(),
+                        registerPasswordField.getText(),
+                        registerEmailField.getText());
             }
-        } catch (UsernameExistsException exception) {
+            resetFields();
+        } catch (UsernameExistsException | IOException exception) {
             registerMessageText.setText(exception.getMessage());
         }
     }
@@ -117,6 +127,7 @@ public class LoginPanelController implements Initializable {
     @FXML
 //    set on loginButton action
     private void processLogin() {
+        playButtonSound();
         //            check username only consist words, numbers and longer than 8
         if (!loginUsernameField.getText().matches("\\w{8,}")) {
             loginMessageText.setText("Invalid username");
@@ -138,9 +149,15 @@ public class LoginPanelController implements Initializable {
         }
     }
 
+    private void playButtonSound() {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
+        mediaPlayer.play();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        registeringAccount = null;
+
+        loggedInAccount = null;
 //        manager can register only once
         if (LoginPageController.isIsMainManagerRegistered()) {
             accountTypesList.remove(0);

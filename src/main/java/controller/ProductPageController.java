@@ -41,6 +41,6 @@ public abstract class ProductPageController {
     }
 
     public static void processAddComment(String title, String content) {
-        Comment comment = new Comment(LoginPageController.loggedInAccount, ProductsPageController.selectedProduct, content, title);
+        new Comment(LoginPageController.loggedInAccount, ProductsPageController.selectedProduct, content, title);
     }
 }

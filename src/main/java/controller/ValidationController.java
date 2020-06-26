@@ -38,7 +38,7 @@ public abstract class ValidationController {
         throw new UsernameNotExistsException("No user exists with this username.");
     }
 
-    static void checkUsernameForRegistration(String username) throws UsernameExistsException {
+    public static void checkUsernameForRegistration(String username) throws UsernameExistsException {
         for (Account account : Account.getAllAccounts()) {
             if (username.equals(account.getUserName())) {
                 throw new UsernameExistsException("User exists with this username");

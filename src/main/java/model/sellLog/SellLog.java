@@ -76,6 +76,20 @@ public class SellLog {
         sellLogInfo.add(this.getStatus().toString());
         return sellLogInfo;
     }
+
+    public ArrayList<Product> getAllSellProducts() {
+        return allSellProducts;
+    }
+
+    public static SellLog getSellLogById(String logId) {
+        for (SellLog sellLog : allSellLogs) {
+            if (sellLog.getLogID().equals(logId)){
+                return sellLog;
+            }
+        }
+        return null;
+    }
+
     public String produceSellLogId() {
         String logId = "SellLog_";
         Random random = new Random();

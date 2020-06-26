@@ -5,6 +5,7 @@ module team {
     requires java.desktop;
     requires com.google.gson;
     requires javafx.base;
+    requires javafx.media;
     requires com.jfoenix;
 
     opens main;
@@ -16,6 +17,7 @@ module team {
     opens graphicView.sellLogPage to javafx.fxml, javafx.base;
     opens graphicView.buyLogPage to javafx.fxml, javafx.base;
     opens graphicView.discountCodes to javafx.fxml, javafx.base;
+    opens graphicView.userRegion.userAccount to javafx.fxml;
 
     opens model to com.google.gson, javafx.base;
     opens model.account to com.google.gson;

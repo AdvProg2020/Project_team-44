@@ -49,10 +49,10 @@ public class Product {
         this.generatedDate = new Date();
         this.imageName = imageName;
         allProducts.add(this);
-        category.getAllSubProducts().add(this);
-        createAndUpdateJson(this);
-        updateAllParent(category);
-        category.createAndUpdateJson(category);
+//        category.getAllSubProducts().add(this);
+//        createAndUpdateJson(this);
+//        updateAllParent(category);
+//        category.createAndUpdateJson(category);
     }
 
     public String getImageName() {

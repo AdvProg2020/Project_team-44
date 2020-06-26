@@ -1,6 +1,7 @@
 package graphicView.cart;
 
 import controller.PurchaserAccountController;
+import graphicView.purchasePage.PurchasePage;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,9 +17,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import model.product.Product;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -50,37 +56,24 @@ public class CartPageController implements Initializable {
     @FXML
     private Label totalAmountLabel;
 
-    //    ObservableList<Cart> getCart() {
-//        ObservableList<Cart> carts = FXCollections.observableArrayList();
-//        for (Product product : PurchaserAccountController.getCart()) {
-//            carts.add(new Cart(product.getName(), (int) product.getPrice()));
-//        }
-//        return carts;
-//    }
     ObservableList<Cart> getCart() {
         ObservableList<Cart> carts = FXCollections.observableArrayList();
-        carts.add(new Cart("Apple", 5));
-        carts.add(new Cart("Orange", 4));
-        carts.add(new Cart("Lemon", 3));
-        carts.add(new Cart("Banana", 2));
+        System.out.println(PurchaserAccountController.getCartProducts().size());
+        for (Product product : PurchaserAccountController.getCartProducts()) {
+            carts.add(new Cart(product.getName(), (int) product.getPrice()));
+        }
         return carts;
     }
 
-//    SimpleStringProperty totalAmountToPay() {
-//        int amount = 0;
-//        for (Cart cart : allCarts) {
-//            amount += cart.totalAmount.intValue();
-//        }
-//        return new SimpleStringProperty("" + (new SimpleIntegerProperty(amount)).getValue());
-//    }
-
-    SimpleStringProperty totalAmountToPay() {
-        int amount = 0;
-        for (Cart cart : allCarts) {
-            amount += cart.totalAmount.intValue();
-        }
-        return new SimpleStringProperty("" + (new SimpleIntegerProperty(amount)).getValue());
+    public static int totalAmountToPay() {
+        return (int) PurchaserAccountController.processShowTotalPriceEach();
     }
+
+    private void playButtonSound() {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
+        mediaPlayer.play();
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -96,7 +89,13 @@ public class CartPageController implements Initializable {
 
     @FXML
     private void gotoNextScene() {
-        System.out.println("We are fudged up!");
+        playButtonSound();
+        CartPage.window.close();
+        try {
+            PurchasePage.display();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
     }
 
     // class that would be shown in Cart Table
@@ -122,10 +121,11 @@ public class CartPageController implements Initializable {
 
             // increase button
             increaseButton.setOnAction(actionEvent -> {
+                playButtonSound();
                 quantity.setValue(quantity.getValue() + 1);
                 PurchaserAccountController.increaseItemInCart(productName);
                 cartTableView.setItems(getCart());
-                totalAmountLabel.setText(totalAmountToPay().getValue());
+                totalAmountLabel.setText("" + totalAmountToPay());
             });
             try {
                 increaseButton.setGraphic(new ImageView(new Image(new FileInputStream("src\\main\\resources\\media\\image\\deleteIcon.png"))));
@@ -135,17 +135,19 @@ public class CartPageController implements Initializable {
 
             //  decrease button
             decreaseButton.setOnAction(actionEvent -> {
+                playButtonSound();
                 quantity.setValue(quantity.getValue() - 1);
                 PurchaserAccountController.decreaseItemInCart(productName);
                 cartTableView.setItems(getCart());
-                totalAmountLabel.setText(totalAmountToPay().getValue());
+                totalAmountLabel.setText("" + totalAmountToPay());
             });
 
             //  remove button
             removeButton.setOnAction(actionEvent -> {
+                playButtonSound();
                 PurchaserAccountController.deleteItemInCart(productName);
                 cartTableView.setItems(getCart());
-                totalAmountLabel.setText(totalAmountToPay().getValue());
+                totalAmountLabel.setText("" + totalAmountToPay());
             });
         }
 

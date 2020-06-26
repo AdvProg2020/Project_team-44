@@ -1,5 +1,6 @@
 package graphicView.mainMenu;
 
+import graphicView.userRegion.userAccount.PurchaserAccountPageController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,7 @@ import java.io.IOException;
 public class MainMenu {
 
     public static void display() throws IOException {
+        Main.setMediaPlayer("The Swimmer.mp3");
         Main.window = new Stage();
         Main.window.setMaximized(true);
         Pane root = FXMLLoader.load(MainMenu.class.getResource("/graphicView/mainMenu/mainMenu.fxml"));
@@ -22,8 +24,11 @@ public class MainMenu {
     }
 
     @FXML
-    void onAccountRegion(ActionEvent event) {
-
+    void onAccountRegion(ActionEvent event) throws IOException {
+//        Pane root = FXMLLoader.load(getClass().getResource("/graphicView/userRegion/userAccount/PurchaserAccountPage.fxml"));
+//        PurchaserAccountPageController.writeInformation();
+//        Main.window.setScene(new Scene(root, 800, 600));
+////        Main.window.show();
     }
 
     @FXML

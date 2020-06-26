@@ -12,6 +12,10 @@ public abstract class LoginPageController {
     static Account loggedInAccount;
     static boolean isMainManagerRegistered = false;
 
+    public static void setLoggedInAccount(Account loggedInAccount) {
+        LoginPageController.loggedInAccount = loggedInAccount;
+    }
+
     public static boolean isIsMainManagerRegistered() {
         return isMainManagerRegistered;
     }
@@ -20,17 +24,36 @@ public abstract class LoginPageController {
         return loggedInAccount;
     }
 
-    public static Account processCreateAccount(String type, String username, String password, String firstName, String lastName, String email
-            , String telephoneNumber, String companyName, String companyAddress, String companyTelephoneNumber) throws UsernameExistsException {
+    public static Account processCreateAccount(String type, String username, String password, String firstName, String lastName, String email, String telephoneNumber, String companyName, String address, String companyTelephoneNumber)
+            throws UsernameExistsException {
+
         ValidationController.checkUsernameForRegistration(username);
         if (type.equalsIgnoreCase("head manager")) {
             isMainManagerRegistered = true;
-            return new Manager(username, firstName, lastName, email, telephoneNumber, password);
+            return new Manager(username,
+                    firstName,
+                    lastName,
+                    email,
+                    telephoneNumber,
+                    password);
         } else if (type.equalsIgnoreCase("seller")) {
-            RequestForSeller requestForSeller = new RequestForSeller(companyName, companyAddress, companyTelephoneNumber, username, firstName,
-                    lastName, email, telephoneNumber, password);
+            new RequestForSeller(companyName,
+                    address,
+                    companyTelephoneNumber,
+                    username,
+                    firstName,
+                    lastName,
+                    email,
+                    telephoneNumber,
+                    password);
         }
-        return new Purchaser(username, firstName, lastName, email, telephoneNumber, password, companyAddress);
+        return new Purchaser(username,
+                firstName,
+                lastName,
+                email,
+                telephoneNumber,
+                password,
+                address);
     }
 
     public static void processLogin(String username, String password) throws UsernameNotExistsException, WrongPasswordException {
