@@ -21,14 +21,14 @@ import model.requests.Request;
 import java.util.Date;
 
 public abstract class ValidationController {
-    static void checkPasswordForLogin(String username, String password) throws WrongPasswordException {
+    public static void checkPasswordForLogin(String username, String password) throws WrongPasswordException {
         if (!Account.getAccountByUsername(username).getPassword().equals(password)) {
             throw new WrongPasswordException("Password is incorrect.");
 
         }
     }
 
-    static void checkUsernameForLogin(String username) throws UsernameNotExistsException {
+    public static void checkUsernameForLogin(String username) throws UsernameNotExistsException {
         for (Account account : Account.getAllAccounts()) {
             if (username.equals(account.getUserName())) {
                 return;
@@ -47,7 +47,7 @@ public abstract class ValidationController {
         }
     }
 
-    static void checkCategoryExistence(String selectedCategory) throws CategoryNotExistsException {
+    public static void checkCategoryExistence(String selectedCategory) throws CategoryNotExistsException {
         for (Category category : Category.getAllCategories()) {
             if (selectedCategory.equals(category.getName())) {
                 return;
@@ -58,7 +58,7 @@ public abstract class ValidationController {
 
     }
 
-    static void checkRequestExistence(String Id) throws RequestNotExistsException {
+    public static void checkRequestExistence(String Id) throws RequestNotExistsException {
         for (Request request : Request.getAllRequests()) {
             if (Id.equals(request.getRequestId())) {
                 return;
@@ -68,7 +68,7 @@ public abstract class ValidationController {
         throw new RequestNotExistsException("No Request exists with this Id.");
     }
 
-    static void checkCodedDiscountExistence(String discountCode) throws CodedDiscountNotExistsException {
+    public static void checkCodedDiscountExistence(String discountCode) throws CodedDiscountNotExistsException {
         for (CodedDiscount codedDiscount : CodedDiscount.getAllCodedDiscounts()) {
             if (discountCode.equals(codedDiscount.getDiscountCode())) {
                 return;
@@ -79,7 +79,7 @@ public abstract class ValidationController {
 
     }
 
-    static void checkUsernameExistence(String username) throws UsernameNotExistsException {
+    public static void checkUsernameExistence(String username) throws UsernameNotExistsException {
         for (Account account : Account.getAllAccounts()) {
             if (username.equals(account.getUserName())) {
                 return;
@@ -89,7 +89,7 @@ public abstract class ValidationController {
         throw new UsernameNotExistsException("No user exists with this username.");
     }
 
-    static void checkProductExistence(String productId) throws ProductIdNotExistsException {
+    public static void checkProductExistence(String productId) throws ProductIdNotExistsException {
         for (Product product : Product.getAllProducts()) {
             if (productId.equals(product.getProductID())) {
                 return;
@@ -99,7 +99,7 @@ public abstract class ValidationController {
         throw new ProductIdNotExistsException("No product exists with this Id.");
     }
 
-    static void checkSortExistence(String availableSort) throws SortNotExistsException {
+    public static void checkSortExistence(String availableSort) throws SortNotExistsException {
         for (Sort sort : Sort.values()) {
             if (sort.toString().equals(availableSort)) {
                 return;
@@ -109,7 +109,7 @@ public abstract class ValidationController {
         throw new SortNotExistsException("Wrong sort.");
     }
 
-    static void checkFilterExistence(String availableFilter) throws FilterNotExistsException {
+    public static void checkFilterExistence(String availableFilter) throws FilterNotExistsException {
         for (String filter : ProductsPageController.allFilters) {
             if (availableFilter.equals(filter)) {
                 return;
@@ -118,7 +118,7 @@ public abstract class ValidationController {
         throw new FilterNotExistsException("Wrong filter.");
     }
 
-    static void checkOrderExistence(String orderId) throws OrderNotExistsException {
+    public static void checkOrderExistence(String orderId) throws OrderNotExistsException {
         for (BuyLog order : LoginPageController.loggedInAccount.getBuyLogListHistory()) {
             if (orderId.equals(order.getLogID())) {
                 return;
@@ -128,7 +128,7 @@ public abstract class ValidationController {
         throw new OrderNotExistsException("No order exists with this Id.");
     }
 
-    static void checkOfferExistence(String offerId) throws ProductIdNotExistsException {
+    public static void checkOfferExistence(String offerId) throws ProductIdNotExistsException {
         for (Offer offer : Offer.getAllOffers()) {
             if (offerId.equals(offer.getOfferID())) {
                 return;

@@ -104,41 +104,43 @@
                         <Font name="System Bold" size="18.0" />
                     </font>
                 </Label>
-            <Label fx:id="managerPhoneNumber" layoutX="443.0" layoutY="319.0" prefHeight="46.0" prefWidth="169.0" />
-            <Label fx:id="managerEmail" layoutX="402.0" layoutY="396.0" prefHeight="46.0" prefWidth="202.0" />
-            <MenuButton fx:id="requests" layoutX="353.0" layoutY="69.0" mnemonicParsing="false" text="Requests">
-              <items>
-                <MenuItem fx:id="addOff" mnemonicParsing="false" text="Add Off" />
-                <MenuItem fx:id="editOff" mnemonicParsing="false" text="Edit Off" />
-                  <MenuItem fx:id="addProduct" mnemonicParsing="false" text="Add Product" />
-                  <MenuItem fx:id="editProduct" mnemonicParsing="false" text="Edit Product" />
-                  <MenuItem fx:id="removeProduct" mnemonicParsing="false" text="Remove Product" />
-                  <MenuItem fx:id="addSeller" mnemonicParsing="false" text="Add Seller" />
-              </items>
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </MenuButton>
-            <Button fx:id="editInfo" layoutX="300.0" layoutY="550.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="179.0" text="Edit Personal Info">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="viewAllAccounts" layoutX="572.0" layoutY="69.0" mnemonicParsing="false" text="View All Accounts">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="viewAllDiscountCodes" layoutX="817.0" layoutY="69.0" mnemonicParsing="false" text="View All Discount Codes">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="viewAllCategories" layoutX="1067.0" layoutY="69.0" mnemonicParsing="false" text="View All Categories">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
+                <Label fx:id="managerPhoneNumber" layoutX="443.0" layoutY="319.0" prefHeight="46.0" prefWidth="169.0" />
+                <Label fx:id="managerEmail" layoutX="402.0" layoutY="396.0" prefHeight="46.0" prefWidth="202.0" />
+                <MenuButton fx:id="requests" layoutX="353.0" layoutY="69.0" mnemonicParsing="false" text="Requests">
+                    <items>
+                        <MenuItem fx:id="addOff" mnemonicParsing="false" text="Add Off" />
+                        <MenuItem fx:id="editOff" mnemonicParsing="false" text="Edit Off" />
+                        <MenuItem fx:id="addProduct" mnemonicParsing="false" text="Add Product" />
+                        <MenuItem fx:id="editProduct" mnemonicParsing="false" text="Edit Product" />
+                        <MenuItem fx:id="removeProduct" mnemonicParsing="false" text="Remove Product" />
+                        <MenuItem fx:id="addSeller" mnemonicParsing="false" text="Add Seller" />
+                    </items>
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </MenuButton>
+                <Button fx:id="editInfo" layoutX="300.0" layoutY="550.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="179.0" text="Edit Personal Info">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="viewAllAccounts" layoutX="572.0" layoutY="69.0" mnemonicParsing="false" text="View All Accounts">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="viewAllDiscountCodes" layoutX="817.0" layoutY="69.0" mnemonicParsing="false" text="View All Discount Codes">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="viewAllCategories" layoutX="1067.0" layoutY="69.0" mnemonicParsing="false" text="View All Categories">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="backButton" layoutX="104.0" layoutY="76.0" mnemonicParsing="false" onAction="#goPreviousScene" text="Back" />
+                <Button fx:id="logout" layoutX="198.0" layoutY="76.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
             </children>
         </AnchorPane>
     </children>

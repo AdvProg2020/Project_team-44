@@ -286,7 +286,7 @@ public abstract class ProductsPageController {
     static Product selectedProduct = null;
     static Sort currentProductsSort = Sort.VIEW;
     static ArrayList<Product> allFilteredProducts = Product.getAllProducts();
-    static ArrayList<String> allFilters = new ArrayList<>();
+    public static ArrayList<String> allFilters = new ArrayList<>();
 
     static {
         processSortByView(true);
@@ -294,6 +294,10 @@ public abstract class ProductsPageController {
 
     public static ArrayList<String> getAllFilters() {
         return allFilters;
+    }
+
+    public static void setSelectedProduct(Product selectedProduct) {
+        ProductsPageController.selectedProduct = selectedProduct;
     }
 
     public static ArrayList<Product> getAllFilteredProducts() {

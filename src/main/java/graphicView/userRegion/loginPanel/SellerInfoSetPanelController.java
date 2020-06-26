@@ -10,6 +10,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
+import java.io.IOException;
 
 public class SellerInfoSetPanelController {
     @FXML
@@ -36,7 +37,7 @@ public class SellerInfoSetPanelController {
 
 
     //    set on nextButton action
-    public void goNext() {
+    public void goNext() throws IOException {
         playButtonSound();
         if (!firstNameField.getText().matches("[a-z|A-Z]+") ||
                 !secondNameField.getText().matches("[a-z|A-Z]+") ||
@@ -62,6 +63,7 @@ public class SellerInfoSetPanelController {
         } catch (UsernameExistsException e) {
             e.printStackTrace();
         }
-//        TODO: goto next scene
+        SellerInfoSetPanel.window.close();
+        LoginPanel.display();
     }
 }

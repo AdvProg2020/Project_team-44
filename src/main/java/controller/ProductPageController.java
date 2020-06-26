@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class ProductPageController {
-    static Seller selectedSeller;
+    public static Seller selectedSeller;
 
     public static ArrayList<String> processShowDigest() {
         return ProductsPageController.selectedProduct.getProductInfo();
@@ -28,7 +28,7 @@ public abstract class ProductPageController {
     public static void processSelectSellerEach(String sellerUsername) throws SellerUserNameNotExists {
         ValidationController.checkSellerOwnsProduct((Seller) Account.getAccountByUsername(sellerUsername)
                 , ProductsPageController.selectedProduct);
-       selectedSeller = (Seller)Account.getAccountByUsername(sellerUsername);
+        selectedSeller = (Seller) Account.getAccountByUsername(sellerUsername);
     }
 
     public static HashMap<String, String> processShowAttributes() {

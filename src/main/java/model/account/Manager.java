@@ -25,7 +25,7 @@ public class Manager extends Account {
     public Manager(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
         allManagers.add(this);
-//        createAndUpdateJson();
+        createAndUpdateJson();
     }
 
     public static ArrayList<Manager> getAllManagers() {

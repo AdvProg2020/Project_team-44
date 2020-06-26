@@ -6,7 +6,7 @@ import model.sellLog.SellLog;
 
 import java.util.ArrayList;
 
-public abstract class Account {
+public class Account {
     protected String userName;
     protected String firstName;
     protected String lastName;

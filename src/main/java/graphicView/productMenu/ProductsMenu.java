@@ -13,7 +13,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,7 +20,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -97,7 +95,7 @@ public class ProductsMenu {
         tableView.setLayoutY(125);
         setXLayoutTable(tableView.getLayoutX());
         setYLayoutTable(tableView.getLayoutY() + 440);
-        tableView.setBackground((new Background(new BackgroundFill(Color.LIGHTGRAY, null, null))));
+        tableView.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, null, null)));
         this.tableView = tableView;
     }
 
@@ -144,7 +142,9 @@ public class ProductsMenu {
                     try {
                         setTableView(Category.getCategoryByName(subMenu.getText()));
                         for (Category subCategory1 : Category.getCategoryByName(subMenu.getText()).getSubCategories()) {
+                            System.out.println(subCategory1.getAllSubProducts().size());
                             categoryFilterProducts.addAll(subCategory1.getAllSubProducts());
+
                         }
                         for (Product allSubProduct : Category.getCategoryByName(subMenu.getText()).getAllSubProducts()) {
                             if (!categoryFilterProducts.contains(allSubProduct))
@@ -163,6 +163,7 @@ public class ProductsMenu {
     }
 
     public void openTheSecondaryCategory(boolean firstTime) throws FileNotFoundException, FilterNotExistsException {
+
         if (firstTime) {
             secondRoot = new Pane();
             back = new Button("Back");
@@ -278,6 +279,7 @@ public class ProductsMenu {
             i++;
         }
         secondRoot.getChildren().add(productRoot);
+        secondRoot.setBackground(new Background(new BackgroundFill(Color.LIGHTSKYBLUE, null, null)));
     }
 
     public void openProductPage(Scene previousScene, Product product) throws FileNotFoundException {
@@ -286,42 +288,34 @@ public class ProductsMenu {
         back.setLayoutX(1200);
         back.setFont(Font.font(20));
         back.setOnAction(actionEvent -> Main.window.setScene(previousScene));
-
         ImageView imageView = new ImageView(new Image(new FileInputStream("src/main/resources/media/image/" + product.getImageName())));
         imageView.setFitWidth(379);
         imageView.setFitHeight(379);
         imageView.setLayoutX(85);
         imageView.setLayoutY(69);
-
         Text price = new Text("Price : " + product.getPrice() + " $");
         price.setFont(Font.font(21));
         price.setLayoutX(376);
         price.setLayoutY(500);
-
         Text rate = new Text("Rate : " + product.getAverageRating());
         rate.setFont(Font.font(18));
         rate.setLayoutX(100);
         rate.setLayoutY(500);
-
         VBox first = new VBox();
         first.setSpacing(15);
         Text name = new Text(product.getName());
         name.setFont(Font.font(29));
         name.setTranslateY(-10);
-
         Label productExplanation = new Label("Explanation");
         productExplanation.setFont(Font.font(24));
         productExplanation.setTextFill(Color.MEDIUMSEAGREEN);
-
         Text explanation = new Text(product.getExplanationText());
         explanation.setFont(Font.font(19));
         explanation.setTranslateY(4);
-
         Label categoryLabel = new Label("Category attributes :");
         categoryLabel.setFont(Font.font(24));
         categoryLabel.setTranslateY(23);
         categoryLabel.setTextFill(Color.MEDIUMSEAGREEN);
-
         StringBuilder stringBuilder = new StringBuilder();
         if (product.getCategory().getAttributes().size() > 0)
             for (String s : product.getCategory().getAttributes()) {
@@ -330,7 +324,6 @@ public class ProductsMenu {
         Text categoryAttribute = new Text(stringBuilder.toString());
         categoryAttribute.setTranslateY(20);
         categoryAttribute.setFont(Font.font(19));
-
         Button comment = new Button("Comment");
         comment.setFont(Font.font(16));
         comment.setTranslateY(35);
@@ -340,8 +333,6 @@ public class ProductsMenu {
         commentField.setTranslateX(comment.getLayoutX() + 150);
         Button rating = new Button("Rate this product");
         rate.setFont(Font.font(18));
-
-
         TextField rateField = new TextField("");
         rateField.setTranslateY(-40);
         rateField.setTranslateX(rating.getLayoutX() + 150);
@@ -349,7 +340,6 @@ public class ProductsMenu {
             if (product.isPurchasedByPurchaser((Purchaser) (LoginPageController.getLoggedInAccount())))
                 new Rating(product, (Purchaser) (LoginPageController.getLoggedInAccount()), Integer.parseInt(rateField.getText()));
         });
-
         Button add = new Button("Add to cart");
         add.setFont(Font.font(19));
         add.setLayoutY(55);
@@ -362,7 +352,6 @@ public class ProductsMenu {
                 e.printStackTrace();
             }
         });
-
         first.getChildren().addAll(name, productExplanation, explanation, categoryLabel, categoryAttribute, comment, commentField, rating, rateField, add);
         first.setLayoutX(666);
         first.setLayoutY(100);
@@ -393,7 +382,6 @@ public class ProductsMenu {
         }
         hBox.setLayoutX(79);
         hBox.setLayoutY(550);
-
         VBox second = new VBox();
         second.setSpacing(15);
         TableView commentMenu = new TableView();

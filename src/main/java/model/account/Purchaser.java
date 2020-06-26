@@ -39,7 +39,7 @@ public class Purchaser extends Account {
         this.cart = new HashMap<>();
         this.address = address;
         allPurchaser.add(this);
-//        createAndUpdateJson();
+        createAndUpdateJson();
     }
 
     public static ArrayList<Purchaser> getAllPurchaser() {

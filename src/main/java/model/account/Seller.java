@@ -32,7 +32,7 @@ public class Seller extends Account {
         this.companyTelephone = companyTelephone;
         this.productsToSell = new HashMap<>();
         allSeller.add(this);
-//        createAndUpdateJson();
+        createAndUpdateJson();
     }
 
     public static ArrayList<Seller> getAllSeller() {

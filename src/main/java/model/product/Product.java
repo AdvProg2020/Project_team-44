@@ -1,8 +1,6 @@
 package model.product;
 
 import com.google.gson.Gson;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import model.Category;
 import model.Rating;
 import model.account.Purchaser;
@@ -10,7 +8,6 @@ import model.account.Seller;
 import model.comment.Comment;
 import model.offer.Offer;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -50,10 +47,10 @@ public class Product {
         this.imageName = imageName;
         this.allComments = new ArrayList<>();
         allProducts.add(this);
-//        category.getAllSubProducts().add(this);
-//        createAndUpdateJson(this);
-//        updateAllParent(category);
-//        category.createAndUpdateJson(category);
+        category.getAllSubProducts().add(this);
+        createAndUpdateJson(this);
+        updateAllParent(category);
+        category.createAndUpdateJson(category);
     }
 
     public void setOffer(Offer offer) {

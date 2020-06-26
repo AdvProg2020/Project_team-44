@@ -4,11 +4,15 @@ import controller.LoginPageController;
 import graphicView.buyLogPage.BuyLogPage;
 import graphicView.cart.CartPage;
 import graphicView.discountCodes.DiscountCodesPage;
+import graphicView.mainMenu.MainMenu;
+import graphicView.userRegion.loginPanel.LoginPanelController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import main.Main;
 import model.account.Account;
 
 import java.io.IOException;
@@ -38,9 +42,19 @@ public class PurchaserAccountPageController implements Initializable {
     private Button viewDiscountCodes = new Button();
     @FXML
     private Button editInfo;
+    @FXML
+    private Button logout;
 
     @FXML
+    private void logout() throws IOException {
+        LoginPageController.logout();
+        LoginPanelController.setLoggedInAccount(null);
+        ManagerAccountPage.primaryStage.close();
+        MainMenu.display(Main.window);
+    }
+    @FXML
     private void processViewCart() {
+
         // button sound TODO
         PurchaserAccountPage.primaryStage.close();
         try {
@@ -87,4 +101,5 @@ public class PurchaserAccountPageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         writeInformation();
     }
+
 }

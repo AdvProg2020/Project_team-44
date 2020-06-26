@@ -10,11 +10,6 @@
    <children>
       <ButtonBar layoutX="30.0" layoutY="-7.0" prefHeight="67.0" prefWidth="1171.0">
         <buttons>
-          <Button alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#onOffers" prefHeight="50.0" prefWidth="507.0" style="-fx-background-color: transparent;" text="Offers">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
             <Button alignment="TOP_CENTER" minWidth="0.0" mnemonicParsing="false" onAction="#onProducts" prefHeight="55.0" style="-fx-background-color: transparent;" text="Products">
                <font>
                   <Font size="25.0" />
