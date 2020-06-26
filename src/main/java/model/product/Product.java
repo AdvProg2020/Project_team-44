@@ -55,6 +55,10 @@ public class Product {
 //        category.createAndUpdateJson(category);
     }
 
+    public void setOffer(Offer offer) {
+        this.offer = offer;
+    }
+
     public String getImageName() {
         return imageName;
     }
@@ -193,6 +197,8 @@ public class Product {
             sum += rating.getRating();
             num++;
         }
+        if (this.getAllRating().size() == 0)
+            return 0;
         return sum / num;
     }
 
@@ -235,6 +241,14 @@ public class Product {
                 return allProduct;
         }
         return null;
+    }
+
+    public boolean isPurchasedByPurchaser(Purchaser purchaser) {
+        for (Purchaser purchaser1 : getAllPurchaser()) {
+            if (purchaser == purchaser1)
+                return true;
+        }
+        return false;
     }
 
 }

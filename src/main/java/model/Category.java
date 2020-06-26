@@ -16,7 +16,7 @@ public class Category {
     private String name;
     private ArrayList<Category> subCategories = new ArrayList<>();
     private ArrayList<Product> allSubProducts = new ArrayList<>();
-    private ArrayList<String> attributes;
+    private ArrayList<String> attributes = new ArrayList<>();
     private static ArrayList<Category> allCategories = new ArrayList<>();
     private transient Category parent = null;
     private String imageName;
