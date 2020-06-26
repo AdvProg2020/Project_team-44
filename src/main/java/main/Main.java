@@ -1,18 +1,20 @@
 package main;
 
 import graphicView.mainMenu.MainMenu;
-import graphicView.productMenu.ProductsMenu;
 import graphicView.purchasePage.PurchasePage;
 import javafx.application.Application;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Category;
-import model.account.Account;
 import model.account.Manager;
 import model.account.Purchaser;
 import model.account.Seller;
 import model.comment.Comment;
 import model.product.Product;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -21,8 +23,26 @@ public class Main extends Application {
     public static Stage window;
     public static Product good;
 
+    static MediaPlayer mediaPlayer;
+
+    public static MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
+    public static void setMediaPlayer(String songName) {
+        Main.mediaPlayer = new MediaPlayer(new Media(new File("src/main/resources/media/sound/" + songName).toURI().toString()));
+        Main.mediaPlayer.setAutoPlay(true);
+        Main.mediaPlayer.setOnEndOfMedia(new Runnable() {
+            public void run() {
+                mediaPlayer.seek(Duration.ZERO);
+            }
+        });
+    }
+
+
     public static void main(String[] args) throws FileNotFoundException {
 //        reload();
+//        setMediaPlayer();
         new Manager("a", "b", "c", "d", "e", "f");
         new Category("digital", null, "tom.jpg");
         new Category("home", null, "tom.jpg");
