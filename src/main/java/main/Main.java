@@ -137,6 +137,23 @@ public class Main extends Application {
         }
     }
 
+    public static void doComment(Comment comment) {
+        for (Product allProduct : Product.getAllProducts()) {
+            for (Comment allComment : allProduct.getAllComments()) {
+                if (allComment.getTitle().equals(comment.getTitle())) {
+                    comment.setProduct(allProduct);
+                    break;
+                }
+            }
+        }
+    }
+
+    public static void setCommentEachProduct(ArrayList<Comment> all) {
+        for (Comment comment : all) {
+            doComment(comment);
+        }
+    }
+
     private static void reload() {
         Category.setAllCategories(new Json<Category>().getAllJson("src/main/resources/Categories", "category"));
         Product.setAllProducts(new Json<Product>().getAllJson("src/main/resources/Products", "product"));
@@ -144,6 +161,7 @@ public class Main extends Application {
         Seller.setAllSeller(new Json<Seller>().getAllJson("src/main/resources/Accounts/Sellers", "seller"));
         Purchaser.setAllPurchaser(new Json<Purchaser>().getAllJson("src/main/resources/Accounts/Purchasers", "purchaser"));
         Comment.setAllComments(new Json<Comment>().getAllJson("src/main/resources/Comments", "comment"));
+        setCommentEachProduct(Comment.allComments);
         Account.getAllAccounts().addAll(Manager.getAllManagers());
         Account.getAllAccounts().addAll(Seller.getAllSeller());
         Account.getAllAccounts().addAll(Purchaser.getAllPurchaser());

@@ -28,6 +28,10 @@ public class Comment {
         createAndUpdateJson(this);
     }
 
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     public static void setAllComments(ArrayList<Comment> allComments) {
         Comment.allComments = allComments;
     }
@@ -35,7 +39,7 @@ public class Comment {
     public void createAndUpdateJson(Comment comment) {
         try {
             Writer writer = new FileWriter("src/main/resources/Comments/" + comment.getTitle() + ".json");
-            new Gson().toJson(product, writer);
+            new Gson().toJson(comment, writer);
             writer.close();
         } catch (IOException e) {
             System.out.println(e.getMessage() + "!!!!!!!!!!!!!!");
