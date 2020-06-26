@@ -1,6 +1,9 @@
 package graphicView.discountCodes;
 
 
+import controller.LoginPageController;
+import controller.ManagerAccountController;
+import controller.PurchaserAccountController;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,7 +16,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import model.account.Manager;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -40,6 +47,12 @@ public class DiscountCodesPageController implements Initializable {
     @FXML
     TableColumn<CodedDiscount, IntegerProperty> maxAuthorizedPriceColumn;
 
+    private void playButtonSound() {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
+        mediaPlayer.play();
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         rowNumberColumn.setCellValueFactory(new PropertyValueFactory<>("rowNumber"));
@@ -53,26 +66,23 @@ public class DiscountCodesPageController implements Initializable {
 
     private ObservableList<CodedDiscount> getCodedDiscounts() {
         ObservableList<CodedDiscount> codedDiscountList = FXCollections.observableArrayList();
-        codedDiscountList.add(new CodedDiscount("100",
-                new Date(),
-                new Date(),
-                10,
-                20000));
-        codedDiscountList.add(new CodedDiscount("200",
-                new Date(),
-                new Date(),
-                36,
-                1000000));
-        codedDiscountList.add(new CodedDiscount("300",
-                new Date(),
-                new Date(),
-                12,
-                89332));
-        codedDiscountList.add(new CodedDiscount("400",
-                new Date(),
-                new Date(),
-                90,
-                88));
+        if (LoginPageController.getLoggedInAccount() instanceof Manager) {
+            for (String discountCode : ManagerAccountController.processViewDiscountCodes()) {
+                codedDiscountList.add(new CodedDiscount(model.CodedDiscount.getCodedDiscountByCode(discountCode).getDiscountCode(),
+                        model.CodedDiscount.getCodedDiscountByCode(discountCode).getInitialDate(),
+                        model.CodedDiscount.getCodedDiscountByCode(discountCode).getFinalDate(),
+                        (int) model.CodedDiscount.getCodedDiscountByCode(discountCode).getDiscountPercentage(),
+                        (int) model.CodedDiscount.getCodedDiscountByCode(discountCode).getMaxAuthorizedPrice()));
+            }
+        } else {
+            for (String discountCode : PurchaserAccountController.processViewDiscountCodes()) {
+                codedDiscountList.add(new CodedDiscount(model.CodedDiscount.getCodedDiscountByCode(discountCode).getDiscountCode(),
+                        model.CodedDiscount.getCodedDiscountByCode(discountCode).getInitialDate(),
+                        model.CodedDiscount.getCodedDiscountByCode(discountCode).getFinalDate(),
+                        (int) model.CodedDiscount.getCodedDiscountByCode(discountCode).getDiscountPercentage(),
+                        (int) model.CodedDiscount.getCodedDiscountByCode(discountCode).getMaxAuthorizedPrice()));
+            }
+        }
         return codedDiscountList;
     }
 
@@ -122,8 +132,8 @@ public class DiscountCodesPageController implements Initializable {
 
     @FXML
     private void goPreviousScene() {
+        playButtonSound();
         System.out.println("back");
     }
-
 
 }

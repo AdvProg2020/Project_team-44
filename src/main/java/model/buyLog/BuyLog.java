@@ -30,6 +30,10 @@ public class BuyLog {
         allBuyLogs.add(this);
     }
 
+    public ArrayList<Product> getAllPurchasedProducts() {
+        return allPurchasedProducts;
+    }
+
     public String getLogID() {
         return logID;
     }
@@ -60,8 +64,9 @@ public class BuyLog {
 
     public static BuyLog getBuyLogById(String logId) {
         for (BuyLog allBuyLog : allBuyLogs) {
-            if (allBuyLog.getLogID().equals(logId)) ;
-            return allBuyLog;
+            if (allBuyLog.getLogID().equals(logId)) {
+                return allBuyLog;
+            }
         }
         return null;
     }

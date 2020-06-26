@@ -9,11 +9,16 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import model.product.Product;
+import model.sellLog.SellLog;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -46,8 +51,7 @@ public class SellLogController implements Initializable {
     private TableColumn<SellLogInfo, IntegerProperty> moneyGainedColumn;
     @FXML
     private TableColumn<SellLogInfo, StringProperty> statusColumn;
-//    @FXML
-//    private TableColumn<SellLogInfo, CheckBox>
+
     // sold products inner class
     public class SoldProducts {
         private StringProperty soldProductName;
@@ -115,35 +119,42 @@ public class SellLogController implements Initializable {
     // produce elements in info table
     ObservableList<SellLogInfo> getSellLogInfo() {
         ObservableList<SellLogInfo> sellLogInfo = FXCollections.observableArrayList();
-        sellLogInfo.add(new SellLogInfo(1000,
-                10000,
-                "IN_PROGRESS",
-                "amin",
-                "davood",
-                new Date()));
+        sellLogInfo.add(new SellLogInfo((int) SellLog.getSellLogById(SellLogPageController.getCurrentSellLogId()).getOfferLossMoney(),
+                (int) SellLog.getSellLogById(SellLogPageController.getCurrentSellLogId()).getMoneyGained(),
+                SellLog.getSellLogById(SellLogPageController.getCurrentSellLogId()).getStatus().toString(),
+                SellLog.getSellLogById(SellLogPageController.getCurrentSellLogId()).getPurchaserFirstName(),
+                SellLog.getSellLogById(SellLogPageController.getCurrentSellLogId()).getPurchaserLastName(),
+                SellLog.getSellLogById(SellLogPageController.getCurrentSellLogId()).getDate()));
         return sellLogInfo;
     }
 
     // produce elements in sold products  table
     ObservableList<SoldProducts> getSellLogSoldProducts() {
         ObservableList<SoldProducts> soldProducts = FXCollections.observableArrayList();
-        soldProducts.add(new SoldProducts("golabi"));
-        soldProducts.add(new SoldProducts("sib"));
-        soldProducts.add(new SoldProducts("prtghal"));
+        for (Product sellProduct : SellLog.getSellLogById(SellLogPageController.getCurrentSellLogId()).getAllSellProducts()) {
+            soldProducts.add(new SoldProducts(sellProduct.getName()));
+        }
         return soldProducts;
+    }
+
+    private void playButtonSound() {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
+        mediaPlayer.play();
     }
 
     @FXML
     private void goPreviousScene() {
-        System.out.println("back");
+        playButtonSound();
+        graphicView.sellLogPage.SellLog.window.close();
+        try {
+            SellLogPage.display();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        Date date = new Date();
-//        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-//        String strDate = formatter.format(date);
-
         // initialize the sold products table
         soldProductsColumn.setCellValueFactory(new PropertyValueFactory<>("soldProductName"));
         rowNumberColumn.setCellValueFactory(new PropertyValueFactory<>("rowNumber"));

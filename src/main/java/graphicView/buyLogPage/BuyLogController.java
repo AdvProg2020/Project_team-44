@@ -12,9 +12,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import model.account.Seller;
+import model.buyLog.BuyLog;
+import model.product.Product;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class BuyLogController implements Initializable {
@@ -103,22 +111,38 @@ public class BuyLogController implements Initializable {
     // produce elements in info table
     ObservableList<BuyLogInfo> getBuyLogInfo() {
         ObservableList<BuyLogInfo> buyLogInfo = FXCollections.observableArrayList();
-        buyLogInfo.add(new BuyLogInfo(new Date(), 1000, 100000, "OK"));
+        buyLogInfo.add(new BuyLogInfo(BuyLog.getBuyLogById(BuyLogPageController.getCurrentBuyLogId()).getDate(),
+                (int) BuyLog.getBuyLogById(BuyLogPageController.getCurrentBuyLogId()).getDiscountCodeAmountUsed(),
+                (int) BuyLog.getBuyLogById(BuyLogPageController.getCurrentBuyLogId()).getMoneyPaid(),
+                BuyLog.getBuyLogById(BuyLogPageController.getCurrentBuyLogId()).getStatus().toString()));
         return buyLogInfo;
     }
 
     // produce elements in purchased products table
     ObservableList<PurchasedProduct> getBuyPurchasedProducts() {
         ObservableList<PurchasedProduct> purchasedProducts = FXCollections.observableArrayList();
-        purchasedProducts.add(new PurchasedProduct("apple", "daryoush", "amiri"));
-        purchasedProducts.add(new PurchasedProduct("orange", "abbas", "mmdi"));
-        purchasedProducts.add(new PurchasedProduct("pineapple", "amin", "davood"));
+        HashMap<Product, Seller> hashMap = BuyLog.getBuyLogById(BuyLogPageController.getCurrentBuyLogId()).getSellerForEachProduct();
+        System.out.println(hashMap.size());
+        for (Product purchasedProduct : hashMap.keySet()) {
+            purchasedProducts.add(new PurchasedProduct(purchasedProduct.getName(), hashMap.get(purchasedProduct).getFirstName(), hashMap.get(purchasedProduct).getLastName()));
+        }
         return purchasedProducts;
     }
 
     @FXML
     private void goPreviousScene() {
-        System.out.println("back");
+        playButtonSound();
+        graphicView.buyLogPage.BuyLog.window.close();
+        try {
+            BuyLogPage.display();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+
+    private void playButtonSound() {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
+        mediaPlayer.play();
     }
 
     @Override

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="587.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.userRegion.loginPanel.SellerInfoSetPanelController">
+   <children>
+      <TextField fx:id="firstNameField" layoutX="332.0" layoutY="47.0" />
+      <TextField fx:id="secondNameField" layoutX="332.0" layoutY="110.0" />
+      <TextField fx:id="telField" layoutX="332.0" layoutY="170.0" />
+      <TextField fx:id="companyTelField" layoutX="332.0" layoutY="234.0" />
+      <TextField fx:id="companyNameField" layoutX="332.0" layoutY="303.0" />
+      <TextField fx:id="addressField" layoutX="332.0" layoutY="369.0" />
+      <Label fx:id="messageLabel" layoutX="304.0" layoutY="431.0" prefHeight="49.0" prefWidth="197.0" />
+      <Label layoutX="188.0" layoutY="51.0" text="First Name" />
+      <Label layoutX="188.0" layoutY="114.0" text="Last Name" />
+      <Label layoutX="188.0" layoutY="174.0" text="Tel" />
+      <Label layoutX="188.0" layoutY="238.0" text="Company Tel" />
+      <Label layoutX="188.0" layoutY="307.0" text="Company Name" />
+      <Label layoutX="188.0" layoutY="373.0" text="Company Address" />
+      <Button fx:id="nextButton" layoutX="348.0" layoutY="489.0" mnemonicParsing="false" onAction="#goNext" prefHeight="25.0" prefWidth="105.0" text="Next" />
+   </children>
+</AnchorPane>
