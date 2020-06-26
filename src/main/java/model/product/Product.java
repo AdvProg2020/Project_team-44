@@ -29,7 +29,7 @@ public class Product {
     private double price;
     private ArrayList<Seller> allSellers = new ArrayList<>();
     private boolean isAvailable;
-    private ArrayList<Comment> allComments = new ArrayList<>();
+    private ArrayList<Comment> allComments;
     private String explanationText;
     private Offer offer;
     private ArrayList<Rating> allRating = new ArrayList<>();
@@ -48,6 +48,7 @@ public class Product {
         this.explanationText = explanationText;
         this.generatedDate = new Date();
         this.imageName = imageName;
+        this.allComments = new ArrayList<>();
         allProducts.add(this);
         category.getAllSubProducts().add(this);
         createAndUpdateJson(this);

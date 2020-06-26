@@ -5,7 +5,7 @@ import model.account.Account;
 
 public class Comment {
     private Account commenter;
-    private Product product;
+    private transient Product product;
     private String commentText;
     private CommentStatus status = CommentStatus.IN_PROGRESS;
     private String title;
@@ -16,6 +16,7 @@ public class Comment {
         this.product = product;
         this.commentText = commentText;
         this.title = title;
+        this.product.getAllComments().add(this);
     }
 
     public String getCommentText() {
