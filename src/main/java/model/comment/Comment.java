@@ -41,9 +41,14 @@ public class Comment {
             Writer writer = new FileWriter("src/main/resources/Comments/" + comment.getTitle() + ".json");
             new Gson().toJson(comment, writer);
             writer.close();
+            comment.getProduct().createAndUpdateJson(comment.getProduct());
         } catch (IOException e) {
             System.out.println(e.getMessage() + "!!!!!!!!!!!!!!");
         }
+    }
+
+    public Product getProduct() {
+        return product;
     }
 
     public String getCommentText() {
