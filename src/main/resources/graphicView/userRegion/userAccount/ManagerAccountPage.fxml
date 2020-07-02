@@ -139,6 +139,8 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <Button fx:id="backButton" layoutX="104.0" layoutY="76.0" mnemonicParsing="false" onAction="#goPreviousScene" text="Back" />
+            <Button fx:id="logout" layoutX="198.0" layoutY="76.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
             </children>
         </AnchorPane>
     </children>

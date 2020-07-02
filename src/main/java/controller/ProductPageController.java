@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class ProductPageController {
-    static Seller selectedSeller;
+    public static Seller selectedSeller;
 
     public static ArrayList<String> processShowDigest() {
         return ProductsPageController.selectedProduct.getProductInfo();

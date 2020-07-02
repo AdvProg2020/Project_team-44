@@ -4,11 +4,14 @@ import controller.LoginPageController;
 import graphicView.buyLogPage.BuyLogPage;
 import graphicView.cart.CartPage;
 import graphicView.discountCodes.DiscountCodesPage;
+import graphicView.mainMenu.MainMenu;
+import graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import main.Main;
 import model.account.Account;
 
 import java.io.IOException;
@@ -38,11 +41,20 @@ public class PurchaserAccountPageController implements Initializable {
     private Button viewDiscountCodes = new Button();
     @FXML
     private Button editInfo;
+    @FXML
+    private Button logout;
+
+    @FXML
+    private void logout() throws IOException {
+        LoginPageController.logout();
+        LoginPanelController.setLoggedInAccount(null);
+        PurchaserAccountPage.primaryStage.close();
+        MainMenu.display(Main.window);
+    }
 
     @FXML
     private void processViewCart() {
         // button sound TODO
-        PurchaserAccountPage.primaryStage.close();
         try {
             CartPage.display();
         } catch (IOException ioException) {
@@ -53,7 +65,6 @@ public class PurchaserAccountPageController implements Initializable {
     @FXML
     private void processBuysHistory() {
         // button sound TODO
-        PurchaserAccountPage.primaryStage.close();
         try {
             BuyLogPage.display();
         } catch (IOException ioException) {
@@ -64,7 +75,6 @@ public class PurchaserAccountPageController implements Initializable {
     @FXML
     private void processViewDiscountCodes() {
         // button sound TODO
-        PurchaserAccountPage.primaryStage.close();
         try {
             DiscountCodesPage.display();
         } catch (IOException ioException) {

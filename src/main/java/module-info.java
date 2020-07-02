@@ -6,7 +6,7 @@ module team {
     requires com.google.gson;
     requires javafx.base;
     requires javafx.media;
-//    requires com.jfoenix;
+    requires com.jfoenix;
 
     opens main;
     opens graphicView.userRegion.loginPanel to javafx.fxml;

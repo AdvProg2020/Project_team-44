@@ -21,7 +21,6 @@ public class MainMenu {
         Main.window.setScene(scene);
         Main.window.show();
         new ProductsMenu().openProductPage(Main.window.getScene(), Main.good);
-
     }
 
     @FXML

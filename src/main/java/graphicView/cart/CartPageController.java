@@ -1,5 +1,6 @@
 package graphicView.cart;
 
+import controller.LoginPageController;
 import controller.PurchaserAccountController;
 import graphicView.purchasePage.PurchasePage;
 import javafx.beans.property.IntegerProperty;
@@ -19,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import model.account.Purchaser;
 import model.product.Product;
 
 import java.io.File;
@@ -58,9 +60,10 @@ public class CartPageController implements Initializable {
 
     ObservableList<Cart> getCart() {
         ObservableList<Cart> carts = FXCollections.observableArrayList();
-        System.out.println(PurchaserAccountController.getCartProducts().size());
         for (Product product : PurchaserAccountController.getCartProducts()) {
-            carts.add(new Cart(product.getName(), (int) product.getPrice()));
+            carts.add(new Cart(product.getName(),
+                    (int) product.getPrice(),
+                    ((Purchaser) LoginPageController.getLoggedInAccount()).getCart().get(Product.getProductByName(product.getName()))));
         }
         return carts;
     }
@@ -77,6 +80,7 @@ public class CartPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("hey");
         productNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         priceFeeColumn.setCellValueFactory(new PropertyValueFactory<>("priceFee"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
@@ -108,10 +112,10 @@ public class CartPageController implements Initializable {
         private Button increaseButton;
         private Button decreaseButton;
 
-        Cart(String productName, int priceFee) {
+        Cart(String productName, int priceFee, int quantity) {
             this.productName = new SimpleStringProperty(productName);
             this.priceFee = new SimpleIntegerProperty(priceFee);
-            this.quantity = new SimpleIntegerProperty(1);
+            this.quantity = new SimpleIntegerProperty(quantity);
             this.totalAmount = new SimpleIntegerProperty();
             this.removeButton = new Button();
             this.increaseButton = new Button();
@@ -122,7 +126,6 @@ public class CartPageController implements Initializable {
             // increase button
             increaseButton.setOnAction(actionEvent -> {
                 playButtonSound();
-                quantity.setValue(quantity.getValue() + 1);
                 PurchaserAccountController.increaseItemInCart(productName);
                 cartTableView.setItems(getCart());
                 totalAmountLabel.setText("" + totalAmountToPay());
@@ -136,7 +139,6 @@ public class CartPageController implements Initializable {
             //  decrease button
             decreaseButton.setOnAction(actionEvent -> {
                 playButtonSound();
-                quantity.setValue(quantity.getValue() - 1);
                 PurchaserAccountController.decreaseItemInCart(productName);
                 cartTableView.setItems(getCart());
                 totalAmountLabel.setText("" + totalAmountToPay());

@@ -1,14 +1,18 @@
 package graphicView.userRegion.userAccount;
 
 import controller.LoginPageController;
+import graphicView.mainMenu.MainMenu;
+import graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import main.Main;
 import model.account.Account;
 import model.account.Seller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -41,7 +45,16 @@ public class SellerAccountPageController implements Initializable {
     private Button viewSalesHistory;
     @FXML
     private Button editInfo;
+    @FXML
+    private Button logout;
 
+    @FXML
+    private void logout() throws IOException {
+        LoginPageController.logout();
+        LoginPanelController.setLoggedInAccount(null);
+        SellerAccountPage.primaryStage.close();
+        MainMenu.display(Main.window);
+    }
 
     public void writeInformationOfSeller() {
         Account currentAccount = LoginPageController.getLoggedInAccount();

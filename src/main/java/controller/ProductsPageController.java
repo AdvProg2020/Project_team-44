@@ -285,11 +285,19 @@ import java.util.Collections;
 public abstract class ProductsPageController {
     static Product selectedProduct = null;
     static Sort currentProductsSort = Sort.VIEW;
-    static ArrayList<Product> allFilteredProducts = Product.getAllProducts();
-    static ArrayList<String> allFilters = new ArrayList<>();
+    public static ArrayList<Product> allFilteredProducts = Product.getAllProducts();
+    public static ArrayList<String> allFilters = new ArrayList<>();
 
     static {
         processSortByView(true);
+    }
+
+    public static void setSelectedProduct(Product selectedProduct) {
+        ProductsPageController.selectedProduct = selectedProduct;
+    }
+
+    public static void setAllFilteredProducts(ArrayList<Product> allFilteredProducts) {
+        ProductsPageController.allFilteredProducts = allFilteredProducts;
     }
 
     public static ArrayList<String> getAllFilters() {

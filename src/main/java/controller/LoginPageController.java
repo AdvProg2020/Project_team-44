@@ -9,7 +9,7 @@ import model.account.Purchaser;
 import model.requests.RequestForSeller;
 
 public abstract class LoginPageController {
-    static Account loggedInAccount;
+   public static Account loggedInAccount;
     static boolean isMainManagerRegistered = false;
 
     public static void setLoggedInAccount(Account loggedInAccount) {
