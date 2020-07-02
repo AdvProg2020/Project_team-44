@@ -3,6 +3,8 @@ package main;
 import graphicView.mainMenu.MainMenu;
 import graphicView.purchasePage.PurchasePage;
 import graphicView.userRegion.loginPanel.LoginPanel;
+import graphicView.userRegion.userAccount.sellerAccount.SellerEditInfoPage;
+import graphicView.userRegion.userAccount.sellerAccount.SellerEditInfoPageController;
 import javafx.application.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -46,16 +48,14 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        reload();
-        setMediaPlayer("The Swimmer.mp3");
+        //reload();
+       // setMediaPlayer("The Swimmer.mp3");
         launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setWidth(1275);
-        stage.setHeight(720);
-        MainMenu.display(stage);
+        SellerEditInfoPageController.display();
     }
 
     private static void setCategoryParent(ArrayList<Category> all) {

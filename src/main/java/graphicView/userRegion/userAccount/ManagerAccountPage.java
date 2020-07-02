@@ -13,7 +13,7 @@ import main.Main;
 import java.io.IOException;
 
 public class ManagerAccountPage {
-    static Stage primaryStage;
+    public static Stage primaryStage;
 
     public static void display() throws IOException {
         Main.setMediaPlayer("The Swimmer.mp3");

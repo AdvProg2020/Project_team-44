@@ -1,11 +1,10 @@
 package graphicView.mainMenu;
 
 import controller.LoginPageController;
-import graphicView.productMenu.ProductsMenu;
 import graphicView.userRegion.loginPanel.LoginPanel;
 import graphicView.userRegion.userAccount.ManagerAccountPage;
 import graphicView.userRegion.userAccount.PurchaserAccountPage;
-import graphicView.userRegion.userAccount.SellerAccountPage;
+import graphicView.userRegion.userAccount.sellerAccount.SellerAccountPage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

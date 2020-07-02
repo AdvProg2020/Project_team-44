@@ -1,8 +1,9 @@
-package graphicView.userRegion.userAccount;
+package graphicView.userRegion.userAccount.sellerAccount;
 
 import controller.LoginPageController;
 import graphicView.mainMenu.MainMenu;
 import graphicView.userRegion.loginPanel.LoginPanelController;
+import graphicView.userRegion.userAccount.ManagerAccountPage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
