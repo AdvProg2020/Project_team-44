@@ -51,9 +51,9 @@ public class SellerAccountPageController implements Initializable {
 
     @FXML
     private void logout() throws IOException {
+        SellerEditInfoPage.primaryStage.close();
         LoginPageController.logout();
         LoginPanelController.setLoggedInAccount(null);
-        ManagerAccountPage.primaryStage.close();
         MainMenu.display(Main.window);
     }
 
@@ -73,5 +73,10 @@ public class SellerAccountPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         writeInformationOfSeller();
+    }
+    @FXML
+    public void editInformation() throws IOException {
+        SellerAccountPage.primaryStage.close();
+        SellerEditInfoPage.display();
     }
 }

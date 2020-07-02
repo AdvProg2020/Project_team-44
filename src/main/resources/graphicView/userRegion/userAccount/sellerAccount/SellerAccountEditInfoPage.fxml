@@ -15,12 +15,12 @@
                 <Font name="System Bold" size="24.0" />
             </font>
         </Label>
-        <Button minWidth="53.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="102.0" style="-fx-background-color: white; -fx-text-fill: black;" text="back">
+        <Button minWidth="53.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="43.0" prefWidth="102.0" style="-fx-background-color: white; -fx-text-fill: black;" text="back">
             <font>
                 <Font size="14.0" />
             </font>
         </Button>
-        <Button layoutX="698.0" minWidth="53.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="102.0" style="-fx-background-color: white; -fx-text-fill: black;" text="logout">
+        <Button layoutX="698.0" minWidth="53.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="43.0" prefWidth="102.0" style="-fx-background-color: white; -fx-text-fill: black;" text="logout">
             <font>
                 <Font size="14.0" />
             </font>
@@ -84,10 +84,15 @@
         <TextField fx:id="newSellerCompanyName" layoutX="261.0" layoutY="415.0" prefWidth="200.0" promptText="new company name" />
         <TextField fx:id="newSellerCompanyPhoneNumber" layoutX="237.0" layoutY="465.0" prefWidth="200.0" promptText="new company phone number" />
         <TextField fx:id="newSellerCompanyAddress" layoutX="281.0" layoutY="515.0" prefWidth="200.0" promptText="new company address" />
-        <Button layoutX="552.0" layoutY="306.0" minWidth="53.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="116.0" style="-fx-background-color: white; -fx-text-fill: black;" text="Apply changes">
+        <Button layoutX="552.0" layoutY="306.0" minWidth="53.0" mnemonicParsing="false" onMouseClicked="#applyChanges" prefHeight="43.0" prefWidth="116.0" style="-fx-background-color: white; -fx-text-fill: black;" text="Apply changes">
             <font>
                 <Font size="14.0" />
             </font>
         </Button>
+      <Label fx:id="alertMessage" alignment="CENTER" layoutX="430.0" layoutY="208.0" prefHeight="50.0" prefWidth="360.0" style="-fx-text-fill: red;" textFill="RED">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
     </children>
 </Pane>

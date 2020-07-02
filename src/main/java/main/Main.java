@@ -3,8 +3,7 @@ package main;
 import graphicView.mainMenu.MainMenu;
 import graphicView.purchasePage.PurchasePage;
 import graphicView.userRegion.loginPanel.LoginPanel;
-import graphicView.userRegion.userAccount.sellerAccount.SellerEditInfoPage;
-import graphicView.userRegion.userAccount.sellerAccount.SellerEditInfoPageController;
+import graphicView.userRegion.userAccount.sellerAccount.*;
 import javafx.application.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -55,7 +54,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        SellerEditInfoPageController.display();
+        ViewAllProductsForSellerPage.display();
     }
 
     private static void setCategoryParent(ArrayList<Category> all) {
