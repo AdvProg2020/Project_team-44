@@ -1,8 +1,6 @@
 package main;
 
-import graphicView.mainMenu.MainMenu;
-import graphicView.purchasePage.PurchasePage;
-import graphicView.userRegion.loginPanel.LoginPanel;
+import controller.LoginPageController;
 import graphicView.userRegion.userAccount.sellerAccount.*;
 import javafx.application.Application;
 import javafx.scene.media.Media;
@@ -20,6 +18,7 @@ import model.product.Product;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main extends Application {
     static ArrayList<Category> all = new ArrayList<>();
@@ -54,6 +53,18 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+         Seller seller1 = new Seller("XYz", "Alex", "dd", "ya@yahoo.com",
+                "2441", "12344", "izo", "street5", "6777");
+         Category category1 = new Category("car", null, "ali");
+          Category category2 = new Category("digital", null, "aff");
+          Product product1 = new Product(category1, "peraid", "saipa", 12000,
+                "good Product!", "1.png");
+          Product product2 = new Product(category2, "bmw", "bmw", 10000, "good", "2.jpeg");
+        HashMap<Product , Integer> productHashMap = new HashMap<>();
+        productHashMap.put(product1,1);
+        productHashMap.put(product2,2);
+          seller1.setProductsToSell(productHashMap);
+          LoginPageController.loggedInAccount = seller1;
         ViewAllProductsForSellerPage.display();
     }
 

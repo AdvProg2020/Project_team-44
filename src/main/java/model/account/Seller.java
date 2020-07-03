@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import model.Category;
 import model.offer.Offer;
 import model.product.Product;
-import model.requests.RequestForAddOff;
-import model.requests.RequestForAddProduct;
-import model.requests.RequestForEditOff;
-import model.requests.RequestForEditProduct;
+import model.requests.*;
 import model.sellLog.SellLog;
 
 import java.io.FileWriter;
@@ -107,7 +104,8 @@ public class Seller extends Account {
             if (product.getProductID().equals(productId))
                 requestedProduct = product;
         }
-        productsToSell.remove(requestedProduct);
+       // productsToSell.remove(requestedProduct);
+        new RequestForRemoveProduct(this,requestedProduct);
     }
 
     public void addProductRequest(Category category, String name, int price, String explanationText) {
@@ -167,5 +165,9 @@ public class Seller extends Account {
             offerIds.add(offer.getOfferID());
         }
         return offerIds;
+    }
+
+    public void setProductsToSell(HashMap<Product, Integer> productsToSell) {
+        this.productsToSell = productsToSell;
     }
 }

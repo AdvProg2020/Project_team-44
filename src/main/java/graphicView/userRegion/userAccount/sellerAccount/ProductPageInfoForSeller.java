@@ -3,21 +3,19 @@ package graphicView.userRegion.userAccount.sellerAccount;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.Main;
 
 import java.io.IOException;
 
-public class ViewAllProductsForSellerPage {
+public class ProductPageInfoForSeller {
     static Stage primaryStage;
 
     public static void display() throws IOException {
         Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
-        Pane root = FXMLLoader.load(SellerEditInfoPage.class.getResource("/graphicView/userRegion/userAccount/" +
-                "sellerAccount/ViewAllProductsForSellerPage.fxml"));
-        root.getChildren().add(ViewAllProductsForSellerPageController.setTableView());
+        Parent root = FXMLLoader.load(SellerEditInfoPage.class.getResource("/graphicView/userRegion/userAccount/" +
+                "sellerAccount/ProductPageInfoForSeller.fxml"));
         primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
