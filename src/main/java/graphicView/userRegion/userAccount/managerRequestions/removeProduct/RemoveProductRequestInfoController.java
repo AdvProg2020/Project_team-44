@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.product.Product;
 import model.requests.Request;
 import model.requests.RequestForRemoveProduct;
 
@@ -89,11 +90,13 @@ public class RemoveProductRequestInfoController implements Initializable {
 
     @FXML
     private void acceptRequest() {
+        System.out.println(Product.getAllProducts().size());
         try {
             ManagerAccountController.processAcceptRequestEach(RemoveProductRequestController.getCurrentRequestId());
         } catch (RequestNotExistsException | ParseException e) {
             e.printStackTrace();
         }
+        System.out.println(Product.getAllProducts().size());
     }
 
     @FXML

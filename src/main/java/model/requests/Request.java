@@ -44,8 +44,9 @@ public class Request {
 
     public static Request getRequestById(String requestId) {
         for (Request allRequest : allRequests) {
-            if (allRequest.getRequestId().equals(requestId))
+            if (allRequest.getRequestId().equals(requestId)){
                 return allRequest;
+            }
         }
         return null;
     }

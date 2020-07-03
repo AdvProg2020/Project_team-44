@@ -1,6 +1,7 @@
 package main;
 
-import graphicView.mainMenu.MainMenu;
+import controller.LoginPageController;
+import graphicView.userRegion.userAccount.managerRequestions.editOff.EditOffRequest;
 import javafx.application.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -12,12 +13,14 @@ import model.account.Manager;
 import model.account.Purchaser;
 import model.account.Seller;
 import model.comment.Comment;
+import model.offer.Offer;
 import model.product.Product;
+import model.requests.RequestForEditOff;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Main extends Application {
     static ArrayList<Category> all = new ArrayList<>();
@@ -47,19 +50,70 @@ public class Main extends Application {
     public static void main(String[] args) throws FileNotFoundException {
 //        reload();
 //        setMediaPlayer("The Swimmer.mp3");
+        Seller seller = new Seller("a",
+                "a",
+                "a",
+                "a",
+                "a",
+                "a",
+                "a",
+                "a",
+                "a");
+        ArrayList<Product> allProducts = new ArrayList<>();
+        Category category = new Category("fruit", null, null);
+        Product p1 = new Product(category,
+                "apple",
+                "digikala",
+                2000,
+                "",
+                "");
+        Product p2 = new Product(category,
+                "orange",
+                "amazon",
+                18181,
+                "",
+                "");
+        Product p3 = new Product(category,
+                "pineapple",
+                "gajmarket",
+                222222,
+                "",
+                "");
 
+        allProducts.add(p1);
+        allProducts.add(p2);
+        allProducts.add(p3);
+        Offer offer = new Offer(allProducts,
+                new Date(),
+                new Date(),
+                20);
 
-
-
-
+        allProducts.remove(p1);
+        for (int i = 0; i < 1; i++) {
+//            new RequestForRemoveProduct(seller, product);
+            new RequestForEditOff(seller,
+                    offer,
+                    allProducts,
+                    new Date(),
+                    new Date(),
+                    40);
+        }
+        Manager manager = new Manager("a",
+                "a",
+                "a",
+                "a",
+                "a",
+                "a");
+        LoginPageController.setLoggedInAccount(manager);
         launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setWidth(1275);
-        stage.setHeight(720);
-        MainMenu.display(stage);
+//        stage.setWidth(1275);
+//        stage.setHeight(720);
+//        MainMenu.display(stage);
+        EditOffRequest.display();
     }
 
     private static void setCategoryParent(ArrayList<Category> all) {

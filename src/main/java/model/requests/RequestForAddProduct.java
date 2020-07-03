@@ -15,12 +15,14 @@ public class RequestForAddProduct extends Request {
     private static ArrayList<RequestForAddProduct> allRequestsForAddProduct = new ArrayList<>();
 
     public RequestForAddProduct(Seller seller, Category category, String name, double price, String explanationText) {
+
         this.seller = seller;
         this.category = category;
         this.name = name;
         this.price = price;
         this.explanationText = explanationText;
         allRequestsForAddProduct.add(this);
+        System.out.println(this.category.getName());
     }
 
     public Seller getSeller() {
