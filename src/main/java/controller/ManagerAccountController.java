@@ -144,5 +144,9 @@ public abstract class ManagerAccountController {
         Category.getAllCategories().remove(Category.getCategoryByName(categoryName));
     }
 
+    public static void processAcceptRequestEach(String requestId) throws RequestNotExistsException, ParseException {
+        ValidationController.checkRequestExistence(requestId);
+        ((Manager) LoginPageController.loggedInAccount).accept(requestId);
+    }
 
 }

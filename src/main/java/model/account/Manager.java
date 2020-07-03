@@ -71,24 +71,24 @@ public class Manager extends Account {
         return matcher;
     }
 
-//    public void accept(String requestId) throws ParseException {
-//        Request.getRequestById(requestId).setStatus(RequestStatus.VERIFIED);
-//        String firstPartId = getMatcher(requestId, "(.*)_\\d+").group(1);
-//        if (firstPartId.equalsIgnoreCase("RequestForAddOff")) {
-//            doRequestForAddOf(requestId);
-//        } else if (firstPartId.equalsIgnoreCase("RequestForAddProduct")) {
-//            doRequestForAddProduct(requestId);
-//        } else if (firstPartId.equalsIgnoreCase("RequestForEditOff")) {
-//            doRequestForEditOff(requestId);
-//        } else if (firstPartId.equalsIgnoreCase("RequestForEditProduct")) {
-//            doRequestForEditProduct(requestId);
-//        } else if (firstPartId.equalsIgnoreCase("RequestForRemoveProduct")) {
-//            doRequestForRemoveProduct(requestId);
-//        } else if (firstPartId.equalsIgnoreCase("RequestForSeller")) {
-//            doRequestForSeller(requestId);
-//        }
-//        System.out.println("alan");
-//    }
+    public void accept(String requestId) throws ParseException {
+        Request.getRequestById(requestId).setStatus(RequestStatus.VERIFIED);
+        String firstPartId = getMatcher(requestId, "(.*)_\\d+").group(1);
+        if (firstPartId.equalsIgnoreCase("RequestForAddOff")) {
+            doRequestForAddOf(requestId);
+        } else if (firstPartId.equalsIgnoreCase("RequestForAddProduct")) {
+            doRequestForAddProduct(requestId);
+        } else if (firstPartId.equalsIgnoreCase("RequestForEditOff")) {
+            doRequestForEditOff(requestId);
+        } else if (firstPartId.equalsIgnoreCase("RequestForEditProduct")) {
+            doRequestForEditProduct(requestId);
+        } else if (firstPartId.equalsIgnoreCase("RequestForRemoveProduct")) {
+            doRequestForRemoveProduct(requestId);
+        } else if (firstPartId.equalsIgnoreCase("RequestForSeller")) {
+            doRequestForSeller(requestId);
+        }
+        System.out.println("alan");
+    }
 
     public void doRequestForAddOf(String requestId) {
         RequestForAddOff request = (RequestForAddOff) RequestForAddOff.getRequestById(requestId);
@@ -104,42 +104,22 @@ public class Manager extends Account {
         }
     }
 
-//    public void doRequestForEditOff(String requestId) throws ParseException {
-//        RequestForEditOff request = (RequestForEditOff) RequestForEditOff.getRequestById(requestId);
-//        if (request.getField().equalsIgnoreCase("productList")) {
-//            ArrayList<Product> productList = new ArrayList<>();
-//            for (String id : request.getNewValue()) {
-//                productList.add(Product.getProductByID(id));
-//            }
-//            request.getOffer().setProductList(productList);
-//        } else if (request.getField().equalsIgnoreCase("initialDate")) {
-//            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(request.getNewValue().get(0));
-//            request.getOffer().setInitialDate(date);
-//        } else if (request.getField().equalsIgnoreCase("finalDate")) {
-//            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(request.getNewValue().get(0));
-//            request.getOffer().setFinalDate(date);
-//        } else if (request.getField().equalsIgnoreCase("discountPercentage")) {
-//            request.getOffer().setDiscountPercentage(Integer.parseInt(request.getNewValue().get(0)));
-//        }
-//    }
+    public void doRequestForEditOff(String requestId) throws ParseException {
+        RequestForEditOff request = (RequestForEditOff) RequestForEditOff.getRequestById(requestId);
+        request.getOffer().setProductList(request.getProductList());
+        request.getOffer().setInitialDate(request.getInitialDate());
+        request.getOffer().setFinalDate(request.getFinalDate());
+        request.getOffer().setDiscountPercentage(request.getDiscountPercentage());
+    }
 
-//    public void doRequestForEditProduct(String requestId) {
-//        RequestForEditProduct request = (RequestForEditProduct) RequestForEditProduct.getRequestById(requestId);
-//        if (request.getField().equalsIgnoreCase("name")) {
-//            request.getProduct().setName(request.getNewValue());
-//        } else if (request.getField().equalsIgnoreCase("companyName")) {
-//            request.getProduct().setCompanyName(request.getNewValue());
-//        } else if (request.getField().equalsIgnoreCase("price")) {
-//            request.getProduct().setPrice(Double.parseDouble(request.getNewValue()));
-//        } else if (request.getField().equalsIgnoreCase("explanationText")) {
-//            request.getProduct().setExplanationText(request.getNewValue());
-//        } else if (request.getField().equalsIgnoreCase("isAvailable")) {
-//            if (request.getNewValue().equals("yes")) {
-//                request.getProduct().setAvailable(true);
-//            } else if (request.getNewValue().equals("no"))
-//                request.getProduct().setAvailable(false);
-//        }
-//    }
+    public void doRequestForEditProduct(String requestId) {
+        RequestForEditProduct request = (RequestForEditProduct) RequestForEditProduct.getRequestById(requestId);
+        request.getProduct().setName(request.getName());
+        request.getProduct().setCompanyName(request.getCompanyName());
+        request.getProduct().setPrice(request.getPrice());
+        request.getProduct().setExplanationText(request.getExplanationText());
+        request.getProduct().setImageName(request.getImageName());
+    }
 
     public void doRequestForRemoveProduct(String requestId) {
         RequestForRemoveProduct request = (RequestForRemoveProduct) RequestForRemoveProduct.getRequestById(requestId);

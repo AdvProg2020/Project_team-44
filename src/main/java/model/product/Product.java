@@ -54,6 +54,10 @@ public class Product {
         this.offer = offer;
     }
 
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
     public String getImageName() {
         return imageName;
     }
