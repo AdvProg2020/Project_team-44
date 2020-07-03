@@ -6,7 +6,6 @@ import graphicView.cart.CartPage;
 import graphicView.discountCodes.DiscountCodesPage;
 import graphicView.mainMenu.MainMenu;
 import graphicView.userRegion.loginPanel.LoginPanelController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -49,14 +48,13 @@ public class PurchaserAccountPageController implements Initializable {
     private void logout() throws IOException {
         LoginPageController.logout();
         LoginPanelController.setLoggedInAccount(null);
-        ManagerAccountPage.primaryStage.close();
+        PurchaserAccountPage.primaryStage.close();
         MainMenu.display(Main.window);
     }
+
     @FXML
     private void processViewCart() {
-
         // button sound TODO
-        PurchaserAccountPage.primaryStage.close();
         try {
             CartPage.display();
         } catch (IOException ioException) {
@@ -67,7 +65,6 @@ public class PurchaserAccountPageController implements Initializable {
     @FXML
     private void processBuysHistory() {
         // button sound TODO
-        PurchaserAccountPage.primaryStage.close();
         try {
             BuyLogPage.display();
         } catch (IOException ioException) {
@@ -78,7 +75,6 @@ public class PurchaserAccountPageController implements Initializable {
     @FXML
     private void processViewDiscountCodes() {
         // button sound TODO
-        PurchaserAccountPage.primaryStage.close();
         try {
             DiscountCodesPage.display();
         } catch (IOException ioException) {
@@ -101,5 +97,4 @@ public class PurchaserAccountPageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         writeInformation();
     }
-
 }

@@ -6,7 +6,7 @@ module team {
     requires com.google.gson;
     requires javafx.base;
     requires javafx.media;
-//    requires com.jfoenix;
+    requires com.jfoenix;
 
     opens main;
     opens graphicView.userRegion.loginPanel to javafx.fxml;
@@ -18,7 +18,11 @@ module team {
     opens graphicView.buyLogPage to javafx.fxml, javafx.base;
     opens graphicView.discountCodes to javafx.fxml, javafx.base;
     opens graphicView.userRegion.userAccount to javafx.fxml;
-    opens graphicView.userRegion.userAccount.sellerAccount to javafx.fxml, javafx.base;
+    opens graphicView.userRegion.userAccount.managerRequestions.addOff to javafx.fxml, javafx.base;
+    opens graphicView.userRegion.userAccount.managerRequestions.editOff to javafx.fxml, javafx.base;
+    opens graphicView.userRegion.userAccount.managerRequestions.addProduct to javafx.fxml, javafx.base;
+    opens graphicView.userRegion.userAccount.managerRequestions.removeProduct to javafx.fxml, javafx.base;
+    opens graphicView.userRegion.userAccount.managerRequestions.addSeller to javafx.fxml, javafx.base;
 //    opens graphicView to javafx.media;
     opens model to com.google.gson, javafx.base;
     opens model.account to com.google.gson;

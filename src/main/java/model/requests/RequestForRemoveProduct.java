@@ -11,6 +11,10 @@ public class RequestForRemoveProduct extends Request {
     private Product product;
     private static ArrayList<RequestForRemoveProduct> allRequestForRemoveProduct = new ArrayList<>();
 
+    public static ArrayList<RequestForRemoveProduct> getAllRequestForRemoveProduct() {
+        return allRequestForRemoveProduct;
+    }
+
     public RequestForRemoveProduct(Seller seller, Product product) {
         super();
         this.seller = seller;

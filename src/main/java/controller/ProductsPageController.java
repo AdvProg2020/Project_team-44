@@ -284,13 +284,13 @@ import java.util.Collections;
 
 public abstract class ProductsPageController {
     static Product selectedProduct = null;
-    static Sort currentProductsSort = Sort.VIEW;
+    static Sort currentProductsSort = Sort.TIME_UP;
     static ArrayList<Product> allFilteredProducts = Product.getAllProducts();
     public static ArrayList<String> allFilters = new ArrayList<>();
 
-    static {
-        processSortByView(true);
-    }
+//    static {
+//        processSortByView(true);
+//    }
 
     public static ArrayList<String> getAllFilters() {
         return allFilters;
@@ -298,6 +298,14 @@ public abstract class ProductsPageController {
 
     public static void setSelectedProduct(Product selectedProduct) {
         ProductsPageController.selectedProduct = selectedProduct;
+    }
+
+    public static void setCurrentProductsSort(Sort currentProductsSort) {
+        ProductsPageController.currentProductsSort = currentProductsSort;
+    }
+
+    public static Sort getCurrentProductsSort() {
+        return currentProductsSort;
     }
 
     public static ArrayList<Product> getAllFilteredProducts() {
@@ -354,6 +362,7 @@ public abstract class ProductsPageController {
         }
         productsToShow.clear();
         productsToShow.addAll(temp);
+
     }
 
     static void processFilterByPriceRange(int minPrice, int maxPrice, ArrayList<Product> categoryFilterProducts, ArrayList<Product> productsToShow, ArrayList<Category> allowedCategory) {
@@ -437,31 +446,43 @@ public abstract class ProductsPageController {
 //        }
     }
 
-    public static void processSortByTime(boolean isUp) {
-        Collections.sort(allFilteredProducts, new TimeComparator());
+    public static void processSortByTime(boolean isUp, ArrayList<Product> productsToShow) {
+        if (isUp)
+            setCurrentProductsSort(Sort.TIME_UP);
+        else setCurrentProductsSort(Sort.TIME_DOWN);
+        Collections.sort(productsToShow, new TimeComparator());
         if (!isUp) {
-            Collections.reverse(allFilteredProducts);
+            Collections.reverse(productsToShow);
         }
     }
 
-    public static void processSortByScore(boolean isUp) {
-        Collections.sort(allFilteredProducts, new ScoreComparator());
+    public static void processSortByScore(boolean isUp, ArrayList<Product> productsToShow) {
+        if (isUp)
+            setCurrentProductsSort(Sort.SCORE_UP);
+        else setCurrentProductsSort(Sort.SCORE_DOWN);
+        Collections.sort(productsToShow, new ScoreComparator());
         if (!isUp) {
-            Collections.reverse(allFilteredProducts);
+            Collections.reverse(productsToShow);
         }
     }
 
-    public static void processSortByView(boolean isUp) {
-        Collections.sort(allFilteredProducts, new ViewComparator());
+    public static void processSortByView(boolean isUp, ArrayList<Product> productsToShow) {
+        if (isUp)
+            setCurrentProductsSort(Sort.VIEW_UP);
+        else setCurrentProductsSort(Sort.VIEW_DOWN);
+        Collections.sort(productsToShow, new ViewComparator());
         if (!isUp) {
-            Collections.reverse(allFilteredProducts);
+            Collections.reverse(productsToShow);
         }
     }
 
-    public static void processSortByPrice(boolean isUp) {
-        Collections.sort(allFilteredProducts, new PriceComparator());
+    public static void processSortByPrice(boolean isUp, ArrayList<Product> productsToShow) {
+        if (isUp)
+            setCurrentProductsSort(Sort.PRICE_UP);
+        else setCurrentProductsSort(Sort.PRICE_DOWN);
+        Collections.sort(productsToShow, new PriceComparator());
         if (!isUp) {
-            Collections.reverse(allFilteredProducts);
+            Collections.reverse(productsToShow);
         }
     }
 
@@ -469,8 +490,8 @@ public abstract class ProductsPageController {
         return currentProductsSort.toString();
     }
 
-    public static void processDisableSortEach() {
-        currentProductsSort = Sort.VIEW;
+    public static void processDisableSortEach(ArrayList<Product> productsToShow) {
+        processSortByTime(true, productsToShow);
     }
 
     public static ArrayList<String> processShowProducts() {

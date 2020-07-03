@@ -18,6 +18,7 @@ import main.Main;
 import model.account.Manager;
 import model.account.Purchaser;
 import model.account.Seller;
+import model.product.Product;
 
 import java.io.IOException;
 
@@ -26,9 +27,7 @@ public class MainMenu {
     public static void display(Stage stage) throws IOException {
         Main.window = stage;
         Pane root = FXMLLoader.load(MainMenu.class.getResource("/graphicView/mainMenu/mainMenu.fxml"));
-        root.setBackground(new Background(new BackgroundFill(Color.FORESTGREEN, null, null)));
         Scene scene = new Scene(root);
-        scene.setFill(Color.FORESTGREEN);
         Main.window.setScene(scene);
         Main.window.show();
     }
@@ -48,6 +47,7 @@ public class MainMenu {
 
     @FXML
     void onProducts(ActionEvent event) throws IOException {
+        ProductsMenu.mainMenuScene = Main.window.getScene();
         Pane root = FXMLLoader.load(getClass().getResource("/graphicView/productsMenu/productsMenu.fxml"));
         Main.window.setScene(new Scene(root));
     }

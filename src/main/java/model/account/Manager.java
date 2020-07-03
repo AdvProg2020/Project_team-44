@@ -24,8 +24,18 @@ public class Manager extends Account {
 
     public Manager(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
+        super.createAndUpdateJson();
         allManagers.add(this);
         createAndUpdateJson();
+    }
+
+    public static Manager getManagerByUsername(String username) {
+        for (Manager manager : allManagers) {
+            if (manager.getUserName().equals(username)) {
+                return manager;
+            }
+        }
+        return null;
     }
 
     public static ArrayList<Manager> getAllManagers() {
@@ -89,7 +99,6 @@ public class Manager extends Account {
         RequestForAddProduct request = (RequestForAddProduct) RequestForAddProduct.getRequestById(requestId);
         if (getProductWithInfo(request.getCategory(), request.getName(), request.getPrice(), request.getExplanationText()) == null) {
             new Product(request.getCategory(), request.getName(), request.getSeller().getCompanyName(), request.getPrice(), request.getExplanationText(), request.getCategory().getImageName());
-
         } else {
             getProductWithInfo(request.getCategory(), request.getName(), request.getPrice(), request.getExplanationText()).getAllSellers().add(request.getSeller());
         }
@@ -97,39 +106,19 @@ public class Manager extends Account {
 
     public void doRequestForEditOff(String requestId) throws ParseException {
         RequestForEditOff request = (RequestForEditOff) RequestForEditOff.getRequestById(requestId);
-        if (request.getField().equalsIgnoreCase("productList")) {
-            ArrayList<Product> productList = new ArrayList<>();
-            for (String id : request.getNewValue()) {
-                productList.add(Product.getProductByID(id));
-            }
-            request.getOffer().setProductList(productList);
-        } else if (request.getField().equalsIgnoreCase("initialDate")) {
-            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(request.getNewValue().get(0));
-            request.getOffer().setInitialDate(date);
-        } else if (request.getField().equalsIgnoreCase("finalDate")) {
-            Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(request.getNewValue().get(0));
-            request.getOffer().setFinalDate(date);
-        } else if (request.getField().equalsIgnoreCase("discountPercentage")) {
-            request.getOffer().setDiscountPercentage(Integer.parseInt(request.getNewValue().get(0)));
-        }
+        request.getOffer().setProductList(request.getProductList());
+        request.getOffer().setInitialDate(request.getInitialDate());
+        request.getOffer().setFinalDate(request.getFinalDate());
+        request.getOffer().setDiscountPercentage(request.getDiscountPercentage());
     }
 
     public void doRequestForEditProduct(String requestId) {
         RequestForEditProduct request = (RequestForEditProduct) RequestForEditProduct.getRequestById(requestId);
-        if (request.getField().equalsIgnoreCase("name")) {
-            request.getProduct().setName(request.getNewValue());
-        } else if (request.getField().equalsIgnoreCase("companyName")) {
-            request.getProduct().setCompanyName(request.getNewValue());
-        } else if (request.getField().equalsIgnoreCase("price")) {
-            request.getProduct().setPrice(Double.parseDouble(request.getNewValue()));
-        } else if (request.getField().equalsIgnoreCase("explanationText")) {
-            request.getProduct().setExplanationText(request.getNewValue());
-        } else if (request.getField().equalsIgnoreCase("isAvailable")) {
-            if (request.getNewValue().equals("yes")) {
-                request.getProduct().setAvailable(true);
-            } else if (request.getNewValue().equals("no"))
-                request.getProduct().setAvailable(false);
-        }
+        request.getProduct().setName(request.getName());
+        request.getProduct().setCompanyName(request.getCompanyName());
+        request.getProduct().setPrice(request.getPrice());
+        request.getProduct().setExplanationText(request.getExplanationText());
+        request.getProduct().setImageName(request.getImageName());
     }
 
     public void doRequestForRemoveProduct(String requestId) {
@@ -137,6 +126,7 @@ public class Manager extends Account {
         //Product.getAllProducts().remove(request.getProduct());
         Product product = request.getProduct();
         product = null;
+        // da fuq?
     }
 
     public void doRequestForSeller(String requestId) {

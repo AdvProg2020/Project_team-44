@@ -1,7 +1,6 @@
 package main;
 
-import controller.LoginPageController;
-import graphicView.userRegion.userAccount.sellerAccount.*;
+import graphicView.mainMenu.MainMenu;
 import javafx.application.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -17,8 +16,8 @@ import model.product.Product;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.lang.reflect.Field;
+import java.util.*;
 
 public class Main extends Application {
     static ArrayList<Category> all = new ArrayList<>();
@@ -46,26 +45,21 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        //reload();
-       // setMediaPlayer("The Swimmer.mp3");
+        reload();
+//        setMediaPlayer("The Swimmer.mp3");
+
+
+
+
+
         launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-         Seller seller1 = new Seller("XYz", "Alex", "dd", "ya@yahoo.com",
-                "2441", "12344", "izo", "street5", "6777");
-         Category category1 = new Category("car", null, "ali");
-          Category category2 = new Category("digital", null, "aff");
-          Product product1 = new Product(category1, "peraid", "saipa", 12000,
-                "good Product!", "1.png");
-          Product product2 = new Product(category2, "bmw", "bmw", 10000, "good", "2.jpeg");
-        HashMap<Product , Integer> productHashMap = new HashMap<>();
-        productHashMap.put(product1,1);
-        productHashMap.put(product2,2);
-          seller1.setProductsToSell(productHashMap);
-          LoginPageController.loggedInAccount = seller1;
-        ViewAllProductsForSellerPage.display();
+        stage.setWidth(1275);
+        stage.setHeight(720);
+        MainMenu.display(stage);
     }
 
     private static void setCategoryParent(ArrayList<Category> all) {
@@ -84,12 +78,16 @@ public class Main extends Application {
     }
 
     private static void setProductCategory() {
-        ArrayList<Product> allSub;
         for (Category allCategory : Category.getAllCategories()) {
-            if (allCategory.getAllSubProducts().size() > 0) {
-                allSub = allCategory.getAllSubProducts();
-                for (Product product : allSub) {
-                    Product.getProductByID(product.getProductID()).setCategory(allCategory);
+            for (Category subCategory : allCategory.getSubCategories()) {
+                for (Product allSubProduct : subCategory.getAllSubProducts()) {
+                    for (Product allProduct : Product.getAllProducts()) {
+                        if (allSubProduct.getName().equals(allProduct.getName())) {
+                            allProduct.setCategory(subCategory);
+                            allSubProduct.setCategory(subCategory);
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -98,7 +96,7 @@ public class Main extends Application {
     public static void doComment(Comment comment) {
         for (Product allProduct : Product.getAllProducts()) {
             for (Comment allComment : allProduct.getAllComments()) {
-                if (allComment.getTitle().equals(comment.getTitle())) {
+                if (allComment.getCommentId().equals(comment.getCommentId())) {
                     comment.setProduct(allProduct);
                     break;
                 }
@@ -125,6 +123,5 @@ public class Main extends Application {
         Account.getAllAccounts().addAll(Purchaser.getAllPurchaser());
         setCategoryParent(Category.getAllCategories());
         setProductCategory();
-
     }
 }

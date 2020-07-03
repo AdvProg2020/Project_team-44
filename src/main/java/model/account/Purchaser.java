@@ -34,12 +34,22 @@ public class Purchaser extends Account {
 
     public Purchaser(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password, String address) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
+        super.createAndUpdateJson();
         purchaseAddress = "";
         purchaseTel = "";
         this.cart = new HashMap<>();
         this.address = address;
         allPurchaser.add(this);
         createAndUpdateJson();
+    }
+
+    public static Purchaser getPurchaserByUsername(String username) {
+        for (Purchaser purchaser : allPurchaser) {
+            if (purchaser.getUserName().equals(username)) {
+                return purchaser;
+            }
+        }
+        return null;
     }
 
     public static ArrayList<Purchaser> getAllPurchaser() {
@@ -162,7 +172,6 @@ public class Purchaser extends Account {
 
     public ArrayList<Product> getCartProducts() {
         ArrayList<Product> products = new ArrayList<>();
-        System.out.println(this.getCart().size());
         for (Product product : this.getCart().keySet()) {
             products.add(product);
         }

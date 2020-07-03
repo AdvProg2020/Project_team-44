@@ -65,8 +65,8 @@ public class BuyLogPageController implements Initializable {
 
     ObservableList<BuyLogIds> getBuyLogIds() {
         ObservableList<BuyLogIds> buyLogs = FXCollections.observableArrayList();
-        for (String sellLogId : ((Purchaser) LoginPanelController.getLoggedInAccount()).getAllBuyLogIds()) {
-            buyLogs.add(new BuyLogIds(sellLogId));
+        for (String buyLogId : ((Purchaser) LoginPanelController.getLoggedInAccount()).getAllBuyLogIds()) {
+            buyLogs.add(new BuyLogIds(buyLogId));
         }
         return buyLogs;
     }

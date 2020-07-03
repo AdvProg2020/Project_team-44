@@ -1,4 +1,4 @@
-package graphicView.userRegion.userAccount.sellerAccount;
+package graphicView.userRegion.userAccount;
 
 import controller.LoginPageController;
 import graphicView.mainMenu.MainMenu;
@@ -51,9 +51,9 @@ public class SellerAccountPageController implements Initializable {
 
     @FXML
     private void logout() throws IOException {
-        SellerEditInfoPage.primaryStage.close();
         LoginPageController.logout();
         LoginPanelController.setLoggedInAccount(null);
+        SellerAccountPage.primaryStage.close();
         MainMenu.display(Main.window);
     }
 

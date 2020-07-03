@@ -1,5 +1,6 @@
 package controller;
 //
+
 import controller.fields.CodedDiscountFields;
 import controller.fields.OfferFields;
 import controller.fields.ProductFields;
@@ -155,10 +156,15 @@ public abstract class ValidationController {
     }
 
     public static void checkSellerOwnsProduct(Seller seller, Product product) throws SellerUserNameNotExists {
-        if (!product.getAllSellers().contains(seller)) {
-            throw new SellerUserNameNotExists("This Seller Doesnt sell this product");
-
+        int flag = 0;
+        for (Seller allSeller : product.getAllSellers()) {
+            if (allSeller.equals(seller)) {
+                flag = 1;
+                break;
+            }
         }
+        if (flag == 0)
+            throw new SellerUserNameNotExists("This Seller Doesnt sell this product");
     }
 
     public static void checkPurchaserOwnsCodedDiscount(Purchaser purchaser, CodedDiscount codedDiscount) throws PurchaserNotOwnsCodedDiscountException {
