@@ -1,7 +1,6 @@
 package main;
 
 import controller.LoginPageController;
-import graphicView.mainMenu.MainMenu;
 import graphicView.userRegion.userAccount.managerRequestions.addOff.AddOffRequest;
 import graphicView.userRegion.userAccount.managerRequestions.addProduct.AddProductRequest;
 import graphicView.userRegion.userAccount.managerRequestions.addSeller.AddSellerRequest;
@@ -53,46 +52,45 @@ public class Main extends Application {
 
     public static void main(String[] args) throws FileNotFoundException {
         reload();
-////        setMediaPlayer("The Swimmer.mp3");
-//        Seller seller = new Seller("a",
-//                "a",
-//                "a",
-//                "a",
-//                "a",
-//                "a",
-//                "a",
-//                "a",
-//                "a");
-//        Product product = new Product(new Category("fruit", null, null),
-//                "apple",
-//                "digikala",
-//                1000,
-//                "Extraordinary",
-//                null);
-//        for (int i = 0; i < 5; i++) {
-//            new RequestForRemoveProduct(seller, product);
-//        }
-//        Manager manager = new Manager("a",
-//                "a",
-//                "a",
-//                "a",
-//                "a",
-//                "a");
-//        LoginPageController.setLoggedInAccount(manager);
+//        setMediaPlayer("The Swimmer.mp3");
+        Seller seller = new Seller("a",
+                "a",
+                "a",
+                "a",
+                "a",
+                "a",
+                "a",
+                "a",
+                "a");
+        Product product = new Product(new Category("fruit", null, null),
+                "apple",
+                "digikala",
+                1000,
+                "Extraordinary",
+                null);
+        for (int i = 0; i < 5; i++) {
+            new RequestForRemoveProduct(seller, product);
+        }
+        Manager manager = new Manager("a",
+                "a",
+                "a",
+                "a",
+                "a",
+                "a");
+        LoginPageController.setLoggedInAccount(manager);
         launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception
     {
-        System.out.println("  ");
-        stage.setWidth(1275);
-        stage.setHeight(720);
-        MainMenu.display(stage);
+//        stage.setWidth(1275);
+//        stage.setHeight(720);
+//        MainMenu.display(stage);
 //        AddOffRequest.display();
 //        AddProductRequest.display();
 //        AddSellerRequest.display();
-//        RemoveProductRequest.display();
+        RemoveProductRequest.display();
     }
 
     private static void setCategoryParent(ArrayList<Category> all) {
