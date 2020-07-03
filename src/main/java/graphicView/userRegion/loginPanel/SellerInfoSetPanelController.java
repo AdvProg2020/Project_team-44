@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import model.requests.RequestForSeller;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,21 +50,20 @@ public class SellerInfoSetPanelController {
             messageLabel.setText("Invalid. Try Again");
         }
         // never reach catch clause cause it was the exception was checked in previous scene
-        try {
-            LoginPanelController.setLoggedInAccount(LoginPageController.processCreateAccount("Seller",
-                    SellerInfoSetPanel.getSellerUsername(),
-                    SellerInfoSetPanel.getSellerPassword(),
-                    firstNameField.getText(),
-                    secondNameField.getText(),
-                    SellerInfoSetPanel.getSellerEmail(),
-                    telField.getText(),
-                    companyNameField.getText(),
-                    addressField.getText(),
-                    companyTelField.getText()));
-        } catch (UsernameExistsException e) {
-            e.printStackTrace();
-        }
-        SellerInfoSetPanel.window.close();
-        LoginPanel.display();
+            new RequestForSeller(companyNameField.getText(), addressField.getText(), companyTelField.getText()
+                    , SellerInfoSetPanel.getSellerUsername(), firstNameField.getText(), secondNameField.getText(),
+                    SellerInfoSetPanel.getSellerEmail(), telField.getText(), SellerInfoSetPanel.getSellerPassword());
+//            LoginPanelController.setLoggedInAccount(LoginPageController.processCreateAccount("Seller",
+//                    SellerInfoSetPanel.getSellerUsername(),
+//                    SellerInfoSetPanel.getSellerPassword(),
+//                    firstNameField.getText(),
+//                    secondNameField.getText(),
+//                    SellerInfoSetPanel.getSellerEmail(),
+//                    telField.getText(),
+//                    companyNameField.getText(),
+//                    addressField.getText(),
+//                    companyTelField.getText()));
+            SellerInfoSetPanel.window.close();
+            LoginPanel.display();
     }
 }

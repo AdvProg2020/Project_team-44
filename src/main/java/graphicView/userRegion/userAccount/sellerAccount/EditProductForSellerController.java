@@ -22,6 +22,8 @@ public class EditProductForSellerController {
     public TextField newProductPrice;
     public TextField newProductExplanationText;
     public Label alertMessage;
+    public TextField newCompanyName;
+    public TextField newImageName;
 
     @FXML
     public void RequestForEdit() throws ProductIdNotExistsException, ProductFieldsNotException {
@@ -29,6 +31,8 @@ public class EditProductForSellerController {
         String productName = newProductName.getText();
         String productPrice = newProductPrice.getText();
         String productExplanationText = newProductExplanationText.getText();
+        String productImageName = newImageName.getText();
+        String productCompanyName = newCompanyName.getText();
         if(!productName.matches("\\w+")){
             alertMessage.setText("Please enter a valid new name!");
             return;
@@ -41,9 +45,17 @@ public class EditProductForSellerController {
             alertMessage.setText("Please enter a valid new explanation text!");
             return;
         }
-        SellerAccountController.processEditProduct(product.getProductID(),"NAME",productName);
-        SellerAccountController.processEditProduct(product.getProductID(),"PRICE",productPrice);
-        SellerAccountController.processEditProduct(product.getProductID(),"EXPLANATION_TEXT",productExplanationText);
+        if(!productCompanyName.matches("\\w+")){
+            alertMessage.setText("Please enter a valid company name!");
+            return;
+        }
+        if(!productImageName.matches(".+")){
+            alertMessage.setText("Please enter a valid image name!");
+            return;
+        }
+        double price = Double.parseDouble(productPrice);
+        SellerAccountController.processEditProduct(product,productName,productCompanyName,price,
+                productExplanationText,productImageName);
         alertMessage.setText("");
         alertMessage.setTextFill(GREEN);
         alertMessage.setText("Your request for edit send to the manager");

@@ -45,7 +45,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        reload();
+//        reload();
 //        setMediaPlayer("The Swimmer.mp3");
 
 

@@ -125,22 +125,22 @@
                 <Font name="Arial Narrow Bold" size="18.0" />
             </font>
         </Label>
-        <Button fx:id="viewSalesHistory" layoutX="727.0" layoutY="46.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="129.0" style="-fx-background-color: white;" text="view sale history">
+        <Button fx:id="viewSalesHistory" layoutX="727.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#viewSaleHistory" prefHeight="54.0" prefWidth="129.0" style="-fx-background-color: white;" text="view sale history">
             <font>
                 <Font size="14.0" />
             </font>
         </Button>
-        <Button fx:id="editInfo" layoutX="330.0" layoutY="623.0" mnemonicParsing="false" onMouseClicked="#ed" prefHeight="54.0" prefWidth="188.0" style="-fx-background-color: white;" text="edit information">
+        <Button fx:id="editInfo" layoutX="330.0" layoutY="623.0" mnemonicParsing="false" onMouseClicked="#editInformation" prefHeight="54.0" prefWidth="188.0" style="-fx-background-color: white;" text="edit information">
             <font>
                 <Font size="14.0" />
             </font>
         </Button>
-        <Button fx:id="allProductsForSale" layoutX="352.0" layoutY="46.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="188.0" style="-fx-background-color: white;" text="all products for sale">
+        <Button fx:id="allProductsForSale" layoutX="352.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#viewAllProductsForSale" prefHeight="54.0" prefWidth="188.0" style="-fx-background-color: white;" text="all products for sale">
             <font>
                 <Font size="14.0" />
             </font>
         </Button>
-        <Button fx:id="requestForAddProduct" layoutX="159.0" layoutY="46.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="188.0" style="-fx-background-color: white;" text="request for add product">
+        <Button fx:id="requestForAddProduct" layoutX="159.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#requestForAddProduct" prefHeight="54.0" prefWidth="188.0" style="-fx-background-color: white;" text="request for add product">
             <font>
                 <Font size="14.0" />
             </font>
@@ -153,6 +153,6 @@
         <Label fx:id="sellerEmail" layoutX="445.0" layoutY="349.0" prefHeight="36.0" prefWidth="188.0" />
         <Label fx:id="sellerPhoneNumber" layoutX="428.0" layoutY="286.0" prefHeight="44.0" prefWidth="129.0" />
         <Label fx:id="companyPhone" layoutX="465.0" layoutY="560.0" prefHeight="44.0" prefWidth="129.0" />
-        <Button fx:id="logout" layoutX="62.0" layoutY="94.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
+        <Button fx:id="logout" layoutX="62.0" layoutY="94.0" mnemonicParsing="false" onAction="#logout" onMouseClicked="#logout" text="Logout" />
     </children>
 </Pane>

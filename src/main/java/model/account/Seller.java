@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import model.Category;
 import model.offer.Offer;
 import model.product.Product;
-import model.requests.RequestForAddOff;
-import model.requests.RequestForAddProduct;
-import model.requests.RequestForEditOff;
-import model.requests.RequestForEditProduct;
+import model.requests.*;
 import model.sellLog.SellLog;
 
 import java.io.FileWriter;

@@ -9,7 +9,7 @@ import main.Main;
 import java.io.IOException;
 
 public class SellerAccountPage {
-    static Stage primaryStage;
+    public static Stage primaryStage;
 
     public static void display() throws IOException {
         Main.setMediaPlayer("The Swimmer.mp3");

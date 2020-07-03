@@ -1,6 +1,7 @@
 package graphicView.mainMenu;
 
 import controller.LoginPageController;
+import graphicView.productMenu.ProductsMenu;
 import graphicView.userRegion.loginPanel.LoginPanel;
 import graphicView.userRegion.userAccount.ManagerAccountPage;
 import graphicView.userRegion.userAccount.PurchaserAccountPage;
@@ -39,8 +40,10 @@ public class MainMenu {
         } else if (LoginPageController.getLoggedInAccount() instanceof Manager) {
             ManagerAccountPage.display();
         } else if (LoginPageController.getLoggedInAccount() instanceof Seller) {
+            System.out.println("43mainmenu");
             SellerAccountPage.display();
         } else if (LoginPageController.getLoggedInAccount() instanceof Purchaser) {
+            System.out.println("46mainmenu");
             PurchaserAccountPage.display();
         }
     }

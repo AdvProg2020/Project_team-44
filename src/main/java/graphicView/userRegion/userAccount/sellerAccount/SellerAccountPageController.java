@@ -1,9 +1,13 @@
-package graphicView.userRegion.userAccount;
+package graphicView.userRegion.userAccount.sellerAccount;
 
 import controller.LoginPageController;
+import controller.SellerAccountController;
 import graphicView.mainMenu.MainMenu;
+import graphicView.sellLogPage.SellLogPage;
 import graphicView.userRegion.loginPanel.LoginPanelController;
 import graphicView.userRegion.userAccount.ManagerAccountPage;
+import graphicView.userRegion.userAccount.sellerAccount.SellerAccountPage;
+import graphicView.userRegion.userAccount.sellerAccount.SellerEditInfoPage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -79,4 +83,25 @@ public class SellerAccountPageController implements Initializable {
         SellerAccountPage.primaryStage.close();
         SellerEditInfoPage.display();
     }
+    @FXML
+    public void viewSaleHistory() throws IOException {
+        SellerAccountPage.primaryStage.close();
+        SellLogPage.display();
+    }
+    @FXML
+    public void viewAllProductsForSale() throws IOException {
+        SellerAccountPage.primaryStage.close();
+        ViewAllProductsForSellerPage.display();
+    }
+    @FXML
+    public void requestForAddProduct() throws IOException {
+        SellerAccountPage.primaryStage.close();
+        RequestForAddProductPage.display();
+    }
+    @FXML
+    public void editInfo() throws IOException {
+        SellerAccountPage.primaryStage.close();
+        SellerEditInfoPage.display();
+    }
+    
 }
