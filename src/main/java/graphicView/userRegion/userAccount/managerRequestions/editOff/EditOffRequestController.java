@@ -33,14 +33,6 @@ public class EditOffRequestController implements Initializable {
     @FXML
     TableColumn<RequestIds, Label> requestIdsColumn;
     // back to manager account region
-    @FXML
-    Button backButton = new Button();
-
-    // backButton onAction
-    @FXML
-    private void goPreviousScene() {
-
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
