@@ -136,7 +136,7 @@ public class Manager extends Account {
 
     public Product getProductWithInfo(Category category, String name, double price, String explanationText) {
         for (Product allProduct : Product.getAllProducts()) {
-            if (allProduct.getCategory().equals(category) && allProduct.getName().equals(name) && allProduct.getPrice() == price && allProduct.getExplanationText().equals(explanationText)) {
+            if (allProduct.getCategory().getName().equals(category.getName()) && allProduct.getName().equals(name) && allProduct.getPrice() == price && allProduct.getExplanationText().equals(explanationText)) {
                 return allProduct;
             }
         }
