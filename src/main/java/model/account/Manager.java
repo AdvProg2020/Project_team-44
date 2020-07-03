@@ -99,7 +99,6 @@ public class Manager extends Account {
         RequestForAddProduct request = (RequestForAddProduct) RequestForAddProduct.getRequestById(requestId);
         if (getProductWithInfo(request.getCategory(), request.getName(), request.getPrice(), request.getExplanationText()) == null) {
             new Product(request.getCategory(), request.getName(), request.getSeller().getCompanyName(), request.getPrice(), request.getExplanationText(), request.getCategory().getImageName());
-
         } else {
             getProductWithInfo(request.getCategory(), request.getName(), request.getPrice(), request.getExplanationText()).getAllSellers().add(request.getSeller());
         }
