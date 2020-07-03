@@ -96,7 +96,7 @@ public class Manager extends Account {
     }
 
     public void doRequestForAddProduct(String requestId) {
-        RequestForAddProduct request = (RequestForAddProduct) RequestForAddProduct.getRequestById(requestId);
+        RequestForAddProduct request = ((RequestForAddProduct) Request.getRequestById(requestId));
         if (getProductWithInfo(request.getCategory(), request.getName(), request.getPrice(), request.getExplanationText()) == null) {
             new Product(request.getCategory(), request.getName(), request.getSeller().getCompanyName(), request.getPrice(), request.getExplanationText(), request.getCategory().getImageName());
         } else {
@@ -123,9 +123,9 @@ public class Manager extends Account {
 
     public void doRequestForRemoveProduct(String requestId) {
         RequestForRemoveProduct request = (RequestForRemoveProduct) RequestForRemoveProduct.getRequestById(requestId);
-        //Product.getAllProducts().remove(request.getProduct());
-        Product product = request.getProduct();
-        product = null;
+        Product.getAllProducts().remove(request.getProduct());
+//        Product product = request.getProduct();
+//        product = null;
         // da fuq?
     }
 
@@ -144,7 +144,8 @@ public class Manager extends Account {
     }
 
     public void decline(String requestId) {
-        Request.getRequestById(requestId).setStatus(RequestStatus.DECLINED);
+        Request request = Request.getRequestById(requestId);
+        request.setStatus(RequestStatus.DECLINED);
     }
 
     public static ArrayList<String> showAllUsers() {

@@ -142,6 +142,7 @@ public class OffRequestInfoController implements Initializable {
     private void acceptRequest() {
         try {
             ManagerAccountController.processAcceptRequestEach(AddOffRequestController.getCurrentRequestId());
+
         } catch (RequestNotExistsException | ParseException e) {
             e.printStackTrace();
         }
@@ -149,10 +150,12 @@ public class OffRequestInfoController implements Initializable {
 
     @FXML
     private void declineRequest() {
+        System.out.println(RequestForAddOff.getAllRequestsForAddOff().size());
         try {
             ManagerAccountController.processDeclineRequestEach(AddOffRequestController.getCurrentRequestId());
         } catch (RequestNotExistsException e) {
             e.printStackTrace();
         }
+        System.out.println(RequestForAddOff.getAllRequestsForAddOff().size());
     }
 }
