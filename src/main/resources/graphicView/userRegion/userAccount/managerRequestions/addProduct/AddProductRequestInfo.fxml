@@ -5,7 +5,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="319.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.userRegion.userAccount.managerRequestions.addProduct.AddProductRequestInfoController">
    <children>
       <TableView fx:id="requesterInfoTableView" layoutX="8.0" layoutY="51.0" prefHeight="209.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -17,8 +16,8 @@
             <TableColumn fx:id="explanationTextColumn" prefWidth="225.5" text="Explanation Text" />
         </columns>
       </TableView>
-      <Button fx:id="acceptButton" layoutX="476.0" layoutY="252.0" mnemonicParsing="false" text="accept" />
-      <Button fx:id="declineButton" layoutX="381.0" layoutY="252.0" mnemonicParsing="false" text="decline" />
+      <Button fx:id="acceptButton" layoutX="476.0" layoutY="252.0" mnemonicParsing="false" onAction="#acceptRequest" text="accept" />
+      <Button fx:id="declineButton" layoutX="381.0" layoutY="252.0" mnemonicParsing="false" onAction="#declineRequest" text="decline" />
       <Button layoutX="48.0" layoutY="252.0" mnemonicParsing="false" text="back" />
    </children>
 </AnchorPane>

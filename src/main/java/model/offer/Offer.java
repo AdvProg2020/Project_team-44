@@ -18,12 +18,14 @@ public class Offer {
     private static ArrayList<Offer> allOffers = new ArrayList<>();
 
     public Offer(ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage) {
+
         this.offerID = produceOfferId();
         this.productList = productList;
         this.initialDate = initialDate;
         this.finalDate = finalDate;
         this.discountPercentage = discountPercentage;
         allOffers.add(this);
+        System.out.println("yeah biaaatch");
     }
 
     public Date getInitialDate() {
