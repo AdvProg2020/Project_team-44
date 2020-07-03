@@ -1,4 +1,4 @@
-package graphicView.userRegion.userAccount;
+package graphicView.userRegion.userAccount.managerAccount;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,7 +18,7 @@ public class ManagerAccountPage {
     public static void display() throws IOException {
         Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
-        Parent root = FXMLLoader.load(ManagerAccountPage.class.getResource("/graphicView/userRegion/userAccount/ManagerAccountPage.fxml"));
+        Parent root = FXMLLoader.load(ManagerAccountPage.class.getResource("/graphicView/userRegion/userAccount/managerAccount/ManagerAccountPage.fxml"));
         primaryStage.setTitle("Hello World");
         Button back = new Button("Back");
         back.setOnAction(new EventHandler<ActionEvent>() {

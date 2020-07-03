@@ -5,7 +5,6 @@ import controller.SellerAccountController;
 import exception.SellerFieldsNotExistException;
 import graphicView.mainMenu.MainMenu;
 import graphicView.userRegion.loginPanel.LoginPanelController;
-import graphicView.userRegion.userAccount.ManagerAccountPage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

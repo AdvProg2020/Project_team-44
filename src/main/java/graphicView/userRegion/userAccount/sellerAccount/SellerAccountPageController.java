@@ -1,13 +1,9 @@
 package graphicView.userRegion.userAccount.sellerAccount;
 
 import controller.LoginPageController;
-import controller.SellerAccountController;
 import graphicView.mainMenu.MainMenu;
 import graphicView.sellLogPage.SellLogPage;
 import graphicView.userRegion.loginPanel.LoginPanelController;
-import graphicView.userRegion.userAccount.ManagerAccountPage;
-import graphicView.userRegion.userAccount.sellerAccount.SellerAccountPage;
-import graphicView.userRegion.userAccount.sellerAccount.SellerEditInfoPage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
