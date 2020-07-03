@@ -1,8 +1,6 @@
 package model.product;
 
 import com.google.gson.Gson;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import model.Category;
 import model.Rating;
 import model.account.Purchaser;
@@ -10,14 +8,10 @@ import model.account.Seller;
 import model.comment.Comment;
 import model.offer.Offer;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 public class Product {
     private String productID;
@@ -29,7 +23,7 @@ public class Product {
     private double price;
     private ArrayList<Seller> allSellers = new ArrayList<>();
     private boolean isAvailable;
-    private ArrayList<Comment> allComments = new ArrayList<>();
+    private ArrayList<Comment> allComments;
     private String explanationText;
     private Offer offer;
     private ArrayList<Rating> allRating = new ArrayList<>();
@@ -48,15 +42,20 @@ public class Product {
         this.explanationText = explanationText;
         this.generatedDate = new Date();
         this.imageName = imageName;
+        this.allComments = new ArrayList<>();
         allProducts.add(this);
-//        category.getAllSubProducts().add(this);
-//        createAndUpdateJson(this);
-//        updateAllParent(category);
-//        category.createAndUpdateJson(category);
+        category.getAllSubProducts().add(this);
+        createAndUpdateJson(this);
+        updateAllParent(category);
+        category.createAndUpdateJson(category);
     }
 
     public void setOffer(Offer offer) {
         this.offer = offer;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public String getImageName() {
@@ -155,7 +154,7 @@ public class Product {
     }
 
     public Date getGeneratedDate() {
-        return generatedDate;
+        return this.generatedDate;
     }
 
     public void setName(String name) {
@@ -251,4 +250,53 @@ public class Product {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productID='" + productID + '\'' +
+                ", category=" + category +
+                ", status=" + status +
+                ", categoryAttributes=" + categoryAttributes +
+                ", name='" + name + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", price=" + price +
+                ", allSellers=" + allSellers +
+                ", isAvailable=" + isAvailable +
+                ", allComments=" + allComments +
+                ", explanationText='" + explanationText + '\'' +
+                ", offer=" + offer +
+                ", allRating=" + allRating +
+                ", generatedDate=" + generatedDate +
+                ", viewTimes=" + viewTimes +
+                ", imageName='" + imageName + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Double.compare(product.price, price) == 0 &&
+                isAvailable == product.isAvailable &&
+                viewTimes == product.viewTimes &&
+                Objects.equals(productID, product.productID) &&
+                Objects.equals(category, product.category) &&
+                status == product.status &&
+                Objects.equals(categoryAttributes, product.categoryAttributes) &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(companyName, product.companyName) &&
+                Objects.equals(allSellers, product.allSellers) &&
+                Objects.equals(allComments, product.allComments) &&
+                Objects.equals(explanationText, product.explanationText) &&
+                Objects.equals(offer, product.offer) &&
+                Objects.equals(allRating, product.allRating) &&
+                Objects.equals(generatedDate, product.generatedDate) &&
+                Objects.equals(imageName, product.imageName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productID, category, status, categoryAttributes, name, companyName, price, allSellers, isAvailable, allComments, explanationText, offer, allRating, generatedDate, viewTimes, imageName);
+    }
 }

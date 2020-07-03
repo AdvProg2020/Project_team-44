@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public abstract class OffersPageController {
-    static Sort currentOffersSort = Sort.VIEW;
+    static Sort currentOffersSort = Sort.VIEW_UP;
     static ArrayList<Product> allFilteredOffersProducts = new ArrayList<>();
     static ArrayList<String> allFilters = new ArrayList<>();
 
@@ -134,19 +134,29 @@ public abstract class OffersPageController {
 
     public static void processSortEach(String availableSort, boolean isUp) throws SortNotExistsException {
         ValidationController.checkSortExistence(availableSort);
-        if (availableSort.equals(Sort.TIME)) {
-            currentOffersSort = Sort.TIME;
+        if (availableSort.equals(Sort.TIME_UP)) {
+            currentOffersSort = Sort.TIME_UP;
             processSortByTime(isUp);
-        } else if (availableSort.equals(Sort.SCORE)) {
-            currentOffersSort = Sort.SCORE;
+        } else if (availableSort.equals(Sort.TIME_DOWN)) {
+            currentOffersSort = Sort.TIME_DOWN;
+            processSortByTime(isUp);
+        } else if (availableSort.equals(Sort.SCORE_UP)) {
+            currentOffersSort = Sort.SCORE_UP;
             processSortByScore(isUp);
-        }
-//        else if (availableSort.equals(Sort.PRICE)) {
-//            currentOffersSort = Sort.PRICE;
-//            processSortByPrice(isUp);
-//        }
-        else {
-            currentOffersSort = Sort.VIEW;
+        } else if (availableSort.equals(Sort.SCORE_DOWN)) {
+            currentOffersSort = Sort.SCORE_DOWN;
+            processSortByScore(isUp);
+        } else if (availableSort.equals(Sort.PRICE_UP)) {
+            currentOffersSort = Sort.PRICE_UP;
+            processSortByPrice(isUp);
+        } else if (availableSort.equals(Sort.PRICE_DOWN)) {
+            currentOffersSort = Sort.PRICE_DOWN;
+            processSortByPrice(isUp);
+        } else if (availableSort.equals(Sort.VIEW_UP)) {
+            currentOffersSort = Sort.VIEW_UP;
+            processSortByView(isUp);
+        } else {
+            currentOffersSort = Sort.VIEW_DOWN;
             processSortByView(isUp);
         }
     }
@@ -184,7 +194,7 @@ public abstract class OffersPageController {
     }
 
     public static void processDisableSortEach() {
-        currentOffersSort = Sort.VIEW;
+        currentOffersSort = Sort.VIEW_UP;
     }
 
 

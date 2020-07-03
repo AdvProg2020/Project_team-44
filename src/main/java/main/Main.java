@@ -1,31 +1,29 @@
 package main;
 
-import graphicView.userRegion.userAccount.managerRequestions.addOff.AddOffRequest;
-import graphicView.userRegion.userAccount.managerRequestions.addSeller.AddSellerRequest;
-import graphicView.userRegion.userAccount.managerRequestions.removeProduct.RemoveProductRequest;
+import graphicView.mainMenu.MainMenu;
 import javafx.application.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Category;
+import model.account.Account;
+import model.account.Manager;
+import model.account.Purchaser;
 import model.account.Seller;
-import model.offer.Offer;
+import model.comment.Comment;
 import model.product.Product;
-import model.requests.RequestForAddOff;
-import model.requests.RequestForEditOff;
-import model.requests.RequestForRemoveProduct;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Date;
+import java.lang.reflect.Field;
+import java.util.*;
 
 public class Main extends Application {
     static ArrayList<Category> all = new ArrayList<>();
     public static Stage window;
     public static Product good;
-
+    public static Stage accountRegionStage;
     static MediaPlayer mediaPlayer;
 
     public static MediaPlayer getMediaPlayer() {
@@ -42,58 +40,28 @@ public class Main extends Application {
         });
     }
 
+    public static void setAccountRegionStage(Stage accountRegionStage) {
+        Main.accountRegionStage = accountRegionStage;
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
-        Seller seller = new Seller("a",
-                "a",
-                "a",
-                "a",
-                "a",
-                "a",
-                "a",
-                "a",
-                "a");
-        Product p1 = new Product(null,
-                "apple",
-                "digikala",
-                2000,
-                "",
-                "");
-        Product p2 = new Product(null,
-                "orange",
-                "amazon",
-                3000,
-                "",
-                "");
-        Product p3 = new Product(null,
-                "pineapple",
-                "gajmarket",
-                4000,
-                "",
-                "");
-        ArrayList<Product> allProducts = new ArrayList<>();
-        allProducts.add(p1);
-        allProducts.add(p2);
-        allProducts.add(p3);
-        for (int i = 0; i < 5; i++) {
-            new RequestForAddOff(seller,
-                    allProducts,
-                    new Date(),
-                    new Date(),
-                    25);
-        }
+        reload();
+//        setMediaPlayer("The Swimmer.mp3");
+
+
+
+
+
         launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        AddOffRequest.display();
+        stage.setWidth(1275);
+        stage.setHeight(720);
+        MainMenu.display(stage);
     }
 
-    //
-//        public static void updateJson(String path, ) {
-//
-//    }
     private static void setCategoryParent(ArrayList<Category> all) {
         ArrayList<Category> allSub;
         if (all.size() > 0) {
@@ -110,27 +78,50 @@ public class Main extends Application {
     }
 
     private static void setProductCategory() {
-        ArrayList<Product> allSub;
         for (Category allCategory : Category.getAllCategories()) {
-            if (allCategory.getAllSubProducts().size() > 0) {
-                allSub = allCategory.getAllSubProducts();
-                for (Product product : allSub) {
-                    Product.getProductByID(product.getProductID()).setCategory(allCategory);
+            for (Category subCategory : allCategory.getSubCategories()) {
+                for (Product allSubProduct : subCategory.getAllSubProducts()) {
+                    for (Product allProduct : Product.getAllProducts()) {
+                        if (allSubProduct.getName().equals(allProduct.getName())) {
+                            allProduct.setCategory(subCategory);
+                            allSubProduct.setCategory(subCategory);
+                            break;
+                        }
+                    }
                 }
             }
         }
     }
 
-//    private static void reload() {
-//        Category.setAllCategories(new Json<Category>().getAllJson("src/main/resources/Categories", "category"));
-//        Product.setAllProducts(new Json<Product>().getAllJson("src/main/resources/Products", "product"));
-//        Manager.setAllManagers(new Json<Manager>().getAllJson("src/main/resources/Accounts/Managers", "manager"));
-//        Seller.setAllSeller(new Json<Seller>().getAllJson("src/main/resources/Accounts/Sellers", "seller"));
-//        Purchaser.setAllPurchaser(new Json<Purchaser>().getAllJson("src/main/resources/Accounts/Purchasers", "purchaser"));
-//        Account.getAllAccounts().addAll(Manager.getAllManagers());
-//        Account.getAllAccounts().addAll(Seller.getAllSeller());
-//        Account.getAllAccounts().addAll(Purchaser.getAllPurchaser());
-//        setCategoryParent(Category.getAllCategories());
-//        setProductCategory();
-//    }
+    public static void doComment(Comment comment) {
+        for (Product allProduct : Product.getAllProducts()) {
+            for (Comment allComment : allProduct.getAllComments()) {
+                if (allComment.getCommentId().equals(comment.getCommentId())) {
+                    comment.setProduct(allProduct);
+                    break;
+                }
+            }
+        }
+    }
+
+    public static void setCommentEachProduct(ArrayList<Comment> all) {
+        for (Comment comment : all) {
+            doComment(comment);
+        }
+    }
+
+    private static void reload() {
+        Category.setAllCategories(new Json<Category>().getAllJson("src/main/resources/Categories", "category"));
+        Product.setAllProducts(new Json<Product>().getAllJson("src/main/resources/Products", "product"));
+        Manager.setAllManagers(new Json<Manager>().getAllJson("src/main/resources/Accounts/Managers", "manager"));
+        Seller.setAllSeller(new Json<Seller>().getAllJson("src/main/resources/Accounts/Sellers", "seller"));
+        Purchaser.setAllPurchaser(new Json<Purchaser>().getAllJson("src/main/resources/Accounts/Purchasers", "purchaser"));
+        Comment.setAllComments(new Json<Comment>().getAllJson("src/main/resources/Comments", "comment"));
+        setCommentEachProduct(Comment.allComments);
+        Account.getAllAccounts().addAll(Manager.getAllManagers());
+        Account.getAllAccounts().addAll(Seller.getAllSeller());
+        Account.getAllAccounts().addAll(Purchaser.getAllPurchaser());
+        setCategoryParent(Category.getAllCategories());
+        setProductCategory();
+    }
 }

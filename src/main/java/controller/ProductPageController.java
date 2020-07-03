@@ -4,6 +4,7 @@ import exception.ProductAlreadyExistsInCartException;
 import exception.ProductIdNotExistsException;
 import exception.SellerUserNameNotExists;
 import model.account.Account;
+import model.account.Manager;
 import model.account.Purchaser;
 import model.account.Seller;
 import model.comment.Comment;
@@ -19,6 +20,20 @@ public abstract class ProductPageController {
     }
 
     public static void processAddProductToCartEach() throws ProductAlreadyExistsInCartException {
+        if (LoginPageController.loggedInAccount == null) {
+            System.out.println("null");
+        }
+        if (LoginPageController.loggedInAccount instanceof Purchaser) {
+            System.out.println("Purchaser");
+        }
+        if (LoginPageController.loggedInAccount instanceof Seller) {
+            System.out.println("seller");
+        }
+        if (LoginPageController.loggedInAccount instanceof Manager) {
+            System.out.println("manager");
+        }else {
+            System.out.println(LoginPageController.loggedInAccount);
+        }
         ValidationController.checkProductExistsInCart(LoginPageController.loggedInAccount, ProductsPageController.selectedProduct);
         ((Purchaser) LoginPageController.loggedInAccount).getCart().put(ProductsPageController.selectedProduct, 1);
         ((Purchaser) LoginPageController.loggedInAccount).getSellerSelectedForEachProduct()
@@ -26,9 +41,9 @@ public abstract class ProductPageController {
     }
 
     public static void processSelectSellerEach(String sellerUsername) throws SellerUserNameNotExists {
-        ValidationController.checkSellerOwnsProduct((Seller) Account.getAccountByUsername(sellerUsername)
+        ValidationController.checkSellerOwnsProduct(Seller.getSellerByUsername(sellerUsername)
                 , ProductsPageController.selectedProduct);
-       selectedSeller = (Seller)Account.getAccountByUsername(sellerUsername);
+        selectedSeller = Seller.getSellerByUsername(sellerUsername);
     }
 
     public static HashMap<String, String> processShowAttributes() {

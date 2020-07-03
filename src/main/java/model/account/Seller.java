@@ -16,6 +16,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Seller extends Account {
     private String companyName;
@@ -27,12 +28,22 @@ public class Seller extends Account {
 
     public Seller(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password, String companyName, String companyAddress, String companyTelephone) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
+        super.createAndUpdateJson();
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyTelephone = companyTelephone;
         this.productsToSell = new HashMap<>();
         allSeller.add(this);
-//        createAndUpdateJson();
+        createAndUpdateJson();
+    }
+
+    public static Seller getSellerByUsername(String username) {
+        for (Seller seller : allSeller) {
+            if (seller.getUserName().equals(username)) {
+                return seller;
+            }
+        }
+        return null;
     }
 
     public static ArrayList<Seller> getAllSeller() {
@@ -115,12 +126,12 @@ public class Seller extends Account {
     }
 
 
-    public void editProductRequest(Product product, String field, String newValue) {
-        new RequestForEditProduct(this, product, field, newValue);
+    public void editProductRequest(Product product, String name, String companyName, double price, String explanationText, String imageName) {
+        new RequestForEditProduct(this, product, name, companyName, price, explanationText, imageName);
     }
 
-    public void editOffersRequest(Offer offer, String field, ArrayList<String> newValue) {
-        new RequestForEditOff(this, offer, field, newValue);
+    public void editOffersRequest(Offer offer, ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage) {
+        new RequestForEditOff(this, offer, productList, initialDate, finalDate, discountPercentage);
     }
 
     public void addOfferRequest(ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage) {
@@ -167,5 +178,17 @@ public class Seller extends Account {
             offerIds.add(offer.getOfferID());
         }
         return offerIds;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Seller seller = (Seller) o;
+        return Objects.equals(companyName, seller.companyName) &&
+                Objects.equals(companyAddress, seller.companyAddress) &&
+                Objects.equals(companyTelephone, seller.companyTelephone) &&
+                Objects.equals(productsToSell, seller.productsToSell) &&
+                Objects.equals(offersList, seller.offersList);
     }
 }

@@ -19,6 +19,7 @@ public class PurchaserAccountPage {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
+        Main.setAccountRegionStage(primaryStage);
         primaryStage.show();
     }
 }

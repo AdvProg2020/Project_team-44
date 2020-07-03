@@ -28,10 +28,10 @@ public class Category {
             this.parent = parent;
             this.imageName = imageName;
             parent.getSubCategories().add(this);
-//            updateAllParent(parent);
+            updateAllParent(parent);
         }
         allCategories.add(this);
-//        createAndUpdateJson(this);
+        createAndUpdateJson(this);
     }
 
 

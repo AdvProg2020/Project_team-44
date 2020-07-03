@@ -3,9 +3,11 @@ package main;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import model.Category;
+import model.account.Account;
 import model.account.Manager;
 import model.account.Purchaser;
 import model.account.Seller;
+import model.comment.Comment;
 import model.product.Product;
 
 import java.io.FileNotFoundException;
@@ -70,6 +72,19 @@ public class Json<T> {
         return t;
     }
 
+    public T getAccountObject(String path) {
+        Gson gson = new Gson();
+        JsonReader reader = null;
+        try {
+            reader = new JsonReader(new FileReader(path));
+        } catch (FileNotFoundException e) {
+
+        }
+        Account account = gson.fromJson(reader, Account.class);
+        T t = (T) account;
+        return t;
+    }
+
     public T getProductObject(String path) {
         Gson gson = new Gson();
         JsonReader reader = null;
@@ -96,10 +111,26 @@ public class Json<T> {
         return t;
     }
 
+    public T getCommentObject(String path) {
+        Gson gson = new Gson();
+        JsonReader reader = null;
+        try {
+            reader = new JsonReader(new FileReader(path));
+        } catch (FileNotFoundException e) {
+
+        }
+        Comment comment = gson.fromJson(reader, Comment.class);
+        T t = (T) comment;
+        return t;
+    }
+
     public ArrayList<T> getAllJson(String folderPath, String kind) {
         ArrayList<T> all = new ArrayList<>();
         for (String s : getAllFilePathInDirectory(folderPath)) {
             switch (kind) {
+                case "account":
+                    all.add(getAccountObject(s));
+                    break;
                 case "seller":
                     all.add(getSellerObject(s));
                     break;
@@ -114,6 +145,9 @@ public class Json<T> {
                     break;
                 case "category":
                     all.add(getCategoryObject(s));
+                    break;
+                case "comment":
+                    all.add(getCommentObject(s));
                     break;
             }
         }
