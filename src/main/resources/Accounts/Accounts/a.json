@@ -1,1 +1,1 @@
-{"userName":"a","firstName":"a","lastName":"a","eMail":"a","telephoneNumber":"a","password":"a","balance":0.0,"allDiscountCodes":[],"sellLogListHistory":[],"buyLogListHistory":[],"isLoggedIn":false}
+{"sellerSelectedForEachProduct":{},"userName":"a","firstName":"b","lastName":"c","eMail":"d","telephoneNumber":"e","password":"f","balance":0.0,"allDiscountCodes":[],"sellLogListHistory":[],"buyLogListHistory":[],"isLoggedIn":false}

@@ -17,6 +17,5 @@
       </TableView>
       <Button fx:id="acceptButton" layoutX="421.0" layoutY="320.0" mnemonicParsing="false" onAction="#acceptRequest" text="accept" />
       <Button fx:id="declineButton" layoutX="352.0" layoutY="320.0" mnemonicParsing="false" onAction="#declineRequest" text="decline" />
-      <Button layoutX="33.0" layoutY="320.0" mnemonicParsing="false" text="back" />
    </children>
 </AnchorPane>

@@ -1,30 +1,25 @@
 package main;
 
 import controller.LoginPageController;
-import graphicView.mainMenu.MainMenu;
-import graphicView.userRegion.userAccount.managerRequestions.addOff.AddOffRequest;
-import graphicView.userRegion.userAccount.managerRequestions.addProduct.AddProductRequest;
-import graphicView.userRegion.userAccount.managerRequestions.addSeller.AddSellerRequest;
-import graphicView.userRegion.userAccount.managerRequestions.removeProduct.RemoveProductRequest;
+import graphicView.discountCodes.DiscountCodesPage;
 import javafx.application.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Category;
+import model.CodedDiscount;
 import model.account.Account;
 import model.account.Manager;
 import model.account.Purchaser;
 import model.account.Seller;
 import model.comment.Comment;
 import model.product.Product;
-import model.requests.RequestForAddProduct;
-import model.requests.RequestForRemoveProduct;
-import model.requests.RequestForSeller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Main extends Application {
     static ArrayList<Category> all = new ArrayList<>();
@@ -52,47 +47,54 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        reload();
-////        setMediaPlayer("The Swimmer.mp3");
-//        Seller seller = new Seller("a",
-//                "a",
-//                "a",
-//                "a",
-//                "a",
-//                "a",
-//                "a",
-//                "a",
-//                "a");
-//        Product product = new Product(new Category("fruit", null, null),
-//                "apple",
-//                "digikala",
-//                1000,
-//                "Extraordinary",
-//                null);
-//        for (int i = 0; i < 5; i++) {
-//            new RequestForRemoveProduct(seller, product);
-//        }
-//        Manager manager = new Manager("a",
-//                "a",
-//                "a",
-//                "a",
-//                "a",
-//                "a");
-//        LoginPageController.setLoggedInAccount(manager);
+//        reload();
+        Category category = new Category("fruit", null, null);
+        Purchaser purchaser = new Purchaser("a",
+                "b",
+                "c",
+                "d",
+                "e",
+                "f",
+                "g");
+        ArrayList<CodedDiscount> allCodedDiscounts = new ArrayList<>();
+        allCodedDiscounts.add(new CodedDiscount(new Date(),
+                new Date(),
+                15,
+                100000));
+        allCodedDiscounts.add(new CodedDiscount(new Date(),
+                new Date(),
+                70,
+                118181));
+        allCodedDiscounts.add(new CodedDiscount(new Date(),
+                new Date(),
+                40,
+                1000000000));
+        purchaser.setAllDiscountCodes(allCodedDiscounts);
+        LoginPageController.setLoggedInAccount(purchaser);
+//        SellLogPage.display();
+//BuyLogPage.display();
+//    CartPage.display();
+//    DiscountCodesPage.display();
+
+//BuyLogPage.display();
         launch(args);
     }
 
     @Override
-    public void start(Stage stage) throws Exception
-    {
-        System.out.println("  ");
-        stage.setWidth(1275);
-        stage.setHeight(720);
-        MainMenu.display(stage);
+    public void start(Stage stage) throws Exception {
+//        System.out.println("  ");
+//        stage.setWidth(1275);
+//        stage.setHeight(720);
+//        MainMenu.display(stage);
 //        AddOffRequest.display();
 //        AddProductRequest.display();
 //        AddSellerRequest.display();
 //        RemoveProductRequest.display();
+//        BuyLogPage.display();
+//        SellLogPage.display();
+//        CartPage.display();
+        DiscountCodesPage.display();
+
     }
 
     private static void setCategoryParent(ArrayList<Category> all) {
