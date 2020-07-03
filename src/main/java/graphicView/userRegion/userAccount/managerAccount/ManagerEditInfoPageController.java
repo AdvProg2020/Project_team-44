@@ -27,7 +27,7 @@ public class ManagerEditInfoPageController {
     public TextField newManagerEmail;
     public Label alertMessage;
     @FXML
-    public void applyChanges() throws SellerFieldsNotExistException, ManagerFieldsNotExistException {
+    public void applyChanges() throws  ManagerFieldsNotExistException {
         String newFirstName = newManagerFirstName.getText();
         String newLastName = newManagerLastName.getText();
         String newUsername = newManagerUsername.getText();
