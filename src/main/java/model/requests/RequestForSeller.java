@@ -13,7 +13,11 @@ public class RequestForSeller extends Request {
     private String telephoneNumber;
     private String password;
 
-    private ArrayList<RequestForSeller> allRequestsForSeller = new ArrayList<>();
+    private static ArrayList<RequestForSeller> allRequestsForSeller = new ArrayList<>();
+
+    public static ArrayList<RequestForSeller> getAllRequestsForSeller() {
+        return allRequestsForSeller;
+    }
 
     public RequestForSeller(String companyName, String companyAddress, String companyTelephone, String userName, String firstName
             , String lastName, String eMail, String telephoneNumber, String password) {

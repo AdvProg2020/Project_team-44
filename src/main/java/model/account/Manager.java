@@ -146,6 +146,7 @@ public class Manager extends Account {
         //Product.getAllProducts().remove(request.getProduct());
         Product product = request.getProduct();
         product = null;
+        // da fuq?
     }
 
     public void doRequestForSeller(String requestId) {

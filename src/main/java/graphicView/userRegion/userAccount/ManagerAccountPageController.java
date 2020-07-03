@@ -2,8 +2,8 @@ package graphicView.userRegion.userAccount;
 
 import controller.LoginPageController;
 import graphicView.mainMenu.MainMenu;
+import graphicView.userRegion.loginPanel.LoginPanel;
 import graphicView.userRegion.loginPanel.LoginPanelController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -54,8 +54,6 @@ public class ManagerAccountPageController implements Initializable {
     @FXML
     private MenuItem addSeller;
     @FXML
-    private Button backButton;
-    @FXML
     private Button logout;
 
     @FXML
@@ -65,6 +63,15 @@ public class ManagerAccountPageController implements Initializable {
         ManagerAccountPage.primaryStage.close();
         MainMenu.display(Main.window);
     }
+    @FXML
+    private Button backButton;
+
+    @FXML
+    private void goPreviousScene() throws IOException {
+        ManagerAccountPage.primaryStage.close();
+        MainMenu.display(Main.window);
+    }
+
     public void writeInformationForManager() {
         Account currentAccount = LoginPageController.getLoggedInAccount();
         managerName.setText(currentAccount.getFirstName() + " " + currentAccount.getLastName());
@@ -78,8 +85,5 @@ public class ManagerAccountPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         writeInformationForManager();
-    }
-
-    public void goPreviousScene(ActionEvent actionEvent) {
     }
 }

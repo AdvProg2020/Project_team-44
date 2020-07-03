@@ -16,6 +16,10 @@ public class RequestForAddOff extends Request {
     private int discountPercentage;
     private static ArrayList<RequestForAddOff> allRequestsForAddOff = new ArrayList<>();
 
+    public static ArrayList<RequestForAddOff> getAllRequestsForAddOff() {
+        return allRequestsForAddOff;
+    }
+
     public RequestForAddOff(Seller seller, ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage) {
         this.seller = seller;
         this.productList = productList;

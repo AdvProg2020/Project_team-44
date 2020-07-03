@@ -172,7 +172,6 @@ public class Purchaser extends Account {
 
     public ArrayList<Product> getCartProducts() {
         ArrayList<Product> products = new ArrayList<>();
-        System.out.println(this.getCart().size());
         for (Product product : this.getCart().keySet()) {
             products.add(product);
         }

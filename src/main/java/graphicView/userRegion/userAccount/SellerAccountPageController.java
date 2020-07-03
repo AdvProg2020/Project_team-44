@@ -52,7 +52,7 @@ public class SellerAccountPageController implements Initializable {
     private void logout() throws IOException {
         LoginPageController.logout();
         LoginPanelController.setLoggedInAccount(null);
-        ManagerAccountPage.primaryStage.close();
+        SellerAccountPage.primaryStage.close();
         MainMenu.display(Main.window);
     }
 

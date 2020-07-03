@@ -131,15 +131,15 @@ public class ValidationControllerTest {
         try {
             ValidationController.checkUsernameExistence(purchaser.getUserName());
             ValidationController.checkUsernameExistence(seller.getUserName());
-            Assert.assertEquals(10, 10);
+            Assert.assertEquals(10,10);
         } catch (UsernameNotExistsException e) {
-            Assert.assertEquals(10, 9);
+            Assert.assertEquals(10,9);
         }
         try {
             ValidationController.checkUsernameExistence("hello");
-            Assert.assertEquals(10, 9);
+            Assert.assertEquals(10,9);
         } catch (UsernameNotExistsException e) {
-            Assert.assertEquals(10, 10);
+            Assert.assertEquals(10,10);
         }
 
     }
