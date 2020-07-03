@@ -23,6 +23,8 @@ module team {
     opens graphicView.userRegion.userAccount.managerRequestions.addProduct to javafx.fxml, javafx.base;
     opens graphicView.userRegion.userAccount.managerRequestions.removeProduct to javafx.fxml, javafx.base;
     opens graphicView.userRegion.userAccount.managerRequestions.addSeller to javafx.fxml, javafx.base;
+    opens graphicView.userRegion.userAccount.managerAccount to javafx.fxml;
+    opens graphicView.userRegion.userAccount.sellerAccount to javafx.fxml , java.base;
 //    opens graphicView to javafx.media;
     opens model to com.google.gson, javafx.base;
     opens model.account to com.google.gson;

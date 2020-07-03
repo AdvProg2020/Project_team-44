@@ -2,13 +2,9 @@ package graphicView.userRegion.userAccount.managerAccount;
 
 import controller.LoginPageController;
 import controller.ManagerAccountController;
-import controller.SellerAccountController;
 import exception.ManagerFieldsNotExistException;
-import exception.SellerFieldsNotExistException;
 import graphicView.mainMenu.MainMenu;
 import graphicView.userRegion.loginPanel.LoginPanelController;
-import graphicView.userRegion.userAccount.sellerAccount.SellerAccountPage;
-import graphicView.userRegion.userAccount.sellerAccount.SellerEditInfoPage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

@@ -87,7 +87,6 @@ public class Manager extends Account {
         } else if (firstPartId.equalsIgnoreCase("RequestForSeller")) {
             doRequestForSeller(requestId);
         }
-        System.out.println("alan");
     }
 
     public void doRequestForAddOf(String requestId) {
@@ -126,7 +125,6 @@ public class Manager extends Account {
         Product.getAllProducts().remove(request.getProduct());
 //        Product product = request.getProduct();
 //        product = null;
-        // da fuq?
     }
 
     public void doRequestForSeller(String requestId) {
