@@ -1,5 +1,6 @@
 package graphicView.purchasePage;
 
+import controller.LoginPageController;
 import controller.ManagerAccountController;
 import graphicView.cart.CartPageController;
 import graphicView.userRegion.loginPanel.LoginPanelController;
@@ -56,11 +57,11 @@ public class PurchasePageController implements Initializable {
         if (!codedDiscountField.getText().equals("")) {
             toPay *= (100 - CodedDiscount.getCodedDiscountByCode(codedDiscountField.getText()).getDiscountPercentage()) / 100;
         }
-        if (toPay > (int) LoginPanelController.getLoggedInAccount().getBalance()) {
+        if (toPay > (int) LoginPageController.getLoggedInAccount().getBalance()) {
             messageLabel.setText("Not enough money!");
             return;
         }
-        LoginPanelController.getLoggedInAccount().setBalance(LoginPanelController.getLoggedInAccount().getBalance() - toPay);
+        LoginPanelController.getLoggedInAccount().setBalance(LoginPageController.getLoggedInAccount().getBalance() - toPay);
         // پول به فروشنده ها اضافه شود
     }
 

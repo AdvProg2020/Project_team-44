@@ -128,7 +128,7 @@ public class CartPageController implements Initializable {
                 totalAmountLabel.setText("" + totalAmountToPay());
             });
             try {
-                increaseButton.setGraphic(new ImageView(new Image(new FileInputStream("src\\main\\resources\\media\\image\\deleteIcon.png"))));
+                increaseButton.setGraphic(new ImageView(new Image(new FileInputStream("src/main/resources/media/image/deleteIcon.jpg"))));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

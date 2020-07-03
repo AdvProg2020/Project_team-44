@@ -86,10 +86,10 @@ public abstract class ManagerAccountController {
         return Request.getRequestById(requestId).getRequestDetails();
     }
 
-    public static void processAcceptRequestEach(String requestId) throws RequestNotExistsException, ParseException {
-        ValidationController.checkRequestExistence(requestId);
-        ((Manager) LoginPageController.loggedInAccount).accept(requestId);
-    }
+//    public static void processAcceptRequestEach(String requestId) throws RequestNotExistsException, ParseException {
+//        ValidationController.checkRequestExistence(requestId);
+//        ((Manager) LoginPageController.loggedInAccount).accept(requestId);
+//    }
 
     public static void processDeclineRequestEach(String requestId) throws RequestNotExistsException {
         ValidationController.checkRequestExistence(requestId);

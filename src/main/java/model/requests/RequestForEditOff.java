@@ -3,23 +3,29 @@ package model.requests;
 
 import model.account.Seller;
 import model.offer.Offer;
+import model.product.Product;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class RequestForEditOff extends Request {
     private Seller seller;
     private Offer offer;
-    private String field;
-    private ArrayList<String> newValue;
+    private ArrayList<Product> productList;
+    private Date initialDate;
+    private Date finalDate;
+    private int discountPercentage;
     private static ArrayList<RequestForEditOff> allRequestsForEditOff = new ArrayList<>();
 
-    public RequestForEditOff(Seller seller, Offer offer, String field, ArrayList<String> newValue) {
+    public RequestForEditOff(Seller seller, Offer offer, ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage) {
         this.seller = seller;
         this.offer = offer;
-        this.field = field;
-        this.newValue = newValue;
+        this.productList = productList;
+        this.initialDate = initialDate;
+        this.finalDate = finalDate;
+        this.discountPercentage = discountPercentage;
         allRequestsForEditOff.add(this);
     }
 
@@ -31,14 +37,21 @@ public class RequestForEditOff extends Request {
         return offer;
     }
 
-    public String getField() {
-        return field;
+    public ArrayList<Product> getProductList() {
+        return productList;
     }
 
-    public ArrayList<String> getNewValue() {
-        return newValue;
+    public Date getInitialDate() {
+        return initialDate;
     }
 
+    public Date getFinalDate() {
+        return finalDate;
+    }
+
+    public int getDiscountPercentage() {
+        return discountPercentage;
+    }
 
     public static ArrayList<RequestForEditOff> getAllRequestsForEditOff() {
         return allRequestsForEditOff;
@@ -56,13 +69,12 @@ public class RequestForEditOff extends Request {
         details.add(this.getSeller().getFirstName());
         details.add(this.getSeller().getLastName());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-        String strDate = dateFormat.format(this.getOffer().getInitialDate());
+        String strDate = dateFormat.format(this.getInitialDate());
         details.add(this.getOffer().getOfferID());
         details.add(strDate);
-        strDate = dateFormat.format(this.getOffer().getFinalDate());
+        strDate = dateFormat.format(this.getFinalDate());
         details.add(strDate);
-        details.add(this.getField());
-        details.addAll(this.getNewValue());
+        details.add(String.valueOf(this.getDiscountPercentage()));
         return details;
     }
 }

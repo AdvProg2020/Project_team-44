@@ -1,5 +1,6 @@
 package model.requests;
 
+import model.Category;
 import model.account.Seller;
 import model.product.Product;
 
@@ -8,15 +9,21 @@ import java.util.ArrayList;
 public class RequestForEditProduct extends Request {
     private Seller seller;
     private Product product;
-    private String field;
-    private String newValue;
+    private String name;
+    private String companyName;
+    double price;
+    private String explanationText;
+    private String imageName;
     private static ArrayList<RequestForEditProduct> allRequestsForEditProduct = new ArrayList<>();
 
-    public RequestForEditProduct(Seller seller, Product product, String field, String newValue) {
+    public RequestForEditProduct(Seller seller, Product product, String name, String companyName, double price, String explanationText, String imageName) {
         this.seller = seller;
         this.product = product;
-        this.field = field;
-        this.newValue = newValue;
+        this.name = name;
+        this.companyName = companyName;
+        this.price = price;
+        this.explanationText = explanationText;
+        this.imageName = imageName;
         allRequestsForEditProduct.add(this);
     }
 
@@ -28,12 +35,24 @@ public class RequestForEditProduct extends Request {
         return product;
     }
 
-    public String getField() {
-        return field;
+    public String getName() {
+        return name;
     }
 
-    public String getNewValue() {
-        return newValue;
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getExplanationText() {
+        return explanationText;
+    }
+
+    public String getImageName() {
+        return imageName;
     }
 
     public static ArrayList<RequestForEditProduct> getAllRequestsForEditProduct() {
@@ -52,11 +71,9 @@ public class RequestForEditProduct extends Request {
         details.add(this.getSeller().getFirstName());
         details.add(this.getSeller().getLastName());
         details.add(this.getProduct().getName());
-        details.add(this.getProduct().getCompanyName());
-        details.add(String.valueOf(this.getProduct().getPrice()));
-        details.add(this.getProduct().getExplanationText());
-        details.add(this.getField());
-        details.add(this.getNewValue());
+        details.add(this.getCompanyName());
+        details.add(String.valueOf(this.getPrice()));
+        details.add(this.getExplanationText());
         return super.getRequestDetails();
     }
 }

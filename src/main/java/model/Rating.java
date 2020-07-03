@@ -4,7 +4,7 @@ import model.account.Purchaser;
 import model.product.Product;
 
 public class Rating {
-    private Product product;
+    private transient Product product;
     private Purchaser purchaser;
     private int rating;
 
@@ -13,6 +13,7 @@ public class Rating {
         this.purchaser = purchaser;
         this.rating = rating;
         product.getAllRating().add(this);
+        product.createAndUpdateJson(product);
     }
 
     public int getRating() {

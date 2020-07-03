@@ -1,8 +1,6 @@
 package main;
 
 import graphicView.mainMenu.MainMenu;
-import graphicView.purchasePage.PurchasePage;
-import graphicView.userRegion.loginPanel.LoginPanel;
 import javafx.application.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -18,7 +16,8 @@ import model.product.Product;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.lang.reflect.Field;
+import java.util.*;
 
 public class Main extends Application {
     static ArrayList<Category> all = new ArrayList<>();
@@ -47,7 +46,12 @@ public class Main extends Application {
 
     public static void main(String[] args) throws FileNotFoundException {
         reload();
-        setMediaPlayer("The Swimmer.mp3");
+//        setMediaPlayer("The Swimmer.mp3");
+
+
+
+
+
         launch(args);
     }
 
@@ -74,12 +78,16 @@ public class Main extends Application {
     }
 
     private static void setProductCategory() {
-        ArrayList<Product> allSub;
         for (Category allCategory : Category.getAllCategories()) {
-            if (allCategory.getAllSubProducts().size() > 0) {
-                allSub = allCategory.getAllSubProducts();
-                for (Product product : allSub) {
-                    Product.getProductByID(product.getProductID()).setCategory(allCategory);
+            for (Category subCategory : allCategory.getSubCategories()) {
+                for (Product allSubProduct : subCategory.getAllSubProducts()) {
+                    for (Product allProduct : Product.getAllProducts()) {
+                        if (allSubProduct.getName().equals(allProduct.getName())) {
+                            allProduct.setCategory(subCategory);
+                            allSubProduct.setCategory(subCategory);
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -88,7 +96,7 @@ public class Main extends Application {
     public static void doComment(Comment comment) {
         for (Product allProduct : Product.getAllProducts()) {
             for (Comment allComment : allProduct.getAllComments()) {
-                if (allComment.getTitle().equals(comment.getTitle())) {
+                if (allComment.getCommentId().equals(comment.getCommentId())) {
                     comment.setProduct(allProduct);
                     break;
                 }
@@ -115,6 +123,5 @@ public class Main extends Application {
         Account.getAllAccounts().addAll(Purchaser.getAllPurchaser());
         setCategoryParent(Category.getAllCategories());
         setProductCategory();
-
     }
 }

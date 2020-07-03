@@ -1,9 +1,13 @@
 package model.account;
 
+import com.google.gson.Gson;
 import model.buyLog.BuyLog;
 import model.CodedDiscount;
 import model.sellLog.SellLog;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 
 public class Account {
@@ -33,7 +37,28 @@ public class Account {
         this.sellLogListHistory = new ArrayList<>();
         this.buyLogListHistory = new ArrayList<>();
         allAccounts.add(this);
+        createAndUpdateJson();
     }
+
+    public void createAndUpdateJson() {
+        try {
+            Writer writer = new FileWriter("src/main/resources/Accounts/Accounts/" + this.getUserName() + ".json");
+            new Gson().toJson(this, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Account getAccountByUsername(String username) {
+        for (Account account : allAccounts) {
+            if (account.getUserName().equals(username)) {
+                return account;
+            }
+        }
+        return null;
+    }
+
     // just for test
     public void setSellLogListHistory(ArrayList<SellLog> sellLogListHistory) {
         this.sellLogListHistory = sellLogListHistory;
@@ -125,15 +150,6 @@ public class Account {
 
     public static void setAllAccounts(ArrayList<Account> allAccounts) {
         Account.allAccounts = allAccounts;
-    }
-
-    public static Account getAccountByUsername(String username) {
-        for (Account account : allAccounts) {
-            if (account.getUserName().equals(username)) {
-                return account;
-            }
-        }
-        return null;
     }
 
     public ArrayList<String> getInfo() {

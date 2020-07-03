@@ -10,6 +10,7 @@ import model.product.Product;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public abstract class SellerAccountController {
     public static ArrayList<String> processViewPersonalInfo() {
@@ -48,11 +49,11 @@ public abstract class SellerAccountController {
         return allInfo;
     }
 
-    public static void processEditProduct(String productId, String field, String newValue)
+    public static void processEditProduct(Product product, String name, String companyName, double price, String explanationText, String imageName)
             throws ProductIdNotExistsException, ProductFieldsNotException {
-        ValidationController.checkProductExistence(productId);
-        ValidationController.checkProductFieldExistence(field);
-        ((Seller) LoginPageController.loggedInAccount).editProductRequest(Product.getProductByID(productId), field, newValue);
+//        ValidationController.checkProductExistence(productId);
+//        ValidationController.checkProductFieldExistence(field);
+        ((Seller) LoginPageController.loggedInAccount).editProductRequest(product, name, companyName, price, explanationText, imageName);
     }
 
     public static void processAddProduct(String category, String productName, int price, String explanationText) throws CategoryNotExistsException {
@@ -79,11 +80,11 @@ public abstract class SellerAccountController {
         return Offer.getOfferById(offId).getOfferInfo();
     }
 
-    public static void processEditOffEach(String offId, String field, ArrayList<String> newValue)
+    public static void processEditOffEach(Offer offer, ArrayList<Product> productList, Date initialDate, Date finalDate, int discountPercentage)
             throws ProductIdNotExistsException, OfferFieldNotExistsException {
-        ValidationController.checkOfferExistence(offId);
-        ValidationController.checkOfferFieldExistence(field);
-        ((Seller) LoginPageController.loggedInAccount).editOffersRequest(Offer.getOfferById(offId), field, newValue);
+//        ValidationController.checkOfferExistence(offId);
+//        ValidationController.checkOfferFieldExistence(field);
+        ((Seller) LoginPageController.loggedInAccount).editOffersRequest(offer, productList, initialDate, finalDate, discountPercentage);
     }
 
     public static void processAddOffEach(ArrayList<String> productListIds, String initialDate, String finalDate,

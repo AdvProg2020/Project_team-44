@@ -11,10 +11,7 @@ import model.offer.Offer;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 public class Product {
     private String productID;
@@ -153,7 +150,7 @@ public class Product {
     }
 
     public Date getGeneratedDate() {
-        return generatedDate;
+        return this.generatedDate;
     }
 
     public void setName(String name) {
@@ -249,4 +246,53 @@ public class Product {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productID='" + productID + '\'' +
+                ", category=" + category +
+                ", status=" + status +
+                ", categoryAttributes=" + categoryAttributes +
+                ", name='" + name + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", price=" + price +
+                ", allSellers=" + allSellers +
+                ", isAvailable=" + isAvailable +
+                ", allComments=" + allComments +
+                ", explanationText='" + explanationText + '\'' +
+                ", offer=" + offer +
+                ", allRating=" + allRating +
+                ", generatedDate=" + generatedDate +
+                ", viewTimes=" + viewTimes +
+                ", imageName='" + imageName + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Double.compare(product.price, price) == 0 &&
+                isAvailable == product.isAvailable &&
+                viewTimes == product.viewTimes &&
+                Objects.equals(productID, product.productID) &&
+                Objects.equals(category, product.category) &&
+                status == product.status &&
+                Objects.equals(categoryAttributes, product.categoryAttributes) &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(companyName, product.companyName) &&
+                Objects.equals(allSellers, product.allSellers) &&
+                Objects.equals(allComments, product.allComments) &&
+                Objects.equals(explanationText, product.explanationText) &&
+                Objects.equals(offer, product.offer) &&
+                Objects.equals(allRating, product.allRating) &&
+                Objects.equals(generatedDate, product.generatedDate) &&
+                Objects.equals(imageName, product.imageName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productID, category, status, categoryAttributes, name, companyName, price, allSellers, isAvailable, allComments, explanationText, offer, allRating, generatedDate, viewTimes, imageName);
+    }
 }
