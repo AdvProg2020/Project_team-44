@@ -85,6 +85,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception
     {
+        System.out.println("  ");
         stage.setWidth(1275);
         stage.setHeight(720);
         MainMenu.display(stage);
