@@ -1,13 +1,159 @@
 package graphicView.userRegion.userAccount.managerRequestions.editOff;
 
+import controller.ManagerAccountController;
+import exception.RequestNotExistsException;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.product.Product;
+import model.requests.Request;
+import model.requests.RequestForAddOff;
+import model.requests.RequestForEditOff;
 
 import java.net.URL;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class OffRequestInfoController implements Initializable {
+    @FXML
+    Button acceptButton = new Button();
+    @FXML
+    Button declineButton = new Button();
+
+    // only have 1 row
+    @FXML
+    TableView<RequesterInfo> requesterInfoTableView;
+    @FXML
+    TableColumn<RequesterInfo, StringProperty> sellerFirstNameColumn;
+    @FXML
+    TableColumn<RequesterInfo, StringProperty> sellerLastNameColumn;
+    @FXML
+    TableColumn<RequesterInfo, IntegerProperty> discountPercentageColumn;
+    @FXML
+    TableColumn<RequesterInfo, Date> initialDateColumn;
+    @FXML
+    TableColumn<RequesterInfo, Date> finalDateColumn;
+
+    public class RequesterInfo {
+        private StringProperty sellerFirstName;
+        private StringProperty sellerLastName;
+        private IntegerProperty discountPercentage;
+        private Date initialDate;
+        private Date finalDate;
+
+        public RequesterInfo(String sellerFirstName, String sellerLastName, int discountPercentage, Date initialDate, Date finalDate) {
+            this.sellerFirstName = new SimpleStringProperty(sellerFirstName);
+            this.sellerLastName = new SimpleStringProperty(sellerLastName);
+            this.discountPercentage = new SimpleIntegerProperty(discountPercentage);
+            this.initialDate = initialDate;
+            this.finalDate = finalDate;
+        }
+
+        public StringProperty sellerFirstNameProperty() {
+            return sellerFirstName;
+        }
+
+        public StringProperty sellerLastNameProperty() {
+            return sellerLastName;
+        }
+
+        public IntegerProperty discountPercentageProperty() {
+            return discountPercentage;
+        }
+
+        public Date getInitialDate() {
+            return initialDate;
+        }
+
+        public Date getFinalDate() {
+            return finalDate;
+        }
+    }
+
+    @FXML
+    TableView<OfferProducts> productsTableView;
+    @FXML
+    TableColumn<OfferProducts, StringProperty> productNameColumn;
+    @FXML
+    TableColumn<OfferProducts, StringProperty> productIdColumn;
+
+    public class OfferProducts {
+        private StringProperty productName;
+        private StringProperty productId;
+
+        public OfferProducts(String productName, String productId) {
+            this.productName = new SimpleStringProperty(productName);
+            this.productId = new SimpleStringProperty(productId);
+        }
+
+        public StringProperty productNameProperty() {
+            return productName;
+        }
+
+        public StringProperty productIdProperty() {
+            return productId;
+        }
+    }
+
+    private ObservableList<OfferProducts> getProducts() {
+        ObservableList<OfferProducts> offerProducts = FXCollections.observableArrayList();
+        for (Product product : ((RequestForEditOff) Request.getRequestById(EditOffRequestController.getCurrentRequestId())).getProductList()) {
+            offerProducts.add(new OfferProducts(product.getName(),
+                    product.getProductID()));
+        }
+        return offerProducts;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // initialize the requester info
+        sellerFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("sellerFirstName"));
+        sellerLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("sellerLastName"));
+        discountPercentageColumn.setCellValueFactory(new PropertyValueFactory<>("discountPercentage"));
+        initialDateColumn.setCellValueFactory(new PropertyValueFactory<>("initialDate"));
+        finalDateColumn.setCellValueFactory(new PropertyValueFactory<>("finalDate"));
+        requesterInfoTableView.setItems(getRequesterInfo());
+        // initialize the products table
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        productIdColumn.setCellValueFactory(new PropertyValueFactory<>("productId"));
+        productsTableView.setItems(getProducts());
+    }
 
+    private ObservableList<RequesterInfo> getRequesterInfo() {
+        ObservableList<RequesterInfo> requesterInfos = FXCollections.observableArrayList();
+        requesterInfos.add(new RequesterInfo(((RequestForAddOff) Request.getRequestById(EditOffRequestController.getCurrentRequestId())).getSeller().getFirstName(),
+                ((RequestForAddOff) Request.getRequestById(EditOffRequestController.getCurrentRequestId())).getSeller().getLastName(),
+                ((RequestForAddOff) Request.getRequestById(EditOffRequestController.getCurrentRequestId())).getDiscountPercentage(),
+                ((RequestForAddOff) Request.getRequestById(EditOffRequestController.getCurrentRequestId())).getInitialDate(),
+                ((RequestForAddOff) Request.getRequestById(EditOffRequestController.getCurrentRequestId())).getFinalDate()));
+        return requesterInfos;
+    }
+
+    @FXML
+    private void acceptRequest() {
+        try {
+            ManagerAccountController.processAcceptRequestEach(EditOffRequestController.getCurrentRequestId());
+        } catch (RequestNotExistsException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void declineRequest() {
+        try {
+            ManagerAccountController.processDeclineRequestEach(EditOffRequestController.getCurrentRequestId());
+        } catch (RequestNotExistsException e) {
+            e.printStackTrace();
+        }
     }
 }

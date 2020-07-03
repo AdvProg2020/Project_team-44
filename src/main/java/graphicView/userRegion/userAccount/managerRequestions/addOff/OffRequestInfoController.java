@@ -142,7 +142,6 @@ public class OffRequestInfoController implements Initializable {
     private void acceptRequest() {
         try {
             ManagerAccountController.processAcceptRequestEach(AddOffRequestController.getCurrentRequestId());
-
         } catch (RequestNotExistsException | ParseException e) {
             e.printStackTrace();
         }
