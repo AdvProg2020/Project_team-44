@@ -1,22 +1,25 @@
 package main;
 
-import controller.LoginPageController;
-import graphicView.userRegion.userAccount.ManagerAccountPage;
-import graphicView.userRegion.userAccount.PurchaserAccountPage;
-import graphicView.userRegion.userAccount.SellerAccountPage;
+import graphicView.userRegion.userAccount.managerRequestions.addOff.AddOffRequest;
+import graphicView.userRegion.userAccount.managerRequestions.addSeller.AddSellerRequest;
+import graphicView.userRegion.userAccount.managerRequestions.removeProduct.RemoveProductRequest;
 import javafx.application.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Category;
-import model.account.Manager;
 import model.account.Seller;
+import model.offer.Offer;
 import model.product.Product;
+import model.requests.RequestForAddOff;
+import model.requests.RequestForEditOff;
+import model.requests.RequestForRemoveProduct;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Main extends Application {
     static ArrayList<Category> all = new ArrayList<>();
@@ -41,21 +44,50 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws FileNotFoundException {
-        Manager manager = new Manager("a",
-                "b",
+        Seller seller = new Seller("a",
                 "a",
                 "a",
                 "a",
-                ":a");
-        LoginPageController.setLoggedInAccount(manager);
-//    DiscountCodesPage.display();
-
+                "a",
+                "a",
+                "a",
+                "a",
+                "a");
+        Product p1 = new Product(null,
+                "apple",
+                "digikala",
+                2000,
+                "",
+                "");
+        Product p2 = new Product(null,
+                "orange",
+                "amazon",
+                3000,
+                "",
+                "");
+        Product p3 = new Product(null,
+                "pineapple",
+                "gajmarket",
+                4000,
+                "",
+                "");
+        ArrayList<Product> allProducts = new ArrayList<>();
+        allProducts.add(p1);
+        allProducts.add(p2);
+        allProducts.add(p3);
+        for (int i = 0; i < 5; i++) {
+            new RequestForAddOff(seller,
+                    allProducts,
+                    new Date(),
+                    new Date(),
+                    25);
+        }
         launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        ManagerAccountPage.display();
+        AddOffRequest.display();
     }
 
     //

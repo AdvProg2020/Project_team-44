@@ -49,7 +49,6 @@ public class BuyLogController implements Initializable {
             this.purchasedProduct = new SimpleStringProperty(purchasedProduct);
             this.sellerFirstName = new SimpleStringProperty(sellerFirstName);
             this.sellerLastName = new SimpleStringProperty(sellerLastName);
-
         }
 
         public StringProperty purchasedProductProperty() {
