@@ -2,8 +2,13 @@ package graphicView.userRegion.userAccount;
 
 import controller.LoginPageController;
 import graphicView.mainMenu.MainMenu;
-import graphicView.userRegion.loginPanel.LoginPanel;
 import graphicView.userRegion.loginPanel.LoginPanelController;
+import graphicView.userRegion.userAccount.managerRequestions.addOff.AddOffRequest;
+import graphicView.userRegion.userAccount.managerRequestions.addProduct.AddProductRequest;
+import graphicView.userRegion.userAccount.managerRequestions.addSeller.AddSellerRequest;
+import graphicView.userRegion.userAccount.managerRequestions.editOff.EditOffRequest;
+import graphicView.userRegion.userAccount.managerRequestions.editProduct.EditProductRequest;
+import graphicView.userRegion.userAccount.managerRequestions.removeProduct.RemoveProductRequest;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -63,6 +68,7 @@ public class ManagerAccountPageController implements Initializable {
         ManagerAccountPage.primaryStage.close();
         MainMenu.display(Main.window);
     }
+
     @FXML
     private Button backButton;
 
@@ -85,5 +91,48 @@ public class ManagerAccountPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         writeInformationForManager();
+        addOff.setOnAction(actionEvent -> {
+            try {
+                AddOffRequest.display();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        editOff.setOnAction(actionEvent -> {
+            try {
+                EditOffRequest.display();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        addProduct.setOnAction(actionEvent -> {
+            try {
+                AddProductRequest.display();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        editProduct.setOnAction(actionEvent -> {
+            try {
+                EditProductRequest.display();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        removeProduct.setOnAction(actionEvent -> {
+            try {
+                RemoveProductRequest.display();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        addSeller.setOnAction(actionEvent -> {
+            try {
+                AddSellerRequest.display();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
     }
 }
