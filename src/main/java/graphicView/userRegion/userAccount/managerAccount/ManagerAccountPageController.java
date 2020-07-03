@@ -135,4 +135,9 @@ public class ManagerAccountPageController implements Initializable {
         });
 
     }
+    @FXML
+    public void edit() throws IOException {
+        ManagerAccountPage.primaryStage.close();
+        ManagerEditInfoPage.display();
+    }
 }

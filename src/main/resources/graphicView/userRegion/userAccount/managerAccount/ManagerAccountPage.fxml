@@ -119,7 +119,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </MenuButton>
-            <Button fx:id="editInfo" layoutX="300.0" layoutY="550.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="179.0" text="Edit Personal Info">
+            <Button fx:id="editInfo" layoutX="300.0" layoutY="550.0" mnemonicParsing="false" onMouseClicked="#edit" prefHeight="46.0" prefWidth="179.0" text="Edit Personal Info">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
