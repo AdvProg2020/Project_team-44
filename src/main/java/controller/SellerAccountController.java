@@ -63,7 +63,7 @@ public abstract class SellerAccountController {
 
     public static void processRemoveProduct(String productId) throws ProductIdNotExistsException {
         ValidationController.checkProductExistence(productId);
-        ((Seller) LoginPageController.loggedInAccount).getProductsToSell().remove(Product.getProductByID(productId));
+       // ((Seller) LoginPageController.loggedInAccount).getProductsToSell().remove(Product.getProductByID(productId));
         ((Seller) LoginPageController.loggedInAccount).deleteProductRequest(productId);
     }
 
