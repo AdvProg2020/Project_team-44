@@ -244,18 +244,10 @@ public class ValidationControllerTest {
         HashMap<Product, Integer> allProductsInCart = new HashMap<>();
         allProductsInCart.put(product, 1);
         purchaser.setCart(allProductsInCart);
-        try {
-            ValidationController.checkProductExistsInCart(purchaser, DataBaseForTest.product1);
-            Assert.assertEquals(10, 10);
-        } catch (ProductAlreadyExistsInCartException e) {
-            Assert.assertEquals(10, 9);
-        }
-        try {
-            ValidationController.checkProductExistsInCart(purchaser, product);
-            Assert.assertEquals(10, 9);
-        } catch (ProductAlreadyExistsInCartException e) {
-            Assert.assertEquals(10, 10);
-        }
+        ValidationController.checkProductExistsInCart(purchaser, DataBaseForTest.product1);
+        Assert.assertEquals(10, 10);
+        ValidationController.checkProductExistsInCart(purchaser, product);
+        Assert.assertEquals(10, 9);
 
     }
 

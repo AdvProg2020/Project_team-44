@@ -3,11 +3,13 @@ package main;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import model.Category;
+import model.ShopBankAccount;
 import model.account.Account;
 import model.account.Manager;
 import model.account.Purchaser;
 import model.account.Seller;
 import model.comment.Comment;
+import model.product.Auction;
 import model.product.Product;
 
 import java.io.FileNotFoundException;
@@ -124,6 +126,32 @@ public class Json<T> {
         return t;
     }
 
+    public T getBankAccountObject(String path) {
+        Gson gson = new Gson();
+        JsonReader reader = null;
+        try {
+            reader = new JsonReader(new FileReader(path));
+        } catch (FileNotFoundException e) {
+
+        }
+        ShopBankAccount bankAccount = gson.fromJson(reader, ShopBankAccount.class);
+        T t = (T) bankAccount;
+        return t;
+    }
+
+    public T getAuctionObject(String path) {
+        Gson gson = new Gson();
+        JsonReader reader = null;
+        try {
+            reader = new JsonReader(new FileReader(path));
+        } catch (FileNotFoundException e) {
+
+        }
+        Auction auction = gson.fromJson(reader, Auction.class);
+        T t = (T) auction;
+        return t;
+    }
+
     public ArrayList<T> getAllJson(String folderPath, String kind) {
         ArrayList<T> all = new ArrayList<>();
         for (String s : getAllFilePathInDirectory(folderPath)) {
@@ -148,6 +176,12 @@ public class Json<T> {
                     break;
                 case "comment":
                     all.add(getCommentObject(s));
+                    break;
+                case "bankAccount":
+                    all.add(getBankAccountObject(s));
+                    break;
+                case "auction":
+                    all.add(getAuctionObject(s));
                     break;
             }
         }

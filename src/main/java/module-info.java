@@ -17,7 +17,7 @@ module team {
     opens graphicView.sellLogPage to javafx.fxml, javafx.base;
     opens graphicView.buyLogPage to javafx.fxml, javafx.base;
     opens graphicView.discountCodes to javafx.fxml, javafx.base;
-    opens graphicView.userRegion.userAccount to javafx.fxml;
+   // opens graphicView.userRegion.userAccount to javafx.fxml;
     opens graphicView.userRegion.userAccount.managerRequestions.addOff to javafx.fxml, javafx.base;
     opens graphicView.userRegion.userAccount.managerRequestions.editOff to javafx.fxml, javafx.base;
     opens graphicView.userRegion.userAccount.managerRequestions.addProduct to javafx.fxml, javafx.base;
@@ -33,5 +33,5 @@ module team {
     opens model.comment to com.google.gson;
     opens graphicView.userRegion.userAccount.managerAccount to javafx.fxml;
     opens graphicView.userRegion.userAccount.sellerAccount to javafx.fxml;
-    //    opens java.lang.reflect to com.jfoenix;
+    opens graphicView.userRegion.userAccount.purchaserAccount to javafx.fxml;
 }

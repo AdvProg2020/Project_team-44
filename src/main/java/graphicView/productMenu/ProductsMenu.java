@@ -748,6 +748,16 @@ public class ProductsMenu {
                 break;
             }
         }
+        for (Seller seller : Seller.getAllSeller()) {
+            for (Product product : seller.getAuction()) {
+                for (int i = 0; i < productsToShow.size(); i++) {
+                    if (productsToShow.get(i).getProductID().equals(product.getProductID())) {
+                        productsToShow.remove(i);
+                        i--;
+                    }
+                }
+            }
+        }
 
     }
 

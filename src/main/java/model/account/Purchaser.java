@@ -15,8 +15,8 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class Purchaser extends Account {
-    private HashMap<Product, Integer> cart;
-    private HashMap<Product, Seller> sellerSelectedForEachProduct = new HashMap<>();
+    private transient HashMap<Product, Integer> cart = new HashMap<>();
+    private transient HashMap<Product, Seller> sellerSelectedForEachProduct = new HashMap<>();
     private static ArrayList<Purchaser> allPurchaser = new ArrayList<>();
     private String address;
     // address and tel for process purchase
@@ -37,10 +37,14 @@ public class Purchaser extends Account {
         super.createAndUpdateJson();
         purchaseAddress = "";
         purchaseTel = "";
-        this.cart = new HashMap<>();
         this.address = address;
         allPurchaser.add(this);
         createAndUpdateJson();
+    }
+
+    public void newCartAndSelectedSellerForProducts(Purchaser purchaser) {
+        purchaser.cart = new HashMap<>();
+        purchaser.sellerSelectedForEachProduct = new HashMap<>();
     }
 
     public static Purchaser getPurchaserByUsername(String username) {
@@ -75,7 +79,7 @@ public class Purchaser extends Account {
     }
 
     public HashMap<Product, Integer> getCart() {
-        return cart;
+        return this.cart;
     }
 
     public void setCart(HashMap<Product, Integer> cart) {

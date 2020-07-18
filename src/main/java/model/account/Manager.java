@@ -21,7 +21,8 @@ public class Manager extends Account {
 
     private static ArrayList<CodedDiscount> allDiscountCode = new ArrayList<>();
     private static ArrayList<Manager> allManagers = new ArrayList<>();
-
+    private int wage;
+    private int minAmount;
     public Manager(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
         super.createAndUpdateJson();
@@ -54,6 +55,22 @@ public class Manager extends Account {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getWage() {
+        return wage;
+    }
+
+    public int getMinAmount() {
+        return minAmount;
+    }
+
+    public void setWage(int wage) {
+        this.wage = wage;
+    }
+
+    public void setMinAmount(int minAmount) {
+        this.minAmount = minAmount;
     }
 
     public ArrayList<String> getRequestIdLists() {

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane prefHeight="720.0" prefWidth="1275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.userRegion.userAccount.purchaserAccount.PurchaserBankAccountController">
+   <children>
+      <Label layoutX="452.0" layoutY="75.0" text="Create new account">
+         <font>
+            <Font size="38.0" />
+         </font>
+      </Label>
+      <Label layoutX="412.0" layoutY="192.0" text="Firstname">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <TextField fx:id="firstNameId" layoutX="698.0" layoutY="191.0" />
+      <Label layoutX="412.0" layoutY="323.0" text="Username">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userNameId" layoutX="697.0" layoutY="324.0" />
+      <Label layoutX="408.0" layoutY="255.0" text="Lastname">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <TextField fx:id="lastNameId" layoutX="696.0" layoutY="258.0" />
+      <Label layoutX="411.0" layoutY="387.0" text="Password">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="repeatPasswordId" layoutX="701.0" layoutY="455.0" />
+      <Label layoutX="407.0" layoutY="459.0" text="Repeat Password">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="passwordId" layoutX="699.0" layoutY="389.0" />
+      <Button layoutX="542.0" layoutY="592.0" mnemonicParsing="false" onAction="#createAction" style="-fx-background-color: GRAY;" text="Create">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <Label fx:id="receiveMessageId" layoutX="323.0" layoutY="504.0" prefHeight="67.0" prefWidth="663.0">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

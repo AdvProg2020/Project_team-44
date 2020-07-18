@@ -33,7 +33,6 @@ public abstract class ValidationController {
         for (Account account : Account.getAllAccounts()) {
             if (username.equals(account.getUserName())) {
                 return;
-
             }
         }
         throw new UsernameNotExistsException("No user exists with this username.");
@@ -147,10 +146,13 @@ public abstract class ValidationController {
         }
     }
 
-    public static void checkProductExistsInCart(Account loggedInAccount, Product product)
-            throws ProductAlreadyExistsInCartException {
+    public static void checkProductExistsInCart(Account loggedInAccount, Product product) {
         if (((Purchaser) loggedInAccount).getCart().containsKey(product)) {
-            throw new ProductAlreadyExistsInCartException("Product is in cart.");
+            try {
+                throw new ProductAlreadyExistsInCartException("Product is in cart.");
+            } catch (ProductAlreadyExistsInCartException e) {
+                System.out.println(e.getMessage());
+            }
 
         }
     }

@@ -30,7 +30,6 @@ public class ManagerEditInfoPageController {
     public void applyChanges() throws  ManagerFieldsNotExistException {
         String newFirstName = newManagerFirstName.getText();
         String newLastName = newManagerLastName.getText();
-        String newUsername = newManagerUsername.getText();
         String newPassWord = newManagerPassWord.getText();
         String newEmail = newManagerEmail.getText();
         if(!newFirstName.matches("[a-zA-Z]+")){
@@ -41,10 +40,6 @@ public class ManagerEditInfoPageController {
             alertMessage.setText("Please enter a valid last name!");
             return;
         }
-        if (!newUsername.matches("\\w{8,}")) {
-            alertMessage.setText("Please enter a valid username!");
-            return;
-        }
         if (!newPassWord.matches("\\w{8,}")) {
             alertMessage.setText("Please enter a valid password!");
             return;
@@ -53,10 +48,10 @@ public class ManagerEditInfoPageController {
             alertMessage.setText("Please enter a valid email!");
             return;
         }
-        ManagerAccountController.processEditFieldEach("firstName",newFirstName);
-        ManagerAccountController.processEditFieldEach("lastName",newLastName);
-        ManagerAccountController.processEditFieldEach("EMail",newEmail);
-        ManagerAccountController.processEditFieldEach("password",newPassWord);;
+        ManagerAccountController.processEditFieldEach("FIRST_NAME",newFirstName);
+        ManagerAccountController.processEditFieldEach("LAST_NAME",newLastName);
+        ManagerAccountController.processEditFieldEach("EMAIL",newEmail);
+        ManagerAccountController.processEditFieldEach("PASSWORD",newPassWord);;
         alertMessage.setText("");
         alertMessage.setTextFill(GREEN);
         alertMessage.setText("Edit info successful");

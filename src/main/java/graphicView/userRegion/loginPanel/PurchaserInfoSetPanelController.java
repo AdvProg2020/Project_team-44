@@ -39,7 +39,6 @@ public class PurchaserInfoSetPanelController {
                 !secondNameField.getText().matches("[a-z|A-Z]+") ||
                 !telField.getText().matches("[0][9]\\d{9}") ||
                 addressField.getText() == null) {
-
             messageLabel.setText("Invalid. Try Again");
         }
         // never reach catch clause cause it was the exception was checked in previous scene
@@ -54,6 +53,9 @@ public class PurchaserInfoSetPanelController {
                     null,
                     addressField.getText(),
                     null));
+            if (LoginPageController.getLoggedInAccount() == null) {
+                System.out.println("yes is null");
+            } else System.out.println("no is null");
         } catch (UsernameExistsException e) {
             e.printStackTrace();
         }

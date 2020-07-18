@@ -154,5 +154,11 @@
         <Label fx:id="sellerPhoneNumber" layoutX="428.0" layoutY="286.0" prefHeight="44.0" prefWidth="129.0" />
         <Label fx:id="companyPhone" layoutX="465.0" layoutY="560.0" prefHeight="44.0" prefWidth="129.0" />
         <Button fx:id="logout" layoutX="62.0" layoutY="94.0" mnemonicParsing="false" onAction="#logout" onMouseClicked="#logout" text="Logout" />
+      <Button layoutX="797.0" layoutY="19.0" mnemonicParsing="false" onAction="#wallet" text="Wallet">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="14.0" layoutY="46.0" mnemonicParsing="false" onAction="#createNewBankAccountAction" text="Create new Bank Account" />
     </children>
 </Pane>

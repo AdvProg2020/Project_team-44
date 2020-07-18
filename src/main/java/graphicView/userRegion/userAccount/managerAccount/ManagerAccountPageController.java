@@ -2,6 +2,7 @@ package graphicView.userRegion.userAccount.managerAccount;
 
 import controller.LoginPageController;
 import graphicView.mainMenu.MainMenu;
+import graphicView.purchasePage.PurchasePageController;
 import graphicView.userRegion.loginPanel.LoginPanelController;
 import graphicView.userRegion.userAccount.managerRequestions.addOff.AddOffRequest;
 import graphicView.userRegion.userAccount.managerRequestions.addProduct.AddProductRequest;
@@ -9,15 +10,16 @@ import graphicView.userRegion.userAccount.managerRequestions.addSeller.AddSeller
 import graphicView.userRegion.userAccount.managerRequestions.editOff.EditOffRequest;
 import graphicView.userRegion.userAccount.managerRequestions.editProduct.EditProductRequest;
 import graphicView.userRegion.userAccount.managerRequestions.removeProduct.RemoveProductRequest;
+import graphicView.userRegion.userAccount.sellerAccount.SellerWallet;
+import graphicView.userRegion.userAccount.sellerAccount.SellerWalletController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import main.Main;
 import model.account.Account;
+import model.account.Manager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,6 +38,10 @@ public class ManagerAccountPageController implements Initializable {
     public Label managerEmail;
     @FXML
     public Label managerPassword;
+    @FXML
+    public TextField setMinAmountId;
+    @FXML
+    public TextField setWageId;
     @FXML
     private MenuButton requests;
     @FXML
@@ -135,9 +141,36 @@ public class ManagerAccountPageController implements Initializable {
         });
 
     }
+
     @FXML
     public void edit() throws IOException {
         ManagerAccountPage.primaryStage.close();
         ManagerEditInfoPage.display();
+    }
+
+    @FXML
+    public void atLeastMoneyAction(ActionEvent actionEvent) {
+        SellerWalletController.atLeastAmount = Integer.parseInt(setMinAmountId.getText());
+        setMinAmountId.setText("");
+        for (Manager allManager : Manager.getAllManagers()) {
+            allManager.setMinAmount(Integer.parseInt(setMinAmountId.getText()));
+            allManager.createAndUpdateJson();
+        }
+    }
+
+    @FXML
+    public void createBankAccountAction() throws IOException {
+        ManagerAccountPage.primaryStage.close();
+        ManagerAccountBankAccount.display();
+    }
+
+    @FXML
+    public void wageAction(ActionEvent actionEvent) {
+        PurchasePageController.wage = Integer.parseInt(setWageId.getText());
+        setWageId.setText("");
+        for (Manager allManager : Manager.getAllManagers()) {
+            allManager.setWage(Integer.parseInt(setWageId.getText()));
+            allManager.createAndUpdateJson();
+        }
     }
 }

@@ -4,6 +4,7 @@ import controller.LoginPageController;
 import graphicView.mainMenu.MainMenu;
 import graphicView.sellLogPage.SellLogPage;
 import graphicView.userRegion.loginPanel.LoginPanelController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -74,30 +75,44 @@ public class SellerAccountPageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         writeInformationOfSeller();
     }
+
     @FXML
     public void editInformation() throws IOException {
         SellerAccountPage.primaryStage.close();
         SellerEditInfoPage.display();
     }
+
     @FXML
     public void viewSaleHistory() throws IOException {
         SellerAccountPage.primaryStage.close();
         SellLogPage.display();
     }
+
     @FXML
     public void viewAllProductsForSale() throws IOException {
         SellerAccountPage.primaryStage.close();
         ViewAllProductsForSellerPage.display();
     }
+
     @FXML
     public void requestForAddProduct() throws IOException {
         SellerAccountPage.primaryStage.close();
         RequestForAddProductPage.display();
     }
+
     @FXML
     public void editInfo() throws IOException {
         SellerAccountPage.primaryStage.close();
         SellerEditInfoPage.display();
     }
-    
+
+    public void wallet(ActionEvent actionEvent) throws IOException {
+        SellerAccountPage.primaryStage.close();
+        SellerWallet.display();
+    }
+
+    public void createNewBankAccountAction(ActionEvent actionEvent) throws IOException {
+        SellerAccountPage.primaryStage.close();
+        SellerBankAccount.display();
+    }
 }

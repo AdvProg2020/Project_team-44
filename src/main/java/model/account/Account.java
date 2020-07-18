@@ -163,15 +163,15 @@ public class Account {
     }
 
     public void editInfo(String field, String newValue) {
-        if (field.equalsIgnoreCase("firstName")) {
+        if (field.equals("FIRST_NAME")) {
             this.setFirstName(newValue);
-        } else if (field.equalsIgnoreCase("lastName")) {
+        } else if (field.equals("LAST_NAME")) {
             this.setLastName(newValue);
-        } else if (field.equalsIgnoreCase("EMail")) {
+        } else if (field.equals("EMAIL")) {
             this.setEMail(newValue);
-        } else if (field.equalsIgnoreCase("telephoneNumber")) {
+        } else if (field.equals("TELEPHONE_NUMBER")) {
             this.setTelephoneNumber(newValue);
-        } else if (field.equalsIgnoreCase("password")) {
+        } else if (field.equals("PASSWORD")) {
             this.setPassword(newValue);
         }
         //

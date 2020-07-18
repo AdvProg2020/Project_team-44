@@ -43,11 +43,15 @@ public class Product {
         this.generatedDate = new Date();
         this.imageName = imageName;
         this.allComments = new ArrayList<>();
+        addToAll();
+    }
+
+    public void addToAll(){
         allProducts.add(this);
-        category.getAllSubProducts().add(this);
+        this.category.getAllSubProducts().add(this);
         createAndUpdateJson(this);
-        updateAllParent(category);
-        category.createAndUpdateJson(category);
+        updateAllParent(this.category);
+        this.category.createAndUpdateJson(this.category);
     }
 
     public void setOffer(Offer offer) {
@@ -244,7 +248,7 @@ public class Product {
 
     public boolean isPurchasedByPurchaser(Purchaser purchaser) {
         for (Purchaser purchaser1 : getAllPurchaser()) {
-            if (purchaser == purchaser1)
+            if (purchaser.getUserName().equals(purchaser1.getUserName()))
                 return true;
         }
         return false;

@@ -21,6 +21,7 @@ public class Seller extends Account {
     private String companyTelephone;
     private HashMap<Product, Integer> productsToSell;
     private ArrayList<Offer> offersList;
+    private ArrayList<Product> auction;
     private static ArrayList<Seller> allSeller = new ArrayList<>();
 
     public Seller(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password, String companyName, String companyAddress, String companyTelephone) {
@@ -30,6 +31,7 @@ public class Seller extends Account {
         this.companyAddress = companyAddress;
         this.companyTelephone = companyTelephone;
         this.productsToSell = new HashMap<>();
+        this.auction = new ArrayList<>();
         allSeller.add(this);
         createAndUpdateJson();
     }
@@ -59,6 +61,10 @@ public class Seller extends Account {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<Product> getAuction() {
+        return auction;
     }
 
     public String getCompanyName() {
@@ -115,8 +121,8 @@ public class Seller extends Account {
             if (product.getProductID().equals(productId))
                 requestedProduct = product;
         }
-       // productsToSell.remove(requestedProduct);
-        new RequestForRemoveProduct(this,requestedProduct);
+        // productsToSell.remove(requestedProduct);
+        new RequestForRemoveProduct(this, requestedProduct);
     }
 
     public void addProductRequest(Category category, String name, int price, String explanationText) {

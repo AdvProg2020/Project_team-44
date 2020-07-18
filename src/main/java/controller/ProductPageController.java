@@ -20,21 +20,7 @@ public abstract class ProductPageController {
     }
 
     public static void processAddProductToCartEach() throws ProductAlreadyExistsInCartException {
-        if (LoginPageController.loggedInAccount == null) {
-            System.out.println("null");
-        }
-        if (LoginPageController.loggedInAccount instanceof Purchaser) {
-            System.out.println("Purchaser");
-        }
-        if (LoginPageController.loggedInAccount instanceof Seller) {
-            System.out.println("seller");
-        }
-        if (LoginPageController.loggedInAccount instanceof Manager) {
-            System.out.println("manager");
-        }else {
-            System.out.println(LoginPageController.loggedInAccount);
-        }
-        ValidationController.checkProductExistsInCart(LoginPageController.loggedInAccount, ProductsPageController.selectedProduct);
+        ValidationController.checkProductExistsInCart(LoginPageController.getLoggedInAccount(), ProductsPageController.selectedProduct);
         ((Purchaser) LoginPageController.loggedInAccount).getCart().put(ProductsPageController.selectedProduct, 1);
         ((Purchaser) LoginPageController.loggedInAccount).getSellerSelectedForEachProduct()
                 .put(ProductsPageController.selectedProduct, selectedSeller);

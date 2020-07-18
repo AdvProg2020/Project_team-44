@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.userRegion.userAccount.purchaserAccount.purchaserWalletController">
+   <children>
+      <Label layoutX="387.0" layoutY="179.0" prefHeight="52.0" prefWidth="114.0" text="account Id">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="accountId" layoutX="697.0" layoutY="192.0" promptText="example 84077" />
+      <Label layoutX="360.0" layoutY="254.0" prefHeight="52.0" prefWidth="196.0" text="Account username">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userNameId" layoutX="696.0" layoutY="267.0" />
+      <Label layoutX="399.0" layoutY="418.0" prefHeight="21.0" prefWidth="91.0" text="amount">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="amountId" layoutX="697.0" layoutY="419.0" promptText="\$" />
+      <Label fx:id="receiveMessageId" layoutX="299.0" layoutY="516.0" prefHeight="68.0" prefWidth="633.0" textFill="#dd0505">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="569.0" layoutY="82.0" text="Charge">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Button layoutX="556.0" layoutY="608.0" mnemonicParsing="false" onAction="#goPaymentAction" text="Go payment">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <Label layoutX="397.0" layoutY="346.0" prefHeight="29.0" prefWidth="123.0" text="Password">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="passwordId" layoutX="697.0" layoutY="347.0" />
+   </children>
+</Pane>
