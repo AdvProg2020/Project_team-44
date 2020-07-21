@@ -25,6 +25,7 @@ import model.requests.RequestForSeller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main extends Application {
     static ArrayList<Category> all = new ArrayList<>();
@@ -79,12 +80,24 @@ public class Main extends Application {
 //                "a",
 //                "a");
 //        LoginPageController.setLoggedInAccount(manager);
+        Seller seller1 = new Seller("amiramir", "Alex", "dd", "ya@yahoo.com",
+                "2441", "amiramir", "izo", "street5", "6777");
+         Category category1 = new Category("car", null, "ali");Category category2 = new Category("digital", null, "aff");
+        Product product1 = new Product(category1, "peraid", "saipa", 12000,
+                "good Product!", "12");
+        Product product2 = new Product(category2, "bmw", "bmw", 10000, "good", "32");
+        Product product3 = new Product(category2, "peris", "aipr", 80000, "nice", "ado");
+        HashMap<Product,Integer> productIntegerHashMap = new HashMap<>();
+        productIntegerHashMap.put(product1,1);
+        productIntegerHashMap.put(product3,2);
+        productIntegerHashMap.put(product2,3);
+        seller1.setProductsToSell(productIntegerHashMap);
         launch(args);
+
     }
 
     @Override
-    public void start(Stage stage) throws Exception
-    {
+    public void start(Stage stage) throws Exception {
         System.out.println("  ");
         stage.setWidth(1275);
         stage.setHeight(720);

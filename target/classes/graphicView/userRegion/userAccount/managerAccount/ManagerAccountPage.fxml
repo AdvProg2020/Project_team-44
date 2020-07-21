@@ -124,7 +124,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="viewAllAccounts" layoutX="572.0" layoutY="69.0" mnemonicParsing="false" text="View All Accounts">
+            <Button fx:id="viewAllAccounts" layoutX="572.0" layoutY="69.0" mnemonicParsing="false" onMouseClicked="#viewAllAccounts" text="View All Accounts">
                <font>
                   <Font size="18.0" />
                </font>
