@@ -1,5 +1,6 @@
 package graphicView.buyLogPage;
 
+import controller.LoginPageController;
 import graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -65,7 +66,8 @@ public class BuyLogPageController implements Initializable {
 
     ObservableList<BuyLogIds> getBuyLogIds() {
         ObservableList<BuyLogIds> buyLogs = FXCollections.observableArrayList();
-        for (String buyLogId : ((Purchaser) LoginPanelController.getLoggedInAccount()).getAllBuyLogIds()) {
+        System.out.println(LoginPageController.getLoggedInAccount().getUserName());
+        for (String buyLogId : ((Purchaser) LoginPageController.getLoggedInAccount()).getAllBuyLogIds()) {
             buyLogs.add(new BuyLogIds(buyLogId));
         }
         return buyLogs;

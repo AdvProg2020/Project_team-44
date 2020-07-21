@@ -2,6 +2,7 @@ package main;
 
 import controller.LoginPageController;
 import graphicView.discountCodes.DiscountCodesPage;
+import graphicView.mainMenu.MainMenu;
 import javafx.application.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -47,30 +48,30 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-//        reload();
-        Category category = new Category("fruit", null, null);
-        Purchaser purchaser = new Purchaser("a",
-                "b",
-                "c",
-                "d",
-                "e",
-                "f",
-                "g");
-        ArrayList<CodedDiscount> allCodedDiscounts = new ArrayList<>();
-        allCodedDiscounts.add(new CodedDiscount(new Date(),
-                new Date(),
-                15,
-                100000));
-        allCodedDiscounts.add(new CodedDiscount(new Date(),
-                new Date(),
-                70,
-                118181));
-        allCodedDiscounts.add(new CodedDiscount(new Date(),
-                new Date(),
-                40,
-                1000000000));
-        purchaser.setAllDiscountCodes(allCodedDiscounts);
-        LoginPageController.setLoggedInAccount(purchaser);
+        reload();
+//        Category category = new Category("fruit", null, null);
+//        Purchaser purchaser = new Purchaser("a",
+//                "b",
+//                "c",
+//                "d",
+//                "e",
+//                "f",
+//                "g");
+//        ArrayList<CodedDiscount> allCodedDiscounts = new ArrayList<>();
+//        allCodedDiscounts.add(new CodedDiscount(new Date(),
+//                new Date(),
+//                15,
+//                100000));
+//        allCodedDiscounts.add(new CodedDiscount(new Date(),
+//                new Date(),
+//                70,
+//                118181));
+//        allCodedDiscounts.add(new CodedDiscount(new Date(),
+//                new Date(),
+//                40,
+//                1000000000));
+//        purchaser.setAllDiscountCodes(allCodedDiscounts);
+//        LoginPageController.setLoggedInAccount(purchaser);
 //        SellLogPage.display();
 //BuyLogPage.display();
 //    CartPage.display();
@@ -83,9 +84,9 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 //        System.out.println("  ");
-//        stage.setWidth(1275);
-//        stage.setHeight(720);
-//        MainMenu.display(stage);
+        stage.setWidth(1275);
+        stage.setHeight(720);
+        MainMenu.display(stage);
 //        AddOffRequest.display();
 //        AddProductRequest.display();
 //        AddSellerRequest.display();
@@ -93,7 +94,7 @@ public class Main extends Application {
 //        BuyLogPage.display();
 //        SellLogPage.display();
 //        CartPage.display();
-        DiscountCodesPage.display();
+//        DiscountCodesPage.display();
 
     }
 

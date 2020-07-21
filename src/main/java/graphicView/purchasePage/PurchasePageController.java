@@ -62,7 +62,6 @@ public class PurchasePageController implements Initializable {
             return;
         }
         LoginPanelController.getLoggedInAccount().setBalance(LoginPageController.getLoggedInAccount().getBalance() - toPay);
-        System.out.println(LoginPanelController.getLoggedInAccount().getBalance());
     }
 
     private void playButtonSound() {
