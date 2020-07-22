@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Main extends Application {
-    static ArrayList<Category> all = new ArrayList<>();
     public static Stage window;
     public static Product good;
     public static Stage accountRegionStage;
