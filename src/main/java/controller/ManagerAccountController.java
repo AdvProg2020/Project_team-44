@@ -3,9 +3,7 @@ package controller;
 import exception.*;
 import model.Category;
 import model.CodedDiscount;
-import model.account.Account;
-import model.account.Manager;
-import model.account.Seller;
+import model.account.*;
 import model.offer.Offer;
 import model.product.Product;
 import model.requests.Request;
@@ -36,7 +34,16 @@ public abstract class ManagerAccountController {
 
     public static void processDeleteUserEach(String username) throws UsernameNotExistsException {
         ValidationController.checkUsernameExistence(username);
-        Account.getAllAccounts().remove(Account.getAccountByUsername(username));
+        Account removeAccount = Account.getAccountByUsername(username);
+        Account.getAllAccounts().remove(removeAccount);
+        if(removeAccount instanceof Purchaser)
+            Purchaser.getAllPurchaser().remove(removeAccount);
+        else if(removeAccount instanceof  Seller)
+            Seller.getAllSeller().remove(removeAccount);
+        else if(removeAccount instanceof Manager)
+            Manager.getAllManagers().remove(removeAccount);
+        else
+            Supporter.getAllSupporters().remove(removeAccount);
     }
 
     public static void processCreateManagerProfileEach(String username, String password, String firstName, String lastName, String email

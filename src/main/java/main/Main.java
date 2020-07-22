@@ -215,7 +215,7 @@ public class Main extends Application {
         setCategoryParent(Category.getAllCategories());
         setProductCategory();
         ShopBankAccount.setAllShopBankAccount(new Json<ShopBankAccount>().getAllJson("src/main/resources/Bank Account", "bankAccount"));
-        Auction.setAllAuctions(new Json<Product>().getAllJson("src/main/resources/Auction", "auction"));
+       // Auction.setAllAuctions(new Json<Product>().getAllJson("src/main/resources/Auction", "auction"));
         setCategoryAuction();
     }
 }

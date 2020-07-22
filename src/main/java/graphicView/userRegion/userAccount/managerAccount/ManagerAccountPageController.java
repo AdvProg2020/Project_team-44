@@ -173,4 +173,26 @@ public class ManagerAccountPageController implements Initializable {
             allManager.createAndUpdateJson();
         }
     }
+
+    @FXML
+    public void addManager() throws IOException {
+        ManagerAccountPage.primaryStage.close();
+        AddManagerPage.display();
+    }
+    @FXML
+    public void addSupporter() throws IOException {
+        ManagerAccountPage.primaryStage.close();
+        AddSupporterPage.display();
+    }
+    @FXML
+    public void viewAllCategories() throws IOException {
+        ManagerAccountPage.primaryStage.close();
+        ViewAllCategoriesPage.display();
+    }
+    @FXML
+    public void viewAllAccounts() throws IOException {
+        ManagerAccountPage.primaryStage.close();
+        ViewAllAccountsPage.display();
+    }
+
 }

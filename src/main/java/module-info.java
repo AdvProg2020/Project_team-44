@@ -31,7 +31,7 @@ module team {
     opens model.offer to com.google.gson;
     opens model.buyLog to com.google.gson;
     opens model.comment to com.google.gson;
-    opens graphicView.userRegion.userAccount.managerAccount to javafx.fxml;
+    opens graphicView.userRegion.userAccount.managerAccount to javafx.fxml , javafx.base;
     opens graphicView.userRegion.userAccount.sellerAccount to javafx.fxml;
     opens graphicView.userRegion.userAccount.purchaserAccount to javafx.fxml;
 }
