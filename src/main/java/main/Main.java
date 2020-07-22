@@ -6,6 +6,7 @@ import graphicView.userRegion.userAccount.managerRequestions.addOff.AddOffReques
 import graphicView.userRegion.userAccount.managerRequestions.addProduct.AddProductRequest;
 import graphicView.userRegion.userAccount.managerRequestions.addSeller.AddSellerRequest;
 import graphicView.userRegion.userAccount.managerRequestions.removeProduct.RemoveProductRequest;
+import graphicView.userRegion.userAccount.purchaserAccount.PurchaserAuctionChat;
 import javafx.application.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -29,6 +30,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 public class Main extends Application {
     static ArrayList<Category> all = new ArrayList<>();
@@ -57,7 +59,6 @@ public class Main extends Application {
 
     public static void main(String[] args) throws IOException {
         reload();
-        new ShopServer();
 //        setMediaPlayer("The Swimmer.mp3");
 
 
@@ -84,7 +85,7 @@ public class Main extends Application {
 //        new Category("dell", Category.getCategoryByName("laptop"), "tom.jpg");
 //        new Category("asus", Category.getCategoryByName("laptop"), "tom.jpg");
 //        new Category("sony", Category.getCategoryByName("laptop"), "tom.jpg");
-//
+////
 //        new Product(Category.getCategoryByName("apple"), "iphone x", "apple", 10, "beautiful", "tom.jpg");
 //        Product product = new Product(Category.getCategoryByName("apple"), "iphone 12", "apple", 12, "beautiful", "tom.jpg");
 //        ArrayList<Seller> allSeller = new ArrayList<>();
@@ -127,6 +128,22 @@ public class Main extends Application {
 //            bankAPI.SendMessage("pay " + Integer.parseInt(bankAPI.getInputStream()));
 //            bankAPI.getInputStream();
 //        }
+
+        Product product = new Product(Category.getCategoryByName("apple"), "iphone15", "apple", 15, "tak tir", "tom.jpg");
+
+//        for (Category subCategory : Category.getCategoryByName("digital").getSubCategories()) {
+//            for (Category category : subCategory.getSubCategories()) {
+//                for (Product allSubProduct : category.getAllSubProducts()) {
+//                    System.out.println("line 135 Main   " + "digital" + "   " + subCategory.getName() + "   " + category.getName() + "   " + allSubProduct.getName());
+//
+//                }
+//            }
+//        }
+        Date ini = new Date(1398, 5, 31, 10, 49);
+        Date fin = new Date(1398, 5, 31, 10, 50);
+        new Auction(product.getCategory(), product.getName(), product.getCompanyName(), product.getPrice(), product.getExplanationText(), product.getImageName(), ini, fin);
+        LoginPageController.setLoggedInAccount(Account.getAccountByUsername("amiriamiri"));
+        Manager.getAllManagers().get(0).setMinAmount(5);
 
         launch(args);
     }
@@ -214,7 +231,7 @@ public class Main extends Application {
         setCategoryParent(Category.getAllCategories());
         setProductCategory();
         ShopBankAccount.setAllShopBankAccount(new Json<ShopBankAccount>().getAllJson("src/main/resources/Bank Account", "bankAccount"));
-        Auction.setAllAuctions(new Json<Product>().getAllJson("src/main/resources/Auction", "auction"));
+        Auction.setAllAuctions(new Json<Auction>().getAllJson("src/main/resources/Auction", "auction"));
         setCategoryAuction();
     }
 }

@@ -106,13 +106,21 @@ public class SellerAccountPageController implements Initializable {
         SellerEditInfoPage.display();
     }
 
+    @FXML
     public void wallet(ActionEvent actionEvent) throws IOException {
         SellerAccountPage.primaryStage.close();
         SellerWallet.display();
     }
 
-    public void createNewBankAccountAction(ActionEvent actionEvent) throws IOException {
+    @FXML
+    public void createNewBankAccountAction() throws IOException {
         SellerAccountPage.primaryStage.close();
         SellerBankAccount.display();
+    }
+
+    @FXML
+    public void createAuctionAction() throws IOException {
+        SellerAccountPage.primaryStage.close();
+        SellerAuction.display();
     }
 }

@@ -160,6 +160,6 @@
          </font>
       </Button>
       <Button layoutY="60.0" mnemonicParsing="false" onAction="#createNewBankAccountAction" text="Create new Bank Account" />
-      <Button layoutX="760.0" layoutY="61.0" mnemonicParsing="false" style="-fx-background-color: transiantparent;" text="Create auction" />
+      <Button layoutX="759.0" layoutY="61.0" mnemonicParsing="false" onAction="#createAuctionAction" style="-fx-background-color: transiantparent;" text="Create auction" />
     </children>
 </Pane>

@@ -103,6 +103,7 @@ public class AddProductRequestInfoController implements Initializable {
     @FXML
     private void acceptRequest() {
         try {
+            AddProductRequestInfo.window.close();
             ManagerAccountController.processAcceptRequestEach(AddProductRequestController.getCurrentRequestId());
         } catch (RequestNotExistsException | ParseException e) {
             e.printStackTrace();

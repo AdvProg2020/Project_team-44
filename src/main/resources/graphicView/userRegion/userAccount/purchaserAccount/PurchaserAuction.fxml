@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0"
+            prefWidth="1275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="graphicView.userRegion.userAccount.purchaserAccount.PurchaserAuctionController">
+    <content>
+        <Pane fx:id="root" prefHeight="720.0" prefWidth="1275.0">
+            <children>
+                <VBox fx:id="vBox0" layoutX="775.0" layoutY="78.0" prefHeight="200.0" prefWidth="100.0"/>
+                <VBox fx:id="vBox1" layoutX="145.0" layoutY="78.0" prefHeight="200.0" prefWidth="100.0"/>
+                <VBox fx:id="vBox2" layoutX="775.0" layoutY="378.0" prefHeight="200.0" prefWidth="100.0"/>
+                <VBox fx:id="vBox3" layoutX="465.0" layoutY="678.0" prefHeight="200.0" prefWidth="100.0"/>
+                <VBox fx:id="vBox4" layoutX="145.0" layoutY="678.0" prefHeight="200.0" prefWidth="100.0"/>
+                <VBox fx:id="vBox5" layoutX="1115.0" layoutY="378.0" prefHeight="200.0" prefWidth="100.0"/>
+                <VBox fx:id="vBox6" layoutX="1115.0" layoutY="78.0" prefHeight="200.0" prefWidth="100.0"/>
+                <VBox fx:id="vBox7" layoutX="465.0" layoutY="378.0" prefHeight="200.0" prefWidth="100.0"/>
+                <VBox fx:id="vBox8" layoutX="145.0" layoutY="378.0" prefHeight="200.0" prefWidth="100.0"/>
+                <VBox fx:id="vBox9" layoutX="465.0" layoutY="78.0" prefHeight="200.0" prefWidth="100.0"/>
+                <VBox fx:id="vBox10" layoutX="1115.0" layoutY="678.0" prefHeight="200.0" prefWidth="100.0"/>
+                <VBox fx:id="vBox11" layoutX="785.0" layoutY="678.0" prefHeight="200.0" prefWidth="100.0"/>
+            </children>
+        </Pane>
+    </content>
+</ScrollPane>

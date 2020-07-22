@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import main.Main;
 import model.account.Account;
+import model.account.Purchaser;
 
 import java.io.IOException;
 import java.net.URL;
@@ -116,5 +117,10 @@ public class PurchaserAccountPageController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void goToAuctionPageAction(ActionEvent actionEvent) throws IOException {
+        PurchaserAccountPage.primaryStage.close();
+        PurchaserAuction.display();
     }
 }

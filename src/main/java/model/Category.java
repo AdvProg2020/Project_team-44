@@ -45,8 +45,17 @@ public class Category {
 
     public void updateAllParent(Category parent) {
         createAndUpdateJson(parent);
-        if (parent.getParent() != null)
+        if (parent.getParent() != null) {
+            System.out.println("line 49 Category " + parent.getParent().getName());
+            ArrayList<Category> sub = new ArrayList<>(parent.getParent().getSubCategories());
+            for (int i = 0; i < sub.size(); i++) {
+                if (sub.get(i).getName().equals(parent.getName())) {
+                    sub.remove(i);
+                    break;
+                }
+            }
             updateAllParent(parent.getParent());
+        }
     }
 
     public void createAndUpdateJson(Category category) {
@@ -92,7 +101,7 @@ public class Category {
     }
 
     public Category getParent() {
-        return parent;
+        return this.parent;
     }
 
     public void setAllSubProducts(ArrayList<Product> allSubProducts) {
