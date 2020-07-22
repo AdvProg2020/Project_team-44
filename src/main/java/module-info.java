@@ -33,5 +33,5 @@ module team {
     opens model.comment to com.google.gson;
     opens graphicView.userRegion.userAccount.managerAccount to javafx.fxml;
     opens graphicView.userRegion.userAccount.sellerAccount to javafx.fxml;
-    opens graphicView.userRegion.userAccount.purchaserAccount to javafx.fxml;
+    opens graphicView.userRegion.userAccount.purchaserAccount to javafx.fxml, javafx.base;
 }

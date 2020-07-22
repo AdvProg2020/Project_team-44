@@ -80,7 +80,6 @@ public class CartPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("hey");
         productNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         priceFeeColumn.setCellValueFactory(new PropertyValueFactory<>("priceFee"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));

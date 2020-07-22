@@ -24,6 +24,8 @@ import java.util.ResourceBundle;
 
 public class PurchaserAccountPageController implements Initializable {
     @FXML
+    private Button contactSupporters;
+    @FXML
     private Label purchaserName;
     @FXML
     private Label purchaserUserName;
@@ -55,6 +57,17 @@ public class PurchaserAccountPageController implements Initializable {
         PurchaserAccountPage.primaryStage.close();
         MainMenu.display(Main.window);
     }
+
+    @FXML
+    private void processViewSupporters() {
+        // button sound TODO
+        try {
+            PurchaserContactSupportersPage.display();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     private void processViewCart() {

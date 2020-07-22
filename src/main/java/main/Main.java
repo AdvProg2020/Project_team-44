@@ -14,10 +14,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Category;
 import model.ShopBankAccount;
-import model.account.Account;
-import model.account.Manager;
-import model.account.Purchaser;
-import model.account.Seller;
+import model.account.*;
 import model.comment.Comment;
 import model.product.Auction;
 import model.product.Product;
@@ -145,7 +142,25 @@ public class Main extends Application {
         new Auction(product.getCategory(), product.getName(), product.getCompanyName(), product.getPrice(), product.getExplanationText(), product.getImageName(), ini, fin);
         LoginPageController.setLoggedInAccount(Account.getAccountByUsername("amiriamiri"));
         Manager.getAllManagers().get(0).setMinAmount(5);
-
+        for (int i = 0; i < 5; i++) {
+            Supporter supporter = new Supporter("mike " + i,
+                    "zucker",
+                    "",
+                    "",
+                    "",
+                    "");
+            if (i % 2 == 0) {
+                supporter.setLoggedIn(true);
+            }
+        }
+        for (int i = 0; i < 5; i++) {
+            Manager manager = new Manager("mike " + i,
+                    "zucker",
+                    "",
+                    "",
+                    "",
+                    "");
+        }
         launch(args);
     }
 
@@ -224,15 +239,15 @@ public class Main extends Application {
         for (Purchaser purchaser : Purchaser.getAllPurchaser()) {
             purchaser.newCartAndSelectedSellerForProducts(purchaser);
         }
-        Comment.setAllComments(new Json<Comment>().getAllJson("src/main/resources/Comments", "comment"));
-        setCommentEachProduct(Comment.allComments);
+//        Comment.setAllComments(new Json<Comment>().getAllJson("src/main/resources/Comments", "comment"));
+//        setCommentEachProduct(Comment.allComments);
         Account.getAllAccounts().addAll(Manager.getAllManagers());
         Account.getAllAccounts().addAll(Seller.getAllSeller());
         Account.getAllAccounts().addAll(Purchaser.getAllPurchaser());
         setCategoryParent(Category.getAllCategories());
         setProductCategory();
         ShopBankAccount.setAllShopBankAccount(new Json<ShopBankAccount>().getAllJson("src/main/resources/Bank Account", "bankAccount"));
-        Auction.setAllAuctions(new Json<Auction>().getAllJson("src/main/resources/Auction", "auction"));
+//        Auction.setAllAuctions(new Json<Auction>().getAllJson("src/main/resources/Auction", "auction"));
         setCategoryAuction();
     }
 }
