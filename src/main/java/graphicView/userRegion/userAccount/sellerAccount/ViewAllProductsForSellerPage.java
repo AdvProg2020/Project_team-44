@@ -15,7 +15,7 @@ public class ViewAllProductsForSellerPage {
     public static void display() throws IOException {
         Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
-        Pane root = FXMLLoader.load(SellerEditInfoPage.class.getResource("/graphicView/userRegion/userAccount/" +
+        Pane root = FXMLLoader.load(ViewAllProductsForSellerPage.class.getResource("/graphicView/userRegion/userAccount/" +
                 "sellerAccount/ViewAllProductsForSellerPage.fxml"));
         root.getChildren().add(ViewAllProductsForSellerPageController.setTableView());
         primaryStage.setTitle("Hello World");

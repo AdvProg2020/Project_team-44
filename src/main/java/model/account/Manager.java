@@ -23,6 +23,7 @@ public class Manager extends Account {
     private static ArrayList<Manager> allManagers = new ArrayList<>();
     private int wage;
     private int minAmount;
+
     public Manager(String userName, String firstName, String lastName, String eMail, String telephoneNumber, String password) {
         super(userName, firstName, lastName, eMail, telephoneNumber, password);
         super.createAndUpdateJson();
@@ -104,7 +105,6 @@ public class Manager extends Account {
         } else if (firstPartId.equalsIgnoreCase("RequestForSeller")) {
             doRequestForSeller(requestId);
         }
-        System.out.println("alan");
     }
 
     public void doRequestForAddOf(String requestId) {
@@ -152,8 +152,18 @@ public class Manager extends Account {
     }
 
     public Product getProductWithInfo(Category category, String name, double price, String explanationText) {
+        System.out.println(category.getName());
+        System.out.println(name);
+        System.out.println(price);
+        System.out.println(explanationText);
         for (Product allProduct : Product.getAllProducts()) {
+            System.out.println("   in for     :  " + allProduct.getName() + "  cat   " + allProduct.getCategory().getName());
+            System.out.println("   in for     :  " + allProduct.getName() + "  name  " + allProduct.getName());
+            System.out.println("   in for     :  " + allProduct.getName() + " price  " + allProduct.getPrice());
+            System.out.println("   in for     :  " + allProduct.getName() + " explanation  " + allProduct.getExplanationText());
+
             if (allProduct.getCategory().getName().equals(category.getName()) && allProduct.getName().equals(name) && allProduct.getPrice() == price && allProduct.getExplanationText().equals(explanationText)) {
+
                 return allProduct;
             }
         }

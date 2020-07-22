@@ -81,6 +81,7 @@ public class Product {
     }
 
     public void updateAllParent(Category category) {
+        System.out.println("line 84 Product " + category.getName());
         category.updateAllParent(category);
     }
 

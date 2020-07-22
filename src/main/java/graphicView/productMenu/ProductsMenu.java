@@ -748,16 +748,16 @@ public class ProductsMenu {
                 break;
             }
         }
-        for (Seller seller : Seller.getAllSeller()) {
-            for (Product product : seller.getAuction()) {
-                for (int i = 0; i < productsToShow.size(); i++) {
-                    if (productsToShow.get(i).getProductID().equals(product.getProductID())) {
-                        productsToShow.remove(i);
-                        i--;
-                    }
-                }
-            }
-        }
+//        for (Seller seller : Seller.getAllSeller()) {
+//            for (Product product : seller.getAuction()) {
+//                for (int i = 0; i < productsToShow.size(); i++) {
+//                    if (productsToShow.get(i).getProductID().equals(product.getProductID())) {
+//                        productsToShow.remove(i);
+//                        i--;
+//                    }
+//                }
+//            }
+//        }
 
     }
 
@@ -780,7 +780,6 @@ public class ProductsMenu {
                             if (categoryProperty.getCheckBox().isSelected()) {
                                 allowedCategory.add(categoryProperty.getCategory());
                                 productsToShow.addAll(categoryProperty.getCategory().getAllSubProducts());
-
                             }
                         }
                         openTheSecondaryCategory(false);
