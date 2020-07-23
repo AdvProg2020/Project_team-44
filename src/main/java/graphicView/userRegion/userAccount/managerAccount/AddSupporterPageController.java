@@ -6,7 +6,7 @@ import graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
 import main.Main;
 import model.account.Supporter;
 
@@ -20,45 +20,47 @@ public class AddSupporterPageController {
     public TextField newEmail;
     public TextField newPhoneNumber;
     public Label alertMessage;
-    private Paint Green;
+
 
     @FXML
-     public void addSupporter(){
-    String firstName = newFirstName.getText();
-    String lastName = newLastName.getText();
-    String userName = newUserName.getText();
-    String passWord = newPassWord.getText();
-    String email = newEmail.getText();
-    String phoneNumber = newPhoneNumber.getText();
-        if(!firstName.matches("[a-zA-Z]+")){
-        alertMessage.setText("Please enter a valid first name!");
-        return;
-    }
-        if(!lastName.matches("[a-zA-Z]+")){
-        alertMessage.setText("Please enter a valid last name!");
-        return;
-    }
+    public void addSupporter() {
+        String firstName = newFirstName.getText();
+        String lastName = newLastName.getText();
+        String userName = newUserName.getText();
+        String passWord = newPassWord.getText();
+        String email = newEmail.getText();
+        String phoneNumber = newPhoneNumber.getText();
+        if (!firstName.matches("[a-zA-Z]+")) {
+            alertMessage.setText("Please enter a valid first name!");
+            return;
+        }
+        if (!lastName.matches("[a-zA-Z]+")) {
+            alertMessage.setText("Please enter a valid last name!");
+            return;
+        }
         if (!userName.matches("\\w{8,}")) {
-        alertMessage.setText("Please enter a valid username!");
-        return;
-    }
+            alertMessage.setText("Please enter a valid username!");
+            return;
+        }
         if (!passWord.matches("\\w{8,}")) {
-        alertMessage.setText("Please enter a valid password!");
-        return;
-    }
+            alertMessage.setText("Please enter a valid password!");
+            return;
+        }
         if (!email.matches("\\w+[@]\\w+[.]\\w+")) {
-        alertMessage.setText("Please enter a valid email!");
-        return;
-    }
-        if(!phoneNumber.matches("09\\d\\d\\d\\d\\d\\d\\d\\d\\d")){
-        alertMessage.setText("Please enter a valid tel!");
-        return;
-    }
-    Supporter supporter = new Supporter(userName,firstName,lastName,email,phoneNumber,passWord);
+            alertMessage.setText("Please enter a valid email!");
+            return;
+        }
+        if (!phoneNumber.matches("09\\d\\d\\d\\d\\d\\d\\d\\d\\d")) {
+            alertMessage.setText("Please enter a valid tel!");
+            return;
+        }
+
+        Supporter supporter = new Supporter(userName, firstName, lastName, email, phoneNumber, passWord);
         alertMessage.setText("create new supporter successful");
-        alertMessage.setTextFill(Green);
+        alertMessage.setTextFill(Color.GREEN);
         alertMessage.setText("create new supporter successful");
-}
+    }
+
     @FXML
     public void logout() throws IOException {
         AddSupporterPage.primaryStage.close();
@@ -66,6 +68,7 @@ public class AddSupporterPageController {
         LoginPanelController.setLoggedInAccount(null);
         MainMenu.display(Main.window);
     }
+
     @FXML
     public void back() throws IOException {
         AddSupporterPage.primaryStage.close();

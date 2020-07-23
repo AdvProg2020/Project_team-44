@@ -86,7 +86,7 @@ public class PurchasePageController implements Initializable {
     }
 
     @FXML
-    public void paymentAction(ActionEvent actionEvent) {
+    public void paymentAction() {
         int toPay = CartPageController.totalAmountToPay();
         // if coded discount was valid
         if (!codedDiscountField.getText().equals("")) {
