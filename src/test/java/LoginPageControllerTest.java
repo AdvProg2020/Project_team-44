@@ -1,9 +1,9 @@
-import controller.LoginPageController;
-import exception.UsernameExistsException;
-import exception.UsernameNotExistsException;
-import exception.WrongPasswordException;
-import model.account.Account;
-import model.account.Purchaser;
+import server.controller.LoginPageController;
+import server.exception.UsernameExistsException;
+import server.exception.UsernameNotExistsException;
+import server.exception.WrongPasswordException;
+import server.model.account.Account;
+import server.model.account.Purchaser;
 import org.junit.Assert;
 import org.junit.Test;
 

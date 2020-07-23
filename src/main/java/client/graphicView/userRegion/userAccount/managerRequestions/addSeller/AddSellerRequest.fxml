@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.graphicView.userRegion.userAccount.managerRequestions.addSeller.AddSellerRequestController">
+   <children>
+      <TableView fx:id="table" layoutX="113.0" layoutY="29.0" prefHeight="352.0" prefWidth="353.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="requestIdsColumn" prefWidth="233.0" text="Request Id" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="319.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.graphicView.userRegion.userAccount.managerRequestions.editProduct.EditProductRequestInfoController">
+    <children>
+        <TableView fx:id="requesterInfoTableView" layoutX="8.0" layoutY="51.0" prefHeight="238.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn fx:id="sellerFirstNameColumn" prefWidth="102.5" text="Seller First Name" />
+                <TableColumn fx:id="sellerLastNameColumn" prefWidth="106.0" text="Seller Last Name" />
+                <TableColumn fx:id="priceColumn" prefWidth="62.5" text="Price" />
+                <TableColumn fx:id="categoryNameColumn" prefWidth="96.0" text="Category Name" />
+                <TableColumn fx:id="explanationTextColumn" prefWidth="225.5" text="Explanation Text" />
+            </columns>
+        </TableView>
+        <Button fx:id="acceptButton" layoutX="476.0" layoutY="252.0" mnemonicParsing="false" onAction="#acceptRequest" text="accept" />
+        <Button fx:id="declineButton" layoutX="381.0" layoutY="252.0" mnemonicParsing="false" onAction="#declineRequest" text="decline" />
+    </children>
+</AnchorPane>

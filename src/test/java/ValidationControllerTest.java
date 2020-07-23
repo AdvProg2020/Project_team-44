@@ -1,14 +1,12 @@
-import controller.LoginPageController;
-import controller.ProductsPageController;
-import controller.ValidationController;
-import exception.*;
-import model.*;
-import model.account.Purchaser;
-import model.account.Seller;
-import model.buyLog.BuyLog;
-import model.offer.Offer;
-import model.product.Product;
-import model.requests.Request;
+import server.controller.LoginPageController;
+import server.controller.ProductsPageController;
+import server.controller.ValidationController;
+import server.model.account.Purchaser;
+import server.model.account.Seller;
+import server.model.buyLog.BuyLog;
+import server.model.offer.Offer;
+import server.model.product.Product;
+import server.model.requests.Request;
 import org.junit.Assert;
 import org.junit.Test;
 

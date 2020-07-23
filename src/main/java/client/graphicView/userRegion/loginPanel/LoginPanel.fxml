@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox alignment="CENTER" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.graphicView.userRegion.loginPanel.LoginPanelController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="300.0">
+         <children>
+            <Label fx:id="registerGreetingText" text="Join us to explore more!">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin></Label>
+            <Separator prefWidth="200.0" />
+            <HBox alignment="CENTER" prefHeight="61.0" prefWidth="280.0">
+               <children>
+                  <TextField fx:id="registerUsernameField" prefHeight="25.0" prefWidth="143.0" promptText="username">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <PasswordField fx:id="registerPasswordField" promptText="password" />
+               </children>
+            </HBox>
+            <TextField fx:id="registerEmailField" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" promptText="Email" />
+            <ComboBox fx:id="accountTypes" prefHeight="29.0" prefWidth="168.0" promptText="Choose type">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </ComboBox>
+            <Button fx:id="registerButton" mnemonicParsing="false" onAction="#processRegister" text="Register">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Button>
+            <RadioButton fx:id="agreeButton" mnemonicParsing="false" text="agree terms">
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </RadioButton>
+            <Separator prefWidth="200.0" />
+            <Label fx:id="registerMessageText" alignment="CENTER" prefHeight="18.0" prefWidth="180.0" textAlignment="RIGHT" textFill="#a10000">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <Separator orientation="VERTICAL" prefHeight="200.0" />
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="300.0">
+         <children>
+            <Label fx:id="loginGreetingText" text="ALready have an account?">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Separator prefHeight="1.0" prefWidth="297.0" />
+            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="225.0" prefWidth="297.0">
+               <children>
+                  <TextField fx:id="loginUsernameField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="241.0" promptText="username">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <PasswordField fx:id="loginPasswordField" prefHeight="25.0" prefWidth="241.0" promptText="password" />
+                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#processLogin" prefHeight="25.0" prefWidth="97.0" text="Login">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <Separator prefWidth="200.0" />
+            <Label fx:id="loginMessageText" alignment="CENTER" prefHeight="18.0" prefWidth="180.0" textFill="#a10000" />
+         </children></VBox>
+   </children>
+</HBox>

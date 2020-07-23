@@ -43,7 +43,7 @@
                 <Font size="23.0" />
             </font>
         </Button>
-      <Label fx:id="mostPriceId" layoutX="339.0" layoutY="4.0" prefHeight="47.0" prefWidth="439.0" text="The most suggested price : 0 $">
+      <Label fx:id="mostPriceId" layoutX="339.0" layoutY="4.0" prefHeight="47.0" prefWidth="439.0">
          <font>
             <Font size="24.0" />
          </font>

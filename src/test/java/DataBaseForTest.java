@@ -1,11 +1,11 @@
-import model.*;
-import model.account.Manager;
-import model.account.Purchaser;
-import model.account.Seller;
-import model.buyLog.BuyLog;
-import model.offer.Offer;
-import model.product.Product;
-import model.requests.Request;
+import server.model.*;
+import server.model.account.Manager;
+import server.model.account.Purchaser;
+import server.model.account.Seller;
+import server.model.buyLog.BuyLog;
+import server.model.offer.Offer;
+import server.model.product.Product;
+import server.model.requests.Request;
 
 import java.util.ArrayList;
 import java.util.Date;

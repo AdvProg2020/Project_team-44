@@ -1,11 +1,11 @@
-import controller.LoginPageController;
-import controller.ProductPageController;
-import controller.ProductsPageController;
-import exception.ProductAlreadyExistsInCartException;
-import exception.SellerUserNameNotExists;
-import model.account.Purchaser;
-import model.account.Seller;
-import model.product.Product;
+import server.controller.LoginPageController;
+import server.controller.ProductPageController;
+import server.controller.ProductsPageController;
+import server.exception.ProductAlreadyExistsInCartException;
+import server.exception.SellerUserNameNotExists;
+import server.model.account.Purchaser;
+import server.model.account.Seller;
+import server.model.product.Product;
 import org.junit.Assert;
 import org.junit.Test;
 

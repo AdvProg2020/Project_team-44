@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane prefHeight="477.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.graphicView.sellLogPage.SellLogPageController">
+    <children>
+        <TableView fx:id="sellLogIdsTableView" layoutX="155.0" layoutY="324.0" prefHeight="404.0" prefWidth="270.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn fx:id="rowNumberColumn" prefWidth="63.0" text="Number" />
+                <TableColumn fx:id="sellLogIdColumn" prefWidth="206.0" text="Sell Log Id" />
+            </columns>
+        </TableView>
+        <JFXToolbar layoutY="403.0" prefHeight="75.0" prefWidth="271.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <left>
+                <JFXButton fx:id="backButton" buttonType="RAISED" onAction="#goPreviousScene" prefHeight="25.0" prefWidth="74.0" text="back" BorderPane.alignment="CENTER" />
+            </left>
+        </JFXToolbar>
+    </children>
+</AnchorPane>

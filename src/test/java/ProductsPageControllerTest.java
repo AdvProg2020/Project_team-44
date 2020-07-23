@@ -1,13 +1,3 @@
-import controller.ProductsPageController;
-import exception.CategoryNotExistsException;
-import exception.FilterNotExistsException;
-import model.Category;
-import model.product.Product;
-import org.junit.Assert;
-import org.junit.Test;
-
-import java.util.ArrayList;
-
 public class ProductsPageControllerTest {
 //    @Test
 //    public void processFilterTest() {
