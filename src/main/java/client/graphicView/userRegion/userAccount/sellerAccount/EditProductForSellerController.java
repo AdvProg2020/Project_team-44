@@ -9,7 +9,7 @@ import client.graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import server.main.Main;
+import server.Main;
 import server.model.product.Product;
 
 import java.io.IOException;
@@ -34,23 +34,23 @@ public class EditProductForSellerController {
         String productImageName = newImageName.getText();
         String productCompanyName = newCompanyName.getText();
         if(!productName.matches("\\w+")){
-            alertMessage.setText("Please enter server.main.Main valid new name!");
+            alertMessage.setText("Please enter server.Main valid new name!");
             return;
         }
         if(!productPrice.matches("\\d+.\\d+")){
-            alertMessage.setText("Please enter server.main.Main valid new price!");
+            alertMessage.setText("Please enter server.Main valid new price!");
             return;
         }
         if(!productExplanationText.matches("\\w+")){
-            alertMessage.setText("Please enter server.main.Main valid new explanation text!");
+            alertMessage.setText("Please enter server.Main valid new explanation text!");
             return;
         }
         if(!productCompanyName.matches("\\w+")){
-            alertMessage.setText("Please enter server.main.Main valid company name!");
+            alertMessage.setText("Please enter server.Main valid company name!");
             return;
         }
         if(!productImageName.matches(".+")){
-            alertMessage.setText("Please enter server.main.Main valid image name!");
+            alertMessage.setText("Please enter server.Main valid image name!");
             return;
         }
         double price = Double.parseDouble(productPrice);

@@ -16,7 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import server.main.Main;
+import server.Main;
 import server.model.account.Account;
 import server.model.account.Manager;
 

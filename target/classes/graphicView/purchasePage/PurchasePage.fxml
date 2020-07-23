@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="501.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.purchasePage.PurchasePageController">
+<AnchorPane prefHeight="501.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.graphicView.purchasePage.PurchasePageController">
    <children>
       <Label layoutX="105.0" layoutY="85.0" text="Address" />
       <Label layoutX="105.0" layoutY="193.0" text="Tel" />

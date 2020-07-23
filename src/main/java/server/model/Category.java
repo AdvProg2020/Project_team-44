@@ -56,7 +56,7 @@ public class Category {
 
     public void createAndUpdateJson(Category category) {
         try {
-            Writer writer = new FileWriter("src/server.main/resources/Categories/" + category.getName() + ".json");
+            Writer writer = new FileWriter("src/main/resources/Categories/" + category.getName() + ".json");
             new Gson().toJson(category, writer);
             writer.close();
         } catch (IOException e) {

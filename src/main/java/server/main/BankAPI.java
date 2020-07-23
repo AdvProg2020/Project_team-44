@@ -58,7 +58,7 @@ public class BankAPI {
     }
 
     /**
-     * This method is used to start server.main.Main Thread ,listening on IN data stream.
+     * This method is used to start server.Main Thread ,listening on IN data stream.
      */
 //    public static String getInputStream() throws IOException {
 //        return inputStream.readUTF();

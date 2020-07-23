@@ -8,7 +8,7 @@
 
 <Pane xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="graphicView.userRegion.userAccount.sellerAccount.SellerAuctionController"
+      fx:controller="client.graphicView.userRegion.userAccount.sellerAccount.SellerAuctionController"
       prefHeight="720.0" prefWidth="1275.0">
 
 </Pane>

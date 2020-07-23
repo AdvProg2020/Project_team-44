@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import server.main.Main;
+import server.Main;
 
 import java.io.IOException;
 
@@ -46,7 +46,7 @@ public class SellerInfoSetPanel {
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");
-        window.setScene(new Scene(FXMLLoader.load(SellerInfoSetPanel.class.getResource("SellerInfoSetPanel.fxml"))));
+        window.setScene(new Scene(FXMLLoader.load(SellerInfoSetPanel.class.getResource("/graphicView/loginPanel/SellerInfoSetPanel.fxml"))));
         window.setMaximized(true);
         window.show();
     }

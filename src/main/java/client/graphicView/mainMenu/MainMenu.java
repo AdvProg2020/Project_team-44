@@ -12,7 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import server.main.Main;
+import server.Main;
 import server.model.account.Manager;
 import server.model.account.Purchaser;
 import server.model.account.Seller;
@@ -23,7 +23,7 @@ public class MainMenu {
 
     public static void display(Stage stage) throws IOException {
         Main.window = stage;
-        Pane root = FXMLLoader.load(MainMenu.class.getResource("/client/graphicView/mainMenu/mainMenu.fxml"));
+        Pane root = FXMLLoader.load(MainMenu.class.getResource("/graphicView/mainMenu/mainMenu.fxml"));
         Scene scene = new Scene(root);
         Main.window.setScene(scene);
         Main.window.show();
@@ -45,7 +45,7 @@ public class MainMenu {
     @FXML
     void onProducts(ActionEvent event) throws IOException {
         ProductsMenu.mainMenuScene = Main.window.getScene();
-        Pane root = FXMLLoader.load(getClass().getResource("/client/graphicView/productsMenu/productsMenu.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("/graphicView/productsMenu/productsMenu.fxml"));
         Main.window.setScene(new Scene(root));
     }
 }

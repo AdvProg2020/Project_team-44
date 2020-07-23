@@ -1,5 +1,6 @@
 package server.controller;
 
+import server.exception.*;
 import server.model.CodedDiscount;
 import server.model.account.Purchaser;
 import server.model.buyLog.BuyLog;
@@ -105,7 +106,7 @@ public abstract class PurchaserAccountController {
         return ((Purchaser) LoginPageController.getLoggedInAccount()).getCartProducts();
     }
 
-    //    increase means add one to products quantity, not adding server.main.Main new product; increase has no limits
+    //    increase means add one to products quantity, not adding server.Main new product; increase has no limits
     public static void increaseItemInCart(String productName) {
         //  pre-actions to avoid hard coding
         Purchaser currentPurchaser = ((Purchaser) LoginPageController.getLoggedInAccount());

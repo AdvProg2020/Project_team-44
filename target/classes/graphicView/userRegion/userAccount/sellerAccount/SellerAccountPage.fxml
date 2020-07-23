@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.userRegion.userAccount.sellerAccount.SellerAccountPageController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.graphicView.userRegion.userAccount.sellerAccount.SellerAccountPageController">
     <children>
         <Line endX="705.9999389648438" layoutX="193.0" layoutY="130.0" startX="-200.39999389648438" />
         <ImageView fx:id="sellerImage" fitHeight="157.0" fitWidth="160.0" layoutX="48.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">

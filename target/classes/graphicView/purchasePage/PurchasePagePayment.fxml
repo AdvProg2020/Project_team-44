@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="720.0" prefWidth="1275.0" style="-fx-background-color: #ccffcc#ccffcc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.purchasePage.PurchasePagePaymentController">
+<Pane prefHeight="720.0" prefWidth="1275.0" style="-fx-background-color: #ccffcc#ccffcc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.graphicView.purchasePage.PurchasePagePaymentController">
    <children>
       <Label layoutX="400.0" layoutY="277.0" prefHeight="52.0" prefWidth="114.0" text="account Id">
          <font>

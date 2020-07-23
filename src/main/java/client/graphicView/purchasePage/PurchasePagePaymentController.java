@@ -7,7 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import server.main.ShopServer;
+import server.main.PurchaserAuctionChatControllerServer;
 import server.model.ShopBankAccount;
 import server.model.account.Purchaser;
 import server.model.account.Seller;
@@ -38,7 +38,7 @@ public class PurchasePagePaymentController implements Initializable {
     @FXML
     public void goPaymentAction(ActionEvent actionEvent) throws IOException {
         receiveMessageId.setText("");
-        Socket socket = new Socket(ShopServer.IP, ShopServer.port);
+        Socket socket = new Socket(PurchaserAuctionChatControllerServer.IP, PurchaserAuctionChatControllerServer.port);
         DataInputStream in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         DataOutputStream out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         out.writeUTF("create_receiptCharge" + "create_receipt " + "move " + Integer.parseInt(totalAmountId.getText()) + " " + accountId.getText() + " " + ShopBankAccount.getShopBankAccount().getAccountId() + " " + "charge" + " " + userNameId.getText() + " " + passwordId.getText());

@@ -8,7 +8,7 @@ import client.graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import server.main.Main;
+import server.Main;
 
 import java.io.IOException;
 
@@ -29,19 +29,19 @@ public class ManagerEditInfoPageController {
         String newPassWord = newManagerPassWord.getText();
         String newEmail = newManagerEmail.getText();
         if(!newFirstName.matches("[a-zA-Z]+")){
-            alertMessage.setText("Please enter server.main.Main valid first name!");
+            alertMessage.setText("Please enter server.Main valid first name!");
             return;
         }
         if(!newLastName.matches("[a-zA-Z]+")){
-            alertMessage.setText("Please enter server.main.Main valid last name!");
+            alertMessage.setText("Please enter server.Main valid last name!");
             return;
         }
         if (!newPassWord.matches("\\w{8,}")) {
-            alertMessage.setText("Please enter server.main.Main valid password!");
+            alertMessage.setText("Please enter server.Main valid password!");
             return;
         }
         if (!newEmail.matches("\\w+[@]\\w+[.]\\w+")) {
-            alertMessage.setText("Please enter server.main.Main valid email!");
+            alertMessage.setText("Please enter server.Main valid email!");
             return;
         }
         ManagerAccountController.processEditFieldEach("FIRST_NAME",newFirstName);

@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1275.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.userRegion.userAccount.purchaserAccount.PurchaserAccountPageController">
+<AnchorPane prefHeight="720.0" prefWidth="1275.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.graphicView.userRegion.userAccount.purchaserAccount.PurchaserAccountPageController">
     <children>
         <Line endX="1114.0" layoutX="161.0" layoutY="127.0" startX="-161.0" startY="-7.62939453125E-6" stroke="#0000003a" />
         <ImageView fx:id="purchaserImage" fitHeight="157.0" fitWidth="160.0" layoutX="64.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">

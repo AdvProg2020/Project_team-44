@@ -9,7 +9,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0"
       prefWidth="1275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="graphicView.userRegion.userAccount.sellerAccount.SellerWalletController"
+      fx:controller="client.graphicView.userRegion.userAccount.sellerAccount.SellerWalletController"
 >
     <children>
         <Label layoutX="545.0" layoutY="38.0" prefHeight="44.0" prefWidth="124.0" text="Receive">

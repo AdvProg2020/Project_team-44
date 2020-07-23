@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import server.main.Main;
+import server.Main;
 import server.model.account.Seller;
 import server.model.product.Product;
 

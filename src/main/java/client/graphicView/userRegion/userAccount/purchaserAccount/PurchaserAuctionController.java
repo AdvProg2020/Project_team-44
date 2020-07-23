@@ -81,7 +81,7 @@ public class PurchaserAuctionController implements Initializable {
         for (int i = 0; i < Auction.getAllAuctions().size(); i++) {
             ImageView imageView = null;
             try {
-                imageView = new ImageView(new Image(new FileInputStream("src/server.main/resources/media/image/" + Auction.getAllAuctions().get(i).getImageName())));
+                imageView = new ImageView(new Image(new FileInputStream("src/main/resources/media/image/" + Auction.getAllAuctions().get(i).getImageName())));
                 imageView.setFitWidth(169);
                 imageView.setFitHeight(169);
             } catch (FileNotFoundException e) {

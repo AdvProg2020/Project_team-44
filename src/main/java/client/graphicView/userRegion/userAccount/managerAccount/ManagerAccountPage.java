@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import server.main.Main;
+import server.Main;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public class ManagerAccountPage {
     public static void display() throws IOException {
         Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
-        Parent root = FXMLLoader.load(ManagerAccountPage.class.getResource("/client/graphicView/userRegion/userAccount/managerAccount/ManagerAccountPage.fxml"));
+        Parent root = FXMLLoader.load(ManagerAccountPage.class.getResource("/graphicView/userRegion/userAccount/managerAccount/ManagerAccountPage.fxml"));
         primaryStage.setTitle("Hello World");
         Button back = new Button("Back");
         back.setOnAction(new EventHandler<ActionEvent>() {

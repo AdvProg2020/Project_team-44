@@ -72,11 +72,11 @@ public class Product {
 
     public void createAndUpdateJson(Product product) {
         try {
-            Writer writer = new FileWriter("src/server.main/resources/Products/" + product.getName() + ".json");
+            Writer writer = new FileWriter("src/main/resources/Products/" + product.getName() + ".json");
             new Gson().toJson(product, writer);
             writer.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage() + "!!!!!!!!!!!!!!");
+            e.printStackTrace();
         }
     }
 

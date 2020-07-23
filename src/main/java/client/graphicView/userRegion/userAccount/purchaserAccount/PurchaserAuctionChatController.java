@@ -1,6 +1,7 @@
 package client.graphicView.userRegion.userAccount.purchaserAccount;
 
-import server.controller.LoginPageController;
+//import server.controller.LoginPageController;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -16,10 +17,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import server.main.ShopServer;
-import server.model.account.Account;
-import server.model.account.Manager;
-import server.model.product.Auction;
+import server.controller.LoginPageController;
+//import server.main.PurchaserAuctionChatControllerServer;
+//import server.model.account.Account;
+//import server.model.account.Manager;
+//import server.model.product.Auction;
 
 import java.io.*;
 import java.net.Socket;
@@ -65,6 +67,27 @@ public class PurchaserAuctionChatController implements Initializable {
     private int hour;
     private Timeline countDown;
     private String token;
+    private String username;
+    private final int port = 8888;
+    private final String ip = "127.0.0.1";
+    private int minAmount;
+    private int balance = -1;
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setMinAmount(int minAmount) {
+        this.minAmount = minAmount;
+    }
+
+    public int getMinAmount() {
+        return minAmount;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -74,10 +97,7 @@ public class PurchaserAuctionChatController implements Initializable {
             this.second = (int) (diff / 1000 % 60);
             this.minute = (int) (diff / (1000 * 60) % 60);
             this.hour = (int) (diff / (60 * 60 * 1000));
-            creditId.setText("Credit : " + LoginPageController.getLoggedInAccount().getBalance() + " $");
             process();
-        } else {
-            Auction.getAllAuctions().remove(PurchaserAuctionChat.thisAuction);
         }
     }
 
@@ -86,6 +106,7 @@ public class PurchaserAuctionChatController implements Initializable {
             String input = null;
             try {
                 input = in.readUTF();
+                System.out.println("input " + input);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -109,24 +130,20 @@ public class PurchaserAuctionChatController implements Initializable {
             } else if (input.startsWith("the bid winner is : ")) {
                 String[] parts = input.substring(20).split("\\s");
                 Platform.runLater(() -> mostPriceId.setText(parts[0] + " won the BID with " + parts[1] + " $"));
-                Auction.getAllAuctions().remove(PurchaserAuctionChat.thisAuction);
                 enterButton.setDisable(true);
-                if (LoginPageController.getLoggedInAccount().getUserName().equals(mostPriceId.getText().split("\\s")[0])) {
-                    LoginPageController.getLoggedInAccount().setBalance(LoginPageController.getLoggedInAccount().getBalance() - lastEnteredPrice);
-                }
                 lastEnteredPrice = -1;
                 break;
             } else if (input.startsWith("all purchaser is : ")) {
                 purchasersMenuId.getItems().clear();
-                ArrayList<Account> allPurchasers = new ArrayList<>();
+                ArrayList<String> allPurchasers = new ArrayList<>();
                 for (String s : input.substring(19).split("\\s")) {
                     if (!s.isBlank())
-                        allPurchasers.add(Account.getAccountByUsername(s));
+                        allPurchasers.add(s);
                 }
                 for (int i = 0; i < allPurchasers.size(); i++) {
-                    MenuItem menuItem = new MenuItem((i + 1) + ". " + allPurchasers.get(i).getUserName());
+                    MenuItem menuItem = new MenuItem((i + 1) + ". " + allPurchasers.get(i));
                     int finalI = i;
-                    if (!userToISFirstTime.containsKey(allPurchasers.get(i).getUserName())) {
+                    if (!userToISFirstTime.containsKey(allPurchasers.get(i))) {
                         int finalI1 = i;
                         Platform.runLater(() -> {
                             Stage stage = new Stage();
@@ -134,20 +151,22 @@ public class PurchaserAuctionChatController implements Initializable {
                             ScrollPane scrollPane = new ScrollPane(root);
                             Scene scene = new Scene(scrollPane, 200, 200);
                             stage.setScene(scene);
-                            userToScene.put(allPurchasers.get(finalI1).getUserName(), scene);
-                            userToStage.put(allPurchasers.get(finalI1).getUserName(), stage);
-                            userToRoot.put(allPurchasers.get(finalI1).getUserName(), root);
-                            userToVBoxNum.put(allPurchasers.get(finalI1).getUserName(), 0);
-                            userToISFirstTime.put(allPurchasers.get(finalI1).getUserName(), true);
+                            userToScene.put(allPurchasers.get(finalI1), scene);
+                            userToStage.put(allPurchasers.get(finalI1), stage);
+                            userToRoot.put(allPurchasers.get(finalI1), root);
+                            userToVBoxNum.put(allPurchasers.get(finalI1), 0);
+                            userToISFirstTime.put(allPurchasers.get(finalI1), true);
                         });
-                    } else userToISFirstTime.replace(allPurchasers.get(i).getUserName(), false);
+                    } else userToISFirstTime.replace(allPurchasers.get(i), false);
                     menuItem.setOnAction(e -> {
-                        usernameFieldId.setText(allPurchasers.get(finalI).getUserName());
-                        if (!userToISFirstTime.get(allPurchasers.get(finalI).getUserName()))
+                        usernameFieldId.setText(allPurchasers.get(finalI));
+                        if (!userToISFirstTime.get(allPurchasers.get(finalI)))
                             userToStage.get(usernameFieldId.getText()).show();
                     });
                     purchasersMenuId.getItems().add(menuItem);
                 }
+            } else if (input.startsWith("the balance is : ")) {
+                balance = Integer.parseInt(input.substring(17));
             }
         }
     }
@@ -164,19 +183,22 @@ public class PurchaserAuctionChatController implements Initializable {
 
     public void process() {
         try {
-            Socket socket = new Socket(ShopServer.IP, ShopServer.port);
+            Socket socket = new Socket(ip, port);
             DataOutputStream out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             DataInputStream in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             setOut(out);
             setIn(in);
             mostPriceId.setText("The most price suggested is : 0 $");
             try {
-                out.writeUTF("Auction : " + LoginPageController.getLoggedInAccount().getUserName());
+                out.writeUTF("Auction");
                 out.flush();
                 String input = in.readUTF();
-                if (input.startsWith("token : ")) {
-                    token = input.substring(8);
-                }
+                setUsername(input.split("\\s")[0]);
+                token = input.substring(getUsername().length() + 1);
+                creditId.setText("Credit : " + getUsername() + " $");
+                out.writeUTF("get_min_amount");
+                out.flush();
+                setMinAmount(Integer.parseInt(in.readUTF()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -266,13 +288,13 @@ public class PurchaserAuctionChatController implements Initializable {
 
     @FXML
     public void showAllPurchasersAction(MouseEvent actionEvent) throws IOException {
-        getOut().writeUTF("get_all_purchaser " + LoginPageController.getLoggedInAccount().getUserName());
+        getOut().writeUTF("get_all_purchaser " + getUsername());
         getOut().flush();
     }
 
     @FXML
     public void sendMessage() throws IOException {
-        getOut().writeUTF("send_message " + "from " + LoginPageController.getLoggedInAccount().getUserName() + " to " + usernameFieldId.getText() + " " + messageId.getText());
+        getOut().writeUTF("send_message " + "from " + getUsername() + " to " + usernameFieldId.getText() + " " + messageId.getText());
         getOut().flush();
         VBox vBox = new VBox();
         vBox.setLayoutX(60);
@@ -291,24 +313,33 @@ public class PurchaserAuctionChatController implements Initializable {
     public void enterAction() throws IOException {
         if (!enterFieldId.getText().matches("\\d+\\s*"))
             return;
-        if (Integer.parseInt(enterFieldId.getText()) > LoginPageController.getLoggedInAccount().getBalance() - Manager.getAllManagers().get(0).getMinAmount()) {
-            Platform.runLater(() -> {
-                warningId.setTextFill(Color.PALEVIOLETRED);
-                warningId.setText("The entered value is more than as you can");
-            });
-        } else if (Integer.parseInt(enterFieldId.getText()) < Integer.parseInt(mostPriceId.getText().substring(30).split("\\s")[0]) + 5) {
-            Platform.runLater(() -> {
-                warningId.setTextFill(Color.PALEVIOLETRED);
-                warningId.setText("The entered value is less than server.main.Main regular price");
-            });
-        } else {
-            lastEnteredPrice = Integer.parseInt(enterFieldId.getText());
-            Platform.runLater(() -> {
-                warningId.setTextFill(Color.FORESTGREEN);
-                warningId.setText("Successfully entered");
-            });
-            getOut().writeUTF("most price : " + enterFieldId.getText());
-            getOut().flush();
+        out.writeUTF("get_balance " + token);
+        out.flush();
+        while (true) {
+            if (balance < 0)
+                continue;
+            if (Integer.parseInt(enterFieldId.getText()) > balance - getMinAmount()) {
+                Platform.runLater(() -> {
+                    warningId.setTextFill(Color.PALEVIOLETRED);
+                    warningId.setText("The entered value is more than as you can");
+                });
+                break;
+            } else if (Integer.parseInt(enterFieldId.getText()) < Integer.parseInt(mostPriceId.getText().substring(30).split("\\s")[0]) + 5) {
+                Platform.runLater(() -> {
+                    warningId.setTextFill(Color.PALEVIOLETRED);
+                    warningId.setText("The entered value is less than server.Main regular price");
+                });
+                break;
+            } else {
+                lastEnteredPrice = Integer.parseInt(enterFieldId.getText());
+                Platform.runLater(() -> {
+                    warningId.setTextFill(Color.FORESTGREEN);
+                    warningId.setText("Successfully entered");
+                });
+                getOut().writeUTF("most price : " + enterFieldId.getText());
+                getOut().flush();
+                break;
+            }
         }
     }
 }

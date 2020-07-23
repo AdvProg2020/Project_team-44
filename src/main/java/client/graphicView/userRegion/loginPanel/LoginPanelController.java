@@ -98,7 +98,7 @@ public class LoginPanelController implements Initializable {
             return;
         }
         if (accountTypes.getValue() == null) {
-            registerMessageText.setText("Select server.main.Main type first");
+            registerMessageText.setText("Select server.Main type first");
             return;
         }
         try {

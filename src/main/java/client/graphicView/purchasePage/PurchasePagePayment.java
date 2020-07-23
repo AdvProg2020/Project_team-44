@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import server.main.Main;
+import server.Main;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public class PurchasePagePayment {
         toPay = money;
         Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
-        Parent root = FXMLLoader.load(PurchaserAccountPage.class.getResource("/client/graphicView/purchasePage/PurchasePagePayment.fxml"));
+        Parent root = FXMLLoader.load(PurchaserAccountPage.class.getResource("/graphicView/purchasePage/PurchasePagePayment.fxml"));
         primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

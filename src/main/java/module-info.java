@@ -34,4 +34,5 @@ module team {
     opens client.graphicView.userRegion.userAccount.managerAccount to javafx.fxml;
     opens client.graphicView.userRegion.userAccount.sellerAccount to javafx.fxml;
     opens client.graphicView.userRegion.userAccount.purchaserAccount to javafx.fxml;
+    opens server to javafx.graphics;
 }

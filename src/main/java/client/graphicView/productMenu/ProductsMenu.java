@@ -24,7 +24,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import server.main.Main;
+import server.Main;
 import server.model.Category;
 import server.model.Rating;
 import server.model.Sort.Sort;
@@ -497,7 +497,7 @@ public class ProductsMenu {
                 yLayout += 350;
                 i = 0;
             }
-            ImageView imageView = new ImageView(new Image(new FileInputStream("src/server.main/resources/media/image/" + subProduct.getImageName())));
+            ImageView imageView = new ImageView(new Image(new FileInputStream("src/main/resources/media/image/" + subProduct.getImageName())));
             imageView.setFitWidth(169);
             imageView.setFitHeight(169);
             Text productName = new Text(subProduct.getName());
@@ -546,7 +546,7 @@ public class ProductsMenu {
         back.setLayoutX(1200);
         back.setFont(Font.font(20));
         back.setOnAction(actionEvent -> Main.window.setScene(previousScene));
-        ImageView imageView = new ImageView(new Image(new FileInputStream("src/server.main/resources/media/image/" + product.getImageName())));
+        ImageView imageView = new ImageView(new Image(new FileInputStream("src/main/resources/media/image/" + product.getImageName())));
         imageView.setFitWidth(379);
         imageView.setFitHeight(379);
         imageView.setLayoutX(85);
