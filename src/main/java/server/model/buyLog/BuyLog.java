@@ -19,6 +19,15 @@ public class BuyLog {
     private HashMap<Product, Seller> sellerForEachProduct;
     private BuyLogStatus status = BuyLogStatus.IN_PROGRESS;
     private static ArrayList<BuyLog> allBuyLogs = new ArrayList<>();
+    private String purchaserAddress;
+
+    public String getPurchaserAddress() {
+        return purchaserAddress;
+    }
+
+    public void setPurchaserAddress(String purchaserAddress) {
+        this.purchaserAddress = purchaserAddress;
+    }
 
     public BuyLog(Date date, double moneyPaid, double discountCodeAmountUsed, ArrayList<Product> allPurchasedProducts, HashMap<Product, Seller> sellerForEachProduct) {
         this.logID = produceBuyLogId();

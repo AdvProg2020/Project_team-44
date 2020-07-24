@@ -42,7 +42,7 @@ public class SellerInfoSetPanel {
         setSellerEmail(email);
         setSellerUsername(username);
         setSellerPassword(password);
-        Main.setMediaPlayer("01 In The Morning Light.mp3");
+//        Main.setMediaPlayer("01 In The Morning Light.mp3");
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");

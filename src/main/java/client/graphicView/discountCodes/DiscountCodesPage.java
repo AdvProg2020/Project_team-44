@@ -12,7 +12,6 @@ public class DiscountCodesPage {
     static Stage window;
 
     public static void display() throws IOException {
-        Main.setMediaPlayer("The Swimmer.mp3");
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");

@@ -1,4 +1,4 @@
-package graphicView.userRegion.userAccount.purchaserAccount;
+package client.graphicView.userRegion.userAccount.purchaserAccount;
 
 
 
@@ -31,7 +31,7 @@ public class PurchaserContactSupportersPageController implements Initializable {
     // only displays the online supporters
     private ObservableList<Supporter> getSupporters() {
         ObservableList<Supporter> supporters = FXCollections.observableArrayList();
-        for (model.account.Supporter supporter : model.account.Supporter.getAllSupporters()) {
+        for (server.model.account.Supporter supporter : server.model.account.Supporter.getAllSupporters()) {
             // check online
             if (supporter.isLoggedIn()) {
                 supporters.add(new Supporter(supporter.getUserName()));

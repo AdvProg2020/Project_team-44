@@ -7,11 +7,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
-
 import java.io.*;
 import java.net.Socket;
 
 public class SellerBankAccountController {
+    private final int port = 9008;
+    private final String ip = "127.0.0.1";
     @FXML
     public TextField firstNameId;
     @FXML
@@ -24,9 +25,6 @@ public class SellerBankAccountController {
     public PasswordField passwordId;
     @FXML
     public Label receiveMessageId;
-
-    private final int port = 9008;
-    private final String ip = "127.0.0.1";
     private DataOutputStream out;
     private DataInputStream in;
 

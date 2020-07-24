@@ -1,14 +1,14 @@
-package graphicView.userRegion.userAccount.supporterAccount;
+package client.graphicView.userRegion.userAccount.supporterAccount;
 
-import controller.LoginPageController;
-import graphicView.mainMenu.MainMenu;
-import graphicView.userRegion.loginPanel.LoginPanelController;
+import server.controller.LoginPageController;
+import client.graphicView.mainMenu.MainMenu;
+import client.graphicView.userRegion.loginPanel.LoginPanelController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import main.Main;
-import model.account.Account;
+import client.Main;
+import server.model.account.Account;
 
 import java.io.IOException;
 import java.net.URL;

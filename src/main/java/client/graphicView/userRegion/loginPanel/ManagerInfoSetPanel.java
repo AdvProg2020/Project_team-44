@@ -42,7 +42,7 @@ public class ManagerInfoSetPanel {
         setManagerEmail(email);
         setManagerPassword(password);
         setManagerUsername(username);
-        Main.setMediaPlayer("01 In The Morning Light.mp3");
+//        Main.setMediaPlayer("01 In The Morning Light.mp3");
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");

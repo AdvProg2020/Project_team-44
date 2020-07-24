@@ -4,8 +4,7 @@ import server.main.BankAPI;
 import server.model.ShopBankAccount;
 import server.model.account.Account;
 import server.model.account.Manager;
-import server.viewServer.userRegion.LoginPanel.LoginPanelServer;
-import server.viewServer.userRegion.userAccount.managerAccount.ManagerAccountPageServer;
+import server.viewServer.userRegion.loginPanel.LoginPanelServer;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -69,7 +68,7 @@ public class SellerWalletServer {
         }
 
         public void processGetBalance(String token) throws IOException {
-            Account account = Account.getAccountByUsername(LoginPanelServer.tokenToUser.get(token));
+            Account account = Account.getAccountByUsername(LoginPanelServer.getTokenToUser().get(token));
             dataOutputStream.writeUTF(String.valueOf(account.getBalance()));
             dataOutputStream.flush();
         }
@@ -132,7 +131,7 @@ public class SellerWalletServer {
         public void processSetBalance(String path) throws IOException {
             int amount = Integer.parseInt(path.split("\\s")[0]);
             String token = path.substring(path.split("\\s")[0].length() + 1);
-            Account account = Account.getAccountByUsername(LoginPanelServer.tokenToUser.get(token));
+            Account account = Account.getAccountByUsername(LoginPanelServer.getTokenToUser().get(token));
             account.setBalance(account.getBalance() - amount);
             account.createAndUpdateJson();
             dataOutputStream.writeUTF(String.valueOf(account.getBalance()));

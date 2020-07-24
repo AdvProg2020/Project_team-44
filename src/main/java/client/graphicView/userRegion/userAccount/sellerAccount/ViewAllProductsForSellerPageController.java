@@ -1,7 +1,6 @@
 package client.graphicView.userRegion.userAccount.sellerAccount;
 
 import client.Main;
-import server.controller.LoginPageController;
 import client.graphicView.mainMenu.MainMenu;
 import client.graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import server.controller.LoginPageController;
 import server.model.account.Seller;
 import server.model.product.Product;
 
@@ -60,6 +60,20 @@ public class ViewAllProductsForSellerPageController {
 
     }
 
+    @FXML
+    public void back() throws IOException {
+        ViewAllProductsForSellerPage.primaryStage.close();
+        SellerAccountPage.display();
+    }
+
+    @FXML
+    public void logout() throws IOException {
+        ViewAllProductsForSellerPage.primaryStage.close();
+        LoginPageController.logout();
+        LoginPanelController.setLoggedInAccount(null);
+        MainMenu.display(Main.window);
+    }
+
     public static class ProductProperty {
         private Product product;
         private Button button;
@@ -67,6 +81,24 @@ public class ViewAllProductsForSellerPageController {
         private StringProperty productId;
         private StringProperty companyName;
         private StringProperty price;
+
+        public ProductProperty(Product product) {
+            this.product = product;
+            this.button = new Button();
+            this.name = new SimpleStringProperty(product.getName());
+            this.productId = new SimpleStringProperty(product.getProductID());
+            this.companyName = new SimpleStringProperty(product.getCompanyName());
+            this.price = new SimpleStringProperty(String.valueOf(product.getPrice()));
+            button.setOnAction(actionEvent -> {
+                ViewAllProductsForSellerPage.primaryStage.close();
+                try {
+                    currentProduct = product;
+                    ProductPageInfoForSeller.display();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
 
         public Product getProduct() {
             return product;
@@ -107,36 +139,6 @@ public class ViewAllProductsForSellerPageController {
         public StringProperty priceProperty() {
             return price;
         }
-
-        public ProductProperty(Product product) {
-            this.product = product;
-            this.button = new Button();
-            this.name = new SimpleStringProperty(product.getName());
-            this.productId = new SimpleStringProperty(product.getProductID());
-            this.companyName = new SimpleStringProperty(product.getCompanyName());
-            this.price = new SimpleStringProperty(String.valueOf(product.getPrice()));
-            button.setOnAction(actionEvent -> {
-                ViewAllProductsForSellerPage.primaryStage.close();
-                try {
-                    currentProduct = product;
-                    ProductPageInfoForSeller.display();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-    }
-    @FXML
-    public void back() throws IOException {
-        ViewAllProductsForSellerPage.primaryStage.close();
-        SellerAccountPage.display();
-    }
-    @FXML
-    public void logout() throws IOException {
-        ViewAllProductsForSellerPage.primaryStage.close();
-        LoginPageController.logout();
-        LoginPanelController.setLoggedInAccount(null);
-        MainMenu.display(Main.window);
     }
 }
 

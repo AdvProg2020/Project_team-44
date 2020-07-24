@@ -1,14 +1,14 @@
 package client.graphicView.userRegion.userAccount.sellerAccount;
 
 import client.Main;
-import server.controller.LoginPageController;
-import server.controller.SellerAccountController;
-import server.exception.CategoryNotExistsException;
 import client.graphicView.mainMenu.MainMenu;
 import client.graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import server.controller.LoginPageController;
+import server.controller.SellerAccountController;
+import server.exception.CategoryNotExistsException;
 
 import java.io.IOException;
 

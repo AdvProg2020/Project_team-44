@@ -1,7 +1,6 @@
 package client.graphicView.userRegion.userAccount.sellerAccount;
 
 import client.Main;
-import server.controller.LoginPageController;
 import client.graphicView.mainMenu.MainMenu;
 import client.graphicView.sellLogPage.SellLogPage;
 import client.graphicView.userRegion.loginPanel.LoginPanelController;
@@ -11,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import server.controller.LoginPageController;
 import server.model.account.Account;
 import server.model.account.Seller;
 

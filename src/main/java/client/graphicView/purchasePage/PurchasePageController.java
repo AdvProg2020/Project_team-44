@@ -81,6 +81,7 @@ public class PurchasePageController implements Initializable {
             seller.createAndUpdateJson();
         }
         messageLabel.setText("Successfully payed from credit card.");
+
 //        PurchaserAccountPageController.writeInformation();
         // پول به فروشنده ها اضافه شود
     }

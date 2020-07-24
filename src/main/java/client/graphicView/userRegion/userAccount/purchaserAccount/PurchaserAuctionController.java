@@ -15,6 +15,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PurchaserAuctionController implements Initializable {
+    private final int port = 9004;
+    private final String ip = "127.0.0.1";
     @FXML
     public Pane root;
     @FXML
@@ -41,8 +43,6 @@ public class PurchaserAuctionController implements Initializable {
     public VBox vBox10;
     @FXML
     public VBox vBox11;
-    private final int port = 9004;
-    private final String ip = "127.0.0.1";
     private DataOutputStream out;
     private DataInputStream in;
 

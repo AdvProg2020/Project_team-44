@@ -3,8 +3,6 @@ package client.graphicView.userRegion.userAccount.sellerAccount;
 import client.Main;
 import client.graphicView.mainMenu.MainMenu;
 import client.graphicView.userRegion.loginPanel.LoginPanelController;
-
-import graphicView.userRegion.userAccount.sellerAccount.AllProductsForAuctionPage;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -22,14 +20,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AllProductsForAuctionPageController implements Initializable {
+    private final int port = 9005;
+    private final String ip = "127.0.0.1";
     @FXML
     public TableView<Product> auctionTable;
     @FXML
     public TableColumn<Product, Label> productName;
     @FXML
     public TableColumn<Product, StringProperty> productPrice;
-    private final int port = 9005;
-    private final String ip = "127.0.0.1";
     private DataOutputStream out;
     private DataInputStream in;
 
@@ -54,38 +52,6 @@ public class AllProductsForAuctionPageController implements Initializable {
             auctionTable.setItems(getProduct());
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-
-    public class Product {
-        private Label name;
-        private StringProperty price;
-
-        public Label getName() {
-            return name;
-        }
-
-        public String getPrice() {
-            return price.get();
-        }
-
-        public StringProperty priceProperty() {
-            return price;
-        }
-
-        public Product(String name, String price) {
-            this.name = new Label(name);
-            this.price = new SimpleStringProperty(price);
-            this.name.setOnMouseClicked(mouseEvent -> {
-                AllProductsForAuctionPage.primaryStage.close();
-                try {
-                    SellerAuctionController.setProductToAuction(name);
-                    SellerAuction.display();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
         }
     }
 
@@ -124,5 +90,36 @@ public class AllProductsForAuctionPageController implements Initializable {
         AllProductsForAuctionPage.primaryStage.close();
         MainMenu.display(Main.window);
 
+    }
+
+    public class Product {
+        private Label name;
+        private StringProperty price;
+
+        public Product(String name, String price) {
+            this.name = new Label(name);
+            this.price = new SimpleStringProperty(price);
+            this.name.setOnMouseClicked(mouseEvent -> {
+                AllProductsForAuctionPage.primaryStage.close();
+                try {
+                    SellerAuctionController.setProductToAuction(name);
+                    SellerAuction.display();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+        public Label getName() {
+            return name;
+        }
+
+        public String getPrice() {
+            return price.get();
+        }
+
+        public StringProperty priceProperty() {
+            return price;
+        }
     }
 }

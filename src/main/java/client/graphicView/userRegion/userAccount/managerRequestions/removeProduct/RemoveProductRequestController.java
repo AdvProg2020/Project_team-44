@@ -17,6 +17,11 @@ import java.util.ResourceBundle;
 public class RemoveProductRequestController implements Initializable {
     // store the clicked requestId
     private static String currentRequestId;
+    // table to show request ids
+    @FXML
+    TableView<RequestIds> table;
+    @FXML
+    TableColumn<RequestIds, Label> requestIdsColumn;
 
     public static String getCurrentRequestId() {
         return currentRequestId;
@@ -25,12 +30,6 @@ public class RemoveProductRequestController implements Initializable {
     public static void setCurrentRequestId(String currentRequestId) {
         RemoveProductRequestController.currentRequestId = currentRequestId;
     }
-
-    // table to show request ids
-    @FXML
-    TableView<RequestIds> table;
-    @FXML
-    TableColumn<RequestIds, Label> requestIdsColumn;
     // back to manager account region
 
     @Override

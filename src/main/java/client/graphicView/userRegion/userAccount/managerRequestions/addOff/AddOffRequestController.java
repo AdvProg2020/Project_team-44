@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import server.model.requests.RequestForAddOff;
 
 import java.io.*;
 import java.net.Socket;
@@ -77,8 +78,13 @@ public class AddOffRequestController implements Initializable {
     }
 
     private ObservableList<RequestIds> getRequest() {
-        out.writeUTF("get_request");
-        out.flush();
+        try {
+            out.writeUTF("get_request");
+            out.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ObservableList<RequestIds> requestIds = FXCollections.observableArrayList();
         for (RequestForAddOff requestForAddOff : RequestForAddOff.getAllRequestsForAddOff()) {
             requestIds.add(new RequestIds(requestForAddOff.getRequestId()));

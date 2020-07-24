@@ -12,7 +12,6 @@ public class SellerEditInfoPage {
     static Stage primaryStage;
 
     public static void display() throws IOException {
-        Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
         Parent root = FXMLLoader.load(SellerEditInfoPage.class.getResource("/client/graphicView/userRegion/userAccount/sellerAccount/SellerAccountEditInfoPage.fxml"));
         primaryStage.setTitle("Hello World");

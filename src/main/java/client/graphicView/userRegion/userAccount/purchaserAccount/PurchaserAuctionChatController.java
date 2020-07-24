@@ -1,7 +1,5 @@
 package client.graphicView.userRegion.userAccount.purchaserAccount;
 
-//import server.controller.LoginPageController;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,11 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import server.controller.LoginPageController;
-//import server.graphicView.userRegion.userAccount.purchaserAccount.PurchaserAuctionChatServer;
-//import server.model.account.Account;
-//import server.model.account.Manager;
-//import server.model.product.Auction;
 
 import java.io.*;
 import java.net.Socket;
@@ -33,6 +26,8 @@ import java.util.ResourceBundle;
 
 public class PurchaserAuctionChatController implements Initializable {
 
+    private final int port = 9007;
+    private final String ip = "127.0.0.1";
     @FXML
     public MenuButton purchasersMenuId;
     @FXML
@@ -53,14 +48,13 @@ public class PurchaserAuctionChatController implements Initializable {
     public Label timer;
     @FXML
     public Pane root;
-
-    private DataOutputStream out;
-    private DataInputStream in;
     public HashMap<String, Stage> userToStage = new HashMap<>();
     public HashMap<String, Scene> userToScene = new HashMap<>();
     public HashMap<String, Integer> userToVBoxNum = new HashMap<>();
     public HashMap<String, Pane> userToRoot = new HashMap<>();
     public HashMap<String, Boolean> userToISFirstTime = new HashMap<>();
+    private DataOutputStream out;
+    private DataInputStream in;
     private int lastEnteredPrice = -1;
     private int second;
     private int minute;
@@ -68,25 +62,23 @@ public class PurchaserAuctionChatController implements Initializable {
     private Timeline countDown;
     private String token;
     private String username;
-    private final int port = 9007;
-    private final String ip = "127.0.0.1";
     private int minAmount;
     private int balance = -1;
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getUsername() {
         return username;
     }
 
-    public void setMinAmount(int minAmount) {
-        this.minAmount = minAmount;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getMinAmount() {
         return minAmount;
+    }
+
+    public void setMinAmount(int minAmount) {
+        this.minAmount = minAmount;
     }
 
     @Override
@@ -220,20 +212,20 @@ public class PurchaserAuctionChatController implements Initializable {
 
     }
 
-    public void setIn(DataInputStream in) {
-        this.in = in;
-    }
-
-    public void setOut(DataOutputStream out) {
-        this.out = out;
-    }
-
     public DataInputStream getIn() {
         return in;
     }
 
+    public void setIn(DataInputStream in) {
+        this.in = in;
+    }
+
     public DataOutputStream getOut() {
         return out;
+    }
+
+    public void setOut(DataOutputStream out) {
+        this.out = out;
     }
 
     public void processShowCountDown() {

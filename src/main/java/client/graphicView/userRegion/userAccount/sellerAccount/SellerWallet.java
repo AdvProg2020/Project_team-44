@@ -12,7 +12,6 @@ public class SellerWallet {
     static Stage primaryStage;
 
     public static void display() throws IOException {
-        Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
         Parent root = FXMLLoader.load(SellerWallet.class.getResource("/client/graphicView/userRegion/userAccount/sellerAccount/SellerWallet.fxml"));
         primaryStage.setTitle("Hello World");

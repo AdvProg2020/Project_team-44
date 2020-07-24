@@ -22,6 +22,10 @@ public class LoginPanelServer {
     private DataInputStream in;
     private ServerSocket loginPanelServer;
 
+    public static HashMap<String, String> getTokenToUser() {
+        return tokenToUser;
+    }
+
     public LoginPanelServer() throws IOException {
         loginPanelServer = new ServerSocket(port);
         new Thread(() -> {

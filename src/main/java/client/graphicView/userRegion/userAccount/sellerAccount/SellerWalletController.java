@@ -14,6 +14,8 @@ import java.util.ResourceBundle;
 
 public class SellerWalletController implements Initializable {
     public static int atLeastAmount;
+    private final int port = 9003;
+    private final String ip = "127.0.0.1";
     @FXML
     public Label receiveMessageId;
     @FXML
@@ -26,8 +28,6 @@ public class SellerWalletController implements Initializable {
     public TextField accountUsernameId;
     @FXML
     public PasswordField accountPasswordId;
-    private final int port = 9003;
-    private final String ip = "127.0.0.1";
     private DataOutputStream out;
     private DataInputStream in;
 

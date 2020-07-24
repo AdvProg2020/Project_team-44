@@ -1,15 +1,15 @@
 package client.graphicView.userRegion.userAccount.sellerAccount;
 
 import client.Main;
-import server.controller.LoginPageController;
-import server.controller.SellerAccountController;
-import server.exception.ProductFieldsNotException;
-import server.exception.ProductIdNotExistsException;
 import client.graphicView.mainMenu.MainMenu;
 import client.graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import server.controller.LoginPageController;
+import server.controller.SellerAccountController;
+import server.exception.ProductFieldsNotException;
+import server.exception.ProductIdNotExistsException;
 import server.model.product.Product;
 
 import java.io.IOException;
@@ -33,29 +33,29 @@ public class EditProductForSellerController {
         String productExplanationText = newProductExplanationText.getText();
         String productImageName = newImageName.getText();
         String productCompanyName = newCompanyName.getText();
-        if(!productName.matches("\\w+")){
+        if (!productName.matches("\\w+")) {
             alertMessage.setText("Please enter server.main.Main valid new name!");
             return;
         }
-        if(!productPrice.matches("\\d+.\\d+")){
+        if (!productPrice.matches("\\d+.\\d+")) {
             alertMessage.setText("Please enter server.main.Main valid new price!");
             return;
         }
-        if(!productExplanationText.matches("\\w+")){
+        if (!productExplanationText.matches("\\w+")) {
             alertMessage.setText("Please enter server.main.Main valid new explanation text!");
             return;
         }
-        if(!productCompanyName.matches("\\w+")){
+        if (!productCompanyName.matches("\\w+")) {
             alertMessage.setText("Please enter server.main.Main valid company name!");
             return;
         }
-        if(!productImageName.matches(".+")){
+        if (!productImageName.matches(".+")) {
             alertMessage.setText("Please enter server.main.Main valid image name!");
             return;
         }
         double price = Double.parseDouble(productPrice);
-        SellerAccountController.processEditProduct(product,productName,productCompanyName,price,
-                productExplanationText,productImageName);
+        SellerAccountController.processEditProduct(product, productName, productCompanyName, price,
+                productExplanationText, productImageName);
         alertMessage.setText("");
         alertMessage.setTextFill(GREEN);
         alertMessage.setText("Your request for edit send to the manager");
@@ -67,6 +67,7 @@ public class EditProductForSellerController {
         EditProductForSeller.primaryStage.close();
         ProductPageInfoForSeller.display();
     }
+
     @FXML
     public void logout() throws IOException {
         EditProductForSeller.primaryStage.close();

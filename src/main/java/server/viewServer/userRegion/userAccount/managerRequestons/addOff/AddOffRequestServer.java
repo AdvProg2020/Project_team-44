@@ -1,7 +1,5 @@
 package server.viewServer.userRegion.userAccount.managerRequestons.addOff;
 
-import server.viewServer.userRegion.userAccount.managerAccount.ManagerAccountPageServer;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;

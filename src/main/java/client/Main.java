@@ -7,6 +7,16 @@ import javafx.stage.Stage;
 public class Main extends Application {
     public static Stage window;
 
+    public static void setMediaPlayer(String songName) {
+//        server.main.Main.mediaPlayer = new MediaPlayer(new Media(new File("src/server.main/resources/media/sound/" + songName).toURI().toString()));
+//        server.main.Main.mediaPlayer.setAutoPlay(true);
+//        server.main.Main.mediaPlayer.setOnEndOfMedia(new Runnable() {
+//            public void run() {
+//                mediaPlayer.seek(Duration.ZERO);
+//            }
+//        });
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

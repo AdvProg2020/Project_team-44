@@ -1,10 +1,10 @@
-package graphicView.userRegion.userAccount.supporterAccount;
+package client.graphicView.userRegion.userAccount.supporterAccount;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.Main;
+import client.Main;
 
 import java.io.IOException;
 

@@ -1,14 +1,11 @@
 package client.graphicView.userRegion.userAccount.purchaserAccount;
 
-import client.graphicView.userRegion.loginPanel.LoginPanel;
 import client.graphicView.userRegion.loginPanel.LoginPanelController;
-import javafx.fxml.Initializable;
-import server.controller.LoginPageController;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
 
 import java.io.*;
 import java.net.Socket;
@@ -16,6 +13,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PurchaserWalletController implements Initializable {
+    private final int port = 9007;
+    private final String ip = "127.0.0.1";
     @FXML
     public TextField accountId;
     @FXML
@@ -26,9 +25,6 @@ public class PurchaserWalletController implements Initializable {
     public Label receiveMessageId;
     @FXML
     public PasswordField passwordId;
-
-    private final int port = 9007;
-    private final String ip = "127.0.0.1";
     private DataOutputStream out;
     private DataInputStream in;
 

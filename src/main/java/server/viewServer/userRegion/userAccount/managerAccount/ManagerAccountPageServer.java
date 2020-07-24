@@ -3,7 +3,7 @@ package server.viewServer.userRegion.userAccount.managerAccount;
 import server.controller.LoginPageController;
 import server.model.account.Account;
 import server.model.account.Manager;
-import server.viewServer.userRegion.LoginPanel.LoginPanelServer;
+import server.viewServer.userRegion.loginPanel.LoginPanelServer;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -77,9 +77,9 @@ public class ManagerAccountPageServer {
 
         public void processGetInformation(String token) {
             String username = null;
-            for (String tok : LoginPanelServer.tokenToUser.keySet()) {
+            for (String tok : LoginPanelServer.getTokenToUser().keySet()) {
                 if (tok.equals(token))
-                    username = LoginPanelServer.tokenToUser.get(tok);
+                    username = LoginPanelServer.getTokenToUser().get(tok);
             }
             Account account = Account.getAccountByUsername(username);
             try {

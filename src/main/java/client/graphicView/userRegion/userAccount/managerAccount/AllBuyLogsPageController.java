@@ -1,9 +1,10 @@
-package graphicView.userRegion.userAccount.managerAccount;
+package client.graphicView.userRegion.userAccount.managerAccount;
 
-import controller.LoginPageController;
-import graphicView.buyLogPage.BuyLogPageController;
-import graphicView.mainMenu.MainMenu;
-import graphicView.userRegion.loginPanel.LoginPanelController;
+import client.graphicView.userRegion.userAccount.managerAccount.BuyLogPageAfterClicked;
+import server.controller.LoginPageController;
+import client.graphicView.buyLogPage.BuyLogPageController;
+import client.graphicView.mainMenu.MainMenu;
+import client.graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -14,7 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import main.Main;
+import client.Main;
 
 
 import java.io.IOException;
@@ -86,7 +87,7 @@ public class AllBuyLogsPageController implements Initializable {
     }
     ObservableList<BuyLog> getBuyLogs(){
         ObservableList<BuyLog> allBuyLogs = FXCollections.observableArrayList();
-        for (model.buyLog.BuyLog buyLog : model.buyLog.BuyLog.getAllBuyLogs()) {
+        for (server.model.buyLog.BuyLog buyLog : server.model.buyLog.BuyLog.getAllBuyLogs()) {
             allBuyLogs.add(new BuyLog(buyLog.getLogID(),buyLog.getPurchaserAddress(),buyLog.getStatus().toString()));
         }
         return allBuyLogs;

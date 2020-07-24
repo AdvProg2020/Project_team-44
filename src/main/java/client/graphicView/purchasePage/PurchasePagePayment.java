@@ -16,7 +16,7 @@ public class PurchasePagePayment {
     public static void display(int money) throws IOException {
         PurchasePage.primaryStage.close();
         toPay = money;
-        Main.setMediaPlayer("The Swimmer.mp3");
+//        Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
         Parent root = FXMLLoader.load(PurchaserAccountPage.class.getResource("/graphicView/purchasePage/PurchasePagePayment.fxml"));
         primaryStage.setTitle("Hello World");

@@ -5,13 +5,14 @@ import client.graphicView.userRegion.loginPanel.LoginPanel;
 import client.graphicView.userRegion.userAccount.managerAccount.ManagerAccountPage;
 import client.graphicView.userRegion.userAccount.purchaserAccount.PurchaserAccountPage;
 import client.graphicView.userRegion.userAccount.sellerAccount.SellerAccountPage;
+import client.graphicView.userRegion.userAccount.supporterAccount.SupporterAccountPage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import server.Main;
+import client.Main;
 
 import java.io.*;
 import java.net.Socket;
@@ -56,7 +57,7 @@ public class MainMenu implements Initializable {
         } else if (type.equals("Purchaser")) {
             PurchaserAccountPage.display();
         } else if (type.equals("Supporter")) {
-//            SupporterAccountPage.display();
+            SupporterAccountPage.display();
         }
     }
 

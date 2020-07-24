@@ -1,14 +1,14 @@
 package client.graphicView.userRegion.userAccount.sellerAccount;
 
 import client.Main;
-import server.controller.LoginPageController;
-import server.controller.SellerAccountController;
-import server.exception.SellerFieldsNotExistException;
 import client.graphicView.mainMenu.MainMenu;
 import client.graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import server.controller.LoginPageController;
+import server.controller.SellerAccountController;
+import server.exception.SellerFieldsNotExistException;
 
 import java.io.IOException;
 
@@ -35,6 +35,7 @@ public class SellerEditInfoPageController {
     public TextField newSellerCompanyAddress;
     @FXML
     public Label alertMessage;
+
     @FXML
     public void applyChanges() throws SellerFieldsNotExistException {
         String newFirstName = newSellerFirstName.getText();
@@ -46,18 +47,18 @@ public class SellerEditInfoPageController {
         String newCompanyName = newSellerCompanyName.getText();
         String newCompanyPhoneNumber = newSellerCompanyPhoneNumber.getText();
         String newCompanyAddress = newSellerCompanyAddress.getText();
-        if(!newFirstName.matches("[a-zA-Z]+")){
+        if (!newFirstName.matches("[a-zA-Z]+")) {
             alertMessage.setText("Please enter server.main.Main valid first name!");
             return;
         }
-        if(!newLastName.matches("[a-zA-Z]+")){
+        if (!newLastName.matches("[a-zA-Z]+")) {
             alertMessage.setText("Please enter server.main.Main valid last name!");
             return;
         }
         if (!newUsername.matches("\\w{8,}")) {
-                alertMessage.setText("Please enter server.main.Main valid username!");
-                return;
-            }
+            alertMessage.setText("Please enter server.main.Main valid username!");
+            return;
+        }
         if (!newPassWord.matches("\\w{8,}")) {
             alertMessage.setText("Please enter server.main.Main valid password!");
             return;
@@ -66,19 +67,19 @@ public class SellerEditInfoPageController {
             alertMessage.setText("Please enter server.main.Main valid email!");
             return;
         }
-        if(!newPhoneNumber.matches("09\\d\\d\\d\\d\\d\\d\\d\\d\\d")){
+        if (!newPhoneNumber.matches("09\\d\\d\\d\\d\\d\\d\\d\\d\\d")) {
             alertMessage.setText("Please enter server.main.Main valid tel!");
             return;
         }
-        if(!newCompanyName.matches("[a-zA-Z]+")){
+        if (!newCompanyName.matches("[a-zA-Z]+")) {
             alertMessage.setText("Please enter server.main.Main valid company name!");
             return;
         }
-        if(!newCompanyPhoneNumber.matches("\\d{11}")){
+        if (!newCompanyPhoneNumber.matches("\\d{11}")) {
             alertMessage.setText("Please enter server.main.Main valid company phone number!");
             return;
         }
-        if(!newCompanyAddress.matches("\\w+")){
+        if (!newCompanyAddress.matches("\\w+")) {
             alertMessage.setText("Please enter server.main.Main valid company address!");
             return;
         }
@@ -95,6 +96,7 @@ public class SellerEditInfoPageController {
         alertMessage.setTextFill(GREEN);
         alertMessage.setText("Edit info successful");
     }
+
     @FXML
     public void logout() throws IOException {
         SellerEditInfoPage.primaryStage.close();
@@ -102,6 +104,7 @@ public class SellerEditInfoPageController {
         LoginPanelController.setLoggedInAccount(null);
         MainMenu.display(Main.window);
     }
+
     @FXML
     public void back() throws IOException {
         SellerEditInfoPage.primaryStage.close();

@@ -3,21 +3,21 @@ package client.graphicView.userRegion.userAccount.sellerAccount;
 import client.Main;
 import client.graphicView.mainMenu.MainMenu;
 import client.graphicView.userRegion.loginPanel.LoginPanelController;
-import graphicView.userRegion.userAccount.sellerAccount.AllProductsForAuctionPage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
-
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class SellerAuctionController implements Initializable {
+    private static String productToAuction;
+    private final int port = 9006;
+    private final String ip = "127.0.0.1";
     @FXML
     public TextField finalYear;
     @FXML
@@ -30,10 +30,6 @@ public class SellerAuctionController implements Initializable {
     public TextField finalMinute;
     @FXML
     public Label alertMessage;
-
-    private static String productToAuction;
-    private final int port = 9006;
-    private final String ip = "127.0.0.1";
     private DataOutputStream out;
     private DataInputStream in;
 

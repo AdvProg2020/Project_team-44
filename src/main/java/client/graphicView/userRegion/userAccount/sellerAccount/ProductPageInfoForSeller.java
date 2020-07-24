@@ -12,7 +12,7 @@ public class ProductPageInfoForSeller {
     static Stage primaryStage;
 
     public static void display() throws IOException {
-        Main.setMediaPlayer("The Swimmer.mp3");
+//        Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
         Parent root = FXMLLoader.load(ProductPageInfoForSeller.class.getResource("/client/graphicView/userRegion/userAccount/" +
                 "sellerAccount/ProductPageInfoForSeller.fxml"));

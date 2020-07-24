@@ -4,6 +4,7 @@ import server.controller.LoginPageController;
 import server.model.account.Manager;
 import server.model.account.Purchaser;
 import server.model.account.Seller;
+import server.model.account.Supporter;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -53,16 +54,14 @@ public class MainMenuServer {
                     if (input.startsWith("onAccountRegion")) {
                         if (LoginPageController.getLoggedInAccount() == null) {
                             response = "Null";
-                            System.out.println(response);
                         } else if (LoginPageController.getLoggedInAccount() instanceof Manager) {
                             response = "Manager";
-                            System.out.println(response);
                         } else if (LoginPageController.getLoggedInAccount() instanceof Seller) {
                             response = "Seller";
-                            System.out.println(response);
                         } else if (LoginPageController.getLoggedInAccount() instanceof Purchaser) {
                             response = "Purchaser";
-                            System.out.println(response);
+                        } else if (LoginPageController.getLoggedInAccount() instanceof Supporter) {
+                            response = "Supporter";
                         }
                     }
                     dataOutputStream.writeUTF(response);

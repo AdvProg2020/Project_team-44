@@ -3,7 +3,7 @@ package server.viewServer.userRegion.userAccount.purchaserAccount;
 import server.main.BankAPI;
 import server.model.ShopBankAccount;
 import server.model.account.Account;
-import server.viewServer.userRegion.LoginPanel.LoginPanelServer;
+import server.viewServer.userRegion.loginPanel.LoginPanelServer;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -120,7 +120,7 @@ public class PurchaserWalletServer {
         public void processSetBalance(String path) {
             String amount = path.split("\\s")[0];
             String token = path.substring(amount.length() + 1);
-            Account account = Account.getAccountByUsername(LoginPanelServer.tokenToUser.get(token));
+            Account account = Account.getAccountByUsername(LoginPanelServer.getTokenToUser().get(token));
             account.setBalance(account.getBalance() + Integer.parseInt(amount));
             account.createAndUpdateJson();
         }

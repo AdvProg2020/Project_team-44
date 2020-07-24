@@ -1,8 +1,8 @@
-package graphicView.userRegion.userAccount.managerAccount;
+package client.graphicView.userRegion.userAccount.managerAccount;
 
-import graphicView.buyLogPage.BuyLogController;
-import graphicView.buyLogPage.BuyLogPage;
-import graphicView.buyLogPage.BuyLogPageController;
+import client.graphicView.buyLogPage.BuyLogController;
+import client.graphicView.buyLogPage.BuyLogPage;
+import client.graphicView.buyLogPage.BuyLogPageController;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,10 +18,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import model.account.Seller;
-import model.buyLog.BuyLog;
-import model.buyLog.BuyLogStatus;
-import model.product.Product;
+import server.model.account.Seller;
+import server.model.buyLog.BuyLog;
+import server.model.buyLog.BuyLogStatus;
+import server.model.product.Product;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,32 +44,6 @@ public class BuyLogPageAfterClickedController implements Initializable {
     private TableColumn<BuyLogController.PurchasedProduct, StringProperty> sellerFirstNameColumn;
     @FXML
     private TableColumn<BuyLogController.PurchasedProduct, StringProperty> sellerLastNameColumn;
-
-    // inner class for purchased product table elements
-    public class PurchasedProduct {
-        private StringProperty purchasedProduct;
-        private StringProperty sellerFirstName;
-        private StringProperty sellerLastName;
-
-        public PurchasedProduct(String purchasedProduct, String sellerFirstName, String sellerLastName) {
-            this.purchasedProduct = new SimpleStringProperty(purchasedProduct);
-            this.sellerFirstName = new SimpleStringProperty(sellerFirstName);
-            this.sellerLastName = new SimpleStringProperty(sellerLastName);
-        }
-
-        public StringProperty purchasedProductProperty() {
-            return purchasedProduct;
-        }
-
-        public StringProperty sellerFirstNameProperty() {
-            return sellerFirstName;
-        }
-
-        public StringProperty sellerLastNameProperty() {
-            return sellerLastName;
-        }
-    }
-
     // table to show other info of buyLog, and have only 1 row
     @FXML
     private TableView<BuyLogController.BuyLogInfo> buyLogInfoTable;
@@ -81,37 +55,6 @@ public class BuyLogPageAfterClickedController implements Initializable {
     private TableColumn<BuyLogController.BuyLogInfo, IntegerProperty> moneyPaidColumn;
     @FXML
     private TableColumn<BuyLogController.BuyLogInfo, StringProperty> statusColumn;
-
-    // info inner class
-    public class BuyLogInfo {
-        private Date date;
-        private IntegerProperty discountCodeAmountUsed;
-        private IntegerProperty moneyPaid;
-        private StringProperty status;
-
-        public BuyLogInfo(Date date, int discountCodeAmountUsed, int moneyPaid, String status) {
-            this.date = date;
-            this.discountCodeAmountUsed = new SimpleIntegerProperty(discountCodeAmountUsed);
-            this.moneyPaid = new SimpleIntegerProperty(moneyPaid);
-            this.status = new SimpleStringProperty(status);
-        }
-
-        public Date getDate() {
-            return date;
-        }
-
-        public IntegerProperty discountCodeAmountUsedProperty() {
-            return discountCodeAmountUsed;
-        }
-
-        public IntegerProperty moneyPaidProperty() {
-            return moneyPaid;
-        }
-
-        public StringProperty statusProperty() {
-            return status;
-        }
-    }
 
     // produce elements in info table
     ObservableList<BuyLogController.BuyLogInfo> getBuyLogInfo() {
@@ -164,15 +107,73 @@ public class BuyLogPageAfterClickedController implements Initializable {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         buyLogInfoTable.setItems(getBuyLogInfo());
     }
+
     @FXML
     public void back() throws IOException {
         BuyLogPageAfterClicked.primaryStage.close();
         AllBuyLogsPage.display();
     }
+
     @FXML
-    public void send(){
+    public void send() {
         alertMessage.setText("Delivered!");
         BuyLog.getBuyLogById(BuyLogPageController.getCurrentBuyLogId()).setStatus(BuyLogStatus.DELIVERED);
 
+    }
+
+    // inner class for purchased product table elements
+    public class PurchasedProduct {
+        private StringProperty purchasedProduct;
+        private StringProperty sellerFirstName;
+        private StringProperty sellerLastName;
+
+        public PurchasedProduct(String purchasedProduct, String sellerFirstName, String sellerLastName) {
+            this.purchasedProduct = new SimpleStringProperty(purchasedProduct);
+            this.sellerFirstName = new SimpleStringProperty(sellerFirstName);
+            this.sellerLastName = new SimpleStringProperty(sellerLastName);
+        }
+
+        public StringProperty purchasedProductProperty() {
+            return purchasedProduct;
+        }
+
+        public StringProperty sellerFirstNameProperty() {
+            return sellerFirstName;
+        }
+
+        public StringProperty sellerLastNameProperty() {
+            return sellerLastName;
+        }
+    }
+
+    // info inner class
+    public class BuyLogInfo {
+        private Date date;
+        private IntegerProperty discountCodeAmountUsed;
+        private IntegerProperty moneyPaid;
+        private StringProperty status;
+
+        public BuyLogInfo(Date date, int discountCodeAmountUsed, int moneyPaid, String status) {
+            this.date = date;
+            this.discountCodeAmountUsed = new SimpleIntegerProperty(discountCodeAmountUsed);
+            this.moneyPaid = new SimpleIntegerProperty(moneyPaid);
+            this.status = new SimpleStringProperty(status);
+        }
+
+        public Date getDate() {
+            return date;
+        }
+
+        public IntegerProperty discountCodeAmountUsedProperty() {
+            return discountCodeAmountUsed;
+        }
+
+        public IntegerProperty moneyPaidProperty() {
+            return moneyPaid;
+        }
+
+        public StringProperty statusProperty() {
+            return status;
+        }
     }
 }

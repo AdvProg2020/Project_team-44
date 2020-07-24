@@ -12,7 +12,7 @@ public class PurchaserAccountPage {
     static Stage primaryStage;
 
     public static void display() throws IOException {
-        Main.setMediaPlayer("The Swimmer.mp3");
+//        Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
         Parent root = FXMLLoader.load(PurchaserAccountPage.class.getResource("/graphicView/userRegion/userAccount/purchaserAccount/PurchaserAccountPage.fxml"));
         primaryStage.setTitle("Hello World");

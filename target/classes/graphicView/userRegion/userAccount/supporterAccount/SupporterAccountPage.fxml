@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.userRegion.userAccount.supporterAccount.SupporterAccountPageController">
+    <children>
+        <AnchorPane layoutY="-3.0" prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: white;">
+            <children>
+                <Line endX="1023.0" layoutX="252.0" layoutY="122.0" startX="-252.0" stroke="#0000003a" />
+                <Label fx:id="supporterName" layoutX="338.0" layoutY="154.0" prefHeight="63.0" prefWidth="330.0">
+                    <font>
+                        <Font name="Arial Narrow" size="18.0" />
+                    </font>
+                    <textFill>
+                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                            <stops>
+                                <Stop color="BLACK" />
+                                <Stop color="BLACK" offset="1.0" />
+                            </stops>
+                        </RadialGradient>
+                    </textFill>
+                </Label>
+                <Label fx:id="supporterUserName" layoutX="369.0" layoutY="233.0" prefHeight="63.0" prefWidth="330.0">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="18.0" />
+                    </font>
+                    <textFill>
+                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                            <stops>
+                                <Stop color="BLACK" />
+                                <Stop color="BLACK" offset="1.0" />
+                            </stops>
+                        </RadialGradient>
+                    </textFill>
+                </Label>
+                <Label layoutX="283.0" layoutY="310.0" prefHeight="63.0" prefWidth="114.0" text="phonenumber :">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="18.0" />
+                    </font>
+                    <textFill>
+                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                            <stops>
+                                <Stop color="BLACK" />
+                                <Stop color="BLACK" offset="1.0" />
+                            </stops>
+                        </RadialGradient>
+                    </textFill>
+                </Label>
+                <Label layoutX="283.0" layoutY="387.0" prefHeight="63.0" prefWidth="54.0" text="Email :">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="18.0" />
+                    </font>
+                    <textFill>
+                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                            <stops>
+                                <Stop color="BLACK" />
+                                <Stop color="BLACK" offset="1.0" />
+                            </stops>
+                        </RadialGradient>
+                    </textFill>
+                </Label>
+                <Label fx:id="SupporterPassWord" layoutX="380.0" layoutY="462.0" prefHeight="63.0" prefWidth="330.0">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="18.0" />
+                    </font>
+                    <textFill>
+                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                            <stops>
+                                <Stop color="BLACK" />
+                                <Stop color="BLACK" offset="1.0" />
+                            </stops>
+                        </RadialGradient>
+                    </textFill>
+                </Label>
+
+                <Label layoutX="284.0" layoutY="154.0" prefHeight="63.0" prefWidth="54.0" text="name :">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="283.0" layoutY="233.0" prefHeight="63.0" prefWidth="85.0" text="username :">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="282.0" layoutY="462.0" prefHeight="63.0" prefWidth="86.0" text="password :">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="380.0" layoutY="29.0" prefHeight="60.0" prefWidth="160.0" text="Supporter Page" AnchorPane.leftAnchor="380.0" AnchorPane.topAnchor="29.0">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="supporterPhoneNumber" layoutX="411.0" layoutY="319.0" prefHeight="46.0" prefWidth="202.0" />
+                <Button fx:id="logout" layoutX="75.0" layoutY="76.0" mnemonicParsing="false" onMouseClicked="#logout" text="Logout" />
+            <Label fx:id="supporterEmail" layoutX="347.0" layoutY="387.0" prefHeight="63.0" prefWidth="339.0">
+               <font>
+                  <Font name="Arial Narrow Bold" size="18.0" />
+               </font>
+               <textFill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="BLACK" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </textFill>
+            </Label>
+            <Button layoutX="402.0" layoutY="582.0" mnemonicParsing="false" onMouseClicked="#chat" prefHeight="40.0" prefWidth="131.0" text="chat">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

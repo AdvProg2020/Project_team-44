@@ -1,7 +1,5 @@
 package client.graphicView.userRegion.userAccount.managerRequestions.removeProduct;
 
-import server.controller.ManagerAccountController;
-import server.exception.RequestNotExistsException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -12,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import server.controller.ManagerAccountController;
+import server.exception.RequestNotExistsException;
 import server.model.product.Product;
 import server.model.requests.Request;
 import server.model.requests.RequestForRemoveProduct;
@@ -57,6 +57,26 @@ public class RemoveProductRequestInfoController implements Initializable {
         return requesterInfos;
     }
 
+    @FXML
+    private void acceptRequest() {
+        System.out.println(Product.getAllProducts().size());
+        try {
+            ManagerAccountController.processAcceptRequestEach(RemoveProductRequestController.getCurrentRequestId());
+        } catch (RequestNotExistsException | ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println(Product.getAllProducts().size());
+    }
+
+    @FXML
+    private void declineRequest() {
+        try {
+            ManagerAccountController.processDeclineRequestEach(RemoveProductRequestController.getCurrentRequestId());
+        } catch (RequestNotExistsException e) {
+            e.printStackTrace();
+        }
+    }
+
     public class RequesterInfo {
         private StringProperty sellerFirstName;
         private StringProperty sellerLastName;
@@ -85,26 +105,6 @@ public class RemoveProductRequestInfoController implements Initializable {
 
         public StringProperty productNameProperty() {
             return productName;
-        }
-    }
-
-    @FXML
-    private void acceptRequest() {
-        System.out.println(Product.getAllProducts().size());
-        try {
-            ManagerAccountController.processAcceptRequestEach(RemoveProductRequestController.getCurrentRequestId());
-        } catch (RequestNotExistsException | ParseException e) {
-            e.printStackTrace();
-        }
-        System.out.println(Product.getAllProducts().size());
-    }
-
-    @FXML
-    private void declineRequest() {
-        try {
-            ManagerAccountController.processDeclineRequestEach(RemoveProductRequestController.getCurrentRequestId());
-        } catch (RequestNotExistsException e) {
-            e.printStackTrace();
         }
     }
 

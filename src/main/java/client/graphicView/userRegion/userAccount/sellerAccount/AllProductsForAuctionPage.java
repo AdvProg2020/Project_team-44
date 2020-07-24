@@ -1,4 +1,4 @@
-package graphicView.userRegion.userAccount.sellerAccount;
+package client.graphicView.userRegion.userAccount.sellerAccount;
 
 import client.Main;
 import javafx.fxml.FXMLLoader;
