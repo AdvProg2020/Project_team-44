@@ -51,7 +51,6 @@ public class CartPageServer {
                     input = dataInputStream.readUTF();
                     if (input.startsWith("gatCart")) {
                         response = "";
-                        System.out.println("in server!");
                         System.out.println( PurchaserAccountController.getCartProducts().size());
                         for (Product product : PurchaserAccountController.getCartProducts()) {
                             response += product.getName() + ":" +
@@ -59,8 +58,6 @@ public class CartPageServer {
                                     ((Purchaser) LoginPageController.getLoggedInAccount()).getCart().get(product) +
                                     "\n";
                         }
-                        System.out.print(response);
-                        System.out.println("not server");
                     } else if (input.startsWith("totalAmountToPay")) {
                         response = "" + (int) PurchaserAccountController.processShowTotalPriceEach();
 

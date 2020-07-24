@@ -148,7 +148,7 @@ public class ManagerAccountPageController implements Initializable {
     }
 
     @FXML
-    public void atLeastMoneyAction(ActionEvent actionEvent) {
+    public void atLeastMoneyAction() {
         SellerWalletController.atLeastAmount = Integer.parseInt(setMinAmountId.getText());
         setMinAmountId.setText("");
         for (Manager allManager : Manager.getAllManagers()) {
@@ -164,7 +164,7 @@ public class ManagerAccountPageController implements Initializable {
     }
 
     @FXML
-    public void wageAction(ActionEvent actionEvent) {
+    public void wageAction() {
         PurchasePageController.wage = Integer.parseInt(setWageId.getText());
         setWageId.setText("");
         for (Manager allManager : Manager.getAllManagers()) {

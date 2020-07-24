@@ -7,6 +7,8 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import server.controller.LoginPageController;
 import server.graphicViewServer.cart.CartPageServer;
+import server.graphicViewServer.mainMenu.MainMenuServer;
+import server.graphicViewServer.purchasePage.PurchasePageServer;
 import server.graphicViewServer.userRegion.loginPanel.LoginPanelServer;
 import server.graphicViewServer.userRegion.loginPanel.ManagerInfoSetPanelServer;
 import server.graphicViewServer.userRegion.loginPanel.PurchaserInfoSetPanelServer;
@@ -54,7 +56,16 @@ public class Main extends Application {
 
     public static void main(String[] args) throws IOException {
         reload();
-        Category category = new Category("hi", null, "");
+        new LoginPanelServer();
+        new ManagerInfoSetPanelServer();
+        new PurchaserInfoSetPanelServer();
+        new SellerInfoSetPanelServer();
+        new CartPageServer();
+        new MainMenuServer();
+        new PurchasePageServer();
+        Category category = new Category("ta",
+                null,
+                "");
         Purchaser purchaser = new Purchaser("a",
                 "b",
                 "c",
@@ -87,17 +98,16 @@ public class Main extends Application {
         purchaser.setCart(cart);
         ArrayList<CodedDiscount> allCodedDiscount = new ArrayList<>();
         allCodedDiscount.add(new CodedDiscount(new Date(), new Date(), 20, 100000));
+        System.out.println(allCodedDiscount.get(0).getDiscountCode());
         purchaser.setAllDiscountCodes(allCodedDiscount);
         LoginPageController.setLoggedInAccount(purchaser);
         LoginPanelController.setLoggedInAccount(purchaser);
         purchaser.setBalance(1000000);
-        new LoginPanelServer();
-        new ManagerInfoSetPanelServer();
-        new PurchaserInfoSetPanelServer();
-        new SellerInfoSetPanelServer();
-        new CartPageServer();
-        launch(args);
+//    CartPage.display();
+//    DiscountCodesPage.display();
 
+
+        launch(args);
     }
 
     private static void setCategoryParent(ArrayList<Category> all) {
