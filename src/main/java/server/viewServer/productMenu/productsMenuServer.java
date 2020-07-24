@@ -1,9 +1,18 @@
 package server.viewServer.productMenu;
 
+import server.controller.LoginPageController;
+import server.controller.ProductPageController;
 import server.controller.ProductsPageController;
 import server.exception.FilterNotExistsException;
+import server.exception.ProductAlreadyExistsInCartException;
+import server.exception.ProductIdNotExistsException;
+import server.exception.SellerUserNameNotExists;
 import server.model.Category;
+import server.model.Rating;
 import server.model.Sort.Sort;
+import server.model.account.Purchaser;
+import server.model.account.Seller;
+import server.model.comment.Comment;
 import server.model.product.Product;
 import server.viewServer.purchasePage.PurchasePagePaymentServer;
 
@@ -103,9 +112,43 @@ public class productsMenuServer {
                         processGetProductPriceExplanationByName(input.substring(48));
                     } else if (input.startsWith("get_category_attributes_product_size ")) {
                         processGetCategoryAttributesProductSize(input.substring(37));
+                    } else if (input.startsWith("get_category_attributes_product ")) {
+                        processGetCategoryAttributesProduct(input.substring(32));
+                    } else if (input.startsWith("comment_action ")) {
+                        processCommentAction(input.substring(15));
+                    } else if (input.startsWith("rating_action ")) {
+                        processRatingAction(input.substring(14));
+                    } else if (input.startsWith("add_to_cart_action ")) {
+                        processAddToCartAction(input.substring(19));
+                    } else if (input.startsWith("get_product_all_seller ")) {
+                        processGetProductAllSeller(input.substring(23));
+                    } else if (input.startsWith("get_company_name_seller ")) {
+                        processGetCompanyNameSeller(input.substring(24));
+                    } else if (input.startsWith("checkBox_product_seller ")) {
+                        processCheckBoxProductSeller(input.substring(24));
+                    } else if (input.startsWith("get_average_rating_product ")) {
+                        processGetAverageRatingProduct(input.substring(27));
+                    } else if (input.startsWith("product_get_all_comment_size ")) {
+                        processProductGetAllCommentSize(input.substring(29));
+                    } else if (input.startsWith("do_each_product_comment ")) {
+                        processDoEachProductComment(input.substring(24));
+                    } else if (input.equals("disable_sort_each")) {
+                        processDisableSortEach();
+                    } else if (input.startsWith("get_sub_category ")) {
+                        processGetSubCategory(input.substring(17));
+                    } else if (input.startsWith("get_product_info_from_product_to_show ")) {
+                        processGetProductNameFromProductToShow(Integer.parseInt(input.substring(38)));
+                    } else if (input.startsWith("product_name_on_action ")) {
+                        processProductNameOnAction(input.substring(23));
+                    } else if (input.startsWith("check_product_is_available ")) {
+                        processCheckProductIsAvailable(input.substring(27));
+                    } else if (input.startsWith("check_product_is_in_offer ")) {
+                        processCheckProductIsInOffer(input.substring(26));
+                    } else if (input.startsWith("get_product_imageName ")) {
+                        processGetProductImageName(Integer.parseInt(input.substring(22)));
                     }
                 }
-            } catch (IOException | FilterNotExistsException e) {
+            } catch (IOException | FilterNotExistsException | ProductIdNotExistsException | ProductAlreadyExistsInCartException | SellerUserNameNotExists e) {
                 e.printStackTrace();
             }
         }
@@ -334,7 +377,116 @@ public class productsMenuServer {
             dataOutputStream.flush();
         }
 
-        public void
+        public void processGetCategoryAttributesProduct(String path) throws IOException {
+            String productName = path.split("\\s")[0];
+            int i = Integer.parseInt(path.substring(productName.length() + 1));
+            dataOutputStream.writeUTF(Product.getProductByName(productName).getCategory().getAttributes().get(i));
+            dataOutputStream.flush();
+        }
+
+        public void processCommentAction(String path) {
+            String productName = path.split("\\s")[0];
+            String commentField = path.substring(productName.length() + 1);
+            new Comment(LoginPageController.getLoggedInAccount(), Product.getProductByName(productName), commentField, null);
+        }
+
+        public void processRatingAction(String path) throws IOException {
+            String productName = path.split("\\s")[0];
+            int rate = Integer.parseInt(path.substring(productName.length() + 1));
+            if (Product.getProductByName(productName).isPurchasedByPurchaser((Purchaser) (LoginPageController.getLoggedInAccount()))) {
+                new Rating(Product.getProductByName(productName), (Purchaser) (LoginPageController.getLoggedInAccount()), rate);
+                dataOutputStream.writeUTF("yes_in_if");
+            } else {
+                dataOutputStream.writeUTF("no_in_if");
+            }
+            dataOutputStream.flush();
+        }
+
+        public void processAddToCartAction(String productName) throws ProductIdNotExistsException, ProductAlreadyExistsInCartException {
+            Product product = Product.getProductByName(productName);
+            ProductsPageController.processShowProduct(product.getProductID());
+            ProductPageController.processAddProductToCartEach();
+        }
+
+        public void processGetProductAllSeller(String productName) throws IOException {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (Seller allSeller : Product.getProductByName(productName).getAllSellers()) {
+                stringBuilder.append(allSeller.getUserName() + " ");
+            }
+            dataOutputStream.writeUTF(stringBuilder.toString());
+            dataOutputStream.flush();
+        }
+
+        public void processGetCompanyNameSeller(String username) throws IOException {
+            dataOutputStream.writeUTF(Seller.getSellerByUsername(username).getCompanyName());
+            dataOutputStream.flush();
+        }
+
+        public void processCheckBoxProductSeller(String username) throws SellerUserNameNotExists {
+            ProductPageController.processSelectSellerEach(username);
+        }
+
+        public void processGetAverageRatingProduct(String productName) throws IOException {
+            dataOutputStream.writeUTF(String.valueOf(Product.getProductByName(productName).getAverageRating()));
+            dataOutputStream.flush();
+        }
+
+        public void processProductGetAllCommentSize(String productName) throws IOException {
+            dataOutputStream.writeUTF(String.valueOf(Product.getProductByName(productName).getAllComments().size()));
+            dataOutputStream.flush();
+        }
+
+        public void processDoEachProductComment(String path) throws IOException {
+            int i = Integer.parseInt(path.split("\\s")[0]);
+            String productName = path.substring(path.split("\\s")[0].length() + 1);
+            Comment comment = Product.getProductByName(productName).getAllComments().get(i);
+            dataOutputStream.writeUTF(comment.getCommenter().getUserName() + " " + comment.getCommentText());
+            dataOutputStream.flush();
+        }
+
+        public void processDisableSortEach() {
+            ProductsPageController.processDisableSortEach(productsToShow);
+        }
+
+        public void processGetSubCategory(String categoryName) throws IOException {
+            Category category = Category.getCategoryByName(categoryName);
+            StringBuilder all = new StringBuilder();
+            for (Category subCategory : category.getSubCategories()) {
+                all.append(subCategory.getName() + " ");
+            }
+            dataOutputStream.writeUTF(all.toString());
+            dataOutputStream.flush();
+        }
+
+        public void processGetProductNameFromProductToShow(int i) throws IOException {
+            dataOutputStream.writeUTF(productsToShow.get(i).getName() + " " + productsToShow.get(i).getPrice() +
+                    " " + productsToShow.get(i).getAverageRating() + " " +
+                    productsToShow.get(i).getExplanationText());
+            dataOutputStream.flush();
+        }
+
+        public void processProductNameOnAction(String productName) {
+            ProductsPageController.setSelectedProduct(Product.getProductByName(productName));
+        }
+
+        public void processCheckProductIsAvailable(String productName) throws IOException {
+            if (Product.getProductByName(productName).isAvailable()) {
+                dataOutputStream.writeUTF("yes_is_available");
+            } else dataOutputStream.writeUTF("no_not_available");
+            dataOutputStream.flush();
+        }
+
+        public void processCheckProductIsInOffer(String productName) throws IOException {
+            if (Product.getProductByName(productName).getOffer() != null) {
+                dataOutputStream.writeUTF("yes_is_offer");
+            } else dataOutputStream.writeUTF("no_not_offer");
+            dataOutputStream.flush();
+        }
+
+        public void processGetProductImageName(int i) throws IOException {
+            dataOutputStream.writeUTF(productsToShow.get(i).getImageName());
+            dataOutputStream.flush();
+        }
 
     }
 }

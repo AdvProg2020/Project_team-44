@@ -49,48 +49,34 @@ public class ProductsMenu {
     private DataOutputStream out;
     private DataInputStream in;
 
-    public void input() {
-        while (true) {
-            String input = null;
-            try {
-                input = in.readUTF();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (input.startsWith("")) {
-
-            }
-        }
-    }
-
-    public void output() {
-
-    }
-
     public void process() throws IOException {
         Socket socket = new Socket(ip, port);
         out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-        new Thread(this::output).start();
-        new Thread(this::input).start();
     }
 
-    private ObservableList<CategoryProperty> getCategoryProperties(ArrayList<Category> subCategories) {
+    private ObservableList<CategoryProperty> getCategoryProperties(ArrayList<String> subCategories) {
         allCategoryProperty.clear();
         ObservableList<CategoryProperty> categoryProperties = FXCollections.observableArrayList();
-        for (Category subCategory : subCategories) {
+        for (String subCategory : subCategories) {
             categoryProperties.add(new CategoryProperty(subCategory));
         }
         return categoryProperties;
     }
 
-    x
-
-    private ObservableList<CommentProperty> getCommentProperties(Product product) {
-        out.writeUTF("product_get_all_comment " +);
+    private ObservableList<CommentProperty> getCommentProperties(String productName) throws IOException {
+        out.writeUTF("product_get_all_comment_size " + productName);
+        out.flush();
+        int length = Integer.parseInt(in.readUTF());
         ObservableList<CommentProperty> commentProperties = FXCollections.observableArrayList();
-        for (Comment comment : product.getAllComments()) {
-            commentProperties.add(new CommentProperty(comment.getCommentText(), comment.getCommenter().getUserName()));
+        for (int i = 0; i < length; i++) {
+            out.writeUTF("do_each_product_comment " + i + " " + productName);
+            out.flush();
+            String response = in.readUTF();
+            String username = response.split("\\s")[0];
+            String text = response.substring(username.length() + 1);
+            commentProperties.add(new CommentProperty(text, username));
+
         }
         return commentProperties;
     }
@@ -99,14 +85,21 @@ public class ProductsMenu {
         return mainMenuScene;
     }
 
-    public void setTableView(Category category) {
+    public void setTableView(String categoryName) throws IOException {
         TableView tableView = new TableView();
         TableColumn<CategoryProperty, String> brand = new TableColumn("Brand");
         brand.setCellValueFactory(new PropertyValueFactory<>("name"));
         TableColumn<CategoryProperty, CheckBox> checkBox = new TableColumn<>("");
         checkBox.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
         tableView.getColumns().addAll(brand, checkBox);
-        tableView.setItems(getCategoryProperties(category.getSubCategories()));
+        ArrayList<String> subCategories = new ArrayList<>();
+        out.writeUTF("get_sub_category " + categoryName);
+        out.flush();
+        String all = in.readUTF();
+        for (String s : all.split("\\s")) {
+            subCategories.add(s);
+        }
+        tableView.setItems(getCategoryProperties(subCategories));
         brand.setPrefWidth(200);
         tableView.setPrefWidth(brand.getWidth() + checkBox.getWidth() - 41);
         tableView.setLayoutX(Main.window.getScene().getWidth() - tableView.getPrefWidth());
@@ -117,7 +110,7 @@ public class ProductsMenu {
         this.tableView = tableView;
     }
 
-    public void setCommentMenu(VBox second, Product product) {
+    public void setCommentMenu(VBox second, String productName) throws IOException {
         second.setSpacing(15);
         TableView commentMenu = new TableView();
         TableColumn<CommentProperty, String> commenter = new TableColumn("Account");
@@ -125,7 +118,7 @@ public class ProductsMenu {
         TableColumn<CommentProperty, String> text = new TableColumn<>("Commented");
         text.setCellValueFactory(new PropertyValueFactory<>("comment"));
         commentMenu.getColumns().addAll(commenter, text);
-        commentMenu.setItems(getCommentProperties(product));
+        commentMenu.setItems(getCommentProperties(productName));
         commenter.setPrefWidth(200);
         text.setPrefWidth(800);
         second.getChildren().add(commentMenu);
@@ -133,8 +126,10 @@ public class ProductsMenu {
         second.setLayoutX(150);
     }
 
-    public void showProductRate(Text rate, Product product) {
-        rate.setText("Rate : " + product.getAverageRating());
+    public void showProductRate(Text rate, String productName) throws IOException {
+        out.writeUTF("get_average_rating_product " + productName);
+        out.flush();
+        rate.setText("Rate : " + in.readUTF());
         rate.setFont(Font.font(18));
         rate.setLayoutX(100);
         rate.setLayoutY(500);
@@ -169,7 +164,7 @@ public class ProductsMenu {
     }
 
     @FXML
-    public void onCategories(Event event) throws IOException {
+    public void onCategories() throws IOException {
         categoriesMenuButton.getItems().clear();
         out.writeUTF("category_all_parent_size");
         out.flush();
@@ -195,12 +190,8 @@ public class ProductsMenu {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
-
                     try {
-                        setTableView(Category.getCategoryByName(subMenu.getText()));
-
-
+                        setTableView(subMenu.getText());
                         setPreviousScene(Main.window.getScene());
                         openTheSecondaryCategory(true);
                     } catch (IOException e) {
@@ -231,12 +222,25 @@ public class ProductsMenu {
                     scoreUpToDown.setSelected(false);
                 if (scoreDownToUp.isSelected())
                     scoreDownToUp.setSelected(false);
-                clickPrice(true);
+                try {
+                    clickPrice(true);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             secondRoot.getChildren().remove(productRoot);
-            processShowProducts();
+            try {
+                processShowProducts();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
         priceDownToUp.setOnAction(actionEvent -> {
             if (priceDownToUp.isSelected()) {
@@ -254,12 +258,25 @@ public class ProductsMenu {
                     dateUpToDown.setSelected(false);
                 if (dateDownToUp.isSelected())
                     dateDownToUp.setSelected(false);
-                clickPrice(false);
+                try {
+                    clickPrice(false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             secondRoot.getChildren().remove(productRoot);
-            processShowProducts();
+            try {
+                processShowProducts();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
         scoreUpToDown.setOnAction(actionEvent -> {
             if (scoreUpToDown.isSelected()) {
@@ -277,12 +294,25 @@ public class ProductsMenu {
                     dateUpToDown.setSelected(false);
                 if (dateDownToUp.isSelected())
                     dateDownToUp.setSelected(false);
-                clickScore(true);
+                try {
+                    clickScore(true);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             secondRoot.getChildren().remove(productRoot);
-            processShowProducts();
+            try {
+                processShowProducts();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
         scoreDownToUp.setOnAction(actionEvent -> {
             if (scoreDownToUp.isSelected()) {
@@ -300,12 +330,25 @@ public class ProductsMenu {
                     dateUpToDown.setSelected(false);
                 if (dateDownToUp.isSelected())
                     dateDownToUp.setSelected(false);
-                clickScore(false);
+                try {
+                    clickScore(false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             secondRoot.getChildren().remove(productRoot);
-            processShowProducts();
+            try {
+                processShowProducts();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
         viewUpToDown.setOnAction(actionEvent -> {
             if (viewUpToDown.isSelected()) {
@@ -323,12 +366,25 @@ public class ProductsMenu {
                     dateUpToDown.setSelected(false);
                 if (dateDownToUp.isSelected())
                     dateDownToUp.setSelected(false);
-                clickView(true);
+                try {
+                    clickView(true);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             secondRoot.getChildren().remove(productRoot);
-            processShowProducts();
+            try {
+                processShowProducts();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
         viewDownToUp.setOnAction(actionEvent -> {
             if (viewDownToUp.isSelected()) {
@@ -346,12 +402,25 @@ public class ProductsMenu {
                     dateUpToDown.setSelected(false);
                 if (dateDownToUp.isSelected())
                     dateDownToUp.setSelected(false);
-                clickView(false);
+                try {
+                    clickView(false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             secondRoot.getChildren().remove(productRoot);
-            processShowProducts();
+            try {
+                processShowProducts();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
         dateUpToDown.setOnAction(actionEvent -> {
             if (dateUpToDown.isSelected()) {
@@ -369,12 +438,25 @@ public class ProductsMenu {
                     priceDownToUp.setSelected(false);
                 if (dateDownToUp.isSelected())
                     dateDownToUp.setSelected(false);
-                clickTime(true);
+                try {
+                    clickTime(true);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             secondRoot.getChildren().remove(productRoot);
-            processShowProducts();
+            try {
+                processShowProducts();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
         dateDownToUp.setOnAction(actionEvent -> {
             if (dateDownToUp.isSelected()) {
@@ -392,12 +474,25 @@ public class ProductsMenu {
                     dateUpToDown.setSelected(false);
                 if (priceDownToUp.isSelected())
                     priceDownToUp.setSelected(false);
-                clickTime(false);
+                try {
+                    clickTime(false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             secondRoot.getChildren().remove(productRoot);
-            processShowProducts();
+            try {
+                processShowProducts();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 
@@ -496,45 +591,67 @@ public class ProductsMenu {
         int yLayout = 200;
         int xLayout = 100;
         checkSatisfiedInFilters();
-        for (Product subProduct : productsToShow) {
+        out.writeUTF("get_product_to_show_size");
+        out.flush();
+        int length = Integer.parseInt(in.readUTF());
+        for (int j = 0; j < length; j++) {
+            out.writeUTF("get_product_info_from_product_to_show " + j);
+            out.flush();
+            String response = in.readUTF();
+            String nameProduct = response.split("\\s")[0];
+            String priceProduct = response.split("\\s")[1];
+            String averageRatingProduct = response.split("\\s")[2];
+            String explanationProduct = response.substring(nameProduct.length() + 1 + averageRatingProduct.length() + 1 + priceProduct.length() + 1);
+//        for (Product subProduct : productsToShow) {
             if (i == 3) {
                 yLayout += 350;
                 i = 0;
             }
-            ImageView imageView = new ImageView(new Image(new FileInputStream("src/main/resources/media/image/" + subProduct.getImageName())));
+            out.writeUTF("get_product_imageName " + j);
+            out.flush();
+            String imageNameProduct = in.readUTF();
+            ImageView imageView = new ImageView(new Image(new FileInputStream("src/main/resources/media/image/" + imageNameProduct)));
             imageView.setFitWidth(169);
             imageView.setFitHeight(169);
-            Text productName = new Text(subProduct.getName());
+            Text productName = new Text(nameProduct);
             productName.setFont(Font.font(20));
             productName.setOnMouseClicked(mouseEvent -> {
                 try {
-                    ProductsPageController.setSelectedProduct(Product.getProductByName(productName.getText()));
-                    openProductPage(Main.window.getScene(), Product.getProductByName(productName.getText()));
-                } catch (FileNotFoundException e) {
+                    out.writeUTF("product_name_on_action " + productName.getText());
+                    out.flush();
+                    openProductPage(Main.window.getScene(), productName.getText());
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
-            Text productExplanation = new Text(subProduct.getExplanationText());
+            Text productExplanation = new Text(explanationProduct);
             productExplanation.setFont(Font.font(19));
-            Text productPrice = new Text("Price : " + subProduct.getPrice() + " $");
+            Text productPrice = new Text("Price : " + priceProduct + " $");
             productPrice.setFont(Font.font(18));
-            Text rating = new Text("Rate : " + subProduct.getAverageRating());
+            Text rating = new Text("Rate : " + averageRatingProduct);
             rating.setFont(Font.font(17));
-            Text available;
-            if (subProduct.isAvailable())
+            Text available = null;
+            out.writeUTF("check_product_is_available " + productName);
+            out.flush();
+            String isAvailable = in.readUTF();
+            if (isAvailable.equals("yes_is_available")) {
                 available = new Text("Available : Yes");
-            else available = new Text("Available : No");
+            } else if (isAvailable.equals("no_not_available")) {
+                available = new Text("Available : No");
+            }
             available.setFont(Font.font(16));
             VBox vBox = new VBox();
             vBox.setAlignment(Pos.CENTER);
             vBox.setSpacing(7);
             vBox.getChildren().addAll(imageView, productName, productExplanation, productPrice, rating, available);
-            if (subProduct.getOffer() != null) {
+            out.writeUTF("check_product_is_in_offer " + productName);
+            out.flush();
+            String isOffer = in.readUTF();
+            if (isOffer.equals("yes_is_offer")) {
                 Text offer = new Text("This is in Offer!");
                 offer.setFont(Font.font(17));
                 vBox.getChildren().add(offer);
             }
-
             vBox.setLayoutX(xLayout + i * 300);
             vBox.setLayoutY(yLayout);
 
@@ -566,7 +683,7 @@ public class ProductsMenu {
         price.setLayoutX(376);
         price.setLayoutY(500);
         Text rate = new Text();
-        showProductRate(rate, product);
+        showProductRate(rate, productName);
         VBox first = new VBox();
         first.setSpacing(15);
         Text name = new Text(productName);
@@ -587,18 +704,15 @@ public class ProductsMenu {
         out.flush();
         int length = Integer.parseInt(in.readUTF());
         for (int i = 0; i < length; i++) {
-
-        }
-        out.writeUTF("get_category_attributes_product " + productName);
-        out.flush();
-        for (String s : product.getCategory().getAttributes()) {
-            stringBuilder.append(s + "\n\n");
+            out.writeUTF("get_category_attributes_product " + productName + " " + i);
+            out.flush();
+            stringBuilder.append(in.readUTF() + "\n\n");
         }
         Text categoryAttribute = new Text(stringBuilder.toString());
         categoryAttribute.setTranslateY(20);
         categoryAttribute.setFont(Font.font(19));
         VBox second = new VBox();
-        setCommentMenu(second, product);
+        setCommentMenu(second, productName);
         Button comment = new Button("Comment");
         TextField commentField = new TextField("");
         commentField.setTranslateY(-10);
@@ -606,9 +720,18 @@ public class ProductsMenu {
         comment.setFont(Font.font(16));
         comment.setTranslateY(35);
         comment.setOnAction(actionEvent -> {
-            new Comment(LoginPageController.getLoggedInAccount(), product, commentField.getText(), null);
+            try {
+                out.writeUTF("comment_action " + productName + " " + commentField.getText());
+                out.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             second.getChildren().clear();
-            setCommentMenu(second, product);
+            try {
+                setCommentMenu(second, productName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             commentField.setText("");
         });
 
@@ -618,19 +741,35 @@ public class ProductsMenu {
         rateField.setTranslateY(-40);
         rateField.setTranslateX(rating.getLayoutX() + 150);
         rating.setOnAction(actionEvent -> {
-            if (product.isPurchasedByPurchaser((Purchaser) (LoginPageController.getLoggedInAccount()))) {
-                new Rating(product, (Purchaser) (LoginPageController.getLoggedInAccount()), Integer.parseInt(rateField.getText()));
-                showProductRate(rate, product);
+            String flag = null;
+            try {
+                out.writeUTF("rating_action " + productName + " " + rateField.getText());
+                out.flush();
+                flag = in.readUTF();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (flag.equals("yes_in_if")) {
+                try {
+                    showProductRate(rate, productName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 rateField.setText("");
             }
+
         });
         Button add = new Button("Add to cart");
         add.setDisable(true);
         add.setFont(Font.font(19));
         add.setLayoutY(55);
         add.setOnAction(actionEvent -> {
-            ProductsPageController.processShowProduct(product.getProductID());
-            ProductPageController.processAddProductToCartEach();
+            try {
+                out.writeUTF("add_to_cart_action " + productName);
+                out.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
         first.getChildren().addAll(name, productExplanation, explanation, categoryLabel, categoryAttribute, comment, commentField, rating, rateField, add);
         first.setLayoutX(666);
@@ -638,8 +777,14 @@ public class ProductsMenu {
         HBox hBox = new HBox();
         hBox.setSpacing(15);
         ArrayList<CheckBox> allSellerCheckBoxes = new ArrayList<>();
-        for (Seller allSeller : product.getAllSellers()) {
-            Text seller = new Text(allSeller.getCompanyName());
+        out.writeUTF("get_product_all_seller " + productName);
+        out.flush();
+        String all = in.readUTF();
+        String[] allSellers = all.split("\\s");
+        for (String allSeller : allSellers) {
+            out.writeUTF("get_company_name_seller " + allSeller);
+            out.flush();
+            Text seller = new Text(in.readUTF());
             seller.setTranslateX(15);
             seller.setFont(Font.font(19));
             CheckBox checkBox = new CheckBox();
@@ -653,7 +798,12 @@ public class ProductsMenu {
                         if (allSellerCheckBox != checkBox)
                             allSellerCheckBox.setSelected(false);
                     }
-                    ProductPageController.processSelectSellerEach(allSeller.getUserName());
+                    try {
+                        out.writeUTF("checkBox_product_seller " + allSeller);
+                        out.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     add.setDisable(true);
                 }
