@@ -1,6 +1,7 @@
 package client.graphicView.userRegion.userAccount.purchaserAccount;
 
 import client.Main;
+import graphicView.userRegion.userAccount.purchaserAccount.PurchaserContactSupportersPage;
 import server.controller.LoginPageController;
 import client.graphicView.buyLogPage.BuyLogPage;
 import client.graphicView.cart.CartPage;
@@ -116,16 +117,17 @@ public class PurchaserAccountPageController implements Initializable {
         }
     }
 
-    public void goToAuctionPageAction(ActionEvent actionEvent) throws IOException {
+    public void goToAuctionPageAction() throws IOException {
         PurchaserAccountPage.primaryStage.close();
         PurchaserAuction.display();
     }
 
-    public void processViewSupporters(ActionEvent actionEvent) {
+    public void processViewSupporters() {
         try {
             PurchaserContactSupportersPage.display();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
