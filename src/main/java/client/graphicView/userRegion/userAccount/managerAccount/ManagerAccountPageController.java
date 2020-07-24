@@ -70,7 +70,7 @@ public class ManagerAccountPageController implements Initializable {
 
     @FXML
     private void logout() throws IOException {
-        out.writeUTF("logout " + LoginPanelController.token);
+        out.writeUTF("logout " + LoginPanelController.getToken());
         out.flush();
         LoginPanelController.setLoggedInAccount(null);
         ManagerAccountPage.primaryStage.close();
@@ -96,7 +96,7 @@ public class ManagerAccountPageController implements Initializable {
 
     public void writeInformationForManager() {
         try {
-            out.writeUTF("get_information " + LoginPanelController.token);
+            out.writeUTF("get_information " + LoginPanelController.getToken());
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();

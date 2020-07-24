@@ -56,7 +56,7 @@ public class SellerWalletController implements Initializable {
         process();
         String balance = null;
         try {
-            out.writeUTF("get_balance " + LoginPanelController.token);
+            out.writeUTF("get_balance " + LoginPanelController.getToken());
             out.flush();
             balance = in.readUTF();
         } catch (IOException e) {
@@ -70,7 +70,7 @@ public class SellerWalletController implements Initializable {
     public void receiveAction() throws IOException {
         String balance = null;
         try {
-            out.writeUTF("get_balance " + LoginPanelController.token);
+            out.writeUTF("get_balance " + LoginPanelController.getToken());
             out.flush();
             balance = in.readUTF();
         } catch (IOException e) {
@@ -89,7 +89,7 @@ public class SellerWalletController implements Initializable {
             String respond = in.readUTF();
             receiveMessageId.setText(respond);
             if (respond.equals("done successfully")) {
-                out.writeUTF("set_balance " + amountId.getText() + " " + LoginPanelController.token);
+                out.writeUTF("set_balance " + amountId.getText() + " " + LoginPanelController.getToken());
                 out.flush();
                 String amount = in.readUTF();
                 creditId.setText("Credit " + amount + " $");

@@ -83,7 +83,7 @@ public class ManagerEditInfoPageController {
     @FXML
     public void logout() throws IOException {
         ManagerEditInfoPage.primaryStage.close();
-        out.writeUTF("logout " + LoginPanelController.token);
+        out.writeUTF("logout " + LoginPanelController.getToken());
         out.flush();
         LoginPanelController.setLoggedInAccount(null);
         MainMenu.display(Main.window);

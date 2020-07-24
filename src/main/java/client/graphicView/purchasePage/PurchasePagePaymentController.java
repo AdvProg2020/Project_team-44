@@ -58,7 +58,7 @@ public class PurchasePagePaymentController implements Initializable {
         String response = in.readUTF();
         receiveMessageId.setText(response);
         if (response.equals("done successfully")) {
-            out.writeUTF("get_size " + LoginPanelController.token);
+            out.writeUTF("get_size " + LoginPanelController.getToken());
             out.flush();
             int size = Integer.parseInt(in.readUTF());
             for (int i = 0; i < size; i++) {

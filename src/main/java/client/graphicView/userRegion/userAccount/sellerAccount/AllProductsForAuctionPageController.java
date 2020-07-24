@@ -84,7 +84,7 @@ public class AllProductsForAuctionPageController implements Initializable {
 
     @FXML
     public void logout() throws IOException {
-        out.writeUTF("logout " + LoginPanelController.token);
+        out.writeUTF("logout " + LoginPanelController.getToken());
         out.flush();
         LoginPanelController.setLoggedInAccount(null);
         AllProductsForAuctionPage.primaryStage.close();

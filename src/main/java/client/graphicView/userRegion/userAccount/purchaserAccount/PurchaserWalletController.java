@@ -57,7 +57,7 @@ public class PurchaserWalletController implements Initializable {
             String response = in.readUTF();
             receiveMessageId.setText(response);
             if (response.equals("done successfully")) {
-                out.writeUTF("set_balance " + amountId.getText() + " " + LoginPanelController.token);
+                out.writeUTF("set_balance " + amountId.getText() + " " + LoginPanelController.getToken());
                 out.flush();
             }
         }

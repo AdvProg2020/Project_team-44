@@ -27,6 +27,7 @@ public class LoginPanelServer {
     }
 
     public LoginPanelServer() throws IOException {
+        System.out.println("here");
         loginPanelServer = new ServerSocket(port);
         new Thread(() -> {
             while (true) {
