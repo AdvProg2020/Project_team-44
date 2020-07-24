@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="650.0" prefWidth="850.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.userRegion.userAccount.managerAccount.CategoryPageController">
+   <children>
+      <Line endX="760.5999755859375" layoutX="101.0" layoutY="77.0" startX="-100.0" />
+      <Label fx:id="categoryName" alignment="CENTER" layoutX="278.0" layoutY="13.0" prefHeight="54.0" prefWidth="282.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button mnemonicParsing="false" onMouseClicked="#back" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: white;" text="back" />
+      <Button layoutX="798.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: white;" text="logout" />
+      <TableView fx:id="attributesTable" layoutX="110.0" layoutY="109.0" prefHeight="494.0" prefWidth="152.0">
+        <columns>
+          <TableColumn fx:id="attributesColumn" prefWidth="151.1999969482422" text="Attributes" />
+        </columns>
+      </TableView>
+      <TableView fx:id="subProductsTable" layoutX="607.0" layoutY="109.0" prefHeight="494.0" prefWidth="152.0">
+        <columns>
+          <TableColumn fx:id="subProductsColumn" prefWidth="151.20001220703125" text="Sub Products" />
+        </columns>
+      </TableView>
+      <Button layoutX="379.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#edit" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: white;" text="edit" />
+   </children>
+</AnchorPane>

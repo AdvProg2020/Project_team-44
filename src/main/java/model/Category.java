@@ -30,6 +30,7 @@ public class Category {
             parent.getSubCategories().add(this);
             updateAllParent(parent);
         }
+
         allCategories.add(this);
         createAndUpdateJson(this);
     }

@@ -508,7 +508,7 @@ public class ProductsMenu {
             productName.setOnMouseClicked(mouseEvent -> {
                 try {
                     ProductsPageController.setSelectedProduct(Product.getProductByName(productName.getText()));
-                    openProductPage(Main.window.getScene(), Product.getProductByName(productName.getText()));
+                                                                                                                                                                                 openProductPage(Main.window.getScene(), Product.getProductByName(productName.getText()));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }

@@ -2,6 +2,7 @@ package main;
 
 import controller.LoginPageController;
 import graphicView.mainMenu.MainMenu;
+import graphicView.userRegion.userAccount.managerAccount.CategoryPageController;
 import graphicView.userRegion.userAccount.managerRequestions.addOff.AddOffRequest;
 import graphicView.userRegion.userAccount.managerRequestions.addProduct.AddProductRequest;
 import graphicView.userRegion.userAccount.managerRequestions.addSeller.AddSellerRequest;
@@ -12,6 +13,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Category;
+import model.CodedDiscount;
 import model.account.Account;
 import model.account.Manager;
 import model.account.Purchaser;
@@ -25,6 +27,7 @@ import model.requests.RequestForSeller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Main extends Application {
@@ -39,13 +42,13 @@ public class Main extends Application {
     }
 
     public static void setMediaPlayer(String songName) {
-        Main.mediaPlayer = new MediaPlayer(new Media(new File("src/main/resources/media/sound/" + songName).toURI().toString()));
-        Main.mediaPlayer.setAutoPlay(true);
-        Main.mediaPlayer.setOnEndOfMedia(new Runnable() {
-            public void run() {
-                mediaPlayer.seek(Duration.ZERO);
-            }
-        });
+//        Main.mediaPlayer = new MediaPlayer(new Media(new File("src/main/resources/media/sound/" + songName).toURI().toString()));
+//        Main.mediaPlayer.setAutoPlay(true);
+//        Main.mediaPlayer.setOnEndOfMedia(new Runnable() {
+//            public void run() {
+//                mediaPlayer.seek(Duration.ZERO);
+//            }
+//        });
     }
 
     public static void setAccountRegionStage(Stage accountRegionStage) {
@@ -82,15 +85,31 @@ public class Main extends Application {
 //        LoginPageController.setLoggedInAccount(manager);
         Seller seller1 = new Seller("amiramir", "Alex", "dd", "ya@yahoo.com",
                 "2441", "amiramir", "izo", "street5", "6777");
-         Category category1 = new Category("car", null, "ali");Category category2 = new Category("digital", null, "aff");
+         Category category1 = new Category("car", null, "ali");
+         Category category2 = new Category("kala", null, "aff");
+         ArrayList<String> attributes = new ArrayList<>();
+         attributes.add("good");
+         attributes.add("new");
+         category2.setAttributes(attributes);
         Product product1 = new Product(category1, "peraid", "saipa", 12000,
                 "good Product!", "12");
         Product product2 = new Product(category2, "bmw", "bmw", 10000, "good", "32");
         Product product3 = new Product(category2, "peris", "aipr", 80000, "nice", "ado");
         HashMap<Product,Integer> productIntegerHashMap = new HashMap<>();
+        ArrayList<Product> subProducts = new ArrayList<>();
+        subProducts.add(product1);
+        subProducts.add(product2);
+        category2.setAllSubProducts(subProducts);
         productIntegerHashMap.put(product1,1);
         productIntegerHashMap.put(product3,2);
         productIntegerHashMap.put(product2,3);
+        Purchaser purchaser = new Purchaser("amirabbas","amirabbas","mohammadi","" +
+                "amir@gmail.com","09306304297","amirabbas","aas");
+        CodedDiscount codedDiscount = new CodedDiscount(new Date(190,10,25),new Date(190,11,20)
+        ,50,5000);
+        ArrayList<CodedDiscount> allCodedDiscount = new ArrayList<>();
+        allCodedDiscount.add(codedDiscount);
+        purchaser.setAllDiscountCodes(allCodedDiscount);
         seller1.setProductsToSell(productIntegerHashMap);
         launch(args);
 

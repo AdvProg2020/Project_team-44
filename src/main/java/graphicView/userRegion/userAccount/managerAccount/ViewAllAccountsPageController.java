@@ -20,6 +20,7 @@ import main.Main;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ViewAllAccountsPageController implements Initializable {
@@ -34,7 +35,7 @@ public class ViewAllAccountsPageController implements Initializable {
     @FXML
     public TableColumn<Account, CheckBox> removeUserButton;
     @FXML
-    public TableColumn<Account, CheckBox> addMangerButton;
+    public TableColumn<Account,StringProperty> isUserOnline;
 
 
     @FXML
@@ -51,17 +52,18 @@ public class ViewAllAccountsPageController implements Initializable {
     }
     @FXML
     public void checkout() throws UsernameNotExistsException {
-        for (Account account : getAccount()) {
+        for (Account account : allAccounts) {
             if(account.removeUser.isSelected()){
-                ManagerAccountController.processDeleteUserEach(account.userName.toString());
+                ManagerAccountController.processDeleteUserEach(account.userName.getValue());
             }
         }
     }
     ObservableList<Account> getAccount(){
         ObservableList<Account> allAccounts = FXCollections.observableArrayList();
         for (model.account.Account account : model.account.Account.getAllAccounts()) {
-            allAccounts.add(new Account(account.getFirstName()+" "+account.getLastName(),
-                    account.getEMail(),account.getTelephoneNumber()));
+            allAccounts.add(new Account(account.getUserName(),
+                    account.getEMail(),
+                    account.getTelephoneNumber() , account.isLoggedIn()));
         }
         return allAccounts;
     }
@@ -73,16 +75,16 @@ public class ViewAllAccountsPageController implements Initializable {
         AccountEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         AccountPhone.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         removeUserButton.setCellValueFactory(new PropertyValueFactory<>("removeUser"));
-        addMangerButton.setCellValueFactory(new PropertyValueFactory<>("addManager"));
+        isUserOnline.setCellValueFactory(new PropertyValueFactory<>("isOnline"));
         viewAllAccountsTable.setItems(getAccount());
    }
+    private ArrayList<Account> allAccounts = new ArrayList<>();
     public class Account{
         private StringProperty userName;
         private StringProperty email;
         private StringProperty phoneNumber;
         private CheckBox removeUser;
-        private CheckBox addManager;
-
+        private StringProperty isOnline;
         public String getUserName() {
             return userName.get();
         }
@@ -111,16 +113,25 @@ public class ViewAllAccountsPageController implements Initializable {
             return removeUser;
         }
 
-        public CheckBox getAddManager() {
-            return addManager;
+        public String getIsOnline() {
+            return isOnline.get();
         }
 
-        Account(String userName , String email , String phoneNumber){
+        public StringProperty isOnlineProperty() {
+            return isOnline;
+        }
+
+        Account(String userName , String email , String phoneNumber , boolean isOnline){
             this.userName = new SimpleStringProperty(userName);
             this.email = new SimpleStringProperty(email);
             this.phoneNumber = new SimpleStringProperty(phoneNumber);
             this.removeUser = new CheckBox();
-            this.addManager = new CheckBox();
+            if(isOnline){
+                this.isOnline = new SimpleStringProperty("yes");
+            }
+            else
+                this.isOnline = new SimpleStringProperty("no");
+            allAccounts.add(this);
 
         }
     }

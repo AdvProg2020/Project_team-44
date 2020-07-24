@@ -18,13 +18,13 @@
         </Label>
         <Button layoutX="-2.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="34.0" prefWidth="68.0" style="-fx-background-color: white;" text="back" />
         <Button layoutX="833.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="34.0" prefWidth="68.0" style="-fx-background-color: white;" text="logout" />
-      <TableView fx:id="viewAllAccountsTable" layoutX="25.0" layoutY="95.0" prefHeight="546.0" prefWidth="850.0" style="-fx-fixed-cell-size: 5;">
+      <TableView fx:id="viewAllAccountsTable" layoutX="25.0" layoutY="95.0" prefHeight="546.0" prefWidth="850.0">
         <columns>
-          <TableColumn fx:id="AccountName" prefWidth="228.00000381469727" text="name" />
+          <TableColumn fx:id="AccountUserName" prefWidth="228.00000381469727" text="user name" />
             <TableColumn fx:id="AccountEmail" prefWidth="245.59996032714844" text="email" />
             <TableColumn fx:id="AccountPhone" prefWidth="211.199951171875" text="phone number" />
             <TableColumn fx:id="removeUserButton" prefWidth="76.0" text="remove user" />
-            <TableColumn fx:id="addMangerButton" prefWidth="95.2000732421875" text="add manager" />
+            <TableColumn fx:id="isUserOnline" prefWidth="95.2000732421875" text="online" />
         </columns>
       </TableView>
       <Button layoutX="391.0" layoutY="652.0" mnemonicParsing="false" onMouseClicked="#checkout" prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: white;" text="checkout" />
