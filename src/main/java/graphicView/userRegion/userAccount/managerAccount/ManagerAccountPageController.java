@@ -1,6 +1,7 @@
 package graphicView.userRegion.userAccount.managerAccount;
 
 import controller.LoginPageController;
+import graphicView.buyLogPage.BuyLogPage;
 import graphicView.mainMenu.MainMenu;
 import graphicView.purchasePage.PurchasePageController;
 import graphicView.userRegion.loginPanel.LoginPanelController;
@@ -193,6 +194,11 @@ public class ManagerAccountPageController implements Initializable {
     public void viewAllAccounts() throws IOException {
         ManagerAccountPage.primaryStage.close();
         ViewAllAccountsPage.display();
+    }
+    @FXML
+    public void viewAllBuyLogs() throws IOException {
+        ManagerAccountPage.primaryStage.close();
+        AllBuyLogsPage.display();
     }
 
 }

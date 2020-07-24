@@ -2,6 +2,7 @@ package main;
 
 import controller.LoginPageController;
 import graphicView.mainMenu.MainMenu;
+import graphicView.userRegion.userAccount.managerAccount.AllBuyLogsPageController;
 import graphicView.userRegion.userAccount.managerRequestions.addOff.AddOffRequest;
 import graphicView.userRegion.userAccount.managerRequestions.addProduct.AddProductRequest;
 import graphicView.userRegion.userAccount.managerRequestions.addSeller.AddSellerRequest;
@@ -12,14 +13,17 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Category;
+import model.CodedDiscount;
 import model.ShopBankAccount;
 import model.account.Account;
 import model.account.Manager;
 import model.account.Purchaser;
 import model.account.Seller;
+import model.buyLog.BuyLog;
 import model.comment.Comment;
 import model.product.Auction;
 import model.product.Product;
+import model.requests.Request;
 import model.requests.RequestForAddProduct;
 import model.requests.RequestForRemoveProduct;
 import model.requests.RequestForSeller;
@@ -29,6 +33,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 
 public class Main extends Application {
     static ArrayList<Category> all = new ArrayList<>();
@@ -57,8 +63,53 @@ public class Main extends Application {
 
     public static void main(String[] args) throws IOException {
         System.out.println("start fresh!");
+         Purchaser purchaser1 = new Purchaser("mmmmmmmm", "Amir", "Mohammadi",
+                "amir160@gmail.com", "212121", "mmmmmmmm", "1a");
+         Purchaser purchaser2 = new Purchaser("G@3", "David", "James", "jgi@email.com",
+                "091212", "12mm", "4re");
+         Purchaser purchaser3 = new Purchaser("Lm10", "Lionel", "Messi",
+                "messi@", "767", "lll", "lan");
+         Manager manager = new Manager("Qmm", "Dariush", "Amiri", "432",
+                "901", "sd");
+         Seller seller1 = new Seller("XYz", "Alex", "dd", "ya@yahoo.com",
+                "2441", "12344", "izo", "street5", "6777");
+         Seller seller2 = new Seller("abbasabbas", "cristiano", "Ronaldo", "rooo", "852"
+                , "11111111", "tt", "sd d", "787");
+         Category category1 = new Category("car", null, "ali");
+         Category category2 = new Category("digital", null, "aff");
+         Request request1 = new Request();
+         CodedDiscount codedDiscount1 = new CodedDiscount(new Date(1380), new Date(123), 30,
+                5000);
+        CodedDiscount codedDiscount2 = new CodedDiscount(new Date(87), new Date(65), 87, 987);
+         Product product1 = new Product(category1, "peraid", "saipa", 12000,
+                "good Product!", "12");
+         Product product2 = new Product(category2, "bmw", "bmw", 10000, "good", "32");
+        Product product3 = new Product(category2,"peris","aipr",80000,"nice","ado");
+         Product product4 = new Product(category1,"door","xxxxxxx",9000,"soft","tss");
+         Auction auction1 = new Auction(category1,"perado","xx",50.0,"good","adf",new Date());
+         HashMap<Product , Integer> productHashMap1 = new HashMap<>();
+         productHashMap1.put(product2,1);
+         productHashMap1.put(product4,2);
+         productHashMap1.put(product3,3);
+         productHashMap1.put(auction1,4);
+         seller2.setProductsToSell(productHashMap1);
+         seller2.getAuction().add(auction1);
+         ArrayList<Product> allPurchasedProducts = new ArrayList<>();
+         allPurchasedProducts.add(product2);
+         allPurchasedProducts.add(product1);
+         HashMap<Product,Seller> productSellerHashMap = new HashMap<>();
+         productSellerHashMap.put(product2,seller1);
+         productSellerHashMap.put(product3,seller2);
+        BuyLog buyLog1 = new BuyLog(new Date(),20.0,0.0,allPurchasedProducts,productSellerHashMap);
+        buyLog1.setPurchaserAddress("tehran");
+        BuyLog buyLog2 = new BuyLog(new Date(),50.0,50.0,allPurchasedProducts,productSellerHashMap);
+        buyLog2.setPurchaserAddress("iran");
+        ArrayList<BuyLog> purchaseBuyLog = new ArrayList<>();
+        purchaseBuyLog.add(buyLog2);
+        purchaseBuyLog.add(buyLog1);
+        purchaser1.setBuyLogListHistory(purchaseBuyLog);
         reload();
-        new ShopServer();
+       // new ShopServer();
 //        setMediaPlayer("The Swimmer.mp3");
 
 

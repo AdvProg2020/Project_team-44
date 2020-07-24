@@ -125,22 +125,32 @@
                 <Font name="System Bold" size="21.0" />
             </font>
         </Label>
-        <Button fx:id="viewDiscountCodes" layoutX="799.0" layoutY="28.0" mnemonicParsing="false" onAction="#processViewDiscountCodes" prefHeight="76.0" prefWidth="197.0" style="-fx-background-color: transparent;" text="View Discount Codes">
+        <Button fx:id="viewDiscountCodes" layoutX="785.0" layoutY="30.0" mnemonicParsing="false" onAction="#processViewDiscountCodes" prefHeight="76.0" prefWidth="197.0" style="-fx-background-color: transparent;" text="View Discount Codes">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-      <Button fx:id="viewCart" layoutX="1052.0" layoutY="43.0" mnemonicParsing="false" onAction="#processViewCart" prefHeight="46.0" prefWidth="141.0" style="-fx-background-color: transparent;" text="View Cart">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button fx:id="logout" layoutX="14.0" layoutY="97.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
-      <Button layoutX="1193.0" layoutY="15.0" mnemonicParsing="false" onAction="#wallet" text="Wallet">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button layoutX="14.0" layoutY="52.0" mnemonicParsing="false" onAction="#createNewBankAccountAction" text="Create new Bank Account" />
+        <Button fx:id="viewCart" layoutX="1031.0" layoutY="42.0" mnemonicParsing="false" onAction="#processViewCart" prefHeight="46.0" prefWidth="141.0" style="-fx-background-color: transparent;" text="View Cart">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button fx:id="logout" layoutX="14.0" layoutY="97.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
+        <Button layoutX="1193.0" layoutY="15.0" mnemonicParsing="false" onAction="#wallet" text="Wallet">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button layoutX="14.0" layoutY="52.0" mnemonicParsing="false" onAction="#createNewBankAccountAction" text="Create new Bank Account" />
+        <Button layoutX="397.0" layoutY="48.0" mnemonicParsing="false" onAction="#goToAuctionPageAction" style="-fx-background-color: transparent;" text="Go to auction Page">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button fx:id="contactSupporters" layoutX="992.0" layoutY="579.0" mnemonicParsing="false" onAction="#processViewSupporters" prefHeight="63.0" prefWidth="220.0" style="-fx-background-color: transparent;" text="Contact Supporters">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
     </children>
 </AnchorPane>

@@ -6,6 +6,7 @@ import graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import main.Main;
 import model.account.Supporter;
@@ -20,7 +21,6 @@ public class AddSupporterPageController {
     public TextField newEmail;
     public TextField newPhoneNumber;
     public Label alertMessage;
-    private Paint Green;
 
     @FXML
      public void addSupporter(){
@@ -56,7 +56,7 @@ public class AddSupporterPageController {
     }
     Supporter supporter = new Supporter(userName,firstName,lastName,email,phoneNumber,passWord);
         alertMessage.setText("create new supporter successful");
-        alertMessage.setTextFill(Green);
+        alertMessage.setTextFill(Color.GREEN);
         alertMessage.setText("create new supporter successful");
 }
     @FXML

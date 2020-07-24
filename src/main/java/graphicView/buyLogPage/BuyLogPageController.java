@@ -1,6 +1,9 @@
 package graphicView.buyLogPage;
 
+import controller.LoginPageController;
 import graphicView.userRegion.loginPanel.LoginPanelController;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,6 +24,8 @@ import java.util.ResourceBundle;
 
 public class BuyLogPageController implements Initializable {
     private static String currentBuyLogId;
+    @FXML
+    public TableColumn<BuyLogIds , StringProperty> statusColumn;
 
     public static String getCurrentBuyLogId() {
         return currentBuyLogId;
@@ -43,9 +48,19 @@ public class BuyLogPageController implements Initializable {
     public class BuyLogIds {
         // change the type label to use set on action function
         private Label buyLogId;
+        private StringProperty status;
 
-        public BuyLogIds(String buyLogId) {
+        public String getStatus() {
+            return status.get();
+        }
+
+        public StringProperty statusProperty() {
+            return status;
+        }
+
+        public BuyLogIds(String buyLogId , String status) {
             this.buyLogId = new Label(buyLogId);
+            this.status = new SimpleStringProperty(status);
             this.buyLogId.setOnMousePressed(actionEvent -> {
                 playButtonSound();
                 setCurrentBuyLogId(buyLogId);
@@ -65,8 +80,8 @@ public class BuyLogPageController implements Initializable {
 
     ObservableList<BuyLogIds> getBuyLogIds() {
         ObservableList<BuyLogIds> buyLogs = FXCollections.observableArrayList();
-        for (String buyLogId : ((Purchaser) LoginPanelController.getLoggedInAccount()).getAllBuyLogIds()) {
-            buyLogs.add(new BuyLogIds(buyLogId));
+        for (String buyLogId : ((Purchaser) LoginPageController.getLoggedInAccount()).getAllBuyLogIds()) {
+            buyLogs.add(new BuyLogIds(buyLogId, model.buyLog.BuyLog.getBuyLogById(buyLogId).getStatus().toString()));
         }
         return buyLogs;
     }
@@ -85,6 +100,7 @@ public class BuyLogPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         buyLogIdColumn.setCellValueFactory(new PropertyValueFactory<>("buyLogId"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         buyLogIdsTableView.setItems(getBuyLogIds());
     }
 }

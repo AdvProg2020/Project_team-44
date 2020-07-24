@@ -161,6 +161,11 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <Button layoutX="347.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#viewAllBuyLogs" prefHeight="38.0" prefWidth="149.0" text="view all buy logs">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
             </children>
         </AnchorPane>
     </children>

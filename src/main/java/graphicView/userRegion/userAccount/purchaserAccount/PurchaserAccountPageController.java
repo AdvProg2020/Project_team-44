@@ -16,12 +16,15 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import main.Main;
 import model.account.Account;
+import model.account.Purchaser;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PurchaserAccountPageController implements Initializable {
+    @FXML
+    private Button contactSupporters;
     @FXML
     private Label purchaserName;
     @FXML
@@ -54,6 +57,17 @@ public class PurchaserAccountPageController implements Initializable {
         PurchaserAccountPage.primaryStage.close();
         MainMenu.display(Main.window);
     }
+
+    @FXML
+    private void processViewSupporters() {
+        // button sound TODO
+        try {
+            PurchaserContactSupportersPage.display();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     private void processViewCart() {
@@ -116,5 +130,10 @@ public class PurchaserAccountPageController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void goToAuctionPageAction(ActionEvent actionEvent) throws IOException {
+        PurchaserAccountPage.primaryStage.close();
+        //PurchaserAuction.display();
     }
 }

@@ -6,6 +6,7 @@ import graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import main.Main;
 import model.account.Manager;
 
@@ -56,7 +57,7 @@ public class AddManagerPageController {
         }
         Manager manager = new Manager(userName,firstName,lastName,email,phoneNumber,passWord);
         alertMessage.setText("");
-        alertMessage.setTextFill(GREEN);
+        alertMessage.setTextFill(Color.GREEN);
         alertMessage.setText("create new manager successful");
     }
     @FXML

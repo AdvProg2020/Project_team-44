@@ -1,7 +1,7 @@
 package controller;
 
 import exception.*;
-import graphicView.userRegion.loginPanel.LoginPanelController;
+
 import model.CodedDiscount;
 import model.account.Purchaser;
 import model.buyLog.BuyLog;
@@ -92,10 +92,10 @@ public abstract class PurchaserAccountController {
 
     }
 
-    public static void processPayment() throws NotEnoughMoneyToPayException {
+    public static void processPayment(String address) throws NotEnoughMoneyToPayException {
         ValidationController.checkEnoughMoneyToPay(((Purchaser) LoginPageController.loggedInAccount)
                 , ((Purchaser) LoginPageController.loggedInAccount).getCartMoneyToPay());
-        ((Purchaser) LoginPageController.loggedInAccount).purchase(PurchaserAccountController.discountCode);
+        ((Purchaser) LoginPageController.loggedInAccount).purchase(PurchaserAccountController.discountCode , address);
     }
 
     //    only called when user click the delete button, the case that quantity went 0 is handled in decreaseItemInCart

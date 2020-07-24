@@ -115,4 +115,9 @@ public class SellerAccountPageController implements Initializable {
         SellerAccountPage.primaryStage.close();
         SellerBankAccount.display();
     }
+    @FXML
+    public void createAuction() throws IOException {
+        SellerAccountPage.primaryStage.close();
+        AllProductsForAuctionPage.display();
+    }
 }

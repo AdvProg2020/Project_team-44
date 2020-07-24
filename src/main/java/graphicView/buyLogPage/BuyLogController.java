@@ -40,7 +40,7 @@ public class BuyLogController implements Initializable {
     private TableColumn<PurchasedProduct, StringProperty> sellerLastNameColumn;
 
     // inner class for purchased product table elements
-    public class PurchasedProduct {
+    public static class PurchasedProduct {
         private StringProperty purchasedProduct;
         private StringProperty sellerFirstName;
         private StringProperty sellerLastName;
@@ -77,7 +77,7 @@ public class BuyLogController implements Initializable {
     private TableColumn<BuyLogInfo, StringProperty> statusColumn;
 
     // info inner class
-    public class BuyLogInfo {
+    public static class BuyLogInfo {
         private Date date;
         private IntegerProperty discountCodeAmountUsed;
         private IntegerProperty moneyPaid;

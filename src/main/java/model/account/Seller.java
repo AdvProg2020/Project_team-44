@@ -199,4 +199,12 @@ public class Seller extends Account {
     public void setProductsToSell(HashMap<Product, Integer> productsToSell) {
         this.productsToSell = productsToSell;
     }
+    public boolean isProductInAuctionList(Product product){
+        for (Product product1 : this.auction) {
+            if(product1.getName().equals(product.getName()))
+                return true;
+        }
+        return false;
+    }
 }
+

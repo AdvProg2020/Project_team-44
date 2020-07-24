@@ -6,6 +6,7 @@ import graphicView.userRegion.loginPanel.LoginPanel;
 import graphicView.userRegion.userAccount.managerAccount.ManagerAccountPage;
 import graphicView.userRegion.userAccount.purchaserAccount.PurchaserAccountPage;
 import graphicView.userRegion.userAccount.sellerAccount.SellerAccountPage;
+import graphicView.userRegion.userAccount.supporterAccount.SupporterAccountPage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import main.Main;
 import model.account.Manager;
 import model.account.Purchaser;
 import model.account.Seller;
+import model.account.Supporter;
 
 import java.io.IOException;
 
@@ -39,6 +41,9 @@ public class MainMenu {
             SellerAccountPage.display();
         } else if (LoginPageController.getLoggedInAccount() instanceof Purchaser) {
             PurchaserAccountPage.display();
+        }
+        else if(LoginPageController.getLoggedInAccount() instanceof Supporter){
+            SupporterAccountPage.display();
         }
     }
 

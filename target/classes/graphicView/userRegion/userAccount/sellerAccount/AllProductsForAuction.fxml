@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="650.0" prefWidth="850.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.userRegion.userAccount.sellerAccount.AllProductsForAuctionPageController">
+   <children>
+      <Line endX="742.9999389648438" endY="-6.8000030517578125" layoutX="107.0" layoutY="70.0" startX="-107.00000762939453" startY="-6.8000030517578125" />
+      <Label layoutX="244.0" layoutY="14.0" prefHeight="44.0" prefWidth="362.0" text="View Products For Add Auction">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button layoutY="1.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="29.0" prefWidth="62.0" style="-fx-background-color: white;" text="back" />
+      <Button layoutX="787.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="29.0" prefWidth="62.0" style="-fx-background-color: white;" text="logout" />
+      <TableView fx:id="auctionTable" layoutX="205.0" layoutY="80.0" prefHeight="534.0" prefWidth="439.0">
+        <columns>
+          <TableColumn fx:id="productName" prefWidth="220.00001525878906" text="product name" />
+            <TableColumn fx:id="productPrice" prefWidth="218.39999389648438" text="price" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

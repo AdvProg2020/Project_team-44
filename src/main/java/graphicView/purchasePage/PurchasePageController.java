@@ -2,6 +2,8 @@ package graphicView.purchasePage;
 
 import controller.LoginPageController;
 import controller.ManagerAccountController;
+import controller.PurchaserAccountController;
+import exception.NotEnoughMoneyToPayException;
 import graphicView.cart.CartPageController;
 import graphicView.userRegion.userAccount.sellerAccount.SellerWalletController;
 import javafx.beans.property.BooleanProperty;
@@ -72,17 +74,15 @@ public class PurchasePageController implements Initializable {
             messageLabel.setText("Not enough money!");
             return;
         }
-        Purchaser purchaser = (Purchaser) LoginPageController.getLoggedInAccount();
-        purchaser.setBalance(purchaser.getBalance() - toPay);
-        purchaser.createAndUpdateJson();
-        for (Product product : ((Purchaser) LoginPageController.getLoggedInAccount()).getSellerSelectedForEachProduct().keySet()) {
-            Seller seller = purchaser.getSellerSelectedForEachProduct().get(product);
-            seller.setBalance(seller.getBalance() + ((100 - wage) * purchaser.getCart().get(product) * product.getPrice()) / 100);
-            seller.createAndUpdateJson();
+        try {
+            PurchaserAccountController.processPayment(addressField.getText());
+        } catch (NotEnoughMoneyToPayException e) {
+            messageLabel.setText(e.getMessage());
         }
         messageLabel.setText("Successfully payed from credit card.");
 //        PurchaserAccountPageController.writeInformation();
         // پول به فروشنده ها اضافه شود
+
     }
 
     @FXML

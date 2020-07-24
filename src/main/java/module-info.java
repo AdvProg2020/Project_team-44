@@ -23,6 +23,7 @@ module team {
     opens graphicView.userRegion.userAccount.managerRequestions.addProduct to javafx.fxml, javafx.base;
     opens graphicView.userRegion.userAccount.managerRequestions.removeProduct to javafx.fxml, javafx.base;
     opens graphicView.userRegion.userAccount.managerRequestions.addSeller to javafx.fxml, javafx.base;
+    opens graphicView.userRegion.userAccount.supporterAccount to javafx.fxml;
 //    opens graphicView to javafx.media;
     opens model to com.google.gson, javafx.base;
     opens model.account to com.google.gson;
@@ -32,6 +33,6 @@ module team {
     opens model.buyLog to com.google.gson;
     opens model.comment to com.google.gson;
     opens graphicView.userRegion.userAccount.managerAccount to javafx.fxml , javafx.base;
-    opens graphicView.userRegion.userAccount.sellerAccount to javafx.fxml;
+    opens graphicView.userRegion.userAccount.sellerAccount to javafx.fxml , javafx.base;
     opens graphicView.userRegion.userAccount.purchaserAccount to javafx.fxml;
 }

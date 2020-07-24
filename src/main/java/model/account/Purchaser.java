@@ -108,7 +108,7 @@ public class Purchaser extends Account {
         new Rating(product, this, rating);
     }
 
-    public void purchase(String discountCode) {
+    public void purchase(String discountCode , String currentAddress) {
         for (Product product : this.getCart().keySet()) {
             product.getAllPurchaser().add(this);
             Seller seller = this.getSellerSelectedForEachProduct().get(product);
@@ -118,14 +118,17 @@ public class Purchaser extends Account {
                 if (seller.getProductsToSell().get(product) == this.getCart().get(product)) {
                     seller.getProductsToSell().remove(product);
                 }
+                seller.createAndUpdateJson();
             }
         }
         double discountCodeAmountUsed = 0;
         discountCodeAmountUsed += this.getCartMoneyToPay() * CodedDiscount.getCodedDiscountByCode(discountCode).getDiscountPercentage() / 100;
-        new BuyLog(getCurrentDate(), this.getCartMoneyToPay() - discountCodeAmountUsed, discountCodeAmountUsed, getCartProducts(), this.getSellerSelectedForEachProduct());
+        BuyLog buyLog = new BuyLog(getCurrentDate(), this.getCartMoneyToPay() - discountCodeAmountUsed, discountCodeAmountUsed, getCartProducts(), this.getSellerSelectedForEachProduct());
+        buyLog.setPurchaserAddress(currentAddress);
         new SellLog(getCurrentDate(), this.getCartMoneyToPay(), getOfferLossesMoney(), getCartProducts(), this.getFirstName(), this.getLastName());
         this.setBalance(this.getBalance() - this.getCartMoneyToPay() + discountCodeAmountUsed);
         this.getCart().clear();
+        this.createAndUpdateJson();
     }
 
     public static Date getCurrentDate() {
