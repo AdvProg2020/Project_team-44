@@ -141,18 +141,17 @@ public class Manager extends Account {
     }
 
     public static void editCodedDiscount(String discountCode, String field, String newValue) throws ParseException {
-        if (field.equalsIgnoreCase("initialDate")) {
+        if (field.equalsIgnoreCase("INITIAL_DATE")) {
             Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(newValue);
             CodedDiscount.getCodedDiscountByCode(discountCode).setInitialDate(date);
-        } else if (field.equalsIgnoreCase("finalDate")) {
+        } else if (field.equalsIgnoreCase("FINAL_DATE")) {
             Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(newValue);
             CodedDiscount.getCodedDiscountByCode(discountCode).setFinalDate(date);
-        } else if (field.equalsIgnoreCase("discountPercentage")) {
+        } else if (field.equals("DISCOUNT_PERCENTAGE")) {
             CodedDiscount.getCodedDiscountByCode(discountCode).setDiscountPercentage(Integer.parseInt(newValue));
         } else if (field.equalsIgnoreCase("maxAuthorizedPrice")) {
             CodedDiscount.getCodedDiscountByCode(discountCode).setMaxAuthorizedPrice(Integer.parseInt(newValue));
         }
-        System.out.println("yes");
     }
 
     public static void createCodedDiscount(Date initialDate, Date finalDate, int discountPercentage, int maxAuthorizedPrice) {

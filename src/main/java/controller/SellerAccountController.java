@@ -97,12 +97,8 @@ public abstract class SellerAccountController {
 
     public static void processAddOffEach(ArrayList<String> productListIds, String initialDate, String finalDate,
                                          int discountPercentage) throws SellerNotOwnsProductException, ParseException, TimeExpiresException {
-        for (String productId : productListIds) {
-            ValidationController.checkProductBelongToSeller((Seller) LoginPageController.loggedInAccount,
-                    Product.getProductByID(productId));
-        }
-        ValidationController.checkTime(new SimpleDateFormat("dd/MM/yyyy").parse(initialDate));
-        ValidationController.checkTime(new SimpleDateFormat("dd/MM/yyyy").parse(finalDate));
+       // ValidationController.checkTime(new SimpleDateFormat("dd/MM/yyyy").parse(initialDate));
+       // ValidationController.checkTime(new SimpleDateFormat("dd/MM/yyyy").parse(finalDate));
         ArrayList<Product> allProducts = new ArrayList<>();
         for (String productId : productListIds) {
             allProducts.add(Product.getProductByID(productId));

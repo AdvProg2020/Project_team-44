@@ -72,7 +72,7 @@ public class ViewDiscountCodesMenu extends Menu {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.backInExecute();
-                else if (!input.matches("edit discount code \\w+-\\w+-\\w+"))
+                else if (!input.matches("edit discount code .+-.+-.+"))
                     this.invalidCommandInExecute();
                 else {
                     String newInput = input.substring(19);

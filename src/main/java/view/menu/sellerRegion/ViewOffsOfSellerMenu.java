@@ -135,6 +135,7 @@ public class ViewOffsOfSellerMenu extends Menu {
                     this.backInExecute();
                 if (!finalDate.matches("^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)(\\d){4}$"))
                     this.invalidCommandInExecute();
+                System.out.println("Please enter your discount percentage");
                 String discountPercentage = scanner.nextLine();
                 if (discountPercentage.equalsIgnoreCase("back"))
                     this.backInExecute();
