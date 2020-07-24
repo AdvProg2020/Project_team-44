@@ -1,7 +1,6 @@
 package client.graphicView.userRegion.userAccount.purchaserAccount;
 
 import client.Main;
-import graphicView.userRegion.userAccount.purchaserAccount.PurchaserContactSupportersPage;
 import server.controller.LoginPageController;
 import client.graphicView.buyLogPage.BuyLogPage;
 import client.graphicView.cart.CartPage;
@@ -14,8 +13,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import server.model.account.Account;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,6 +45,11 @@ public class PurchaserAccountPageController implements Initializable {
     private Button editInfo;
     @FXML
     private Button logout;
+
+    private final int port = 9013;
+    private final String ip = "127.0.0.1";
+    private DataOutputStream out;
+    private DataInputStream in;
 
     @FXML
     private void logout() throws IOException {

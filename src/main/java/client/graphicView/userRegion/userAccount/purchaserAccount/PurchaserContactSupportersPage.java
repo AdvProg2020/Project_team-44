@@ -1,11 +1,10 @@
-package graphicView.userRegion.userAccount.purchaserAccount;
+package client.graphicView.userRegion.userAccount.purchaserAccount;
 
+import client.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.Main;
 
 import java.io.IOException;
 

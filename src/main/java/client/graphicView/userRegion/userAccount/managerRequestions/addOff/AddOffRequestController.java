@@ -12,42 +12,22 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AddOffRequestController implements Initializable {
     // store the clicked requestId
     private static String currentRequestId;
-    private final int port = 9002;
+    private final int port = 9011;
     private final String ip = "127.0.0.1";
     private DataOutputStream out;
     private DataInputStream in;
-
-    public void input() {
-        while (true) {
-            String input;
-            try {
-                input = in.readUTF();
-                if (input.startsWith("")) {
-
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
-
-    public void output() {
-
-    }
 
     public void process() {
         try {
             Socket socket = new Socket(ip, port);
             out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-            new Thread(this::output).start();
-            new Thread(this::input).start();
         } catch (
                 IOException e) {
             e.printStackTrace();
@@ -73,15 +53,23 @@ public class AddOffRequestController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         requestIdsColumn.setCellValueFactory(new PropertyValueFactory<>("requestId"));
-        table.setItems(getRequest());
+        try {
+            table.setItems(getRequest());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private ObservableList<RequestIds> getRequest() {
-        out.writeUTF("get_request");
+    private ObservableList<RequestIds> getRequest() throws IOException {
+        out.writeUTF("get_all_request");
         out.flush();
+        ArrayList<String> allRequest = new ArrayList<>();
+        for (String s : in.readUTF().split(" - ")) {
+            allRequest.add(s);
+        }
         ObservableList<RequestIds> requestIds = FXCollections.observableArrayList();
-        for (RequestForAddOff requestForAddOff : RequestForAddOff.getAllRequestsForAddOff()) {
-            requestIds.add(new RequestIds(requestForAddOff.getRequestId()));
+        for (String requestForAddOff : allRequest) {
+            requestIds.add(new RequestIds(requestForAddOff));
         }
         return requestIds;
     }

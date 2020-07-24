@@ -1,16 +1,20 @@
-package server.viewServer.userRegion.userAccount.managerRequestons.addOff;
+package server.viewServer.userRegion.userAccount.purchaserAccount;
 
-import server.model.requests.RequestForAddOff;
-import server.viewServer.userRegion.userAccount.managerAccount.ManagerAccountPageServer;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import server.model.account.Account;
+import server.model.account.Supporter;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 
-public class AddOffRequestServer {
-    public static final int port = 9011;
+public class PurchaserContactSupportersPageServer {
+    public static final int port = 9014;
 
-    public AddOffRequestServer() throws IOException {
+    public PurchaserContactSupportersPageServer() throws IOException {
         ServerSocket shopServer = new ServerSocket(port);
         new Thread(() -> {
             while (true) {
@@ -18,7 +22,7 @@ public class AddOffRequestServer {
                     Socket socket = shopServer.accept();
                     DataInputStream in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
                     DataOutputStream out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-                    new AddOffRequestServer.ClientHandler(out, in, socket).start();
+                    new PurchaserContactSupportersPageServer.ClientHandler(out, in, socket).start();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -42,8 +46,8 @@ public class AddOffRequestServer {
             try {
                 while (true) {
                     String input = dataInputStream.readUTF();
-                    if (input.startsWith("get_all_request")) {
-                        processGetAllRequest();
+                    if (input.startsWith("get_all_supporter")) {
+                        processGetAllSupporter();
                     }
                 }
             } catch (IOException e) {
@@ -51,13 +55,17 @@ public class AddOffRequestServer {
             }
         }
 
-        public void processGetAllRequest() throws IOException {
+        public void processGetAllSupporter() throws IOException {
             StringBuilder all = new StringBuilder();
-            for (RequestForAddOff requestForAddOff : RequestForAddOff.getAllRequestsForAddOff()) {
-                all.append(requestForAddOff.getRequestId() + " - ");
+            for (Supporter supporter : Supporter.getAllSupporters()) {
+                if (supporter.isLoggedIn()) {
+                    all.append(supporter.getUserName() + " - ");
+                }
             }
             dataOutputStream.writeUTF(all.toString());
             dataOutputStream.flush();
         }
+
+
     }
 }

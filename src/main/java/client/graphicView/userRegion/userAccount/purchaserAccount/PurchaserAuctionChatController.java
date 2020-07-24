@@ -1,7 +1,5 @@
 package client.graphicView.userRegion.userAccount.purchaserAccount;
 
-//import server.controller.LoginPageController;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,11 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import server.controller.LoginPageController;
-//import server.graphicView.userRegion.userAccount.purchaserAccount.PurchaserAuctionChatServer;
-//import server.model.account.Account;
-//import server.model.account.Manager;
-//import server.model.product.Auction;
 
 import java.io.*;
 import java.net.Socket;
