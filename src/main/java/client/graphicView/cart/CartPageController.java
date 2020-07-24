@@ -62,7 +62,6 @@ public class CartPageController implements Initializable {
         }
         // never hit the catch and this statement
         return 0;
-//        return (int) PurchaserAccountController.processShowTotalPriceEach();
     }
 
     public void processInitialize() {
