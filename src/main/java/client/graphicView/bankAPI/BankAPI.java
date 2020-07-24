@@ -17,7 +17,7 @@ public class BankAPI {
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");
-        Scene root = new Scene(FXMLLoader.load(BuyLog.class.getResource("/graphicView/bankAPI/BankAPI.fxml")));
+        Scene root = new Scene(FXMLLoader.load(BankAPI.class.getResource("/graphicView/bankAPI/BankAPI.fxml")));
         window.setScene(root);
         window.setMaximized(true);
         window.show();
