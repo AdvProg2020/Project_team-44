@@ -16,7 +16,7 @@ public class DiscountCodesPage {
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");
-        Scene root = new Scene(FXMLLoader.load(DiscountCodesPage.class.getResource("/graphicView/discountCodes/DiscountCodesPage.fxml")));
+        Scene root = new Scene(FXMLLoader.load(DiscountCodesPage.class.getResource("/client/graphicView/discountCodes/DiscountCodesPage.fxml")));
         window.setScene(root);
         window.setMaximized(true);
         window.show();

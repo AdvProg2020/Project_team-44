@@ -42,7 +42,7 @@ public class Account {
 
     public void createAndUpdateJson() {
         try {
-            Writer writer = new FileWriter("src/server.main/resources/Accounts/Accounts/" + this.getUserName() + ".json");
+            Writer writer = new FileWriter("src/main/resources/Accounts/Accounts/" + this.getUserName() + ".json");
             new Gson().toJson(this, writer);
             writer.close();
         } catch (IOException e) {

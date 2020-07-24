@@ -15,7 +15,7 @@ public class RemoveProductRequestInfo {
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");
-        Scene root = new Scene(FXMLLoader.load(RemoveProductRequestInfo.class.getResource("/graphicView/userRegion/userAccount/managerRequestions/removeProduct/RemoveProductRequestInfo.fxml")));
+        Scene root = new Scene(FXMLLoader.load(RemoveProductRequestInfo.class.getResource("/client/graphicView/userRegion/userAccount/managerRequestions/removeProduct/RemoveProductRequestInfo.fxml")));
         window.setScene(root);
 //        window.setMaximized(true);
         window.show();

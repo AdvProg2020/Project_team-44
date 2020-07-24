@@ -14,7 +14,7 @@ public class PurchaserAuction {
     public static void display() throws IOException {
         Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
-        Parent root = FXMLLoader.load(PurchaserAuction.class.getResource("/graphicView/userRegion/userAccount/purchaserAccount/PurchaserAuction.fxml"));
+        Parent root = FXMLLoader.load(PurchaserAuction.class.getResource("/client/graphicView/userRegion/userAccount/purchaserAccount/PurchaserAuction.fxml"));
         primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

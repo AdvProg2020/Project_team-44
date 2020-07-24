@@ -14,7 +14,7 @@
     <children>
         <ImageView fitHeight="722.0" fitWidth="1282.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../../media/image/auction.jpg" />
+                <Image url="@../../../../../media/image/auction.jpg" />
             </image>
         </ImageView>
         <Label fx:id="usernameFieldId" layoutX="746.0" layoutY="43.0" prefHeight="37.0" prefWidth="302.0">

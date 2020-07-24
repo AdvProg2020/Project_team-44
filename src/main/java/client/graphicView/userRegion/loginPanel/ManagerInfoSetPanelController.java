@@ -1,18 +1,24 @@
 package client.graphicView.userRegion.loginPanel;
 
-import server.controller.LoginPageController;
-import server.exception.UsernameExistsException;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.Socket;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ManagerInfoSetPanelController {
+public class ManagerInfoSetPanelController implements Initializable {
+    private final int PORT = 9051;
+    private final String IP = "127.0.0.1";
+    private DataOutputStream out;
+    private DataInputStream in;
     @FXML
     private TextField firstNameField = new TextField();
     @FXML
@@ -25,7 +31,7 @@ public class ManagerInfoSetPanelController {
     private Button nextButton = new Button();
 
     private void playButtonSound() {
-        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/server.main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
         mediaPlayer.play();
     }
 
@@ -37,23 +43,62 @@ public class ManagerInfoSetPanelController {
                 !telField.getText().matches("[0][9]\\d{9}")) {
 
             messageLabel.setText("Invalid. Try Again");
+            return;
         }
-        // never reach catch clause cause it was the server.exception was checked in previous scene
+        out.writeUTF("finishRegister:" +
+                "\n" + ManagerInfoSetPanel.getManagerUsername() +
+                "\n" + ManagerInfoSetPanel.getManagerPassword() +
+                "\n" + firstNameField.getText() +
+                "\n" + secondNameField.getText() +
+                "\n" + ManagerInfoSetPanel.getManagerEmail() +
+                "\n" + telField.getText());
+        out.flush();
+    }
+
+    public void processInitialize() {
         try {
-            LoginPanelController.setLoggedInAccount(LoginPageController.processCreateAccount("Head Manager",
-                    ManagerInfoSetPanel.getManagerUsername(),
-                    ManagerInfoSetPanel.getManagerPassword(),
-                    firstNameField.getText(),
-                    secondNameField.getText(),
-                    ManagerInfoSetPanel.getManagerEmail(),
-                    telField.getText(),
-                    null,
-                    null,
-                    null));
-        } catch (UsernameExistsException e) {
+            Socket socket = new Socket(IP, PORT);
+            out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            new Thread(this::input).start();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        ManagerInfoSetPanel.window.close();
-        LoginPanel.display();
+    }
+
+
+    public void input() {
+        while (true) {
+            String input;
+            try {
+                input = in.readUTF();
+                if (input.startsWith("registerSuccessful")) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            ManagerInfoSetPanel.window.close();
+                            try {
+                                LoginPanel.display();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                } else if (input.startsWith("registerUnSuccessful:")) {
+                    int colonIndex = input.indexOf(":");
+                    String errorStackTrace = input.substring(colonIndex + 1);
+                    throw new Exception(errorStackTrace);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        processInitialize();
     }
 }

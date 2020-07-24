@@ -1,6 +1,8 @@
 package client.graphicView.userRegion.loginPanel;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -8,10 +10,16 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import server.model.requests.RequestForSeller;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.Socket;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class SellerInfoSetPanelController {
+public class SellerInfoSetPanelController implements Initializable {
+    private final int PORT = 9053;
+    private final String IP = "127.0.0.1";
+    private DataOutputStream out;
+    private DataInputStream in;
     @FXML
     private TextField firstNameField = new TextField();
     @FXML
@@ -30,10 +38,56 @@ public class SellerInfoSetPanelController {
     private Button nextButton = new Button();
 
     private void playButtonSound() {
-        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/server.main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
         mediaPlayer.play();
     }
 
+
+    public void processInitialize() {
+        try {
+            Socket socket = new Socket(IP, PORT);
+            out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            new Thread(this::input).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void input() {
+        while (true) {
+            String input;
+            try {
+                input = in.readUTF();
+                if (input.startsWith("registerSuccessful")) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            SellerInfoSetPanel.window.close();
+                            try {
+                                LoginPanel.display();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                } else if (input.startsWith("registerUnSuccessful:")) {
+                    int colonIndex = input.indexOf(":");
+                    String errorStackTrace = input.substring(colonIndex + 1);
+                    throw new Exception(errorStackTrace);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        processInitialize();
+    }
 
     //    set on nextButton action
     public void goNext() throws IOException {
@@ -46,22 +100,19 @@ public class SellerInfoSetPanelController {
                 !companyNameField.getText().matches("[a-z|A-Z]+")) {
 
             messageLabel.setText("Invalid. Try Again");
+            return;
         }
         // never reach catch clause cause it was the server.exception was checked in previous scene
-            new RequestForSeller(companyNameField.getText(), addressField.getText(), companyTelField.getText()
-                    , SellerInfoSetPanel.getSellerUsername(), firstNameField.getText(), secondNameField.getText(),
-                    SellerInfoSetPanel.getSellerEmail(), telField.getText(), SellerInfoSetPanel.getSellerPassword());
-//            LoginPanelController.setLoggedInAccount(LoginPageController.processCreateAccount("Seller",
-//                    SellerInfoSetPanel.getSellerUsername(),
-//                    SellerInfoSetPanel.getSellerPassword(),
-//                    firstNameField.getText(),
-//                    secondNameField.getText(),
-//                    SellerInfoSetPanel.getSellerEmail(),
-//                    telField.getText(),
-//                    companyNameField.getText(),
-//                    addressField.getText(),
-//                    companyTelField.getText()));
-            SellerInfoSetPanel.window.close();
-            LoginPanel.display();
+        out.writeUTF("finishRegister:" +
+                "\n" + SellerInfoSetPanel.getSellerUsername() +
+                "\n" + SellerInfoSetPanel.getSellerPassword() +
+                "\n" + firstNameField.getText() +
+                "\n" + secondNameField.getText() +
+                "\n" + SellerInfoSetPanel.getSellerEmail() +
+                "\n" + telField.getText() +
+                "\n" + addressField.getText() +
+                "\n" + companyNameField.getText() +
+                "\n" + companyTelField.getText());
+        out.flush();
     }
 }

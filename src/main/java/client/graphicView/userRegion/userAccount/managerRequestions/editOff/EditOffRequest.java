@@ -16,7 +16,7 @@ public class EditOffRequest {
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");
-        Scene root = new Scene(FXMLLoader.load(EditOffRequest.class.getResource("/graphicView/userRegion/userAccount/managerRequestions/editOff/EditOffRequest.fxml")));
+        Scene root = new Scene(FXMLLoader.load(EditOffRequest.class.getResource("/client/graphicView/userRegion/userAccount/managerRequestions/editOff/EditOffRequest.fxml")));
         window.setScene(root);
 //        window.setMaximized(true);
         window.show();

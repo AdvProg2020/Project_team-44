@@ -1,7 +1,5 @@
 package client.graphicView.cart;
 
-import server.controller.LoginPageController;
-import server.controller.PurchaserAccountController;
 import client.graphicView.purchasePage.PurchasePage;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -16,23 +14,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import server.model.account.Purchaser;
-import server.model.product.Product;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.net.Socket;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CartPageController implements Initializable {
-    private ArrayList<Cart> allCarts = new ArrayList<>();
+    private final int PORT = 9054;
+    private final String IP = "127.0.0.1";
+    private static DataOutputStream out;
+    private static DataInputStream in;
 
     @FXML
     private TableView<Cart> cartTableView;
@@ -58,29 +52,67 @@ public class CartPageController implements Initializable {
     @FXML
     private Label totalAmountLabel;
 
+    public static int totalAmountToPay() {
+        try {
+            out.writeUTF("totalAmountToPay");
+            out.flush();
+            return Integer.parseInt(in.readUTF());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // never hit the catch and this statement
+        return 0;
+//        return (int) PurchaserAccountController.processShowTotalPriceEach();
+    }
+
+    public void processInitialize() {
+        try {
+            Socket socket = new Socket(IP, PORT);
+            out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+//            new Thread(this::input).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     ObservableList<Cart> getCart() {
         ObservableList<Cart> carts = FXCollections.observableArrayList();
-        for (Product product : PurchaserAccountController.getCartProducts()) {
-            carts.add(new Cart(product.getName(),
-                    (int) product.getPrice(),
-                    ((Purchaser) LoginPageController.getLoggedInAccount()).getCart().get(Product.getProductByName(product.getName()))));
+        try {
+            out.writeUTF("gatCart");
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            String[] cartInfo = in.readUTF().split("\n");
+            for (String cartProductInfo : cartInfo) {
+                String[] productInfo = cartProductInfo.split(":");
+                try {
+                    carts.add(new Cart(productInfo[0],
+                            Integer.parseInt(productInfo[1]),
+                            Integer.parseInt(productInfo[2])));
+                }catch (ArrayIndexOutOfBoundsException e){
+                    continue;
+                }
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return carts;
     }
 
-    public static int totalAmountToPay() {
-        return (int) PurchaserAccountController.processShowTotalPriceEach();
-    }
-
     private void playButtonSound() {
-        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/server.main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
         mediaPlayer.play();
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("hey");
+        processInitialize();
         productNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         priceFeeColumn.setCellValueFactory(new PropertyValueFactory<>("priceFee"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
@@ -99,6 +131,36 @@ public class CartPageController implements Initializable {
             PurchasePage.display();
         } catch (IOException ioException) {
             ioException.printStackTrace();
+        }
+    }
+
+    private void increaseItemInCart(String productName) {
+        try {
+            out.writeUTF("increaseItemInCart:" + productName);
+            out.flush();
+            in.readUTF();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void decreaseItemInCart(String productName) {
+        try {
+            out.writeUTF("decreaseItemInCart:" + productName);
+            out.flush();
+            in.readUTF();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteItemInCart(String productName) {
+        try {
+            out.writeUTF("deleteItemInCart:" + productName);
+            out.flush();
+            in.readUTF();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -126,20 +188,20 @@ public class CartPageController implements Initializable {
             // increase button
             increaseButton.setOnAction(actionEvent -> {
                 playButtonSound();
-                PurchaserAccountController.increaseItemInCart(productName);
+                increaseItemInCart(productName);
                 cartTableView.setItems(getCart());
                 totalAmountLabel.setText("" + totalAmountToPay());
             });
-            try {
-                increaseButton.setGraphic(new ImageView(new Image(new FileInputStream("src/server.main/resources/media/image/deleteIcon.jpg"))));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                increaseButton.setGraphic(new ImageView(new Image(new FileInputStream("src/main/resources/media/image/deleteIcon.jpg"))));
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
 
             //  decrease button
             decreaseButton.setOnAction(actionEvent -> {
                 playButtonSound();
-                PurchaserAccountController.decreaseItemInCart(productName);
+                decreaseItemInCart(productName);
                 cartTableView.setItems(getCart());
                 totalAmountLabel.setText("" + totalAmountToPay());
             });
@@ -147,7 +209,7 @@ public class CartPageController implements Initializable {
             //  remove button
             removeButton.setOnAction(actionEvent -> {
                 playButtonSound();
-                PurchaserAccountController.deleteItemInCart(productName);
+                deleteItemInCart(productName);
                 cartTableView.setItems(getCart());
                 totalAmountLabel.setText("" + totalAmountToPay());
             });

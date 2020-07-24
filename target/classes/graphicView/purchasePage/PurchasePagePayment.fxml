@@ -46,7 +46,7 @@
       <PasswordField fx:id="passwordId" layoutX="704.0" layoutY="447.0" />
       <ImageView fitHeight="174.0" fitWidth="334.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../media/image/shapark.jpg" />
+            <Image url="@../../../media/image/shapark.jpg" />
          </image></ImageView>
       <Label layoutX="360.0" layoutY="202.0" prefHeight="34.0" prefWidth="268.0" text="Total amount to pay :">
          <font>

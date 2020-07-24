@@ -46,7 +46,7 @@ public class PurchaserInfoSetPanel {
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");
-        window.setScene(new Scene(FXMLLoader.load(PurchaserInfoSetPanel.class.getResource("/graphicView/loginPanel/PurchaserInfoSetPanel.fxml"))));
+        window.setScene(new Scene(FXMLLoader.load(PurchaserInfoSetPanel.class.getResource("/graphicView/userRegion/loginPanel/PurchaserInfoSetPanel.fxml"))));
         window.setMaximized(true);
         window.show();
     }

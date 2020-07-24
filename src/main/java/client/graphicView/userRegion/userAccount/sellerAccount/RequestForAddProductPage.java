@@ -14,7 +14,7 @@ public class RequestForAddProductPage {
     public static void display() throws IOException {
         Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
-        Parent root = FXMLLoader.load(RequestForAddProductPage.class.getResource("/graphicView/userRegion/userAccount/sellerAccount/RequestForAddProductPage.fxml"));
+        Parent root = FXMLLoader.load(RequestForAddProductPage.class.getResource("/client/graphicView/userRegion/userAccount/sellerAccount/RequestForAddProductPage.fxml"));
         primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

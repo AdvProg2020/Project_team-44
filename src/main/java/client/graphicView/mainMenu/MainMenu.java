@@ -45,7 +45,7 @@ public class MainMenu {
     @FXML
     void onProducts(ActionEvent event) throws IOException {
         ProductsMenu.mainMenuScene = Main.window.getScene();
-        Pane root = FXMLLoader.load(getClass().getResource("/graphicView/productsMenu/productsMenu.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("/client/graphicView/productsMenu/productsMenu.fxml"));
         Main.window.setScene(new Scene(root));
     }
 }

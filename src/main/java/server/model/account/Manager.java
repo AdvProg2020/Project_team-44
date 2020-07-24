@@ -50,7 +50,7 @@ public class Manager extends Account {
 
     public void createAndUpdateJson() {
         try {
-            Writer writer = new FileWriter("src/server.main/resources/Accounts/Managers/" + this.getUserName() + ".json");
+            Writer writer = new FileWriter("src/main/resources/Accounts/Managers/" + this.getUserName() + ".json");
             new Gson().toJson(this, writer);
             writer.close();
         } catch (IOException e) {

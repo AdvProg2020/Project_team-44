@@ -14,7 +14,7 @@ public class SellerAccountPage {
     public static void display() throws IOException {
         Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
-        Parent root = FXMLLoader.load(SellerAccountPage.class.getResource("/graphicView/userRegion/userAccount/sellerAccount/SellerAccountPage.fxml"));
+        Parent root = FXMLLoader.load(SellerAccountPage.class.getResource("/client/graphicView/userRegion/userAccount/sellerAccount/SellerAccountPage.fxml"));
         primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

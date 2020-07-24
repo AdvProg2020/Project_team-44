@@ -17,7 +17,7 @@ public class PurchaserAuctionChat {
         thisAuction = auction;
         Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
-        Parent root = FXMLLoader.load(PurchaserAuctionChat.class.getResource("/graphicView/userRegion/userAccount/purchaserAccount/PurchaserAuctionChat.fxml"));
+        Parent root = FXMLLoader.load(PurchaserAuctionChat.class.getResource("/client/graphicView/userRegion/userAccount/purchaserAccount/PurchaserAuctionChat.fxml"));
         primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

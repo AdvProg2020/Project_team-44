@@ -46,7 +46,7 @@ public class SellerInfoSetPanel {
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");
-        window.setScene(new Scene(FXMLLoader.load(SellerInfoSetPanel.class.getResource("/graphicView/loginPanel/SellerInfoSetPanel.fxml"))));
+        window.setScene(new Scene(FXMLLoader.load(SellerInfoSetPanel.class.getResource("/graphicView/userRegion/loginPanel/SellerInfoSetPanel.fxml"))));
         window.setMaximized(true);
         window.show();
     }

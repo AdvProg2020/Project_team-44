@@ -99,7 +99,14 @@ public abstract class PurchaserAccountController {
 
     //    only called when user click the delete button, the case that quantity went 0 is handled in decreaseItemInCart
     public static void deleteItemInCart(String productName) {
-        ((Purchaser) LoginPageController.getLoggedInAccount()).getCart().remove(Product.getProductByName(productName));
+        Product removedProduct = null;
+        for (Product product : ((Purchaser) LoginPageController.getLoggedInAccount()).getCart().keySet()) {
+            if (product.getName().equals(productName)) {
+                removedProduct = product;
+            }
+        }
+
+        ((Purchaser) LoginPageController.getLoggedInAccount()).getCart().remove(removedProduct);
     }
 
     public static ArrayList<Product> getCartProducts() {
@@ -109,10 +116,16 @@ public abstract class PurchaserAccountController {
     //    increase means add one to products quantity, not adding server.Main new product; increase has no limits
     public static void increaseItemInCart(String productName) {
         //  pre-actions to avoid hard coding
+        Product increasedProduct = null;
         Purchaser currentPurchaser = ((Purchaser) LoginPageController.getLoggedInAccount());
         HashMap<Product, Integer> currentPurchaserCart = currentPurchaser.getCart();
-        int currentProductQuantity = ((Purchaser) LoginPageController.getLoggedInAccount()).getCart().get(Product.getProductByName(productName));
-        Product increasedProduct = Product.getProductByName(productName);
+        for (Product product : currentPurchaserCart.keySet()) {
+            if (product.getName().equals(productName)) {
+                increasedProduct = product;
+            }
+        }
+        int currentProductQuantity = ((Purchaser) LoginPageController.getLoggedInAccount()).getCart().get(increasedProduct);
+
         //  increase by 1
         currentPurchaserCart.replace(increasedProduct,
                 currentProductQuantity,
@@ -124,10 +137,15 @@ public abstract class PurchaserAccountController {
     //  if quantity of product went to 0, the product would be deleted from the cart
     public static void decreaseItemInCart(String productName) {
         //  pre-actions to avoid hard coding
+        Product decreasedProduct = null;
         Purchaser currentPurchaser = ((Purchaser) LoginPageController.getLoggedInAccount());
         HashMap<Product, Integer> currentPurchaserCart = currentPurchaser.getCart();
-        int currentProductQuantity = ((Purchaser) LoginPageController.getLoggedInAccount()).getCart().get(Product.getProductByName(productName));
-        Product decreasedProduct = Product.getProductByName(productName);
+        for (Product product : currentPurchaserCart.keySet()) {
+            if (product.getName().equals(productName)) {
+                decreasedProduct = product;
+            }
+        }
+        int currentProductQuantity = ((Purchaser) LoginPageController.getLoggedInAccount()).getCart().get(decreasedProduct);
         // remove if there was only 1 product left
         if (currentProductQuantity == 1) {
             currentPurchaserCart.remove(decreasedProduct);

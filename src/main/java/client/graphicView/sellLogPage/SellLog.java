@@ -16,7 +16,7 @@ public class SellLog {
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");
-        Scene root = new Scene(FXMLLoader.load(SellLog.class.getResource("/graphicView/sellLogPage/SellLog.fxml")));
+        Scene root = new Scene(FXMLLoader.load(SellLog.class.getResource("/client/graphicView/sellLogPage/SellLog.fxml")));
         window.setScene(root);
         window.setMaximized(true);
         window.show();

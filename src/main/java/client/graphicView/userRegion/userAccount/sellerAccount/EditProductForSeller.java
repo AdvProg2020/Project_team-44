@@ -14,7 +14,7 @@ public class EditProductForSeller {
     public static void display() throws IOException {
         Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
-        Parent root = FXMLLoader.load(EditProductForSeller.class.getResource("/graphicView/userRegion/userAccount/" +
+        Parent root = FXMLLoader.load(EditProductForSeller.class.getResource("/client/graphicView/userRegion/userAccount/" +
                 "sellerAccount/EditProductForSeller.fxml"));
         primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root);

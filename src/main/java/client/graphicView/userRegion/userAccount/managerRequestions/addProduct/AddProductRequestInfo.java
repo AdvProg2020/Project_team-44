@@ -16,7 +16,7 @@ public class AddProductRequestInfo {
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");
-        Scene root = new Scene(FXMLLoader.load(AddProductRequestInfo.class.getResource("/graphicView/userRegion/userAccount/managerRequestions/addProduct/AddProductRequestInfo.fxml")));
+        Scene root = new Scene(FXMLLoader.load(AddProductRequestInfo.class.getResource("/client/graphicView/userRegion/userAccount/managerRequestions/addProduct/AddProductRequestInfo.fxml")));
         window.setScene(root);
 //        window.setMaximized(true);
         window.show();

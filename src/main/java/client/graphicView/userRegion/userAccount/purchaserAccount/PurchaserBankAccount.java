@@ -14,7 +14,7 @@ public class PurchaserBankAccount {
     public static void display() throws IOException {
         Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
-        Parent root = FXMLLoader.load(PurchaserBankAccount.class.getResource("/graphicView/userRegion/userAccount/purchaserAccount/purchaserBankAccount.fxml"));
+        Parent root = FXMLLoader.load(PurchaserBankAccount.class.getResource("/client/graphicView/userRegion/userAccount/purchaserAccount/purchaserBankAccount.fxml"));
         primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

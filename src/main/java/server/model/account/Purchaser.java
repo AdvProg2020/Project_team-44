@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class Purchaser extends Account {
-    private transient HashMap<Product, Integer> cart = new HashMap<>();
+    private transient HashMap<Product, Integer> cart;
     private transient HashMap<Product, Seller> sellerSelectedForEachProduct = new HashMap<>();
     private static ArrayList<Purchaser> allPurchaser = new ArrayList<>();
     private String address;
@@ -37,6 +37,7 @@ public class Purchaser extends Account {
         super.createAndUpdateJson();
         purchaseAddress = "";
         purchaseTel = "";
+        this.cart = new HashMap<>();
         this.address = address;
         allPurchaser.add(this);
         createAndUpdateJson();
@@ -66,7 +67,7 @@ public class Purchaser extends Account {
 
     public void createAndUpdateJson() {
         try {
-            Writer writer = new FileWriter("src/server.main/resources/Accounts/Purchasers/" + this.getUserName() + ".json");
+            Writer writer = new FileWriter("src/main/resources/Accounts/Purchasers/" + this.getUserName() + ".json");
             new Gson().toJson(this, writer);
             writer.close();
         } catch (IOException e) {
@@ -79,7 +80,7 @@ public class Purchaser extends Account {
     }
 
     public HashMap<Product, Integer> getCart() {
-        return this.cart;
+        return cart;
     }
 
     public void setCart(HashMap<Product, Integer> cart) {

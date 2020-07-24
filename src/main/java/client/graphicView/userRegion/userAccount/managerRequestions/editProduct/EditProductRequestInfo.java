@@ -16,7 +16,7 @@ public class EditProductRequestInfo {
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");
-        Scene root = new Scene(FXMLLoader.load(EditProductRequestInfo.class.getResource("/graphicView/userRegion/userAccount/managerRequestions/editProduct/EditProductRequestInfo.fxml")));
+        Scene root = new Scene(FXMLLoader.load(EditProductRequestInfo.class.getResource("/client/graphicView/userRegion/userAccount/managerRequestions/editProduct/EditProductRequestInfo.fxml")));
         window.setScene(root);
 //        window.setMaximized(true);
         window.show();

@@ -46,7 +46,7 @@ public class ManagerInfoSetPanel {
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");
-        window.setScene(new Scene(FXMLLoader.load(ManagerInfoSetPanel.class.getResource("/graphicView/loginPanel/ManagerInfoSetPanel.fxml"))));
+        window.setScene(new Scene(FXMLLoader.load(ManagerInfoSetPanel.class.getResource("/graphicView/userRegion/loginPanel/ManagerInfoSetPanel.fxml"))));
         window.setMaximized(true);
         window.show();
     }
