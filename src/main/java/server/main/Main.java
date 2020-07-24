@@ -12,6 +12,7 @@ import server.model.comment.Comment;
 import server.model.product.Auction;
 import server.model.product.Product;
 import server.viewServer.mainMenu.MainMenuServer;
+import server.viewServer.productMenu.productsMenuServer;
 import server.viewServer.userRegion.loginPanel.LoginPanelServer;
 
 import java.io.IOException;
@@ -33,18 +34,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         reload();
-//        new MainMenuServer();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    new LoginPanelServer();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }).start();
+        new MainMenuServer();
+        new LoginPanelServer();
+        new productsMenuServer();
     }
 
     private static void setCategoryParent(ArrayList<Category> all) {

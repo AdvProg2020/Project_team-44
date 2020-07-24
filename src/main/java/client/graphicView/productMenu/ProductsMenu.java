@@ -5,8 +5,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -20,9 +20,20 @@ import javafx.scene.text.Text;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class ProductsMenu {
+public class ProductsMenu implements Initializable {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            process();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Menu id;
     public Pane root;
     private TableView<CategoryProperty> tableView;

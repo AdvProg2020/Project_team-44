@@ -4,12 +4,10 @@ import client.graphicView.purchasePage.PurchasePageController;
 import server.controller.LoginPageController;
 import server.main.BankAPI;
 import server.model.ShopBankAccount;
-import server.model.account.Account;
 import server.model.account.Purchaser;
 import server.model.account.Seller;
 import server.model.product.Product;
-import server.viewServer.userRegion.LoginPanel.LoginPanelServer;
-import server.viewServer.userRegion.userAccount.purchaserAccount.PurchaserWalletServer;
+import server.viewServer.userRegion.loginPanel.LoginPanelServer;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -126,7 +124,7 @@ public class PurchasePagePaymentServer {
         }
 
         public void processGetSize(String token) throws IOException {
-            Purchaser purchaser = Purchaser.getPurchaserByUsername(LoginPanelServer.tokenToUser.get(token));
+            Purchaser purchaser = Purchaser.getPurchaserByUsername(LoginPanelServer.getTokenToUser().get(token));
             dataOutputStream.writeUTF(String.valueOf(purchaser.getSellerSelectedForEachProduct().keySet().size()));
             dataOutputStream.flush();
         }

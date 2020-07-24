@@ -80,7 +80,7 @@ public class productsMenuServer {
                     } else if (input.startsWith("get_category_name ")) {
                         processGetCategoryName(Integer.parseInt(input.substring(18)));
                     } else if (input.startsWith("sub_category_size_from_parent ")) {
-                        processSubCategorySizeFromParent(Integer.parseInt(input.substring(18)));
+                        processSubCategorySizeFromParent(Integer.parseInt(input.substring(30)));
                     } else if (input.startsWith("get_sub_category_name_From_Parent ")) {
                         processGetSubCategoryNameFromParent(input.substring(34));
                     } else if (input.startsWith("sub_menu_ ")) {
