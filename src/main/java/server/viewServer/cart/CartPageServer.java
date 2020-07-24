@@ -1,4 +1,4 @@
-package server.graphicViewServer.cart;
+package server.viewServer.cart;
 
 import server.controller.LoginPageController;
 import server.controller.PurchaserAccountController;

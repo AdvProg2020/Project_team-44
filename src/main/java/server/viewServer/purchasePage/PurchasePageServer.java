@@ -1,4 +1,4 @@
-package server.graphicViewServer.purchasePage;
+package server.viewServer.purchasePage;
 
 import client.graphicView.userRegion.userAccount.sellerAccount.SellerWalletController;
 import server.controller.LoginPageController;

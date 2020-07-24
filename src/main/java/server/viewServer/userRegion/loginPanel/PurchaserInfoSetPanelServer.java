@@ -1,7 +1,6 @@
-package server.graphicViewServer.userRegion.loginPanel;
+package server.viewServer.userRegion.loginPanel;
 
 import client.graphicView.userRegion.loginPanel.LoginPanelController;
-import client.graphicView.userRegion.loginPanel.PurchaserInfoSetPanel;
 import server.controller.LoginPageController;
 import server.exception.UsernameExistsException;
 

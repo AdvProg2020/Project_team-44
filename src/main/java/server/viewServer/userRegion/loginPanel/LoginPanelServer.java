@@ -1,4 +1,4 @@
-package server.graphicViewServer.userRegion.loginPanel;
+package server.viewServer.userRegion.loginPanel;
 
 import server.controller.LoginPageController;
 import server.controller.ValidationController;

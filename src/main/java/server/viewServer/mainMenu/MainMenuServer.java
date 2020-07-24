@@ -1,4 +1,4 @@
-package server.graphicViewServer.mainMenu;
+package server.viewServer.mainMenu;
 
 import server.controller.LoginPageController;
 import server.model.account.Manager;
