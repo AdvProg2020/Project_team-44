@@ -14,7 +14,6 @@ import server.model.account.Purchaser;
 import server.model.account.Seller;
 import server.model.comment.Comment;
 import server.model.product.Product;
-import server.viewServer.purchasePage.PurchasePagePaymentServer;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -487,6 +486,5 @@ public class productsMenuServer {
             dataOutputStream.writeUTF(productsToShow.get(i).getImageName());
             dataOutputStream.flush();
         }
-
     }
 }

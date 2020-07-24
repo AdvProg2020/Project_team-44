@@ -27,7 +27,7 @@ public class AddOffRequestController implements Initializable {
             String input;
             try {
                 input = in.readUTF();
-                if (input.startsWith()) {
+                if (input.startsWith("")) {
 
                 }
             } catch (IOException e) {

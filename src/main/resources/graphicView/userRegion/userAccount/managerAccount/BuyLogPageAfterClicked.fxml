@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="460.0" prefWidth="822.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.userRegion.userAccount.managerAccount.BuyLogPageAfterClickedController">
+    <children>
+        <ToolBar layoutX="-2.0" layoutY="410.0" prefHeight="57.0" prefWidth="757.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <items>
+            <Button mnemonicParsing="false" onMouseClicked="#back" prefHeight="26.0" prefWidth="65.0" text="back" />
+            <Button mnemonicParsing="false" onMouseClicked="#send" prefHeight="26.0" prefWidth="122.0" text="send" />
+            <Label fx:id="alertMessage" alignment="CENTER" prefHeight="30.0" prefWidth="353.0" style="-fx-text-fill: green;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </items></ToolBar>
+        <TableView fx:id="purchasedProductsTableView" layoutX="-1.0" layoutY="-1.0" prefHeight="403.0" prefWidth="418.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn fx:id="rowNumberColumn" prefWidth="23.5" />
+                <TableColumn fx:id="purchasedProductColumn" prefWidth="171.5" text="Purchased Product" />
+                <TableColumn fx:id="sellerFirstNameColumn" prefWidth="103.0" text="Seller First Name" />
+                <TableColumn fx:id="sellerLastNameColumn" prefWidth="113.5" text="Seller Last Name" />
+            </columns>
+        </TableView>
+        <TableView fx:id="buyLogInfoTable" layoutX="415.0" prefHeight="403.0" prefWidth="405.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn fx:id="moneyPaidColumn" prefWidth="75.0" text="Money Paid" />
+                <TableColumn fx:id="discountCodeAmountUsedColumn" prefWidth="171.5" text="Discount Code Amount Used" />
+                <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
+                <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

@@ -120,4 +120,12 @@ public class PurchaserAccountPageController implements Initializable {
         PurchaserAccountPage.primaryStage.close();
         PurchaserAuction.display();
     }
+
+    public void processViewSupporters(ActionEvent actionEvent) {
+        try {
+            PurchaserContactSupportersPage.display();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
