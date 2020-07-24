@@ -45,6 +45,14 @@ public class Seller extends Account {
         return null;
     }
 
+    public boolean isProductInAuctionList(Product product){
+        for (Product product1 : this.auction) {
+            if(product1.getName().equals(product.getName()))
+                return true;
+        }
+        return false;
+    }
+
     public static ArrayList<Seller> getAllSeller() {
         return allSeller;
     }

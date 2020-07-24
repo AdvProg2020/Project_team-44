@@ -27,7 +27,7 @@ public class PurchaserInfoSetPanelController {
     private Button nextButton = new Button();
 
     private void playButtonSound() {
-        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/server.main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
         mediaPlayer.play();
     }
 

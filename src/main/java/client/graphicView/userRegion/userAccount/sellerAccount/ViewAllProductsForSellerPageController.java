@@ -1,5 +1,6 @@
 package client.graphicView.userRegion.userAccount.sellerAccount;
 
+import client.Main;
 import server.controller.LoginPageController;
 import client.graphicView.mainMenu.MainMenu;
 import client.graphicView.userRegion.loginPanel.LoginPanelController;
@@ -12,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import server.Main;
 import server.model.account.Seller;
 import server.model.product.Product;
 

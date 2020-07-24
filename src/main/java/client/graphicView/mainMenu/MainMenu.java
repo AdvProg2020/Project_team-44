@@ -1,6 +1,6 @@
 package client.graphicView.mainMenu;
 
-import server.controller.LoginPageController;
+import client.Main;
 import client.graphicView.productMenu.ProductsMenu;
 import client.graphicView.userRegion.loginPanel.LoginPanel;
 import client.graphicView.userRegion.userAccount.managerAccount.ManagerAccountPage;
@@ -12,10 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import server.Main;
-import server.model.account.Manager;
-import server.model.account.Purchaser;
-import server.model.account.Seller;
+
 
 import java.io.IOException;
 

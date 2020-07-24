@@ -61,7 +61,7 @@ public class PurchasePageController implements Initializable {
         // if coded discount was valid
         if (!codedDiscountField.getText().equals("")) {
             if (!ManagerAccountController.processViewDiscountCodes().contains(codedDiscountField.getText())) {
-                messageLabel.setText("There is not such server.Main code!");
+                messageLabel.setText("There is not such server.main.Main code!");
                 return;
             }
         }
@@ -91,7 +91,7 @@ public class PurchasePageController implements Initializable {
         // if coded discount was valid
         if (!codedDiscountField.getText().equals("")) {
             if (!ManagerAccountController.processViewDiscountCodes().contains(codedDiscountField.getText())) {
-                messageLabel.setText("There is not such server.Main code!");
+                messageLabel.setText("There is not such server.main.Main code!");
                 return;
             }
         }

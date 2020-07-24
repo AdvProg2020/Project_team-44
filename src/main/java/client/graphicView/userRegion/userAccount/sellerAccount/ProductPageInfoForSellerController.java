@@ -1,5 +1,6 @@
 package client.graphicView.userRegion.userAccount.sellerAccount;
 
+import client.Main;
 import server.controller.LoginPageController;
 import server.controller.SellerAccountController;
 import server.exception.ProductIdNotExistsException;
@@ -10,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import server.Main;
 import server.model.product.Product;
 
 import java.io.FileInputStream;

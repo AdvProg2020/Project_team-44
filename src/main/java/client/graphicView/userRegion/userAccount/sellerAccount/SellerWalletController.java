@@ -1,15 +1,11 @@
 package client.graphicView.userRegion.userAccount.sellerAccount;
 
-import server.controller.LoginPageController;
+import client.graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import server.main.PurchaserAuctionChatControllerServer;
-import server.model.ShopBankAccount;
-import server.model.account.Account;
-import server.model.account.Manager;
 
 import java.io.*;
 import java.net.Socket;
@@ -17,7 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SellerWalletController implements Initializable {
-    public static int atLeastAmount = Manager.getAllManagers().get(0).getMinAmount();
+    public static int atLeastAmount;
     @FXML
     public Label receiveMessageId;
     @FXML
@@ -30,36 +26,73 @@ public class SellerWalletController implements Initializable {
     public TextField accountUsernameId;
     @FXML
     public PasswordField accountPasswordId;
+    private final int port = 9003;
+    private final String ip = "127.0.0.1";
+    private DataOutputStream out;
+    private DataInputStream in;
 
 //    public SellerWalletController() {
 //       creditId.setText("Credit " + LoginPageController.getLoggedInAccount().getBalance() + " $");
 //    }
 
+    public void process() {
+        try {
+            Socket socket = new Socket(ip, port);
+            out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            out.writeUTF("get_at_least_amount");
+            out.flush();
+            String response = in.readUTF();
+            atLeastAmount = Integer.parseInt(response.substring(21));
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        new Thread(() -> creditId.setText("Credit " + LoginPageController.getLoggedInAccount().getBalance() + " $")).start();
+        process();
+        String balance = null;
+        try {
+            out.writeUTF("get_balance " + LoginPanelController.token);
+            out.flush();
+            balance = in.readUTF();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String finalBalance = balance;
+        new Thread(() -> creditId.setText("Credit " + finalBalance + " $")).start();
     }
 
     @FXML
     public void receiveAction() throws IOException {
-        Account currentAccount = LoginPageController.getLoggedInAccount();
-        if (currentAccount.getBalance() - Double.parseDouble(amountId.getText()) < atLeastAmount) {
+        String balance = null;
+        try {
+            out.writeUTF("get_balance " + LoginPanelController.token);
+            out.flush();
+            balance = in.readUTF();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String finalBalance = balance;
+        if (Double.parseDouble(finalBalance) - Double.parseDouble(amountId.getText()) < atLeastAmount) {
             receiveMessageId.setText("The amount request is more than as you can...");
         } else if (Double.parseDouble(amountId.getText()) > 0) {
             receiveMessageId.setText("");
-            Socket socket = new Socket(PurchaserAuctionChatControllerServer.IP, PurchaserAuctionChatControllerServer.port);
-            DataInputStream in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-            DataOutputStream out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-
-
-            out.writeUTF("create_receiptReceive" + "create_receipt " + "move " + Integer.parseInt(amountId.getText()) + " " + ShopBankAccount.getShopBankAccount().getAccountId() + " " + Integer.parseInt(destinationId.getText()) + " " + "receive");
+            out.writeUTF("get_shop_bank_account_id");
+            out.flush();
+            String id = in.readUTF();
+            out.writeUTF("create_receiptReceive" + "create_receipt " + "move " + Integer.parseInt(amountId.getText()) + " " + id + " " + Integer.parseInt(destinationId.getText()) + " " + "receive");
             out.flush();
             String respond = in.readUTF();
             receiveMessageId.setText(respond);
             if (respond.equals("done successfully")) {
-                currentAccount.setBalance(currentAccount.getBalance() - Integer.parseInt(amountId.getText()));
-                currentAccount.createAndUpdateJson();
-                creditId.setText("Credit " + LoginPageController.getLoggedInAccount().getBalance() + " $");
+                out.writeUTF("set_balance " + amountId.getText() + " " + LoginPanelController.token);
+                out.flush();
+                String amount = in.readUTF();
+                creditId.setText("Credit " + amount + " $");
             }
             amountId.setText("");
             accountUsernameId.setText("");

@@ -18,7 +18,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import server.controller.LoginPageController;
-//import server.main.PurchaserAuctionChatControllerServer;
+//import server.graphicView.userRegion.userAccount.purchaserAccount.PurchaserAuctionChatServer;
 //import server.model.account.Account;
 //import server.model.account.Manager;
 //import server.model.product.Auction;
@@ -68,7 +68,7 @@ public class PurchaserAuctionChatController implements Initializable {
     private Timeline countDown;
     private String token;
     private String username;
-    private final int port = 8888;
+    private final int port = 9007;
     private final String ip = "127.0.0.1";
     private int minAmount;
     private int balance = -1;
@@ -92,7 +92,22 @@ public class PurchaserAuctionChatController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Date date = new Date();
-        long diff = PurchaserAuctionChat.thisAuction.getFinalDate().getTime() - date.getTime();
+        try {
+            Socket socket = new Socket(ip, port);
+            out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        long time = 0;
+        try {
+            out.writeUTF("get_time " + PurchaserAuctionChat.i);
+            out.flush();
+            time = Long.parseLong(in.readUTF());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        long diff = time - date.getTime();
         if (diff > 0) {
             this.second = (int) (diff / 1000 % 60);
             this.minute = (int) (diff / (1000 * 60) % 60);
@@ -106,7 +121,6 @@ public class PurchaserAuctionChatController implements Initializable {
             String input = null;
             try {
                 input = in.readUTF();
-                System.out.println("input " + input);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -182,37 +196,27 @@ public class PurchaserAuctionChatController implements Initializable {
 
 
     public void process() {
+        mostPriceId.setText("The most price suggested is : 0 $");
         try {
-            Socket socket = new Socket(ip, port);
-            DataOutputStream out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-            DataInputStream in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-            setOut(out);
-            setIn(in);
-            mostPriceId.setText("The most price suggested is : 0 $");
-            try {
-                out.writeUTF("Auction");
-                out.flush();
-                String input = in.readUTF();
-                setUsername(input.split("\\s")[0]);
-                token = input.substring(getUsername().length() + 1);
-                creditId.setText("Credit : " + getUsername() + " $");
-                out.writeUTF("get_min_amount");
-                out.flush();
-                setMinAmount(Integer.parseInt(in.readUTF()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            this.countDown = new Timeline(new KeyFrame(Duration.millis(1000), e -> processShowCountDown()));
-            this.countDown.setCycleCount(Animation.INDEFINITE);
-            this.countDown.play();
-
-            new Thread(this::output).start();
-            new Thread(this::input).start();
-        } catch (
-                IOException e) {
+            out.writeUTF("Auction");
+            out.flush();
+            String input = in.readUTF();
+            setUsername(input.split("\\s")[0]);
+            token = input.substring(getUsername().length() + 1);
+            creditId.setText("Credit : " + getUsername() + " $");
+            out.writeUTF("get_min_amount");
+            out.flush();
+            setMinAmount(Integer.parseInt(in.readUTF()));
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
+        this.countDown = new Timeline(new KeyFrame(Duration.millis(1000), e -> processShowCountDown()));
+        this.countDown.setCycleCount(Animation.INDEFINITE);
+        this.countDown.play();
+
+        new Thread(this::output).start();
+        new Thread(this::input).start();
 
     }
 
@@ -327,7 +331,7 @@ public class PurchaserAuctionChatController implements Initializable {
             } else if (Integer.parseInt(enterFieldId.getText()) < Integer.parseInt(mostPriceId.getText().substring(30).split("\\s")[0]) + 5) {
                 Platform.runLater(() -> {
                     warningId.setTextFill(Color.PALEVIOLETRED);
-                    warningId.setText("The entered value is less than server.Main regular price");
+                    warningId.setText("The entered value is less than server.main.Main regular price");
                 });
                 break;
             } else {

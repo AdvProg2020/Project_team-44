@@ -106,7 +106,7 @@ public abstract class PurchaserAccountController {
         return ((Purchaser) LoginPageController.getLoggedInAccount()).getCartProducts();
     }
 
-    //    increase means add one to products quantity, not adding server.Main new product; increase has no limits
+    //    increase means add one to products quantity, not adding server.main.Main new product; increase has no limits
     public static void increaseItemInCart(String productName) {
         //  pre-actions to avoid hard coding
         Purchaser currentPurchaser = ((Purchaser) LoginPageController.getLoggedInAccount());

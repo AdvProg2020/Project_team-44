@@ -11,7 +11,7 @@ public class RemoveProductRequest {
     static Stage window;
 
     public static void display() throws IOException {
-//        server.Main.setMediaPlayer("01 In The Morning Light.mp3");
+//        server.main.Main.setMediaPlayer("01 In The Morning Light.mp3");
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Hello World");

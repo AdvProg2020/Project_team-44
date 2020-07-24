@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="650.0" prefWidth="850.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.userRegion.userAccount.sellerAccount.SellerAuctionController">
+   <children>
+      <Line endX="748.9999389648438" layoutX="101.0" layoutY="66.0" startX="-100.0" />
+      <Label alignment="CENTER" layoutX="344.0" layoutY="14.0" prefHeight="36.0" prefWidth="151.0" text="Add Auction">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button layoutY="1.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: white;" text="back" />
+      <Label layoutX="153.0" layoutY="160.0" prefHeight="35.0" prefWidth="65.0" text="year :">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="344.0" layoutY="96.0" prefHeight="26.0" prefWidth="140.0" text="Final Times">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="153.0" layoutY="220.0" prefHeight="35.0" prefWidth="94.0" text="month :">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="153.0" layoutY="280.0" prefHeight="35.0" prefWidth="94.0" text="day :">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="153.0" layoutY="340.0" prefHeight="35.0" prefWidth="94.0" text="hour :">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="153.0" layoutY="400.0" prefHeight="35.0" prefWidth="94.0" text="minute :">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="finalYear" layoutX="219.0" layoutY="164.0" prefHeight="26.0" prefWidth="179.0" promptText="final year" />
+      <TextField fx:id="finalMonth" layoutX="247.0" layoutY="224.0" prefHeight="26.0" prefWidth="179.0" promptText="final month" />
+      <TextField fx:id="finalDay" layoutX="219.0" layoutY="284.0" prefHeight="26.0" prefWidth="179.0" promptText="final day" />
+      <TextField fx:id="finalHour" layoutX="227.0" layoutY="344.0" prefHeight="26.0" prefWidth="179.0" promptText="final hour" />
+      <TextField fx:id="finalMinute" layoutX="254.0" layoutY="404.0" prefHeight="26.0" prefWidth="179.0" promptText="final minute" />
+      <Button layoutX="530.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#addAuction" prefHeight="42.0" prefWidth="170.0" style="-fx-background-color: white;" text="Add">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label fx:id="alertMessage" alignment="CENTER" layoutX="196.0" layoutY="514.0" prefHeight="42.0" prefWidth="446.0" style="-fx-text-fill: red;">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

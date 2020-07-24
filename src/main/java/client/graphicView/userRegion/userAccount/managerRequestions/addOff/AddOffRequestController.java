@@ -8,15 +8,52 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import server.model.requests.RequestForAddOff;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AddOffRequestController implements Initializable {
     // store the clicked requestId
     private static String currentRequestId;
+    private final int port = 9002;
+    private final String ip = "127.0.0.1";
+    private DataOutputStream out;
+    private DataInputStream in;
+
+    public void input() {
+        while (true) {
+            String input;
+            try {
+                input = in.readUTF();
+                if (input.startsWith()) {
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public void output() {
+
+    }
+
+    public void process() {
+        try {
+            Socket socket = new Socket(ip, port);
+            out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            new Thread(this::output).start();
+            new Thread(this::input).start();
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public static String getCurrentRequestId() {
         return currentRequestId;
@@ -31,6 +68,7 @@ public class AddOffRequestController implements Initializable {
     TableView<RequestIds> table;
     @FXML
     TableColumn<RequestIds, Label> requestIdsColumn;
+
     // back to manager account region
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -39,6 +77,8 @@ public class AddOffRequestController implements Initializable {
     }
 
     private ObservableList<RequestIds> getRequest() {
+        out.writeUTF("get_request");
+        out.flush();
         ObservableList<RequestIds> requestIds = FXCollections.observableArrayList();
         for (RequestForAddOff requestForAddOff : RequestForAddOff.getAllRequestsForAddOff()) {
             requestIds.add(new RequestIds(requestForAddOff.getRequestId()));

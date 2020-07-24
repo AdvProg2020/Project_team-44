@@ -17,6 +17,7 @@ import server.model.account.Account;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class LoginPanelController implements Initializable {
@@ -30,6 +31,8 @@ public class LoginPanelController implements Initializable {
     public static Account getLoggedInAccount() {
         return loggedInAccount;
     }
+
+    public static String token;
 
     final ObservableList<String> accountTypesList = FXCollections.observableArrayList("Head Manager",
             "Seller",
@@ -98,7 +101,7 @@ public class LoginPanelController implements Initializable {
             return;
         }
         if (accountTypes.getValue() == null) {
-            registerMessageText.setText("Select server.Main type first");
+            registerMessageText.setText("Select server.main.Main type first");
             return;
         }
         try {
