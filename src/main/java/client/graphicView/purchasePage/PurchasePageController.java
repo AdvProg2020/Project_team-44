@@ -1,8 +1,12 @@
 package client.graphicView.purchasePage;
 
+import server.controller.LoginPageController;
+import server.controller.ManagerAccountController;
 import client.graphicView.cart.CartPageController;
+import client.graphicView.userRegion.userAccount.sellerAccount.SellerWalletController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -10,20 +14,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import server.controller.LoginPageController;
+import server.model.CodedDiscount;
+import server.model.account.Manager;
+import server.model.account.Purchaser;
+import server.model.account.Seller;
+import server.model.product.Product;
 
-import java.io.*;
-import java.net.Socket;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
 public class PurchasePageController implements Initializable {
-    public static int wage;
-    private static DataOutputStream out;
-    private static DataInputStream in;
-    private final int PORT = 9056;
-    private final String IP = "127.0.0.1";
     @FXML
     public Button creditCardId;
     @FXML
@@ -38,24 +41,16 @@ public class PurchasePageController implements Initializable {
     private TextField codedDiscountField = new TextField();
     @FXML
     private Button backButton = new Button();
-    // disable till tel and address fields are filled
     @FXML
     private Label messageLabel = new Label();
+    // disable till tel and address fields are filled
+
+    public static int wage = Manager.getAllManagers().get(0).getWage();
 
     @FXML
     private void goPreviousScene() {
         playButtonSound();
         System.out.println("back");
-    }
-
-    public void processInitialize() {
-        try {
-            Socket socket = new Socket(IP, PORT);
-            out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
@@ -65,76 +60,43 @@ public class PurchasePageController implements Initializable {
         int toPay = CartPageController.totalAmountToPay();
         // if coded discount was valid
         if (!codedDiscountField.getText().equals("")) {
-            try {
-                out.writeUTF("checkDiscountCodeExistence:" + codedDiscountField.getText());
-                out.flush();
-                if (in.readUTF().equals("checkDiscountCodeExistenceFalse")) {
-                    messageLabel.setText("There is not such a code!");
-                    return;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (!ManagerAccountController.processViewDiscountCodes().contains(codedDiscountField.getText())) {
+                messageLabel.setText("There is not such server.main.Main code!");
+                return;
             }
         }
         if (!codedDiscountField.getText().equals("")) {
-            double percentage = 0;
-            try {
-                out.writeUTF("codedDiscountPercentage:" + codedDiscountField.getText());
-                out.flush();
-                percentage = Double.parseDouble(in.readUTF());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            toPay *= (double) (100 - percentage) / 100;
+            toPay *= (100 - CodedDiscount.getCodedDiscountByCode(codedDiscountField.getText()).getDiscountPercentage()) / 100;
         }
-        try {
-            out.writeUTF("checkEnoughMoney:" + toPay);
-            out.flush();
-            if (in.readUTF().equals("checkEnoughMoneyFalse")) {
-                messageLabel.setText("Not enough money!");
-                return;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (toPay > (int) LoginPageController.getLoggedInAccount().getBalance() - SellerWalletController.atLeastAmount) {
+            messageLabel.setText("Not enough money!");
+            return;
         }
-        try {
-            out.writeUTF("finishPurchase:" + toPay);
-            out.flush();
-            in.readUTF();
-        } catch (IOException e) {
-            e.printStackTrace();
+        Purchaser purchaser = (Purchaser) LoginPageController.getLoggedInAccount();
+        purchaser.setBalance(purchaser.getBalance() - toPay);
+        purchaser.createAndUpdateJson();
+        for (Product product : ((Purchaser) LoginPageController.getLoggedInAccount()).getSellerSelectedForEachProduct().keySet()) {
+            Seller seller = purchaser.getSellerSelectedForEachProduct().get(product);
+            seller.setBalance(seller.getBalance() + ((100 - wage) * purchaser.getCart().get(product) * product.getPrice()) / 100);
+            seller.createAndUpdateJson();
         }
         messageLabel.setText("Successfully payed from credit card.");
-        System.out.println(LoginPageController.getLoggedInAccount().getBalance());
-//        PurchaserAccountPageController.writeInformation();????
+//        PurchaserAccountPageController.writeInformation();
+        // پول به فروشنده ها اضافه شود
     }
 
     @FXML
-    public void paymentAction() {
+    public void paymentAction(ActionEvent actionEvent) {
         int toPay = CartPageController.totalAmountToPay();
         // if coded discount was valid
         if (!codedDiscountField.getText().equals("")) {
-            try {
-                out.writeUTF("checkDiscountCodeExistence:" + codedDiscountField.getText());
-                out.flush();
-                if (in.readUTF().equals("checkDiscountCodeExistenceFalse")) {
-                    messageLabel.setText("There is not such a code!");
-                    return;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (!ManagerAccountController.processViewDiscountCodes().contains(codedDiscountField.getText())) {
+                messageLabel.setText("There is not such server.main.Main code!");
+                return;
             }
         }
         if (!codedDiscountField.getText().equals("")) {
-            int percentage = 0;
-            try {
-                out.writeUTF("codedDiscountPercentage:" + codedDiscountField.getText());
-                out.flush();
-                percentage = Integer.parseInt(in.readUTF());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            toPay *= (double) (100 - percentage) / 100;
+            toPay *= (100 - CodedDiscount.getCodedDiscountByCode(codedDiscountField.getText()).getDiscountPercentage()) / 100;
         }
         try {
             PurchasePagePayment.display(toPay);
@@ -144,20 +106,12 @@ public class PurchasePageController implements Initializable {
     }
 
     private void playButtonSound() {
-        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src/server.main/resources/media/sound/Mouse-Click-00-c-FesliyanStudios.com.mp3").toURI().toString()));
         mediaPlayer.play();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        processInitialize();
-        try {
-            out.writeUTF("getWage");
-            out.flush();
-            wage = Integer.parseInt(in.readUTF());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         // finish button is available only when address and tel are valid
         BooleanProperty isAddressFieldReady = new SimpleBooleanProperty(false);
         BooleanProperty isTelFieldReady = new SimpleBooleanProperty(false);

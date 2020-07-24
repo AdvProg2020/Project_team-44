@@ -1,5 +1,6 @@
 package client.graphicView.userRegion.userAccount.sellerAccount;
 
+import client.Main;
 import server.controller.LoginPageController;
 import client.graphicView.mainMenu.MainMenu;
 import client.graphicView.sellLogPage.SellLogPage;
@@ -10,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import server.Main;
 import server.model.account.Account;
 import server.model.account.Seller;
 
@@ -119,8 +119,9 @@ public class SellerAccountPageController implements Initializable {
     }
 
     @FXML
-    public void createAuctionAction() throws IOException {
+    public void createAuction() throws IOException {
         SellerAccountPage.primaryStage.close();
         SellerAuction.display();
     }
+
 }

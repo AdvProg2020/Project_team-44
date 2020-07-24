@@ -20,7 +20,7 @@ public class Purchaser extends Account {
     private static ArrayList<Purchaser> allPurchaser = new ArrayList<>();
     private String address;
     // address and tel for process purchase
-    // nothing to do with, cause we are not server.Main real shop! but store them
+    // nothing to do with, cause we are not server.main.Main real shop! but store them
     private String purchaseAddress;
     private String purchaseTel;
 

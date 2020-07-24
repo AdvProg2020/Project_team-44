@@ -1,5 +1,6 @@
 package client.graphicView.userRegion.userAccount.sellerAccount;
 
+import client.Main;
 import server.controller.LoginPageController;
 import server.controller.SellerAccountController;
 import server.exception.CategoryNotExistsException;
@@ -8,7 +9,6 @@ import client.graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import server.Main;
 
 import java.io.IOException;
 
@@ -33,19 +33,19 @@ public class RequestForAddProductPageController {
         String priceString = priceForAddProduct.getText();
         String explanationText = explanationTextForAddProduct.getText();
         if (!category.matches("\\w+")) {
-            alertMessage.setText("Please enter server.Main valid format of category!");
+            alertMessage.setText("Please enter server.main.Main valid format of category!");
             return;
         }
         if (!productName.matches("\\w+")) {
-            alertMessage.setText("Please enter server.Main valid product name!");
+            alertMessage.setText("Please enter server.main.Main valid product name!");
             return;
         }
         if (!priceString.matches("\\d+")) {
-            alertMessage.setText("Please enter server.Main valid price!");
+            alertMessage.setText("Please enter server.main.Main valid price!");
             return;
         }
         if (!explanationText.matches("\\w+")) {
-            alertMessage.setText("Please enter server.Main valid explanation text!");
+            alertMessage.setText("Please enter server.main.Main valid explanation text!");
             return;
         }
         int price = Integer.parseInt(priceString);

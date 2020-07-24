@@ -1,6 +1,6 @@
 package client.graphicView.userRegion.userAccount.managerAccount;
 
-import server.controller.LoginPageController;
+import client.Main;
 import client.graphicView.mainMenu.MainMenu;
 import client.graphicView.purchasePage.PurchasePageController;
 import client.graphicView.userRegion.loginPanel.LoginPanelController;
@@ -16,11 +16,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import server.Main;
-import server.model.account.Account;
-import server.model.account.Manager;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -65,10 +63,15 @@ public class ManagerAccountPageController implements Initializable {
     private MenuItem addSeller;
     @FXML
     private Button logout;
+    private final int port = 9000;
+    private final String ip = "127.0.0.1";
+    private DataOutputStream out;
+    private DataInputStream in;
 
     @FXML
     private void logout() throws IOException {
-        LoginPageController.logout();
+        out.writeUTF("logout " + LoginPanelController.token);
+        out.flush();
         LoginPanelController.setLoggedInAccount(null);
         ManagerAccountPage.primaryStage.close();
         MainMenu.display(Main.window);
@@ -83,18 +86,60 @@ public class ManagerAccountPageController implements Initializable {
         MainMenu.display(Main.window);
     }
 
+    public void processWriteInformation(String firstName, String lastName, String username, String telephone, String eMail, String password) {
+        managerName.setText(firstName + " " + lastName);
+        managerUsername.setText(username);
+        managerPhoneNumber.setText(telephone);
+        managerEmail.setText(eMail);
+        managerPassword.setText(password);
+    }
+
     public void writeInformationForManager() {
-        Account currentAccount = LoginPageController.getLoggedInAccount();
-        managerName.setText(currentAccount.getFirstName() + " " + currentAccount.getLastName());
-        managerUsername.setText(currentAccount.getUserName());
-        managerPhoneNumber.setText(currentAccount.getTelephoneNumber());
-        managerEmail.setText(currentAccount.getEMail());
-        managerPassword.setText(currentAccount.getEMail());
-//        managerImage =new ImageView()
+        try {
+            out.writeUTF("get_information " + LoginPanelController.token);
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void input() {
+        while (true) {
+            String input;
+            try {
+                input = in.readUTF();
+                if (input.startsWith("information is : ")) {
+                    String[] part = input.substring(17).split("\\s");
+                    processWriteInformation(part[0], part[1], part[2], part[3], part[4], part[5]);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public void output() {
+
+    }
+
+    public void process() {
+        try {
+            Socket socket = new Socket(ip, port);
+            out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            new Thread(this::output).start();
+            new Thread(this::input).start();
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        process();
         writeInformationForManager();
         addOff.setOnAction(actionEvent -> {
             try {
@@ -151,9 +196,11 @@ public class ManagerAccountPageController implements Initializable {
     public void atLeastMoneyAction() {
         SellerWalletController.atLeastAmount = Integer.parseInt(setMinAmountId.getText());
         setMinAmountId.setText("");
-        for (Manager allManager : Manager.getAllManagers()) {
-            allManager.setMinAmount(Integer.parseInt(setMinAmountId.getText()));
-            allManager.createAndUpdateJson();
+        try {
+            out.writeUTF("set_min_amount " + setMinAmountId.getText());
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -167,9 +214,12 @@ public class ManagerAccountPageController implements Initializable {
     public void wageAction() {
         PurchasePageController.wage = Integer.parseInt(setWageId.getText());
         setWageId.setText("");
-        for (Manager allManager : Manager.getAllManagers()) {
-            allManager.setWage(Integer.parseInt(setWageId.getText()));
-            allManager.createAndUpdateJson();
+        try {
+            out.writeUTF("set_wage " + setWageId.getText());
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 }

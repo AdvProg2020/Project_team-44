@@ -4,17 +4,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import server.Main;
+import server.main.Main;
 import server.model.product.Auction;
 
 import java.io.IOException;
 
 public class PurchaserAuctionChat {
     static Stage primaryStage;
-    public static Auction thisAuction;
+    //    public static Auction thisAuction;
+    public static int i;
 
-    public static void display(Auction auction) throws IOException {
-        thisAuction = auction;
+    public static void display(int num) throws IOException {
+//        thisAuction = auction;
+        i = num;
         Main.setMediaPlayer("The Swimmer.mp3");
         primaryStage = new Stage();
         Parent root = FXMLLoader.load(PurchaserAuctionChat.class.getResource("/client/graphicView/userRegion/userAccount/purchaserAccount/PurchaserAuctionChat.fxml"));

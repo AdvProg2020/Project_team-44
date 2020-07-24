@@ -1,5 +1,6 @@
 package client.graphicView.userRegion.userAccount.purchaserAccount;
 
+import client.Main;
 import server.controller.LoginPageController;
 import client.graphicView.buyLogPage.BuyLogPage;
 import client.graphicView.cart.CartPage;
@@ -12,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import server.Main;
 import server.model.account.Account;
 
 import java.io.IOException;
@@ -119,5 +119,13 @@ public class PurchaserAccountPageController implements Initializable {
     public void goToAuctionPageAction(ActionEvent actionEvent) throws IOException {
         PurchaserAccountPage.primaryStage.close();
         PurchaserAuction.display();
+    }
+
+    public void processViewSupporters(ActionEvent actionEvent) {
+        try {
+            PurchaserContactSupportersPage.display();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -35,12 +35,13 @@ public class Auction extends Product {
     @Override
     public void addToAll() {
         allAuctions.add(this);
+        createAndUpdateJson(this);
     }
 
     @Override
     public void createAndUpdateJson(Product product) {
         try {
-            Writer writer = new FileWriter("src/server.main/resources/Auction/" + this.getName() + ".json");
+            Writer writer = new FileWriter("src/main/resources/Auction/" + this.getName() + ".json");
             new Gson().toJson(product, writer);
             writer.close();
         } catch (IOException e) {

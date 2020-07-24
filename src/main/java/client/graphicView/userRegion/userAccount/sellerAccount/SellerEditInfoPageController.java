@@ -1,5 +1,6 @@
 package client.graphicView.userRegion.userAccount.sellerAccount;
 
+import client.Main;
 import server.controller.LoginPageController;
 import server.controller.SellerAccountController;
 import server.exception.SellerFieldsNotExistException;
@@ -8,7 +9,6 @@ import client.graphicView.userRegion.loginPanel.LoginPanelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import server.Main;
 
 import java.io.IOException;
 
@@ -47,39 +47,39 @@ public class SellerEditInfoPageController {
         String newCompanyPhoneNumber = newSellerCompanyPhoneNumber.getText();
         String newCompanyAddress = newSellerCompanyAddress.getText();
         if(!newFirstName.matches("[a-zA-Z]+")){
-            alertMessage.setText("Please enter server.Main valid first name!");
+            alertMessage.setText("Please enter server.main.Main valid first name!");
             return;
         }
         if(!newLastName.matches("[a-zA-Z]+")){
-            alertMessage.setText("Please enter server.Main valid last name!");
+            alertMessage.setText("Please enter server.main.Main valid last name!");
             return;
         }
         if (!newUsername.matches("\\w{8,}")) {
-                alertMessage.setText("Please enter server.Main valid username!");
+                alertMessage.setText("Please enter server.main.Main valid username!");
                 return;
             }
         if (!newPassWord.matches("\\w{8,}")) {
-            alertMessage.setText("Please enter server.Main valid password!");
+            alertMessage.setText("Please enter server.main.Main valid password!");
             return;
         }
         if (!newEmail.matches("\\w+[@]\\w+[.]\\w+")) {
-            alertMessage.setText("Please enter server.Main valid email!");
+            alertMessage.setText("Please enter server.main.Main valid email!");
             return;
         }
         if(!newPhoneNumber.matches("09\\d\\d\\d\\d\\d\\d\\d\\d\\d")){
-            alertMessage.setText("Please enter server.Main valid tel!");
+            alertMessage.setText("Please enter server.main.Main valid tel!");
             return;
         }
         if(!newCompanyName.matches("[a-zA-Z]+")){
-            alertMessage.setText("Please enter server.Main valid company name!");
+            alertMessage.setText("Please enter server.main.Main valid company name!");
             return;
         }
         if(!newCompanyPhoneNumber.matches("\\d{11}")){
-            alertMessage.setText("Please enter server.Main valid company phone number!");
+            alertMessage.setText("Please enter server.main.Main valid company phone number!");
             return;
         }
         if(!newCompanyAddress.matches("\\w+")){
-            alertMessage.setText("Please enter server.Main valid company address!");
+            alertMessage.setText("Please enter server.main.Main valid company address!");
             return;
         }
         SellerAccountController.processEditFieldEach("FIRST_NAME", newFirstName);

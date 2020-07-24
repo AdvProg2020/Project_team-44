@@ -1,17 +1,10 @@
 package client.graphicView.productMenu;
 
-import server.controller.LoginPageController;
-import server.controller.ProductPageController;
-import server.controller.ProductsPageController;
-import server.exception.FilterNotExistsException;
-import server.exception.ProductAlreadyExistsInCartException;
-import server.exception.ProductIdNotExistsException;
-import server.exception.SellerUserNameNotExists;
+import client.Main;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -24,27 +17,19 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import server.Main;
-import server.model.Category;
-import server.model.Rating;
-import server.model.Sort.Sort;
-import server.model.account.Purchaser;
-import server.model.account.Seller;
-import server.model.comment.Comment;
-import server.model.product.Product;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.net.Socket;
 import java.util.ArrayList;
 
 public class ProductsMenu {
     public Menu id;
     public Pane root;
     private TableView<CategoryProperty> tableView;
-    private ArrayList<Product> productsToShow = new ArrayList<>();
-    private ArrayList<Product> categoryFilterProducts = new ArrayList<>();
+    //    private ArrayList<Product> productsToShow = new ArrayList<>();
+//    private ArrayList<Product> categoryFilterProducts = new ArrayList<>();
     private static ArrayList<CategoryProperty> allCategoryProperty = new ArrayList<>();
-    private ArrayList<Category> allowedCategory = new ArrayList<>();
+    //    private ArrayList<Category> allowedCategory = new ArrayList<>();
     private Scene previousScene;
     private double xLayoutTable;
     private double yLayoutTable;
@@ -59,19 +44,39 @@ public class ProductsMenu {
     public static Scene mainMenuScene;
     public MenuButton categoriesMenuButton;
 
-    private ObservableList<CategoryProperty> getCategoryProperties(ArrayList<Category> subCategories) {
+    private final int port = 9010;
+    private final String ip = "127.0.0.1";
+    private DataOutputStream out;
+    private DataInputStream in;
+
+    public void process() throws IOException {
+        Socket socket = new Socket(ip, port);
+        out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+    }
+
+    private ObservableList<CategoryProperty> getCategoryProperties(ArrayList<String> subCategories) {
         allCategoryProperty.clear();
         ObservableList<CategoryProperty> categoryProperties = FXCollections.observableArrayList();
-        for (Category subCategory : subCategories) {
+        for (String subCategory : subCategories) {
             categoryProperties.add(new CategoryProperty(subCategory));
         }
         return categoryProperties;
     }
 
-    private ObservableList<CommentProperty> getCommentProperties(Product product) {
+    private ObservableList<CommentProperty> getCommentProperties(String productName) throws IOException {
+        out.writeUTF("product_get_all_comment_size " + productName);
+        out.flush();
+        int length = Integer.parseInt(in.readUTF());
         ObservableList<CommentProperty> commentProperties = FXCollections.observableArrayList();
-        for (Comment comment : product.getAllComments()) {
-            commentProperties.add(new CommentProperty(comment.getCommentText(), comment.getCommenter().getUserName()));
+        for (int i = 0; i < length; i++) {
+            out.writeUTF("do_each_product_comment " + i + " " + productName);
+            out.flush();
+            String response = in.readUTF();
+            String username = response.split("\\s")[0];
+            String text = response.substring(username.length() + 1);
+            commentProperties.add(new CommentProperty(text, username));
+
         }
         return commentProperties;
     }
@@ -80,14 +85,21 @@ public class ProductsMenu {
         return mainMenuScene;
     }
 
-    public void setTableView(Category category) {
+    public void setTableView(String categoryName) throws IOException {
         TableView tableView = new TableView();
         TableColumn<CategoryProperty, String> brand = new TableColumn("Brand");
         brand.setCellValueFactory(new PropertyValueFactory<>("name"));
         TableColumn<CategoryProperty, CheckBox> checkBox = new TableColumn<>("");
         checkBox.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
         tableView.getColumns().addAll(brand, checkBox);
-        tableView.setItems(getCategoryProperties(category.getSubCategories()));
+        ArrayList<String> subCategories = new ArrayList<>();
+        out.writeUTF("get_sub_category " + categoryName);
+        out.flush();
+        String all = in.readUTF();
+        for (String s : all.split("\\s")) {
+            subCategories.add(s);
+        }
+        tableView.setItems(getCategoryProperties(subCategories));
         brand.setPrefWidth(200);
         tableView.setPrefWidth(brand.getWidth() + checkBox.getWidth() - 41);
         tableView.setLayoutX(Main.window.getScene().getWidth() - tableView.getPrefWidth());
@@ -98,7 +110,7 @@ public class ProductsMenu {
         this.tableView = tableView;
     }
 
-    public void setCommentMenu(VBox second, Product product) {
+    public void setCommentMenu(VBox second, String productName) throws IOException {
         second.setSpacing(15);
         TableView commentMenu = new TableView();
         TableColumn<CommentProperty, String> commenter = new TableColumn("Account");
@@ -106,7 +118,7 @@ public class ProductsMenu {
         TableColumn<CommentProperty, String> text = new TableColumn<>("Commented");
         text.setCellValueFactory(new PropertyValueFactory<>("comment"));
         commentMenu.getColumns().addAll(commenter, text);
-        commentMenu.setItems(getCommentProperties(product));
+        commentMenu.setItems(getCommentProperties(productName));
         commenter.setPrefWidth(200);
         text.setPrefWidth(800);
         second.getChildren().add(commentMenu);
@@ -114,8 +126,10 @@ public class ProductsMenu {
         second.setLayoutX(150);
     }
 
-    public void showProductRate(Text rate, Product product) {
-        rate.setText("Rate : " + product.getAverageRating());
+    public void showProductRate(Text rate, String productName) throws IOException {
+        out.writeUTF("get_average_rating_product " + productName);
+        out.flush();
+        rate.setText("Rate : " + in.readUTF());
         rate.setFont(Font.font(18));
         rate.setLayoutX(100);
         rate.setLayoutY(500);
@@ -150,31 +164,37 @@ public class ProductsMenu {
     }
 
     @FXML
-    public void onCategories(Event event) {
+    public void onCategories() throws IOException {
         categoriesMenuButton.getItems().clear();
-        for (Category category : Category.getAllParents()) {
-            Menu menu = new Menu(category.getName());
+        out.writeUTF("category_all_parent_size");
+        out.flush();
+        int size = Integer.parseInt(in.readUTF());
+        for (int i = 0; i < size; i++) {
+            out.writeUTF("get_category_name " + i);
+            out.flush();
+            String categoryName = in.readUTF();
+            Menu menu = new Menu(categoryName);
             categoriesMenuButton.getItems().add(menu);
-            for (Category subCategory : category.getSubCategories()) {
-                MenuItem subMenu = new MenuItem(subCategory.getName());
+            out.writeUTF("sub_category_size_from_parent " + i);
+            out.flush();
+            int subSize = Integer.parseInt(in.readUTF());
+            for (int j = 0; j < subSize; j++) {
+                out.writeUTF("get_sub_category_name_From_Parent " + i + " " + j);
+                out.flush();
+                String subName = in.readUTF();
+                MenuItem subMenu = new MenuItem(subName);
                 subMenu.setOnAction(actionEvent -> {
-                    allowedCategory.clear();
-                    allowedCategory.addAll(Category.getCategoryByName(subMenu.getText()).getSubCategories());
-                    productsToShow.clear();
-                    categoryFilterProducts.clear();
                     try {
-                        setTableView(Category.getCategoryByName(subMenu.getText()));
-                        for (Category subCategory1 : Category.getCategoryByName(subMenu.getText()).getSubCategories()) {
-                            categoryFilterProducts.addAll(subCategory1.getAllSubProducts());
-                        }
-                        for (Product allSubProduct : Category.getCategoryByName(subMenu.getText()).getAllSubProducts()) {
-                            if (!categoryFilterProducts.contains(allSubProduct))
-                                categoryFilterProducts.add(allSubProduct);
-                        }
-                        productsToShow.addAll(categoryFilterProducts);
+                        out.writeUTF("sub_menu_ " + subMenu.getText());
+                        out.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        setTableView(subMenu.getText());
                         setPreviousScene(Main.window.getScene());
                         openTheSecondaryCategory(true);
-                    } catch (FileNotFoundException | FilterNotExistsException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 });
@@ -183,7 +203,9 @@ public class ProductsMenu {
         }
     }
 
-    public void setSorts(CheckMenuItem priceUpToDown, CheckMenuItem priceDownToUp, CheckMenuItem dateUpToDown, CheckMenuItem dateDownToUp, CheckMenuItem scoreUpToDown, CheckMenuItem scoreDownToUp, CheckMenuItem viewUpToDown, CheckMenuItem viewDownToUp) {
+    public void setSorts(CheckMenuItem priceUpToDown, CheckMenuItem priceDownToUp, CheckMenuItem
+            dateUpToDown, CheckMenuItem dateDownToUp, CheckMenuItem scoreUpToDown, CheckMenuItem
+                                 scoreDownToUp, CheckMenuItem viewUpToDown, CheckMenuItem viewDownToUp) {
         priceUpToDown.setOnAction(actionEvent -> {
             if (priceUpToDown.isSelected()) {
                 if (priceDownToUp.isSelected())
@@ -200,14 +222,23 @@ public class ProductsMenu {
                     scoreUpToDown.setSelected(false);
                 if (scoreDownToUp.isSelected())
                     scoreDownToUp.setSelected(false);
-                clickPrice(true);
+                try {
+                    clickPrice(true);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            secondRoot.getChildren().remove(productRoot);
             try {
-                secondRoot.getChildren().remove(productRoot);
                 processShowProducts();
-            } catch (FileNotFoundException | FilterNotExistsException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -227,14 +258,23 @@ public class ProductsMenu {
                     dateUpToDown.setSelected(false);
                 if (dateDownToUp.isSelected())
                     dateDownToUp.setSelected(false);
-                clickPrice(false);
+                try {
+                    clickPrice(false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            secondRoot.getChildren().remove(productRoot);
             try {
-                secondRoot.getChildren().remove(productRoot);
                 processShowProducts();
-            } catch (FileNotFoundException | FilterNotExistsException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -254,14 +294,23 @@ public class ProductsMenu {
                     dateUpToDown.setSelected(false);
                 if (dateDownToUp.isSelected())
                     dateDownToUp.setSelected(false);
-                clickScore(true);
+                try {
+                    clickScore(true);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            secondRoot.getChildren().remove(productRoot);
             try {
-                secondRoot.getChildren().remove(productRoot);
                 processShowProducts();
-            } catch (FileNotFoundException | FilterNotExistsException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -281,14 +330,23 @@ public class ProductsMenu {
                     dateUpToDown.setSelected(false);
                 if (dateDownToUp.isSelected())
                     dateDownToUp.setSelected(false);
-                clickScore(false);
+                try {
+                    clickScore(false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            secondRoot.getChildren().remove(productRoot);
             try {
-                secondRoot.getChildren().remove(productRoot);
                 processShowProducts();
-            } catch (FileNotFoundException | FilterNotExistsException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -308,14 +366,23 @@ public class ProductsMenu {
                     dateUpToDown.setSelected(false);
                 if (dateDownToUp.isSelected())
                     dateDownToUp.setSelected(false);
-                clickView(true);
+                try {
+                    clickView(true);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            secondRoot.getChildren().remove(productRoot);
             try {
-                secondRoot.getChildren().remove(productRoot);
                 processShowProducts();
-            } catch (FileNotFoundException | FilterNotExistsException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -335,14 +402,23 @@ public class ProductsMenu {
                     dateUpToDown.setSelected(false);
                 if (dateDownToUp.isSelected())
                     dateDownToUp.setSelected(false);
-                clickView(false);
+                try {
+                    clickView(false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            secondRoot.getChildren().remove(productRoot);
             try {
-                secondRoot.getChildren().remove(productRoot);
                 processShowProducts();
-            } catch (FileNotFoundException | FilterNotExistsException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -362,14 +438,23 @@ public class ProductsMenu {
                     priceDownToUp.setSelected(false);
                 if (dateDownToUp.isSelected())
                     dateDownToUp.setSelected(false);
-                clickTime(true);
+                try {
+                    clickTime(true);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            secondRoot.getChildren().remove(productRoot);
             try {
-                secondRoot.getChildren().remove(productRoot);
                 processShowProducts();
-            } catch (FileNotFoundException | FilterNotExistsException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -389,20 +474,29 @@ public class ProductsMenu {
                     dateUpToDown.setSelected(false);
                 if (priceDownToUp.isSelected())
                     priceDownToUp.setSelected(false);
-                clickTime(false);
+                try {
+                    clickTime(false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                ProductsPageController.processDisableSortEach(productsToShow);
+                try {
+                    out.writeUTF("disable_sort_each");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            secondRoot.getChildren().remove(productRoot);
             try {
-                secondRoot.getChildren().remove(productRoot);
                 processShowProducts();
-            } catch (FileNotFoundException | FilterNotExistsException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
     }
 
-    public void openTheSecondaryCategory(boolean firstTime) throws FileNotFoundException, FilterNotExistsException {
+    public void openTheSecondaryCategory(boolean firstTime) throws IOException {
         if (firstTime) {
             secondRoot = new Pane();
             secondRoot.setBackground(new Background(new BackgroundFill(Color.SILVER, null, null)));
@@ -410,8 +504,13 @@ public class ProductsMenu {
             back.setFont(Font.font(20));
             back.setLayoutX(1200);
             back.setOnAction(actionEvent -> {
-                ProductsPageController.getAllFilters().clear();
-                ProductsPageController.setCurrentProductsSort(Sort.TIME_UP);
+                try {
+                    out.writeUTF("back_in_secondary");
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 Main.window.setScene(getPreviousScene());
             });
             secondRoot.getChildren().add(back);
@@ -459,7 +558,7 @@ public class ProductsMenu {
                 priceAction(maxPriceField.getText(), minPriceField.getText());
                 secondRoot.getChildren().remove(productRoot);
                 processShowProducts();
-            } catch (FilterNotExistsException | FileNotFoundException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -468,7 +567,7 @@ public class ProductsMenu {
                 priceAction(maxPriceField.getText(), minPriceField.getText());
                 secondRoot.getChildren().remove(productRoot);
                 processShowProducts();
-            } catch (FilterNotExistsException | FileNotFoundException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -477,7 +576,7 @@ public class ProductsMenu {
                 productNameAction(search.getText());
                 secondRoot.getChildren().remove(productRoot);
                 processShowProducts();
-            } catch (FileNotFoundException | FilterNotExistsException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -486,51 +585,73 @@ public class ProductsMenu {
         Main.window.setScene(new Scene(scrollPane));
     }
 
-    public void processShowProducts() throws FileNotFoundException, FilterNotExistsException {
+    public void processShowProducts() throws IOException {
         productRoot = new Pane();
         int i = 0;
         int yLayout = 200;
         int xLayout = 100;
         checkSatisfiedInFilters();
-        for (Product subProduct : productsToShow) {
+        out.writeUTF("get_product_to_show_size");
+        out.flush();
+        int length = Integer.parseInt(in.readUTF());
+        for (int j = 0; j < length; j++) {
+            out.writeUTF("get_product_info_from_product_to_show " + j);
+            out.flush();
+            String response = in.readUTF();
+            String nameProduct = response.split("\\s")[0];
+            String priceProduct = response.split("\\s")[1];
+            String averageRatingProduct = response.split("\\s")[2];
+            String explanationProduct = response.substring(nameProduct.length() + 1 + averageRatingProduct.length() + 1 + priceProduct.length() + 1);
+//        for (Product subProduct : productsToShow) {
             if (i == 3) {
                 yLayout += 350;
                 i = 0;
             }
-            ImageView imageView = new ImageView(new Image(new FileInputStream("src/main/resources/media/image/" + subProduct.getImageName())));
+            out.writeUTF("get_product_imageName " + j);
+            out.flush();
+            String imageNameProduct = in.readUTF();
+            ImageView imageView = new ImageView(new Image(new FileInputStream("src/main/resources/media/image/" + imageNameProduct)));
             imageView.setFitWidth(169);
             imageView.setFitHeight(169);
-            Text productName = new Text(subProduct.getName());
+            Text productName = new Text(nameProduct);
             productName.setFont(Font.font(20));
             productName.setOnMouseClicked(mouseEvent -> {
                 try {
-                    ProductsPageController.setSelectedProduct(Product.getProductByName(productName.getText()));
-                    openProductPage(Main.window.getScene(), Product.getProductByName(productName.getText()));
-                } catch (FileNotFoundException e) {
+                    out.writeUTF("product_name_on_action " + productName.getText());
+                    out.flush();
+                    openProductPage(Main.window.getScene(), productName.getText());
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
-            Text productExplanation = new Text(subProduct.getExplanationText());
+            Text productExplanation = new Text(explanationProduct);
             productExplanation.setFont(Font.font(19));
-            Text productPrice = new Text("Price : " + subProduct.getPrice() + " $");
+            Text productPrice = new Text("Price : " + priceProduct + " $");
             productPrice.setFont(Font.font(18));
-            Text rating = new Text("Rate : " + subProduct.getAverageRating());
+            Text rating = new Text("Rate : " + averageRatingProduct);
             rating.setFont(Font.font(17));
-            Text available;
-            if (subProduct.isAvailable())
+            Text available = null;
+            out.writeUTF("check_product_is_available " + productName);
+            out.flush();
+            String isAvailable = in.readUTF();
+            if (isAvailable.equals("yes_is_available")) {
                 available = new Text("Available : Yes");
-            else available = new Text("Available : No");
+            } else if (isAvailable.equals("no_not_available")) {
+                available = new Text("Available : No");
+            }
             available.setFont(Font.font(16));
             VBox vBox = new VBox();
             vBox.setAlignment(Pos.CENTER);
             vBox.setSpacing(7);
             vBox.getChildren().addAll(imageView, productName, productExplanation, productPrice, rating, available);
-            if (subProduct.getOffer() != null) {
+            out.writeUTF("check_product_is_in_offer " + productName);
+            out.flush();
+            String isOffer = in.readUTF();
+            if (isOffer.equals("yes_is_offer")) {
                 Text offer = new Text("This is in Offer!");
                 offer.setFont(Font.font(17));
                 vBox.getChildren().add(offer);
             }
-
             vBox.setLayoutX(xLayout + i * 300);
             vBox.setLayoutY(yLayout);
 
@@ -540,32 +661,38 @@ public class ProductsMenu {
         secondRoot.getChildren().add(productRoot);
     }
 
-    public void openProductPage(Scene previousScene, Product product) throws FileNotFoundException {
+    public void openProductPage(Scene previousScene, String productName) throws IOException {
+        out.writeUTF("get_product_price_imageName_explanation_by_name " + productName);
+        out.flush();
+        String response = in.readUTF();
+        int productPrice = Integer.parseInt(response.split("\\s")[0]);
+        String productImageName = response.split("\\s")[1];
+        String productExplanationContext = response.substring(response.split("\\s")[0].length() + 1 + response.split("\\s")[1].length() + 1);
         Pane productRoot = new Pane();
         Button back = new Button("Back");
         back.setLayoutX(1200);
         back.setFont(Font.font(20));
         back.setOnAction(actionEvent -> Main.window.setScene(previousScene));
-        ImageView imageView = new ImageView(new Image(new FileInputStream("src/main/resources/media/image/" + product.getImageName())));
+        ImageView imageView = new ImageView(new Image(new FileInputStream("src/main/resources/media/image/" + productImageName)));
         imageView.setFitWidth(379);
         imageView.setFitHeight(379);
         imageView.setLayoutX(85);
         imageView.setLayoutY(69);
-        Text price = new Text("Price : " + product.getPrice() + " $");
+        Text price = new Text("Price : " + productPrice + " $");
         price.setFont(Font.font(21));
         price.setLayoutX(376);
         price.setLayoutY(500);
         Text rate = new Text();
-        showProductRate(rate, product);
+        showProductRate(rate, productName);
         VBox first = new VBox();
         first.setSpacing(15);
-        Text name = new Text(product.getName());
+        Text name = new Text(productName);
         name.setFont(Font.font(29));
         name.setTranslateY(-10);
         Label productExplanation = new Label("Explanation");
         productExplanation.setFont(Font.font(24));
         productExplanation.setTextFill(Color.MEDIUMSEAGREEN);
-        Text explanation = new Text(product.getExplanationText());
+        Text explanation = new Text(productExplanationContext);
         explanation.setFont(Font.font(19));
         explanation.setTranslateY(4);
         Label categoryLabel = new Label("Category attributes :");
@@ -573,15 +700,19 @@ public class ProductsMenu {
         categoryLabel.setTranslateY(23);
         categoryLabel.setTextFill(Color.MEDIUMSEAGREEN);
         StringBuilder stringBuilder = new StringBuilder();
-        if (product.getCategory().getAttributes().size() > 0)
-            for (String s : product.getCategory().getAttributes()) {
-                stringBuilder.append(s + "\n\n");
-            }
+        out.writeUTF("get_category_attributes_product_size " + productName);
+        out.flush();
+        int length = Integer.parseInt(in.readUTF());
+        for (int i = 0; i < length; i++) {
+            out.writeUTF("get_category_attributes_product " + productName + " " + i);
+            out.flush();
+            stringBuilder.append(in.readUTF() + "\n\n");
+        }
         Text categoryAttribute = new Text(stringBuilder.toString());
         categoryAttribute.setTranslateY(20);
         categoryAttribute.setFont(Font.font(19));
         VBox second = new VBox();
-        setCommentMenu(second, product);
+        setCommentMenu(second, productName);
         Button comment = new Button("Comment");
         TextField commentField = new TextField("");
         commentField.setTranslateY(-10);
@@ -589,9 +720,18 @@ public class ProductsMenu {
         comment.setFont(Font.font(16));
         comment.setTranslateY(35);
         comment.setOnAction(actionEvent -> {
-            new Comment(LoginPageController.getLoggedInAccount(), product, commentField.getText(), null);
+            try {
+                out.writeUTF("comment_action " + productName + " " + commentField.getText());
+                out.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             second.getChildren().clear();
-            setCommentMenu(second, product);
+            try {
+                setCommentMenu(second, productName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             commentField.setText("");
         });
 
@@ -601,11 +741,23 @@ public class ProductsMenu {
         rateField.setTranslateY(-40);
         rateField.setTranslateX(rating.getLayoutX() + 150);
         rating.setOnAction(actionEvent -> {
-            if (product.isPurchasedByPurchaser((Purchaser) (LoginPageController.getLoggedInAccount()))) {
-                new Rating(product, (Purchaser) (LoginPageController.getLoggedInAccount()), Integer.parseInt(rateField.getText()));
-                showProductRate(rate, product);
+            String flag = null;
+            try {
+                out.writeUTF("rating_action " + productName + " " + rateField.getText());
+                out.flush();
+                flag = in.readUTF();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (flag.equals("yes_in_if")) {
+                try {
+                    showProductRate(rate, productName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 rateField.setText("");
             }
+
         });
         Button add = new Button("Add to cart");
         add.setDisable(true);
@@ -613,10 +765,9 @@ public class ProductsMenu {
         add.setLayoutY(55);
         add.setOnAction(actionEvent -> {
             try {
-                ProductsPageController.processShowProduct(product.getProductID());
-                ProductPageController.processAddProductToCartEach();
-
-            } catch (ProductAlreadyExistsInCartException | ProductIdNotExistsException e) {
+                out.writeUTF("add_to_cart_action " + productName);
+                out.flush();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -626,8 +777,14 @@ public class ProductsMenu {
         HBox hBox = new HBox();
         hBox.setSpacing(15);
         ArrayList<CheckBox> allSellerCheckBoxes = new ArrayList<>();
-        for (Seller allSeller : product.getAllSellers()) {
-            Text seller = new Text(allSeller.getCompanyName());
+        out.writeUTF("get_product_all_seller " + productName);
+        out.flush();
+        String all = in.readUTF();
+        String[] allSellers = all.split("\\s");
+        for (String allSeller : allSellers) {
+            out.writeUTF("get_company_name_seller " + allSeller);
+            out.flush();
+            Text seller = new Text(in.readUTF());
             seller.setTranslateX(15);
             seller.setFont(Font.font(19));
             CheckBox checkBox = new CheckBox();
@@ -642,9 +799,10 @@ public class ProductsMenu {
                             allSellerCheckBox.setSelected(false);
                     }
                     try {
-                        ProductPageController.processSelectSellerEach(allSeller.getUserName());
-                    } catch (SellerUserNameNotExists sellerUserNameNotExists) {
-                        sellerUserNameNotExists.printStackTrace();
+                        out.writeUTF("checkBox_product_seller " + allSeller);
+                        out.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 } else {
                     add.setDisable(true);
@@ -659,7 +817,7 @@ public class ProductsMenu {
         Main.window.setScene(new Scene(scrollPane));
     }
 
-    public void OnBackProductsMenu(ActionEvent actionEvent) {
+    public void OnBackProductsMenu() {
         Main.window.setScene(mainMenuScene);
     }
 
@@ -689,58 +847,71 @@ public class ProductsMenu {
         }
     }
 
-    public void checkSatisfiedInFilters() {
-        for (String allFilter : ProductsPageController.getAllFilters()) {
+    public void checkSatisfiedInFilters() throws IOException {
+        out.writeUTF("get_all_filter_size");
+        out.flush();
+        int size1 = Integer.parseInt(in.readUTF());
+        for (int j = 0; j < size1; j++) {
+            out.writeUTF("get_filter_by_num " + j);
+            out.flush();
+            String allFilter = in.readUTF();
             if (allFilter.startsWith("BY_PRICE_RANGE_")) {
                 int min = Integer.parseInt(allFilter.substring(15).split(",")[0]);
                 int max = Integer.parseInt(allFilter.substring(15).split(",")[1]);
-                for (int i = 0; i < productsToShow.size(); i++) {
-                    if (productsToShow.get(i).getPrice() < min || productsToShow.get(i).getPrice() > max || !allowedCategory.contains(productsToShow.get(i).getCategory())) {
-                        productsToShow.remove(i);
-                        i--;
-                    }
+                out.writeUTF("get_product_to_show_size");
+                out.flush();
+                int size = Integer.parseInt(in.readUTF());
+                for (int i = 0; i < size; i++) {
+                    out.writeUTF("check_satisfied_in_filter_first " + i + " " + min + " " + max);
+                    out.flush();
+                    i = Integer.parseInt(in.readUTF());
                 }
             }
             if (allFilter.startsWith("BY_NAME_")) {
                 String name = allFilter.substring(8);
-                for (int i = 0; i < productsToShow.size(); i++) {
-                    if (!productsToShow.get(i).getName().startsWith(name) || !allowedCategory.contains(productsToShow.get(i).getCategory())) {
-                        productsToShow.remove(i);
-                        i--;
-                    }
+                out.writeUTF("get_product_to_show_size");
+                out.flush();
+                int size = Integer.parseInt(in.readUTF());
+                for (int i = 0; i < size; i++) {
+                    out.writeUTF("check_satisfied_in_filter_second " + i + " " + name);
+                    out.flush();
+                    i = Integer.parseInt(in.readUTF());
                 }
             }
         }
-        switch (ProductsPageController.getCurrentProductsSort()) {
-            case TIME_UP -> {
+        out.writeUTF("switch_for_sort");
+        out.flush();
+        String response = in.readUTF();
+        switch (response) {
+            case "click_time_true" -> {
                 clickTime(true);
                 break;
             }
-            case TIME_DOWN -> {
+            case "click_time_false" -> {
                 clickTime(false);
                 break;
             }
-            case VIEW_UP -> {
+            case "click_view_true" -> {
                 clickView(true);
                 break;
             }
-            case VIEW_DOWN -> {
+            case "click_view_false" -> {
                 clickView(false);
                 break;
             }
-            case PRICE_UP -> {
+            case "click_price_true" -> {
                 clickPrice(true);
                 break;
             }
-            case PRICE_DOWN -> {
+            case "click_price_false" -> {
                 clickPrice(false);
                 break;
             }
-            case SCORE_UP -> {
+            case "click_score_true" -> {
                 clickScore(true);
                 break;
             }
-            case SCORE_DOWN -> {
+            case "click_score_false" -> {
                 clickScore(false);
                 break;
             }
@@ -759,54 +930,70 @@ public class ProductsMenu {
     }
 
     public class CategoryProperty {
-        private Category category;
+        private String categoryName;
         private CheckBox checkBox;
         private StringProperty name;
 
-        public CategoryProperty(Category category) {
-            this.category = category;
+        public CategoryProperty(String categoryName) {
+            this.categoryName = categoryName;
             this.checkBox = new CheckBox();
-            this.name = new SimpleStringProperty(category.getName());
+            this.name = new SimpleStringProperty(categoryName);
             allCategoryProperty.add(this);
             checkBox.setOnAction(actionEvent -> {
                 if (checkBox.isSelected()) {
                     try {
-                        productsToShow.clear();
-                        allowedCategory.clear();
+                        out.writeUTF("category_property_check_box");
+                        out.flush();
                         for (CategoryProperty categoryProperty : allCategoryProperty) {
                             if (categoryProperty.getCheckBox().isSelected()) {
-                                allowedCategory.add(categoryProperty.getCategory());
-                                productsToShow.addAll(categoryProperty.getCategory().getAllSubProducts());
+                                out.writeUTF("category_property_check_box_action " + categoryProperty.getCategoryName());
+                                out.flush();
                             }
                         }
                         openTheSecondaryCategory(false);
-                    } catch (FileNotFoundException | FilterNotExistsException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } else {
                     try {
-                        productsToShow.removeAll(this.getCategory().getAllSubProducts());
-                        allowedCategory.remove(this.getCategory());
-                        if (allowedCategory.size() == 0) {
+                        out.writeUTF("category_property_check_box_in_else " + categoryName);
+                        out.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        out.writeUTF("get_allowed_category_size");
+                        out.flush();
+                        int flag = Integer.parseInt(in.readUTF());
+                        if (flag == 0) {
                             for (CategoryProperty categoryProperty : allCategoryProperty) {
-                                allowedCategory.add(categoryProperty.getCategory());
+                                out.writeUTF("category_property_add " + categoryProperty.getCategoryName());
+                                out.flush();
                             }
                         }
-                        if (productsToShow.size() == 0) {
+                        out.writeUTF("get_product_to_show_size ");
+                        out.flush();
+                        flag = Integer.parseInt(in.readUTF());
+                        if (flag == 0) {
                             for (CategoryProperty categoryProperty : allCategoryProperty) {
-                                productsToShow.addAll(categoryProperty.getCategory().getAllSubProducts());
+                                out.writeUTF("category_property_add_down " + categoryProperty.getCategoryName());
+                                out.flush();
                             }
                         }
                         openTheSecondaryCategory(false);
-                    } catch (FileNotFoundException | FilterNotExistsException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             });
         }
 
-        public Category getCategory() {
-            return category;
+        public String getName() {
+            return name.get();
+        }
+
+        public String getCategoryName() {
+            return categoryName;
         }
 
         public CheckBox getCheckBox() {
@@ -819,39 +1006,49 @@ public class ProductsMenu {
         }
     }
 
-    public void clickTime(boolean isUp) {
-        ProductsPageController.processSortByTime(isUp, productsToShow);
-    }
-
-    public void clickScore(boolean isUp) {
-        ProductsPageController.processSortByScore(isUp, productsToShow);
-    }
-
-    public void clickView(boolean isUp) {
-        ProductsPageController.processSortByView(isUp, productsToShow);
-    }
-
-    public void clickPrice(boolean isUp) {
-        ProductsPageController.processSortByPrice(isUp, productsToShow);
-    }
-
-    public void productNameAction(String productName) {
-        try {
-            if (productName != null)
-                ProductsPageController.processFilter("BY_NAME", productName, categoryFilterProducts, productsToShow, allowedCategory);
-        } catch (FilterNotExistsException e) {
-            e.printStackTrace();
+    public void clickTime(boolean isUp) throws IOException {
+        if (isUp) {
+            out.writeUTF("click_time_true");
+        } else {
+            out.writeUTF("click_time_false");
         }
+        out.flush();
     }
 
-    public void priceAction(String maxPriceField, String minPriceField) throws FilterNotExistsException {
-        if (!minPriceField.isBlank() && maxPriceField.isBlank()) {
-            ProductsPageController.processFilter("BY_PRICE", Integer.parseInt(minPriceField) + "," + Integer.MAX_VALUE, categoryFilterProducts, productsToShow, allowedCategory);
-        } else if (!maxPriceField.isBlank() && minPriceField.isBlank()) {
-            ProductsPageController.processFilter("BY_PRICE", 0 + "," + Integer.parseInt(maxPriceField), categoryFilterProducts, productsToShow, allowedCategory);
-        } else if (!minPriceField.isBlank() && !maxPriceField.isBlank()) {
-            ProductsPageController.processFilter("BY_PRICE", Integer.parseInt(minPriceField) + "," + Integer.parseInt(maxPriceField), categoryFilterProducts, productsToShow, allowedCategory);
-        } else
-            ProductsPageController.processFilter("BY_PRICE", -1 + "," + Integer.MAX_VALUE, categoryFilterProducts, productsToShow, allowedCategory);
+    public void clickScore(boolean isUp) throws IOException {
+        if (isUp) {
+            out.writeUTF("click_score_true");
+        } else {
+            out.writeUTF("click_score_false");
+        }
+        out.flush();
+    }
+
+    public void clickView(boolean isUp) throws IOException {
+        if (isUp) {
+            out.writeUTF("click_view_true");
+        } else {
+            out.writeUTF("click_view_false");
+        }
+        out.flush();
+    }
+
+    public void clickPrice(boolean isUp) throws IOException {
+        if (isUp) {
+            out.writeUTF("click_price_true");
+        } else {
+            out.writeUTF("click_price_false");
+        }
+        out.flush();
+    }
+
+    public void productNameAction(String productName) throws IOException {
+        out.writeUTF("product_name_action_ " + productName);
+        out.flush();
+    }
+
+    public void priceAction(String maxPriceField, String minPriceField) throws IOException {
+        out.writeUTF("price_action_ " + minPriceField + " " + maxPriceField);
+        out.flush();
     }
 }

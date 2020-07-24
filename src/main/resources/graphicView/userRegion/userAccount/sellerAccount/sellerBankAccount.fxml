@@ -15,7 +15,7 @@
             <Font size="38.0" />
          </font>
       </Label>
-      <Label layoutX="402.0" layoutY="182.0" text="Firstname">
+      <Label layoutX="402.0" layoutY="182.0" text="FirstName">
          <font>
             <Font size="29.0" />
          </font>
@@ -27,7 +27,7 @@
          </font>
       </Label>
       <TextField fx:id="userNameId" layoutX="687.0" layoutY="314.0" />
-      <Label layoutX="398.0" layoutY="245.0" text="Lastname">
+      <Label layoutX="398.0" layoutY="245.0" text="LastName">
          <font>
             <Font size="29.0" />
          </font>

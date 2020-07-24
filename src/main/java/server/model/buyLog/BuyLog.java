@@ -58,6 +58,10 @@ public class BuyLog {
         return status;
     }
 
+    public void setStatus(BuyLogStatus status) {
+        this.status = status;
+    }
+
     public static ArrayList<BuyLog> getAllBuyLogs() {
         return allBuyLogs;
     }

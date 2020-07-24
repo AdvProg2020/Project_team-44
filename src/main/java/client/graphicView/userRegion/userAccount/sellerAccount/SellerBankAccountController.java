@@ -6,10 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-import server.main.BankAPI;
-import server.model.ShopBankAccount;
 
-import java.io.IOException;
+
+import java.io.*;
+import java.net.Socket;
 
 public class SellerBankAccountController {
     @FXML
@@ -25,17 +25,32 @@ public class SellerBankAccountController {
     @FXML
     public Label receiveMessageId;
 
+    private final int port = 9008;
+    private final String ip = "127.0.0.1";
+    private DataOutputStream out;
+    private DataInputStream in;
+
+    public void process() {
+        try {
+            Socket socket = new Socket(ip, port);
+            out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     public void createAction(ActionEvent actionEvent) throws IOException {
-        BankAPI bankAPI = new BankAPI();
-        bankAPI.SendMessage("create_account " + firstNameId.getText() + " " + lastNameId.getText() + " " + userNameId.getText() + " " + passwordId.getText() + " " + repeatPasswordId.getText());
-        String response = bankAPI.getInputStream();
+        out.writeUTF("create_account " + firstNameId.getText() + " " + lastNameId.getText() + " " + userNameId.getText() + " " + passwordId.getText() + " " + repeatPasswordId.getText());
+        out.flush();
+        String response = in.readUTF();
         receiveMessageId.setText("");
         if (!response.matches("\\d+")) {
             receiveMessageId.setTextFill(Color.INDIANRED);
             receiveMessageId.setText(response);
         } else {
-            new ShopBankAccount(firstNameId.getText(), lastNameId.getText(), userNameId.getText(), passwordId.getText(), Integer.parseInt(response));
             receiveMessageId.setTextFill(Color.FORESTGREEN);
             receiveMessageId.setText("Bank account successfully created....");
         }
