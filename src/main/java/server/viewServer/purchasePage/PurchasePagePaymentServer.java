@@ -7,7 +7,7 @@ import server.model.ShopBankAccount;
 import server.model.account.Purchaser;
 import server.model.account.Seller;
 import server.model.product.Product;
-import server.viewServer.userRegion.loginPanel.LoginPanelServer;
+import server.viewServer.userRegion.LoginPanel.LoginPanelServer;
 
 import java.io.*;
 import java.net.ServerSocket;

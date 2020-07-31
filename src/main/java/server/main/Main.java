@@ -11,9 +11,24 @@ import server.model.account.Seller;
 import server.model.comment.Comment;
 import server.model.product.Auction;
 import server.model.product.Product;
+import server.viewServer.cart.CartPageServer;
 import server.viewServer.mainMenu.MainMenuServer;
 import server.viewServer.productMenu.productsMenuServer;
-import server.viewServer.userRegion.loginPanel.LoginPanelServer;
+import server.viewServer.purchasePage.PurchasePagePaymentServer;
+import server.viewServer.purchasePage.PurchasePageServer;
+import server.viewServer.userRegion.LoginPanel.LoginPanelServer;
+import server.viewServer.userRegion.LoginPanel.ManagerInfoSetPanelServer;
+import server.viewServer.userRegion.LoginPanel.SellerInfoSetPanelServer;
+import server.viewServer.userRegion.userAccount.managerAccount.ManagerAccountPageServer;
+import server.viewServer.userRegion.userAccount.managerAccount.ManagerEditInfoPageServer;
+import server.viewServer.userRegion.userAccount.managerRequestons.addOff.AddOffRequestServer;
+import server.viewServer.userRegion.userAccount.purchaserAccount.PurchaserAuctionChatServer;
+import server.viewServer.userRegion.userAccount.purchaserAccount.PurchaserAuctionServer;
+import server.viewServer.userRegion.userAccount.purchaserAccount.PurchaserWalletServer;
+import server.viewServer.userRegion.userAccount.sellerAccount.AllProductsForAuctionPageServer;
+import server.viewServer.userRegion.userAccount.sellerAccount.SellerAuctionServer;
+import server.viewServer.userRegion.userAccount.sellerAccount.SellerBankAccountServer;
+import server.viewServer.userRegion.userAccount.sellerAccount.SellerWalletServer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,6 +52,21 @@ public class Main {
         new MainMenuServer();
         new LoginPanelServer();
         new productsMenuServer();
+        new CartPageServer();
+        new PurchasePagePaymentServer();
+        new PurchasePageServer();
+        new ManagerInfoSetPanelServer();
+        new SellerInfoSetPanelServer();
+        new ManagerAccountPageServer();
+        new ManagerEditInfoPageServer();
+        new AddOffRequestServer();
+        new PurchaserAuctionChatServer();
+        new PurchaserAuctionServer();
+        new PurchaserWalletServer();
+        new AllProductsForAuctionPageServer();
+        new SellerAuctionServer();
+        new SellerBankAccountServer();
+        new SellerWalletServer();
     }
 
     private static void setCategoryParent(ArrayList<Category> all) {

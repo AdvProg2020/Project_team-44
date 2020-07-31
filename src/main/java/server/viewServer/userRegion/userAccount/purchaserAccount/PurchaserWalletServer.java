@@ -3,7 +3,7 @@ package server.viewServer.userRegion.userAccount.purchaserAccount;
 import server.main.BankAPI;
 import server.model.ShopBankAccount;
 import server.model.account.Account;
-import server.viewServer.userRegion.loginPanel.LoginPanelServer;
+import server.viewServer.userRegion.LoginPanel.LoginPanelServer;
 
 import java.io.*;
 import java.net.ServerSocket;

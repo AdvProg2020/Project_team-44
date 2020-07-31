@@ -3,7 +3,7 @@ package server.viewServer.userRegion.userAccount.managerAccount;
 import server.controller.LoginPageController;
 import server.model.account.Account;
 import server.model.account.Manager;
-import server.viewServer.userRegion.loginPanel.LoginPanelServer;
+import server.viewServer.userRegion.LoginPanel.LoginPanelServer;
 
 import java.io.*;
 import java.net.ServerSocket;

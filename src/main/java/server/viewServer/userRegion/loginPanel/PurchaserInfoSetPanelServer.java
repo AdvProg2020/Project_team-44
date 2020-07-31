@@ -1,4 +1,4 @@
-package server.viewServer.userRegion.loginPanel;
+package server.viewServer.userRegion.LoginPanel;
 
 import client.graphicView.userRegion.loginPanel.LoginPanelController;
 import server.controller.LoginPageController;

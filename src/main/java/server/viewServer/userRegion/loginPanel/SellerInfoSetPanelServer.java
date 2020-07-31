@@ -1,4 +1,4 @@
-package server.viewServer.userRegion.loginPanel;
+package server.viewServer.userRegion.LoginPanel;
 
 import server.model.requests.RequestForSeller;
 
